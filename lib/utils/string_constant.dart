@@ -4,4 +4,5 @@ class StringConstant {
   static const String welcomeSubtitle =
       'Welcome, fellow food enthusiasts! Get ready to embark on a delectable journey of flavors and culinary delights.';
   static const String getStarted = 'Get Started';
+  static const String carouselTtile1 = 'Find Recipes';
 }

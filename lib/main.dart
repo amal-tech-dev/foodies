@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodies/view/overview_screen/overview_screen_1.dart';
+import 'package:foodies/view/overview_screen/overview_screen_2.dart';
 
 void main() {
   runApp(Foodies());
@@ -12,7 +12,7 @@ class Foodies extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: OverviewScreen1(),
+      home: OverviewScreen2(),
     );
   }
 }
