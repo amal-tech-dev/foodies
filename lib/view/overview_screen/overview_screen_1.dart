@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
+import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/view/overview_screen/overview_screen_2.dart';
 
 class OverviewScreen1 extends StatelessWidget {
   OverviewScreen1({super.key});
@@ -28,7 +31,9 @@ class OverviewScreen1 extends StatelessWidget {
                 ColorConstant.backgroundColor.withOpacity(0.0),
                 ColorConstant.backgroundColor.withOpacity(0.1),
                 ColorConstant.backgroundColor.withOpacity(0.2),
-                ColorConstant.backgroundColor.withOpacity(0.5),
+                ColorConstant.backgroundColor.withOpacity(0.4),
+                ColorConstant.backgroundColor.withOpacity(0.6),
+                ColorConstant.backgroundColor.withOpacity(0.7),
                 ColorConstant.backgroundColor.withOpacity(0.8),
               ],
             ),
@@ -36,26 +41,61 @@ class OverviewScreen1 extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Padding(
+                padding: EdgeInsets.all(30),
+                child: Column(
+                  children: [
+                    Text(
+                      StringConstant.welcomeTitle,
+                      style: TextStyle(
+                        color: ColorConstant.primaryColor,
+                        fontSize: DimenConstant.largeText,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    DimenConstant.separator,
+                    Text(
+                      StringConstant.welcomeSubtitle,
+                      style: TextStyle(
+                        color: ColorConstant.secondaryColor,
+                        fontSize: DimenConstant.subtitleText,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ],
+                ),
+              ),
+              DimenConstant.separator,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    height: 50,
-                    width: 250,
-                    decoration: BoxDecoration(
-                      color: ColorConstant.primaryColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(100),
-                        bottomLeft: Radius.circular(100),
+                  InkWell(
+                    onTap: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OverviewScreen2(),
                       ),
                     ),
-                    child: Center(
-                      child: Text(
-                        'Get Started',
-                        style: TextStyle(
-                          color: ColorConstant.secondaryColor,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
+                    child: Container(
+                      height: 50,
+                      width: 250,
+                      decoration: BoxDecoration(
+                        color: ColorConstant.primaryColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(100),
+                          bottomLeft: Radius.circular(100),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          StringConstant.getStarted,
+                          style: TextStyle(
+                            color: ColorConstant.secondaryColor,
+                            fontSize: DimenConstant.titleText,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
