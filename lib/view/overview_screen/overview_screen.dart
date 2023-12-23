@@ -70,6 +70,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 options: CarouselOptions(
                   viewportFraction: 1.0,
                   enableInfiniteScroll: false,
+                  scrollPhysics: NeverScrollableScrollPhysics(),
                   onPageChanged: (index, reason) {
                     currentPageIndex = index;
                     setState(() {});

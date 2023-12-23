@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:foodies/controller/email_login_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/view/login_screen/login_widgets/login_options.dart';
 import 'package:foodies/view/signup_screen/signup_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -12,6 +14,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: ColorConstant.backgroundColor,
         body: Padding(
           padding: const EdgeInsets.all(
@@ -19,18 +22,25 @@ class LoginScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: DimenConstant.edgePadding,
-                ),
-                child: Image.asset(
-                  ImageConstant.loginThumbnail,
+              Visibility(
+                visible:
+                    !Provider.of<EmailLoginController>(context).isEmailPressed,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: DimenConstant.edgePadding,
+                  ),
+                  child: Image.asset(
+                    ImageConstant.loginThumbnail,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(DimenConstant.edgePadding * 2),
+                padding: const EdgeInsets.all(
+                  DimenConstant.edgePadding * 2,
+                ),
                 child: Text(
-                  'Lets\'s You In',
+                  'Let\'s You In',
                   style: TextStyle(
                     color: ColorConstant.secondaryColor,
                     fontSize: DimenConstant.largeText,
@@ -38,11 +48,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: LoginOptions(
-                  onGooglePressed: () {},
-                  onEmailPressed: () {},
-                  onGuestPressed: () {},
-                ),
+                child: LoginOptions(),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
