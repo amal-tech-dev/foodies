@@ -3,10 +3,10 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/overview_screen/overview_screen_2.dart';
+import 'package:foodies/view/overview_screen/overview_screen.dart';
 
-class OverviewScreen1 extends StatelessWidget {
-  OverviewScreen1({super.key});
+class GetStartedScreen extends StatelessWidget {
+  GetStartedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class OverviewScreen1 extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              ImageConstant.overviewOneThumbnail,
+              ImageConstant.getStartedThumbnail,
             ),
             fit: BoxFit.cover,
           ),
@@ -75,7 +75,7 @@ class OverviewScreen1 extends StatelessWidget {
                     onTap: () => Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => OverviewScreen2(),
+                        builder: (context) => OverviewScreen(),
                       ),
                     ),
                     child: Container(
@@ -90,7 +90,7 @@ class OverviewScreen1 extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          StringConstant.getStarted,
+                          'Get Started',
                           style: TextStyle(
                             color: ColorConstant.secondaryColor,
                             fontSize: DimenConstant.titleText,

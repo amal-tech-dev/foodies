@@ -4,10 +4,19 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/view/login_screen/login_screen.dart';
+import 'package:foodies/view/overview_screen/overview_widgets/carousel_item.dart';
 
-class OverviewScreen2 extends StatelessWidget {
-  OverviewScreen2({super.key});
+class OverviewScreen extends StatefulWidget {
+  OverviewScreen({super.key});
 
+  @override
+  State<OverviewScreen> createState() => _OverviewScreenState();
+}
+
+class _OverviewScreenState extends State<OverviewScreen> {
+  CarouselController carouselController = CarouselController();
+  int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,7 +28,12 @@ class OverviewScreen2 extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                      (route) => false),
                   child: Text(
                     'Skip',
                     style: TextStyle(
@@ -33,45 +47,33 @@ class OverviewScreen2 extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: Image.asset(
-                ImageConstant.carousel,
+                ImageConstant.overviewThumbnail,
               ),
             ),
             Expanded(
               child: CarouselSlider(
+                carouselController: carouselController,
                 items: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        StringConstant.carouselTtile1,
-                        style: TextStyle(
-                          color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.largeText,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      DimenConstant.separator,
-                      Padding(
-                        padding: const EdgeInsets.all(
-                          DimenConstant.edgePadding,
-                        ),
-                        child: Text(
-                          StringConstant.welcomeSubtitle,
-                          style: TextStyle(
-                            color: ColorConstant.secondaryColor,
-                            fontSize: DimenConstant.subtitleText,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.justify,
-                        ),
-                      ),
-                    ],
+                  CarouselItem(
+                    title: StringConstant.carouselTitle1,
+                    subtitle: StringConstant.carouselSubtitle1,
+                  ),
+                  CarouselItem(
+                    title: StringConstant.carouselTitle2,
+                    subtitle: StringConstant.carouselSubtitle2,
+                  ),
+                  CarouselItem(
+                    title: StringConstant.carouselTitle3,
+                    subtitle: StringConstant.carouselSubtitle3,
                   ),
                 ],
                 options: CarouselOptions(
-                  initialPage: 0,
                   viewportFraction: 1.0,
+                  enableInfiniteScroll: false,
+                  onPageChanged: (index, reason) {
+                    currentPageIndex = index;
+                    setState(() {});
+                  },
                 ),
               ),
             ),
@@ -92,7 +94,19 @@ class OverviewScreen2 extends StatelessWidget {
                     ColorConstant.primaryColor,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  if (currentPageIndex < 2) {
+                    carouselController.nextPage();
+                    setState(() {});
+                  } else {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ),
+                        (route) => false);
+                  }
+                },
                 child: Text(
                   'Next',
                   style: TextStyle(

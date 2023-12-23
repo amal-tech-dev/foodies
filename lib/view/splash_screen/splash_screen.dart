@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
-import 'package:foodies/view/overview_screen/overview_screen_1.dart';
+import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => OverviewScreen1(),
+                builder: (context) => GetStartedScreen(),
               ),
             );
           },
