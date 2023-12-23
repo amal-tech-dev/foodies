@@ -6,4 +6,5 @@ class ImageConstant {
   static const String overviewThumbnail =
       'assets/images/overview_thumbnail.png';
   static const String loginThumbnail = 'assets/images/login_thumbnail.png';
+  static const String signupThumbnail = 'assets/images/signup_thumbnail.png';
 }

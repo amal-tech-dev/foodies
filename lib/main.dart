@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/email_login_controller.dart';
-import 'package:foodies/view/login_screen/login_screen.dart';
+import 'package:foodies/view/signup_screen/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class Foodies extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
+        home: SignupScreen(),
       ),
     );
   }

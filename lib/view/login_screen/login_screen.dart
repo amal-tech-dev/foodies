@@ -25,10 +25,7 @@ class LoginScreen extends StatelessWidget {
               Visibility(
                 visible:
                     !Provider.of<EmailLoginController>(context).isEmailPressed,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: DimenConstant.edgePadding,
-                  ),
+                child: Center(
                   child: Image.asset(
                     ImageConstant.loginThumbnail,
                     height: MediaQuery.of(context).size.height * 0.3,

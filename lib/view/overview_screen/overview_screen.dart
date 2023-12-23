@@ -23,26 +23,22 @@ class _OverviewScreenState extends State<OverviewScreen> {
       child: Scaffold(
         backgroundColor: ColorConstant.backgroundColor,
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () => Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
-                      (route) => false),
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(
-                      color: ColorConstant.secondaryColor,
-                      fontSize: DimenConstant.subtitleText,
-                    ),
+            TextButton(
+              onPressed: () => Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
                   ),
+                  (route) => false),
+              child: Text(
+                'Skip',
+                style: TextStyle(
+                  color: ColorConstant.secondaryColor,
+                  fontSize: DimenConstant.subtitleText,
                 ),
-              ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
