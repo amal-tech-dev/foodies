@@ -76,7 +76,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 60.0,
+                vertical: 50.0,
                 horizontal: 20.0,
               ),
               child: ElevatedButton(
@@ -84,7 +84,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   fixedSize: MaterialStatePropertyAll(
                     Size(
                       MediaQuery.of(context).size.width,
-                      45,
+                      50,
                     ),
                   ),
                   backgroundColor: MaterialStatePropertyAll(

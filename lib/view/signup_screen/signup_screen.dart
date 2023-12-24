@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/view/login_screen/login_screen.dart';
+import 'package:foodies/view/signup_screen/signup_widgets/signup_options.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
@@ -18,21 +20,16 @@ class SignupScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Row(
-                children: [
-                  BackButton(
-                    color: ColorConstant.secondaryColor,
-                  ),
-                ],
-              ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: DimenConstant.edgePadding,
+                padding: const EdgeInsets.all(
+                  DimenConstant.edgePadding,
                 ),
-                child: Center(
-                  child: Image.asset(
-                    ImageConstant.signupThumbnail,
-                    height: MediaQuery.of(context).size.height * 0.25,
+                child: Expanded(
+                  child: Center(
+                    child: Image.asset(
+                      ImageConstant.signupThumbnail,
+                      height: MediaQuery.of(context).size.height * 0.175,
+                    ),
                   ),
                 ),
               ),
@@ -48,6 +45,36 @@ class SignupScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              Expanded(
+                child: SignupOptions(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Already have an account? > ',
+                    style: TextStyle(
+                      color: ColorConstant.secondaryColor,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                      (route) => false,
+                    ),
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: ColorConstant.primaryColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              DimenConstant.separator,
             ],
           ),
         ),

@@ -161,19 +161,31 @@ class LoginOptions extends StatelessWidget {
                     ),
                   ),
                   DimenConstant.separator,
-                  Center(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                          ColorConstant.primaryColor,
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      fixedSize: MaterialStatePropertyAll(
+                        Size(
+                          MediaQuery.of(context).size.width,
+                          45,
                         ),
                       ),
-                      onPressed: () {},
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                          color: ColorConstant.secondaryColor,
+                      backgroundColor: MaterialStatePropertyAll(
+                        ColorConstant.primaryColor,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
                         ),
+                        (route) => false,
+                      );
+                    },
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: ColorConstant.secondaryColor,
                       ),
                     ),
                   ),
