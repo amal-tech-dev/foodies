@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodies/controller/email_login_controller.dart';
+import 'package:foodies/controller/navigation_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
@@ -18,13 +19,16 @@ class LoginOptions extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          onTap: () => Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeScreen(),
-            ),
-            (route) => false,
-          ),
+          onTap: () {
+            Provider.of<NavigationController>(context).loggedIn();
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreen(),
+              ),
+              (route) => false,
+            );
+          },
           child: Container(
             padding: EdgeInsets.all(
               DimenConstant.edgePadding * 1.5,
@@ -56,7 +60,9 @@ class LoginOptions extends StatelessWidget {
         ),
         DimenConstant.separator,
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Provider.of<NavigationController>(context).loggedIn();
+          },
           child: Container(
             padding: EdgeInsets.all(
               DimenConstant.edgePadding * 1.5,
@@ -174,6 +180,7 @@ class LoginOptions extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
+                      Provider.of<NavigationController>(context).loggedIn();
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(

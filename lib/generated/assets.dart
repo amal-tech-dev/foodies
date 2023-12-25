@@ -2,6 +2,12 @@
 class Assets {
   Assets._();
 
-  static const String logoAppLogo = 'assets/logo/app_logo.png';
-  static const String logoAppTitleLogo = 'assets/logo/app_title_logo.png';
+  static const String imagesGetStartedThumbnail =
+      'assets/images/get_started_thumbnail.png';
+  static const String imagesLoginThumbnail =
+      'assets/images/login_thumbnail.png';
+  static const String imagesOverviewThumbnail =
+      'assets/images/overview_thumbnail.png';
+  static const String imagesSignupThumbnail =
+      'assets/images/signup_thumbnail.png';
 }

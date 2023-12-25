@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/email_login_controller.dart';
-import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
+import 'package:foodies/controller/navigation_controller.dart';
+import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -15,10 +16,15 @@ class Foodies extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => EmailLoginController()),
+        ChangeNotifierProvider(create: (context) => NavigationController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ForgetPasswordScreen(),
+        theme: ThemeData(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        home: HomeScreen(),
       ),
     );
   }

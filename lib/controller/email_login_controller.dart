@@ -5,7 +5,6 @@ class EmailLoginController with ChangeNotifier {
 
   showTextFields() {
     isEmailPressed = true;
-    print(isEmailPressed);
     notifyListeners();
   }
 }

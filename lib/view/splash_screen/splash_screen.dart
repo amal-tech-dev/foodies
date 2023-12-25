@@ -1,10 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:foodies/controller/navigation_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
+import 'package:foodies/view/home_screen/home_screen.dart';
+import 'package:foodies/view/login_screen/login_screen.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
@@ -14,21 +18,31 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool isVisible = false;
-
   @override
   void initState() {
     Timer(
-      Duration(seconds: 1),
+      Duration(
+        seconds: 2,
+      ),
       () {
-        isVisible = true;
+        Provider.of<NavigationController>(context, listen: false)
+            .startLoading();
         Timer(
-          Duration(seconds: 3),
+          Duration(
+            seconds: 3,
+          ),
           () {
+            Provider.of<NavigationController>(context, listen: false)
+                .stopLoading();
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => GetStartedScreen(),
+                builder: (context) =>
+                    Provider.of<NavigationController>(context).isFirstVisit
+                        ? GetStartedScreen()
+                        : Provider.of<NavigationController>(context).isLoggedIn
+                            ? HomeScreen()
+                            : LoginScreen(),
               ),
             );
           },
@@ -52,12 +66,29 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Center(
               child: Column(
                 children: [
-                  Image.asset(
-                    ImageConstant.appLogo,
+                  Icon(
+                    Icons.fastfood_rounded,
+                    size: MediaQuery.of(context).size.width / 3,
+                    color: ColorConstant.primaryColor,
                   ),
-                  DimenConstant.separator,
-                  Image.asset(
-                    ImageConstant.appTitleLogo,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        StringConstant.appNamePartOne,
+                        style: TextStyle(
+                          color: ColorConstant.secondaryColor,
+                          fontSize: DimenConstant.extraLargeText,
+                        ),
+                      ),
+                      Text(
+                        StringConstant.appNamePartTwo,
+                        style: TextStyle(
+                          color: ColorConstant.primaryColor,
+                          fontSize: DimenConstant.extraLargeText,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -67,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen> {
             height: MediaQuery.of(context).size.height / 3,
             child: Center(
               child: Visibility(
-                visible: isVisible,
+                visible: Provider.of<NavigationController>(context).isVisible,
                 child: CircularProgressIndicator(
                   color: ColorConstant.primaryColor,
                 ),
