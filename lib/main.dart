@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/email_login_controller.dart';
 import 'package:foodies/controller/navigation_controller.dart';
+import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +24,7 @@ class Foodies extends StatelessWidget {
         theme: ThemeData(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
+          scaffoldBackgroundColor: ColorConstant.backgroundColor,
         ),
         home: HomeScreen(),
       ),

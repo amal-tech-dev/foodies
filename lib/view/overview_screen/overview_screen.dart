@@ -23,7 +23,6 @@ class _OverviewScreenState extends State<OverviewScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: ColorConstant.backgroundColor,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

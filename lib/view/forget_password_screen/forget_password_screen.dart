@@ -12,7 +12,6 @@ class ForgetPasswordScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: ColorConstant.backgroundColor,
         body: Padding(
           padding: const EdgeInsets.all(
             DimenConstant.edgePadding,

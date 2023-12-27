@@ -2,6 +2,8 @@
 class Assets {
   Assets._();
 
+  static const String imagesBbqChickenImage =
+      'assets/images/bbq_chicken_image.png';
   static const String imagesGetStartedThumbnail =
       'assets/images/get_started_thumbnail.png';
   static const String imagesLoginThumbnail =
@@ -10,4 +12,5 @@ class Assets {
       'assets/images/overview_thumbnail.png';
   static const String imagesSignupThumbnail =
       'assets/images/signup_thumbnail.png';
+  static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
 }

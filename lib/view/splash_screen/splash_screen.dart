@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodies/controller/navigation_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
@@ -63,35 +65,33 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height / 3,
-            child: Center(
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.fastfood_rounded,
-                    size: MediaQuery.of(context).size.width / 3,
-                    color: ColorConstant.primaryColor,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        StringConstant.appNamePartOne,
-                        style: TextStyle(
-                          color: ColorConstant.secondaryColor,
-                          fontSize: DimenConstant.extraLargeText,
-                        ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  ImageConstant.appLogo,
+                  height: MediaQuery.of(context).size.width / 3,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      StringConstant.appNamePartOne,
+                      style: TextStyle(
+                        color: ColorConstant.secondaryColor,
+                        fontSize: DimenConstant.extraLargeText,
                       ),
-                      Text(
-                        StringConstant.appNamePartTwo,
-                        style: TextStyle(
-                          color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.extraLargeText,
-                        ),
+                    ),
+                    Text(
+                      StringConstant.appNamePartTwo,
+                      style: TextStyle(
+                        color: ColorConstant.primaryColor,
+                        fontSize: DimenConstant.extraLargeText,
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
           SizedBox(

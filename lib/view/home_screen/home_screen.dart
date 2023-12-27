@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
+import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_screen/add_recipe_screen.dart';
 import 'package:foodies/view/bookmarks_screen/bookmarks_screen.dart';
@@ -35,12 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
               StringConstant.appNamePartOne,
               style: TextStyle(
                 color: ColorConstant.secondaryColor,
+                fontSize: DimenConstant.titleText,
               ),
             ),
             Text(
               StringConstant.appNamePartTwo,
               style: TextStyle(
                 color: ColorConstant.primaryColor,
+                fontSize: DimenConstant.titleText,
               ),
             ),
           ],
@@ -68,12 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(Icons.search_rounded),
-            icon: Icon(Icons.search_outlined),
+            icon: Icon(Icons.search_rounded),
             label: '',
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(Icons.add_rounded),
-            icon: Icon(Icons.add_outlined),
+            icon: Icon(Icons.add_rounded),
             label: '',
           ),
           BottomNavigationBarItem(
