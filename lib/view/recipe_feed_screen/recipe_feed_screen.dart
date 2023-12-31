@@ -13,14 +13,11 @@ class RecipeFeedScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           horizontal: DimenConstant.edgePadding,
         ),
-        child: Expanded(
-          child: ListView.separated(
-            itemBuilder: (context, index) => RecipeItem(
-              recipe: Database.recipes[0],
-            ),
-            separatorBuilder: (context, index) => DimenConstant.separator,
-            itemCount: 10,
+        child: ListView.builder(
+          itemBuilder: (context, index) => RecipeItem(
+            recipe: Database.recipes[index],
           ),
+          itemCount: Database.recipes.length,
         ),
       ),
     );

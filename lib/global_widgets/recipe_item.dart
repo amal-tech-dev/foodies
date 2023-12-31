@@ -13,77 +13,75 @@ class RecipeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: Column(
-            children: [
-              Visibility(
-                visible: recipe.shef == null ? false : true,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: 25,
-                    bottom: 4,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Recipy By: ',
-                        style: TextStyle(
-                          color: ColorConstant.secondaryColor,
+    return Container(
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Column(
+              children: [
+                Visibility(
+                  visible: recipe.shef == null ? false : true,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      right: 25,
+                      bottom: 4,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Recipy By: ',
+                          style: TextStyle(
+                            color: ColorConstant.primaryColor,
+                          ),
                         ),
-                      ),
-                      Text(
-                        recipe.shef ?? '',
-                        style: TextStyle(
-                          color: ColorConstant.primaryColor,
+                        Text(
+                          recipe.shef ?? '',
+                          style: TextStyle(
+                            color: ColorConstant.secondaryColor,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                height: 140,
-                padding: EdgeInsets.all(
-                  DimenConstant.edgePadding,
-                ),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: recipe.veg
-                        ? [
-                            ColorConstant.vegColorPrimary,
-                            ColorConstant.vegColorSecondary,
-                          ]
-                        : [
-                            ColorConstant.nonvegColorPrimary,
-                            ColorConstant.nonvegColorSecondary,
-                          ],
+                Container(
+                  height: 135,
+                  padding: EdgeInsets.all(
+                    DimenConstant.edgePadding,
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: recipe.veg
+                          ? [
+                              ColorConstant.vegColorPrimary,
+                              ColorConstant.vegColorSecondary,
+                            ]
+                          : [
+                              ColorConstant.nonvegColorPrimary,
+                              ColorConstant.nonvegColorSecondary,
+                            ],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(
-            DimenConstant.edgePadding,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: DimenConstant.edgePadding,
-                ),
-                child: Row(
+          Padding(
+            padding: const EdgeInsets.all(
+              DimenConstant.edgePadding,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
+                    DimenConstant.separator,
                     CircleAvatar(
                       radius: 50,
                       foregroundImage: AssetImage(
@@ -97,40 +95,41 @@ class RecipeItem extends StatelessWidget {
                         Text(
                           recipe.name,
                           style: TextStyle(
-                            color: ColorConstant.secondaryColor,
-                            fontSize: DimenConstant.mediumText,
+                            color: ColorConstant.primaryColor,
+                            fontSize: DimenConstant.subtitleText,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          recipe.cuisine,
+                          "${recipe.cuisine} · ${recipe.category}",
                           style: TextStyle(
-                            color: ColorConstant.secondaryColor,
-                            fontSize: DimenConstant.smallText,
+                            color: ColorConstant.primaryColor,
+                            fontSize: DimenConstant.extraSmallText,
                           ),
                           maxLines: 2,
                         ),
+                        DimenConstant.separator,
                       ],
                     ),
                   ],
                 ),
-              ),
-              Text(
-                recipe.description,
-                style: TextStyle(
-                  color: ColorConstant.secondaryColor,
-                  fontSize: DimenConstant.smallText,
+                Text(
+                  recipe.description,
+                  style: TextStyle(
+                    color: ColorConstant.primaryColor,
+                    fontSize: DimenConstant.smallText,
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.justify,
                 ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.justify,
-              ),
-              DimenConstant.separator,
-            ],
+                DimenConstant.separator,
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

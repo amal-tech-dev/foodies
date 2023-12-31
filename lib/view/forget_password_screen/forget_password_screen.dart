@@ -21,7 +21,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               Row(
                 children: [
                   BackButton(
-                    color: ColorConstant.secondaryColor,
+                    color: ColorConstant.primaryColor,
                   ),
                 ],
               ),
@@ -45,7 +45,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 child: Text(
                   'Enter Your Registered Email Id',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
+                    color: ColorConstant.primaryColor,
                     fontSize: DimenConstant.mediumText,
                   ),
                   textAlign: TextAlign.center,

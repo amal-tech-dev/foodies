@@ -44,13 +44,13 @@ class LoginOptions extends StatelessWidget {
               children: [
                 Icon(
                   Icons.person,
-                  color: ColorConstant.secondaryColor,
+                  color: ColorConstant.primaryColor,
                 ),
                 DimenConstant.separator,
                 Text(
                   'Continue as Guest',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
+                    color: ColorConstant.primaryColor,
                     fontSize: DimenConstant.subtitleText,
                   ),
                 )
@@ -78,13 +78,13 @@ class LoginOptions extends StatelessWidget {
               children: [
                 FaIcon(
                   FontAwesomeIcons.google,
-                  color: ColorConstant.secondaryColor,
+                  color: ColorConstant.primaryColor,
                 ),
                 DimenConstant.separator,
                 Text(
                   'Continue with Google',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
+                    color: ColorConstant.primaryColor,
                     fontSize: DimenConstant.subtitleText,
                   ),
                 )
@@ -113,15 +113,18 @@ class LoginOptions extends StatelessWidget {
                         label: Text(
                           'Email',
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
+                            color: ColorConstant.secondaryColor,
                           ),
                         ),
                         border: InputBorder.none,
                       ),
                       style: TextStyle(
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.primaryColor,
                       ),
-                      cursorColor: ColorConstant.primaryColor,
+                      cursorColor: ColorConstant.secondaryColor,
+                      cursorRadius: Radius.circular(
+                        DimenConstant.cursorRadius,
+                      ),
                     ),
                   ),
                   DimenConstant.separator,
@@ -141,15 +144,18 @@ class LoginOptions extends StatelessWidget {
                         label: Text(
                           'Password',
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
+                            color: ColorConstant.secondaryColor,
                           ),
                         ),
                         border: InputBorder.none,
                       ),
                       style: TextStyle(
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.primaryColor,
                       ),
-                      cursorColor: ColorConstant.primaryColor,
+                      cursorColor: ColorConstant.secondaryColor,
+                      cursorRadius: Radius.circular(
+                        DimenConstant.cursorRadius,
+                      ),
                     ),
                   ),
                   InkWell(
@@ -162,7 +168,7 @@ class LoginOptions extends StatelessWidget {
                     child: Text(
                       'Forget Password?',
                       style: TextStyle(
-                        color: ColorConstant.primaryColor,
+                        color: ColorConstant.secondaryColor,
                       ),
                     ),
                   ),
@@ -176,7 +182,7 @@ class LoginOptions extends StatelessWidget {
                         ),
                       ),
                       backgroundColor: MaterialStatePropertyAll(
-                        ColorConstant.primaryColor,
+                        ColorConstant.secondaryColor,
                       ),
                     ),
                     onPressed: () {
@@ -192,7 +198,7 @@ class LoginOptions extends StatelessWidget {
                     child: Text(
                       'Sign In',
                       style: TextStyle(
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.primaryColor,
                       ),
                     ),
                   ),
@@ -217,13 +223,13 @@ class LoginOptions extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.alternate_email_outlined,
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.primaryColor,
                       ),
                       DimenConstant.separator,
                       Text(
                         'Continue with Email',
                         style: TextStyle(
-                          color: ColorConstant.secondaryColor,
+                          color: ColorConstant.primaryColor,
                           fontSize: DimenConstant.subtitleText,
                         ),
                       )

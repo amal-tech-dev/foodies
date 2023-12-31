@@ -40,7 +40,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
               child: Text(
                 'Skip',
                 style: TextStyle(
-                  color: ColorConstant.secondaryColor,
+                  color: ColorConstant.primaryColor,
                   fontSize: DimenConstant.subtitleText,
                 ),
               ),
@@ -93,7 +93,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     ),
                   ),
                   backgroundColor: MaterialStatePropertyAll(
-                    ColorConstant.primaryColor,
+                    ColorConstant.secondaryColor,
                   ),
                 ),
                 onPressed: () {
@@ -114,7 +114,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 child: Text(
                   'Next',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
+                    color: ColorConstant.primaryColor,
                   ),
                 ),
               ),

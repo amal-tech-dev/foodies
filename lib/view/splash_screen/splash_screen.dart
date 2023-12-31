@@ -8,8 +8,6 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
-import 'package:foodies/view/home_screen/home_screen.dart';
-import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -39,13 +37,14 @@ class _SplashScreenState extends State<SplashScreen> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    Provider.of<NavigationController>(context).isFirstVisit
-                        ? GetStartedScreen()
-                        : Provider.of<NavigationController>(context).isLoggedIn
-                            ? HomeScreen()
-                            : LoginScreen(),
-              ),
+                  builder: (context) =>
+                      // Provider.of<NavigationController>(context).isFirstVisit
+                      //     ?
+                      GetStartedScreen()
+                  // : Provider.of<NavigationController>(context).isLoggedIn
+                  //     ? HomeScreen()
+                  //     : LoginScreen(),
+                  ),
             );
           },
         );
@@ -78,14 +77,14 @@ class _SplashScreenState extends State<SplashScreen> {
                     Text(
                       StringConstant.appNamePartOne,
                       style: TextStyle(
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.primaryColor,
                         fontSize: DimenConstant.extraLargeText,
                       ),
                     ),
                     Text(
                       StringConstant.appNamePartTwo,
                       style: TextStyle(
-                        color: ColorConstant.primaryColor,
+                        color: ColorConstant.secondaryColor,
                         fontSize: DimenConstant.extraLargeText,
                       ),
                     ),
@@ -100,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Visibility(
                 visible: Provider.of<NavigationController>(context).isVisible,
                 child: CircularProgressIndicator(
-                  color: ColorConstant.primaryColor,
+                  color: ColorConstant.secondaryColor,
                 ),
               ),
             ),

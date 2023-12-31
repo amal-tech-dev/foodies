@@ -30,15 +30,18 @@ class SignupOptions extends StatelessWidget {
               label: Text(
                 'Email',
                 style: TextStyle(
-                  color: ColorConstant.primaryColor,
+                  color: ColorConstant.secondaryColor,
                 ),
               ),
               border: InputBorder.none,
             ),
             style: TextStyle(
-              color: ColorConstant.secondaryColor,
+              color: ColorConstant.primaryColor,
             ),
-            cursorColor: ColorConstant.primaryColor,
+            cursorColor: ColorConstant.secondaryColor,
+            cursorRadius: Radius.circular(
+              DimenConstant.cursorRadius,
+            ),
           ),
         ),
         DimenConstant.separator,
@@ -58,15 +61,18 @@ class SignupOptions extends StatelessWidget {
               label: Text(
                 'Password',
                 style: TextStyle(
-                  color: ColorConstant.primaryColor,
+                  color: ColorConstant.secondaryColor,
                 ),
               ),
               border: InputBorder.none,
             ),
             style: TextStyle(
-              color: ColorConstant.secondaryColor,
+              color: ColorConstant.primaryColor,
             ),
-            cursorColor: ColorConstant.primaryColor,
+            cursorColor: ColorConstant.secondaryColor,
+            cursorRadius: Radius.circular(
+              DimenConstant.cursorRadius,
+            ),
           ),
         ),
         DimenConstant.separator,
@@ -79,7 +85,7 @@ class SignupOptions extends StatelessWidget {
               ),
             ),
             backgroundColor: MaterialStatePropertyAll(
-              ColorConstant.primaryColor,
+              ColorConstant.secondaryColor,
             ),
           ),
           onPressed: () {
@@ -94,7 +100,7 @@ class SignupOptions extends StatelessWidget {
           child: Text(
             'Sign Up',
             style: TextStyle(
-              color: ColorConstant.secondaryColor,
+              color: ColorConstant.primaryColor,
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodies/main.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
+  int currentIndex = 1;
   List screens = [
     RecipeFeedScreen(),
     SearchScreen(),
@@ -35,27 +36,75 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               StringConstant.appNamePartOne,
               style: TextStyle(
-                color: ColorConstant.secondaryColor,
+                color: ColorConstant.primaryColor,
                 fontSize: DimenConstant.titleText,
               ),
             ),
             Text(
               StringConstant.appNamePartTwo,
               style: TextStyle(
-                color: ColorConstant.primaryColor,
+                color: ColorConstant.secondaryColor,
                 fontSize: DimenConstant.titleText,
               ),
             ),
           ],
         ),
+        actions: [
+          DropdownButtonHideUnderline(
+            child: DropdownButton(
+              value: Taste.veg,
+              icon: Icon(
+                Icons.expand_more_rounded,
+              ),
+              iconEnabledColor: ColorConstant.secondaryColor,
+              dropdownColor: ColorConstant.backgroundColor,
+              items: [
+                DropdownMenuItem(
+                  value: Taste.veg,
+                  child: Text(
+                    'Vegetarian',
+                    style: TextStyle(
+                      color: ColorConstant.primaryColor,
+                      fontSize: DimenConstant.smallText,
+                    ),
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: Taste.semi,
+                  child: Text(
+                    'Semi-Vegetarian',
+                    style: TextStyle(
+                      color: ColorConstant.primaryColor,
+                      fontSize: DimenConstant.smallText,
+                    ),
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: Taste.non,
+                  child: Text(
+                    'Non-Vegetarian',
+                    style: TextStyle(
+                      color: ColorConstant.primaryColor,
+                      fontSize: DimenConstant.smallText,
+                    ),
+                  ),
+                ),
+              ],
+              onChanged: (value) {},
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+        ],
       ),
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        selectedItemColor: ColorConstant.primaryColor,
-        unselectedItemColor: ColorConstant.secondaryColor,
+        selectedItemColor: ColorConstant.secondaryColor,
+        unselectedItemColor: ColorConstant.primaryColor,
         backgroundColor: ColorConstant.backgroundColor,
         type: BottomNavigationBarType.fixed,
         landscapeLayout: BottomNavigationBarLandscapeLayout.centered,

@@ -2,8 +2,14 @@
 class Assets {
   Assets._();
 
-  static const String imagesBbqChickenImage =
-      'assets/images/bbq_chicken_image.png';
+  static const String foodImagesBbqChicken =
+      'assets/food_images/bbq_chicken.png';
+  static const String foodImagesPrawnSalad =
+      'assets/food_images/prawn_salad.png';
+  static const String foodImagesPrawnYellowRice =
+      'assets/food_images/prawn_yellow_rice.png';
+  static const String foodImagesVeggieOkonomiyaki =
+      'assets/food_images/veggie_okonomiyaki.png';
   static const String imagesGetStartedThumbnail =
       'assets/images/get_started_thumbnail.png';
   static const String imagesLoginThumbnail =
