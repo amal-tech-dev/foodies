@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodies/utils/color_constant.dart';
+import 'package:foodies/database/database.dart';
+import 'package:foodies/global_widgets/recipe_item.dart';
 
 class BookmarksScreen extends StatelessWidget {
   BookmarksScreen({super.key});
@@ -7,7 +8,12 @@ class BookmarksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstant.backgroundColor,
+      body: ListView.builder(
+        itemBuilder: (context, index) => RecipeItem(
+          recipe: Database.recipes[index],
+        ),
+        itemCount: Database.recipes.length,
+      ),
     );
   }
 }

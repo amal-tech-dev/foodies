@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:foodies/database/database.dart';
 import 'package:foodies/global_widgets/recipe_item.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/search_screen/search_widgets/filter_bottom_sheet.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
@@ -28,58 +28,43 @@ class SearchScreen extends StatelessWidget {
                   DimenConstant.borderRadius,
                 ),
               ),
-              child: TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  hintStyle: TextStyle(
-                    color: ColorConstant.primaryColor,
-                  ),
-                  border: InputBorder.none,
-                  prefixIcon: Icon(
-                    Icons.search_rounded,
-                  ),
-                  prefixIconColor: ColorConstant.secondaryColor,
-                ),
-                style: TextStyle(
-                  color: ColorConstant.primaryColor,
-                ),
-                cursorColor: ColorConstant.secondaryColor,
-                cursorRadius: Radius.circular(
-                  DimenConstant.cursorRadius,
-                ),
-              ),
-            ),
-            DimenConstant.separator,
-            InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) => FilterBottomSheet(),
-                  backgroundColor: ColorConstant.backgroundColor,
-                );
-              },
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Icon(
-                    Icons.tune_rounded,
-                    color: ColorConstant.primaryColor,
-                    size: 18,
+                  Expanded(
+                    child: TextField(
+                      controller: searchController,
+                      autofocus: true,
+                      enableSuggestions: true,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.singleLineFormatter,
+                      ],
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Find recipes',
+                        hintStyle: TextStyle(
+                          color: ColorConstant.primaryColor.withOpacity(0.5),
+                        ),
+                      ),
+                      style: TextStyle(
+                        color: ColorConstant.primaryColor,
+                      ),
+                      cursorColor: ColorConstant.secondaryColor,
+                      cursorRadius: Radius.circular(
+                        DimenConstant.cursorRadius,
+                      ),
+                    ),
                   ),
-                  SizedBox(
-                    width: 3,
-                  ),
+                  DimenConstant.separator,
                   Text(
-                    'Filters',
+                    'Search',
                     style: TextStyle(
                       color: ColorConstant.secondaryColor,
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
+            DimenConstant.separator,
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) => RecipeItem(

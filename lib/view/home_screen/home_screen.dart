@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodies/main.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
@@ -17,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 1;
+  int currentIndex = 2;
   List screens = [
     RecipeFeedScreen(),
     SearchScreen(),
@@ -49,54 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        actions: [
-          DropdownButtonHideUnderline(
-            child: DropdownButton(
-              value: Taste.veg,
-              icon: Icon(
-                Icons.expand_more_rounded,
-              ),
-              iconEnabledColor: ColorConstant.secondaryColor,
-              dropdownColor: ColorConstant.backgroundColor,
-              items: [
-                DropdownMenuItem(
-                  value: Taste.veg,
-                  child: Text(
-                    'Vegetarian',
-                    style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.smallText,
-                    ),
-                  ),
-                ),
-                DropdownMenuItem(
-                  value: Taste.semi,
-                  child: Text(
-                    'Semi-Vegetarian',
-                    style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.smallText,
-                    ),
-                  ),
-                ),
-                DropdownMenuItem(
-                  value: Taste.non,
-                  child: Text(
-                    'Non-Vegetarian',
-                    style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.smallText,
-                    ),
-                  ),
-                ),
-              ],
-              onChanged: (value) {},
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-        ],
       ),
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(

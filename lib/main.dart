@@ -5,8 +5,6 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
-enum Taste { veg, semi, non }
-
 void main() {
   runApp(Foodies());
 }
