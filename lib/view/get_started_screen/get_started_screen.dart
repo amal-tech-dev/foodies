@@ -62,7 +62,7 @@ class GetStartedScreen extends StatelessWidget {
                         fontSize: DimenConstant.subtitleText,
                         fontWeight: FontWeight.bold,
                       ),
-                      textAlign: TextAlign.justify,
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),

@@ -20,7 +20,7 @@ class LoginOptions extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Provider.of<NavigationController>(context).loggedIn();
+            // Provider.of<NavigationController>(context).loggedIn();
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(

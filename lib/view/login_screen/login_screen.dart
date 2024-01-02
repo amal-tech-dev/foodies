@@ -3,6 +3,7 @@ import 'package:foodies/controller/email_login_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/login_screen/login_widgets/login_options.dart';
 import 'package:foodies/view/signup_screen/signup_screen.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                   DimenConstant.edgePadding * 2,
                 ),
                 child: Text(
-                  'Let\'s You In',
+                  StringConstant.loginText,
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
                     fontSize: DimenConstant.largeText,

@@ -25,4 +25,5 @@ flutter:
   assets:
     - assets/logo/
     - assets/images/
+    - assets/thumbnails/
     - assets/food_images/

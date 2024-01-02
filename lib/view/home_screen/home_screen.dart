@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 2;
+  int currentIndex = 4;
   List screens = [
     RecipeFeedScreen(),
     SearchScreen(),
@@ -50,46 +50,52 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: screens[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedItemColor: ColorConstant.secondaryColor,
-        unselectedItemColor: ColorConstant.primaryColor,
-        backgroundColor: ColorConstant.backgroundColor,
-        type: BottomNavigationBarType.fixed,
-        landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-        onTap: (value) {
-          currentIndex = value;
-          setState(() {});
-        },
-        items: [
-          BottomNavigationBarItem(
-            activeIcon: Icon(Icons.fastfood_rounded),
-            icon: Icon(Icons.fastfood_outlined),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Icon(Icons.search_rounded),
-            icon: Icon(Icons.search_rounded),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Icon(Icons.add_rounded),
-            icon: Icon(Icons.add_rounded),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Icon(Icons.bookmark_rounded),
-            icon: Icon(Icons.bookmark_border_rounded),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Icon(Icons.person_rounded),
-            icon: Icon(Icons.person_outline_rounded),
-            label: '',
-          ),
-        ],
+      bottomNavigationBar: Theme(
+        data: ThemeData(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: BottomNavigationBar(
+          currentIndex: currentIndex,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedItemColor: ColorConstant.secondaryColor,
+          unselectedItemColor: ColorConstant.primaryColor,
+          backgroundColor: ColorConstant.backgroundColor,
+          type: BottomNavigationBarType.fixed,
+          landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+          onTap: (value) {
+            currentIndex = value;
+            setState(() {});
+          },
+          items: [
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.fastfood_rounded),
+              icon: Icon(Icons.fastfood_outlined),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.search_rounded),
+              icon: Icon(Icons.search_rounded),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.add_rounded),
+              icon: Icon(Icons.add_rounded),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.bookmark_rounded),
+              icon: Icon(Icons.bookmark_border_rounded),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.person_rounded),
+              icon: Icon(Icons.person_outline_rounded),
+              label: '',
+            ),
+          ],
+        ),
       ),
     );
   }

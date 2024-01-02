@@ -4,8 +4,8 @@ import 'package:foodies/model/recipe_model.dart';
 class Database {
   static const List<String> preferences = [
     'Vegetarian',
-    'Semi-vegetarian',
     'Non-vegetarian',
+    'Semi-vegetarian',
   ];
 
   static const List<String> cuisines = [

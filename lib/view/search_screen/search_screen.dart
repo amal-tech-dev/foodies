@@ -33,7 +33,6 @@ class SearchScreen extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: searchController,
-                      autofocus: true,
                       enableSuggestions: true,
                       inputFormatters: [
                         FilteringTextInputFormatter.singleLineFormatter,

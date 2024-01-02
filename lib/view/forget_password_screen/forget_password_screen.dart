@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_widgets/forget_password_options.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -43,7 +44,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   DimenConstant.edgePadding * 2,
                 ),
                 child: Text(
-                  'Enter Your Registered Email Id',
+                  StringConstant.forgetPasswordText,
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
                     fontSize: DimenConstant.mediumText,

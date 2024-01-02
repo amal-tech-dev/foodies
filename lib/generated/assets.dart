@@ -10,13 +10,11 @@ class Assets {
       'assets/food_images/prawn_yellow_rice.png';
   static const String foodImagesVeggieOkonomiyaki =
       'assets/food_images/veggie_okonomiyaki.png';
-  static const String imagesGetStartedThumbnail =
-      'assets/images/get_started_thumbnail.png';
-  static const String imagesLoginThumbnail =
-      'assets/images/login_thumbnail.png';
-  static const String imagesOverviewThumbnail =
-      'assets/images/overview_thumbnail.png';
-  static const String imagesSignupThumbnail =
-      'assets/images/signup_thumbnail.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
+  static const String thumbnailsAddRecipe = 'assets/thumbnails/add_recipe.png';
+  static const String thumbnailsGetStarted =
+      'assets/thumbnails/get_started.png';
+  static const String thumbnailsLogin = 'assets/thumbnails/login.png';
+  static const String thumbnailsOverview = 'assets/thumbnails/overview.png';
+  static const String thumbnailsSignup = 'assets/thumbnails/signup.png';
 }

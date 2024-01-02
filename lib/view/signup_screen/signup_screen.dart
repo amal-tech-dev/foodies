@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/signup_screen/signup_widgets/signup_options.dart';
 
@@ -37,7 +38,7 @@ class SignupScreen extends StatelessWidget {
                   DimenConstant.edgePadding * 2,
                 ),
                 child: Text(
-                  'Create a New Account',
+                  StringConstant.signupText,
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
                     fontSize: DimenConstant.mediumText,
