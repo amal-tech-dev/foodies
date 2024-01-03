@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 4;
+  int currentIndex = 0;
   List screens = [
     RecipeFeedScreen(),
     SearchScreen(),
