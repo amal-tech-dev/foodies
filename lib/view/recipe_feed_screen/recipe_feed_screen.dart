@@ -19,8 +19,9 @@ class RecipeFeedScreen extends StatefulWidget {
 }
 
 class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
-  List<String> selectedCuisines = [];
   late Diet selectedDiet;
+  List<String> selectedCuisines = [];
+
   List<String> filteredCuisines = [];
   List<String> filteredCategories = [];
   bool isLoading = false;
