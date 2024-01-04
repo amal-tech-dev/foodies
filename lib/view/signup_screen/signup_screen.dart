@@ -11,72 +11,73 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Padding(
-          padding: const EdgeInsets.all(
-            DimenConstant.edgePadding,
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(
-                  DimenConstant.edgePadding,
-                ),
-                child: Expanded(
-                  child: Center(
-                    child: Image.asset(
-                      ImageConstant.signupThumbnail,
-                      height: MediaQuery.of(context).size.height * 0.175,
-                    ),
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: Padding(
+        padding: const EdgeInsets.all(
+          DimenConstant.edgePadding,
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(
+                DimenConstant.edgePadding,
+              ),
+              child: Expanded(
+                child: Center(
+                  child: Image.asset(
+                    ImageConstant.signupThumbnail,
+                    height: MediaQuery.of(context).size.height * 0.175,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(
-                  DimenConstant.edgePadding * 2,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(
+                DimenConstant.edgePadding * 2,
+              ),
+              child: Text(
+                StringConstant.signupText,
+                style: TextStyle(
+                  color: ColorConstant.primaryColor,
+                  fontSize: DimenConstant.mediumText,
                 ),
-                child: Text(
-                  StringConstant.signupText,
+              ),
+            ),
+            Expanded(
+              child: SignupOptions(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Already have an account? > ',
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.mediumText,
                   ),
                 ),
-              ),
-              Expanded(
-                child: SignupOptions(),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Already have an account? > ',
+                InkWell(
+                  onTap: () => Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginScreen(),
+                    ),
+                    (route) => false,
+                  ),
+                  child: Text(
+                    'Sign In',
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
+                      color: ColorConstant.secondaryColor,
                     ),
                   ),
-                  InkWell(
-                    onTap: () => Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
-                      (route) => false,
-                    ),
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                        color: ColorConstant.secondaryColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              DimenConstant.separator,
-            ],
-          ),
+                ),
+              ],
+            ),
+            DimenConstant.separator,
+          ],
         ),
       ),
     );

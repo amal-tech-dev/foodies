@@ -13,68 +13,69 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Padding(
-          padding: const EdgeInsets.all(
-            DimenConstant.edgePadding,
-          ),
-          child: Column(
-            children: [
-              Visibility(
-                visible:
-                    !Provider.of<EmailLoginController>(context).isEmailPressed,
-                child: Center(
-                  child: Image.asset(
-                    ImageConstant.loginThumbnail,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                  ),
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: Padding(
+        padding: const EdgeInsets.all(
+          DimenConstant.edgePadding,
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+            ),
+            Visibility(
+              visible:
+                  !Provider.of<EmailLoginController>(context).isEmailPressed,
+              child: Center(
+                child: Image.asset(
+                  ImageConstant.loginThumbnail,
+                  height: MediaQuery.of(context).size.height * 0.3,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(
-                  DimenConstant.edgePadding * 2,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(
+                DimenConstant.edgePadding * 2,
+              ),
+              child: Text(
+                StringConstant.loginText,
+                style: TextStyle(
+                  color: ColorConstant.primaryColor,
+                  fontSize: DimenConstant.largeText,
                 ),
-                child: Text(
-                  StringConstant.loginText,
+              ),
+            ),
+            Expanded(
+              child: LoginOptions(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Create a new account > ',
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.largeText,
                   ),
                 ),
-              ),
-              Expanded(
-                child: LoginOptions(),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Create a new account > ',
+                InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignupScreen(),
+                    ),
+                  ),
+                  child: Text(
+                    'Sign Up',
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
+                      color: ColorConstant.secondaryColor,
                     ),
                   ),
-                  InkWell(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignupScreen(),
-                      ),
-                    ),
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: ColorConstant.secondaryColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              DimenConstant.separator,
-            ],
-          ),
+                ),
+              ],
+            ),
+            DimenConstant.separator,
+          ],
         ),
       ),
     );

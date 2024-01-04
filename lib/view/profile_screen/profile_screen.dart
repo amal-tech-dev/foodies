@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/info_screen/info_screen.dart';
+import 'package:foodies/view/about_screen/about_screen.dart';
 import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/settings_tile.dart';
@@ -30,8 +30,8 @@ class ProfileScreen extends StatelessWidget {
             ),
             DimenConstant.separator,
             SettingsTile(
-              name: 'Info',
-              screen: InfoScreen(),
+              name: 'About Categories and Cuisines',
+              screen: AboutScreen(),
             ),
           ],
         ),

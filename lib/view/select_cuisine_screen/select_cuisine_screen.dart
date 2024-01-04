@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/cuisine_controller.dart';
+import 'package:foodies/controller/navigation_controller.dart';
 import 'package:foodies/database/database.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
@@ -16,62 +17,81 @@ class SelectCuisineScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var cuisineController =
         Provider.of<CuisineController>(context, listen: false);
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(
-            DimenConstant.edgePadding,
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(
-                  DimenConstant.edgePadding * 3,
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(
+          DimenConstant.edgePadding,
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(
+                DimenConstant.edgePadding * 3,
+              ),
+              child: Text(
+                StringConstant.selectCuisineText,
+                style: TextStyle(
+                  color: ColorConstant.primaryColor,
+                  fontSize: DimenConstant.subtitleText,
                 ),
-                child: Text(
-                  StringConstant.selectCuisineText,
-                  style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.subtitleText,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: DimenConstant.edgePadding,
+                  mainAxisSpacing: DimenConstant.edgePadding,
+                ),
+                itemBuilder: (context, index) => CuisineTile(
+                  name: Database.cuisines[index],
+                  isPressed: Provider.of<CuisineController>(context)
+                          .cuisineIndexes
+                          .contains(index)
+                      ? true
+                      : false,
+                  onPressed: () {
+                    cuisineController.cuisineIndexes.contains(index)
+                        ? cuisineController.deleteIndex(index)
+                        : cuisineController.addIndex(index);
+                  },
+                ),
+                itemCount: Database.cuisines.length,
+              ),
+            ),
+            DimenConstant.separator,
+            ElevatedButton(
+              style: ButtonStyle(
+                fixedSize: MaterialStatePropertyAll(
+                  Size(
+                    MediaQuery.of(context).size.width,
+                    45,
                   ),
-                  textAlign: TextAlign.center,
+                ),
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
                 ),
               ),
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: DimenConstant.edgePadding,
-                    mainAxisSpacing: DimenConstant.edgePadding,
-                  ),
-                  itemBuilder: (context, index) => CuisineTile(
-                    name: Database.cuisines[index],
-                    isPressed: cuisineController.cuisineIndexes.contains(index)
-                        ? true
-                        : false,
-                    onPressed: () {
-                      cuisineController.cuisineIndexes.contains(index)
-                          ? cuisineController.deleteIndex(index)
-                          : cuisineController.addIndex(index);
-                    },
-                  ),
-                  itemCount: Database.cuisines.length,
-                ),
-              ),
-              DimenConstant.separator,
-              ElevatedButton(
-                style: ButtonStyle(
-                  fixedSize: MaterialStatePropertyAll(
-                    Size(
-                      MediaQuery.of(context).size.width,
-                      45,
+              onPressed: () async {
+                if (cuisineController.cuisineIndexes.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: ColorConstant.tertiaryColor,
+                      duration: Duration(seconds: 1),
+                      content: Text(
+                        'Select atleast one Cuisine',
+                        style: TextStyle(
+                          color: ColorConstant.primaryColor,
+                          fontSize: DimenConstant.smallText,
+                        ),
+                      ),
                     ),
-                  ),
-                  backgroundColor: MaterialStatePropertyAll(
-                    ColorConstant.secondaryColor,
-                  ),
-                ),
-                onPressed: () async {
+                  );
+                } else {
                   SharedPreferences preferences =
                       await SharedPreferences.getInstance();
                   preferences.setStringList(
@@ -82,6 +102,8 @@ class SelectCuisineScreen extends StatelessWidget {
                           .cuisines[cuisineController.cuisineIndexes[index]],
                     ),
                   );
+                  Provider.of<NavigationController>(context, listen: false)
+                      .closeSelection();
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -89,16 +111,16 @@ class SelectCuisineScreen extends StatelessWidget {
                     ),
                     (route) => false,
                   );
-                },
-                child: Text(
-                  'Save',
-                  style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                  ),
+                }
+              },
+              child: Text(
+                'Save',
+                style: TextStyle(
+                  color: ColorConstant.primaryColor,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

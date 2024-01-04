@@ -3,8 +3,10 @@ import 'package:foodies/controller/cuisine_controller.dart';
 import 'package:foodies/controller/email_login_controller.dart';
 import 'package:foodies/controller/navigation_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
-import 'package:foodies/view/select_cuisine_screen/select_cuisine_screen.dart';
+import 'package:foodies/view/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
+
+enum Diet { veg, non, semi }
 
 void main() {
   runApp(Foodies());
@@ -26,7 +28,7 @@ class Foodies extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: ColorConstant.backgroundColor,
         ),
-        home: SelectCuisineScreen(),
+        home: SplashScreen(),
       ),
     );
   }

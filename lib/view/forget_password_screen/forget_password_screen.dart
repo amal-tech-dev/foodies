@@ -10,53 +10,54 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Padding(
-          padding: const EdgeInsets.all(
-            DimenConstant.edgePadding,
-          ),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  BackButton(
-                    color: ColorConstant.primaryColor,
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: Padding(
+        padding: const EdgeInsets.all(
+          DimenConstant.edgePadding,
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+            ),
+            Row(
+              children: [
+                BackButton(
+                  color: ColorConstant.primaryColor,
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(
+                DimenConstant.edgePadding,
+              ),
+              child: Expanded(
+                child: Center(
+                  child: Image.asset(
+                    ImageConstant.signupThumbnail,
+                    height: MediaQuery.of(context).size.height * 0.175,
                   ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(
-                  DimenConstant.edgePadding,
-                ),
-                child: Expanded(
-                  child: Center(
-                    child: Image.asset(
-                      ImageConstant.signupThumbnail,
-                      height: MediaQuery.of(context).size.height * 0.175,
-                    ),
-                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(
-                  DimenConstant.edgePadding * 2,
-                ),
-                child: Text(
-                  StringConstant.forgetPasswordText,
-                  style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.mediumText,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(
+                DimenConstant.edgePadding * 2,
               ),
-              Expanded(
-                child: ForgetPasswordOptions(),
+              child: Text(
+                StringConstant.forgetPasswordText,
+                style: TextStyle(
+                  color: ColorConstant.primaryColor,
+                  fontSize: DimenConstant.mediumText,
+                ),
+                textAlign: TextAlign.center,
               ),
-            ],
-          ),
+            ),
+            Expanded(
+              child: ForgetPasswordOptions(),
+            ),
+          ],
         ),
       ),
     );

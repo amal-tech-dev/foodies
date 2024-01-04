@@ -141,7 +141,7 @@ class RecipeItem extends StatelessWidget {
                   textAlign: TextAlign.justify,
                 ),
                 DimenConstant.separator,
-                Container(
+                SizedBox(
                   height: 10,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,

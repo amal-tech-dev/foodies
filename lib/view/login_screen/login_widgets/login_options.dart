@@ -5,7 +5,7 @@ import 'package:foodies/controller/navigation_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
-import 'package:foodies/view/home_screen/home_screen.dart';
+import 'package:foodies/view/select_diet_screen/select_diet_screen.dart';
 import 'package:provider/provider.dart';
 
 class LoginOptions extends StatelessWidget {
@@ -20,11 +20,12 @@ class LoginOptions extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            // Provider.of<NavigationController>(context).loggedIn();
+            Provider.of<NavigationController>(context, listen: false)
+                .loggedIn();
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => HomeScreen(),
+                builder: (context) => SelectDietScreen(),
               ),
               (route) => false,
             );
@@ -61,7 +62,8 @@ class LoginOptions extends StatelessWidget {
         DimenConstant.separator,
         InkWell(
           onTap: () {
-            Provider.of<NavigationController>(context).loggedIn();
+            Provider.of<NavigationController>(context, listen: false)
+                .loggedIn();
           },
           child: Container(
             padding: EdgeInsets.all(
@@ -186,11 +188,12 @@ class LoginOptions extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Provider.of<NavigationController>(context).loggedIn();
+                      Provider.of<NavigationController>(context, listen: false)
+                          .loggedIn();
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
+                          builder: (context) => SelectDietScreen(),
                         ),
                         (route) => false,
                       );

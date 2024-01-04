@@ -3,6 +3,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/select_cuisine_screen/select_cuisine_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectDietScreen extends StatelessWidget {
   SelectDietScreen({super.key});
@@ -33,7 +34,10 @@ class SelectDietScreen extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {
+              onTap: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                preferences.setString('diet', 'veg');
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
@@ -66,7 +70,10 @@ class SelectDietScreen extends StatelessWidget {
             ),
             DimenConstant.separator,
             InkWell(
-              onTap: () {
+              onTap: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                preferences.setString('diet', 'non');
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
@@ -99,7 +106,10 @@ class SelectDietScreen extends StatelessWidget {
             ),
             DimenConstant.separator,
             InkWell(
-              onTap: () {
+              onTap: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                preferences.setString('diet', 'semi');
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(

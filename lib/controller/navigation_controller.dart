@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NavigationController with ChangeNotifier {
-  bool isVisible = false;
   bool isFirstVisit = true;
-  bool isLoggedIn = false;
-
-  // show loading indicator till data is fetched
-  startLoading() {
-    isVisible = true;
-    notifyListeners();
-  }
-
-  // stop loading indicator after data is fetched
-  stopLoading() {
-    isVisible = false;
-    notifyListeners();
-  }
+  bool isLoggedin = false;
+  bool isFirstLogin = false;
 
   // check is it first time
   closeOverview() {
@@ -25,13 +13,19 @@ class NavigationController with ChangeNotifier {
 
   // check is logged in
   loggedIn() {
-    isLoggedIn = true;
+    isLoggedin = true;
     notifyListeners();
   }
 
   // check is logged out
   loggedOut() {
-    isLoggedIn = false;
+    isLoggedin = false;
+    notifyListeners();
+  }
+
+  // check is it first time login
+  closeSelection() {
+    isFirstLogin = false;
     notifyListeners();
   }
 }

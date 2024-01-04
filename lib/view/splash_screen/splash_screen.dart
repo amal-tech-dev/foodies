@@ -8,6 +8,8 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
+import 'package:foodies/view/home_screen/home_screen.dart';
+import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,33 +22,22 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    var navigationController =
+        Provider.of<NavigationController>(context, listen: false);
     Timer(
       Duration(
-        seconds: 2,
+        seconds: 3,
       ),
       () {
-        Provider.of<NavigationController>(context, listen: false)
-            .startLoading();
-        Timer(
-          Duration(
-            seconds: 3,
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => navigationController.isFirstVisit
+                ? GetStartedScreen()
+                : navigationController.isLoggedin
+                    ? HomeScreen()
+                    : LoginScreen(),
           ),
-          () {
-            Provider.of<NavigationController>(context, listen: false)
-                .stopLoading();
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      // Provider.of<NavigationController>(context).isFirstVisit
-                      //     ?
-                      GetStartedScreen()
-                  // : Provider.of<NavigationController>(context).isLoggedIn
-                  //     ? HomeScreen()
-                  //     : LoginScreen(),
-                  ),
-            );
-          },
         );
       },
     );
@@ -58,51 +49,30 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: ColorConstant.backgroundColor,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 3,
+          SvgPicture.asset(
+            ImageConstant.appLogo,
+            height: MediaQuery.of(context).size.width / 3,
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  ImageConstant.appLogo,
-                  height: MediaQuery.of(context).size.width / 3,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      StringConstant.appNamePartOne,
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.extraLargeText,
-                      ),
-                    ),
-                    Text(
-                      StringConstant.appNamePartTwo,
-                      style: TextStyle(
-                        color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.extraLargeText,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 3,
-            child: Center(
-              child: Visibility(
-                visible: Provider.of<NavigationController>(context).isVisible,
-                child: CircularProgressIndicator(
-                  color: ColorConstant.secondaryColor,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                StringConstant.appNamePartOne,
+                style: TextStyle(
+                  color: ColorConstant.primaryColor,
+                  fontSize: DimenConstant.extraLargeText,
                 ),
               ),
-            ),
+              Text(
+                StringConstant.appNamePartTwo,
+                style: TextStyle(
+                  color: ColorConstant.secondaryColor,
+                  fontSize: DimenConstant.extraLargeText,
+                ),
+              ),
+            ],
           ),
         ],
       ),

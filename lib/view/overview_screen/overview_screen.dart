@@ -21,106 +21,111 @@ class _OverviewScreenState extends State<OverviewScreen> {
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextButton(
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SizedBox(
+            height: 40,
+          ),
+          TextButton(
+            onPressed: () {
+              Provider.of<NavigationController>(
+                context,
+                listen: false,
+              ).closeOverview();
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
+                  ),
+                  (route) => false);
+            },
+            child: Text(
+              'Skip',
+              style: TextStyle(
+                color: ColorConstant.primaryColor,
+                fontSize: DimenConstant.subtitleText,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Image.asset(
+              ImageConstant.overviewThumbnail,
+            ),
+          ),
+          Expanded(
+            child: CarouselSlider(
+              carouselController: carouselController,
+              items: [
+                CarouselItem(
+                  title: StringConstant.carouselTitle1,
+                  subtitle: StringConstant.carouselSubtitle1,
+                ),
+                CarouselItem(
+                  title: StringConstant.carouselTitle2,
+                  subtitle: StringConstant.carouselSubtitle2,
+                ),
+                CarouselItem(
+                  title: StringConstant.carouselTitle3,
+                  subtitle: StringConstant.carouselSubtitle3,
+                ),
+              ],
+              options: CarouselOptions(
+                viewportFraction: 1.0,
+                enableInfiniteScroll: false,
+                scrollPhysics: NeverScrollableScrollPhysics(),
+                onPageChanged: (index, reason) {
+                  currentPageIndex = index;
+                  setState(() {});
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 50.0,
+              horizontal: 20.0,
+            ),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                fixedSize: MaterialStatePropertyAll(
+                  Size(
+                    MediaQuery.of(context).size.width,
+                    50,
+                  ),
+                ),
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
+                ),
+              ),
               onPressed: () {
-                Provider.of<NavigationController>(context, listen: false)
-                    .closeOverview();
-                Navigator.pushAndRemoveUntil(
+                if (currentPageIndex < 2) {
+                  carouselController.nextPage();
+                  setState(() {});
+                } else {
+                  Provider.of<NavigationController>(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ),
-                    (route) => false);
+                    listen: false,
+                  ).closeOverview();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                      (route) => false);
+                }
               },
               child: Text(
-                'Skip',
+                'Next',
                 style: TextStyle(
                   color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.subtitleText,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Image.asset(
-                ImageConstant.overviewThumbnail,
-              ),
-            ),
-            Expanded(
-              child: CarouselSlider(
-                carouselController: carouselController,
-                items: [
-                  CarouselItem(
-                    title: StringConstant.carouselTitle1,
-                    subtitle: StringConstant.carouselSubtitle1,
-                  ),
-                  CarouselItem(
-                    title: StringConstant.carouselTitle2,
-                    subtitle: StringConstant.carouselSubtitle2,
-                  ),
-                  CarouselItem(
-                    title: StringConstant.carouselTitle3,
-                    subtitle: StringConstant.carouselSubtitle3,
-                  ),
-                ],
-                options: CarouselOptions(
-                  viewportFraction: 1.0,
-                  enableInfiniteScroll: false,
-                  scrollPhysics: NeverScrollableScrollPhysics(),
-                  onPageChanged: (index, reason) {
-                    currentPageIndex = index;
-                    setState(() {});
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 50.0,
-                horizontal: 20.0,
-              ),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  fixedSize: MaterialStatePropertyAll(
-                    Size(
-                      MediaQuery.of(context).size.width,
-                      50,
-                    ),
-                  ),
-                  backgroundColor: MaterialStatePropertyAll(
-                    ColorConstant.secondaryColor,
-                  ),
-                ),
-                onPressed: () {
-                  if (currentPageIndex < 2) {
-                    carouselController.nextPage();
-                    setState(() {});
-                  } else {
-                    Provider.of<NavigationController>(context, listen: false)
-                        .closeOverview();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
-                        ),
-                        (route) => false);
-                  }
-                },
-                child: Text(
-                  'Next',
-                  style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
