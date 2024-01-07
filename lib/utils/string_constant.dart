@@ -24,4 +24,8 @@ class StringConstant {
   static const String addRecipeGuestText = 'You need an account to add recipes';
   static const String addRecipeUserText =
       'Spice up your culinary journey on ${StringConstant.appName}. Share your favorite recipes, add your unique twist, and build a following of fellow food enthusiasts. Connect, inspire, and savor the delicious world of home cooking together!';
+  static const String searchText =
+      'Search Recipes by Name, Cuisines, Categories or Users';
+  static const String noResultsText =
+      'No results found, check spelling or check';
 }

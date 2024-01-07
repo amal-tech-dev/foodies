@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodies/database/database.dart';
 import 'package:foodies/global_widgets/recipe_item.dart';
 
-class BookmarksScreen extends StatelessWidget {
-  BookmarksScreen({super.key});
+class KitchenScreen extends StatelessWidget {
+  KitchenScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

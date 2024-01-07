@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:foodies/database/database.dart';
 import 'package:foodies/global_widgets/recipe_item.dart';
-import 'package:foodies/main.dart';
+import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_bottom_sheet.dart';
+import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RecipeFeedScreen extends StatefulWidget {
   RecipeFeedScreen({super.key});
@@ -19,17 +19,13 @@ class RecipeFeedScreen extends StatefulWidget {
 }
 
 class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
-  late Diet selectedDiet;
-  List<String> selectedCuisines = [];
-  List<String> filteredCuisines = [];
-  List<String> filteredCategories = [];
+  List<RecipeModel> recipes = Database.recipes;
   bool isLoading = false;
 
   @override
   void initState() {
     isLoading = true;
     setState(() {});
-    getPreferences();
     Timer(
       Duration(
         seconds: 3,
@@ -40,25 +36,6 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
       },
     );
     super.initState();
-  }
-
-  // get preferences from shared preferences
-  getPreferences() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    switch (preferences.getString('diet')) {
-      case 'veg':
-        selectedDiet = Diet.veg;
-        break;
-      case 'non':
-        selectedDiet = Diet.non;
-        break;
-      case 'semi':
-        selectedDiet = Diet.semi;
-        break;
-      default:
-        selectedDiet = Diet.semi;
-    }
-    selectedCuisines = preferences.getStringList('cuisines')!;
   }
 
   @override
@@ -92,7 +69,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          filteredCategories.isEmpty && filteredCuisines.isEmpty
+                          recipes.isNotEmpty
                               ? Icon(
                                   Icons.tune_rounded,
                                   color: ColorConstant.primaryColor,
@@ -107,7 +84,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      '${filteredCategories.length + filteredCuisines.length}',
+                                      '0',
                                       style: TextStyle(
                                         color: ColorConstant.tertiaryColor,
                                         fontSize: DimenConstant.extraSmallText,
@@ -131,10 +108,22 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemBuilder: (context, index) => RecipeItem(
-                        recipe: Database.recipes[index],
+                      itemBuilder: (context, index) => InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RecipeViewScreen(
+                              recipe: recipes[index],
+                              isAddedToKitchen: true,
+                              onKitchenPressed: () {},
+                            ),
+                          ),
+                        ),
+                        child: RecipeItem(
+                          recipe: recipes[index],
+                        ),
                       ),
-                      itemCount: Database.recipes.length,
+                      itemCount: recipes.length,
                     ),
                   ),
                 ],

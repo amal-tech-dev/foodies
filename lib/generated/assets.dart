@@ -14,6 +14,8 @@ class Assets {
   static const String lottieLoading = 'assets/lottie/loading.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';
   static const String lottieSearching = 'assets/lottie/searching.json';
+  static const String lottieStartSearching =
+      'assets/lottie/start_searching.json';
   static const String thumbnailsAddRecipe = 'assets/thumbnails/add_recipe.png';
   static const String thumbnailsGetStarted =
       'assets/thumbnails/get_started.png';

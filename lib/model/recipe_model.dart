@@ -4,12 +4,12 @@ class RecipeModel {
   String cuisine;
   String description;
   String time;
-  String? shef;
+  String image;
+  String? chef;
   bool veg;
   List categories;
   List ingredients;
   List steps;
-  String imageUrl;
 
   RecipeModel({
     required this.id,
@@ -17,11 +17,11 @@ class RecipeModel {
     required this.cuisine,
     required this.description,
     required this.time,
-    required this.shef,
+    required this.image,
+    required this.chef,
     required this.veg,
     required this.categories,
     required this.ingredients,
     required this.steps,
-    required this.imageUrl,
   });
 }
