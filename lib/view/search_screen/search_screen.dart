@@ -125,6 +125,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               children: [
                                 Lottie.asset(
                                   LottieConstant.noResults,
+                                  repeat: false,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(

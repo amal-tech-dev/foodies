@@ -26,34 +26,12 @@ class Foodies extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => PreferedRecipeController()),
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            scaffoldBackgroundColor: ColorConstant.backgroundColor,
-          ),
-          home: HomeScreen()
-          //     RecipeViewScreen(
-          //   recipe: RecipeModel(
-          //     id: 0,
-          //     name: 'Name',
-          //     cuisine: 'Cuisine',
-          //     description: 'Description',
-          //     time: 'Time',
-          //     shef: null,
-          //     veg: true,
-          //     categories: [
-          //       'kboaoencas',
-          //       'oaiweoiwne',
-          //       'qnoweifowqie',
-          //       'wqnefiwqo',
-          //     ],
-          //     ingredients: [],
-          //     steps: [],
-          //     image: Assets.thumbnailsGetStarted,
-          //   ),
-          //   isAddedToKitchen: false,
-          //   onKitchenPressed: () {},
-          // ),
-          ),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: ColorConstant.backgroundColor,
+        ),
+        home: HomeScreen(),
+      ),
     );
   }
 }

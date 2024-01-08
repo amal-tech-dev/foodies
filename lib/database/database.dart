@@ -136,7 +136,7 @@ class Database {
       description:
           '"Prawn Yellow Rice" is a flavorful and vibrant dish that combines the succulence of prawns with the aromatic and visually appealing hues of yellow rice. This dish is a culinary delight, often associated with various cultural cuisines that embrace the use of spices to infuse both color and taste.',
       time: '25-60 mins',
-      chef: 'user_181',
+      chef: 'guest_181',
       veg: false,
       categories: [
         'Main Courses/Entrees',

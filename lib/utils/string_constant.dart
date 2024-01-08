@@ -28,4 +28,6 @@ class StringConstant {
       'Search Recipes by Name, Cuisines, Categories or Users';
   static const String noResultsText =
       'No results found, check spelling or check';
+  static const String emptyKitchen =
+      'Your Kitchen is empty. Add your favourites Recipes to Kitchen for easy access.';
 }
