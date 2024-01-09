@@ -83,15 +83,43 @@ class Database {
       name: 'BBQ Chicken',
       cuisine: 'American Cuisine',
       description:
-          'Barbecue chicken consists of chicken parts or entire chickens that are barbecued, grilled or smoked. There are many global and regional preparation techniques and cooking styles. Barbecue chicken is often seasoned or coated in a spice rub, barbecue sauce, or both.',
-      time: '6-10 mins for boneless and 10-14 mins for bone-in',
+          'Barbecue chicken consists of chicken parts or entire chickens that are barbecued, grilled or smoked.',
+      time: '6-10 mins for boneless and 10-14 mins for bone-in.',
       chef: null,
       veg: false,
       categories: [
         'Main Courses/Entrees',
       ],
-      ingredients: [],
-      steps: [],
+      ingredients: [
+        '4 pounds bone-in, skin-on chicken parts (legs, thighs, wings, breasts).',
+        'Kosher salt.',
+        'Extra virgin olive oil or vegetable oil.',
+        '1 cup barbecue sauce, store-bought or homemade.',
+      ],
+      steps: [
+        'Coat the chicken pieces with olive oil and sprinkle salt over them on all sides.',
+        'Prepare one side of your grill for high, direct heat.',
+        'If you are using charcoal or wood, make sure there is a cool side to the grill where there are few to no coals.',
+        'Lay the chicken pieces skin side down on the hottest side of the grill in order to sear the skin side well.',
+        'Grill uncovered for 5 to 10 minutes, depending on how hot the grill is (you do not want the chicken to burn).',
+        'Once you have a good sear on one side, turn the chicken pieces over and move them to the cooler side of the grill.',
+        'If you are using a gas grill, maintain the flame on only one side of the grill, and move the chicken pieces to the cooler side, not directly over the flame.',
+        'Reduce the temp to low or medium low (between 250°F and 275°F, no more than 300°F).',
+        'Cover the grill and cook undisturbed for 20 to 30 minutes.',
+        'Turn the chicken pieces over and baste them with your favorite barbecue sauce.',
+        'Cover the grill again and allow to cook for another 15 to 20 minutes.',
+        'Repeat, turning the chicken pieces over, basting them with sauce, covering, and cooking for another 10 to 30 minutes.',
+        'The timing will depend on your grill set-up, the size of your chicken pieces, and how cold your chicken pieces are to start with!',
+        'If you\'re grilling smaller pieces of chicken on a charcoal grill, they may be done much earlier.',
+        'The goal is to maintain a low enough grill temp so that the chicken cooks "low and slow"',
+        'The chicken is done when the internal temperature of the chicken pieces are 160°F for breasts and 170°F for thighs, when tested with a meat thermometer.',
+        'Or if you insert the tip of a knife into the middle of the thickest piece and the juices run clear, the chicken is done.',
+        'If the chicken isn\'t done, turn the pieces over and continue to cook at a low temperature.',
+        'If you want, you can finish with a sear on the hot side of the grill.',
+        'To do this, put the pieces, skin side down, on the hot side of the grill.',
+        'Allow them to sear and blacken slightly for a minute or two.',
+        'Use a clean brush to paint the cooked chicken with more barbecue sauce and serve.',
+      ],
       image: Assets.foodImagesBbqChicken,
     ),
     RecipeModel(
@@ -101,7 +129,7 @@ class Database {
       description:
           'Okonomiyaki is a popular pan-fried dish that consists of batter and cabbage. Selected toppings and ingredients are added which can vary greatly (anything from meat and seafood to wasabi and cheese). This variability is reflected in the dish\'s name; "okonomi" literally means "to one\'s liking".',
       time:
-          '5-7 mins in Griddle or Pan, 4-6 mins in Teppanyaki Grill and 10-15 mins in Oven at 350°F (175°C)',
+          '5-7 mins in Griddle or Pan, 4-6 mins in Teppanyaki Grill and 10-15 mins in Oven at 350°F (175°C).',
       chef: null,
       veg: true,
       categories: [
@@ -118,7 +146,7 @@ class Database {
       description:
           'This vibrant prawn salad is a great lunchtime option whether you’re on the go, at work or fancy a quick bite to eat in the sunshine at the weekend. It’s packed full of fresh, yummy goodness. King prawns are fried in garlic, chilli and lime before being tossed together in an aromatic salad and drizzled with a honey, soy and ginger dressing to add some ‘zing’ to your day.',
       time:
-          '2-4 mins for Boiling, 3-5 mins for Grilling and 10-15 mins for Baking at 375°F (190°C)',
+          '2-4 mins for Boiling, 3-5 mins for Grilling and 10-15 mins for Baking at 375°F (190°C).',
       chef: null,
       veg: false,
       categories: [
@@ -135,7 +163,7 @@ class Database {
       cuisine: 'Spanish Cuisine',
       description:
           '"Prawn Yellow Rice" is a flavorful and vibrant dish that combines the succulence of prawns with the aromatic and visually appealing hues of yellow rice. This dish is a culinary delight, often associated with various cultural cuisines that embrace the use of spices to infuse both color and taste.',
-      time: '25-60 mins',
+      time: '25-60 mins.',
       chef: 'guest_181',
       veg: false,
       categories: [

@@ -5,7 +5,7 @@ import 'package:foodies/controller/navigation_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
-import 'package:foodies/view/select_diet_screen/select_diet_screen.dart';
+import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:provider/provider.dart';
 
 class LoginOptions extends StatelessWidget {
@@ -25,7 +25,7 @@ class LoginOptions extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => SelectDietScreen(),
+                builder: (context) => GetStartedScreen(),
               ),
               (route) => false,
             );
@@ -65,32 +65,35 @@ class LoginOptions extends StatelessWidget {
             Provider.of<NavigationController>(context, listen: false)
                 .loggedIn();
           },
-          child: Container(
-            padding: EdgeInsets.all(
-              DimenConstant.edgePadding * 1.5,
-            ),
-            decoration: BoxDecoration(
-              color: ColorConstant.tertiaryColor,
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
+          child: InkWell(
+            onTap: () {},
+            child: Container(
+              padding: EdgeInsets.all(
+                DimenConstant.edgePadding * 1.5,
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FaIcon(
-                  FontAwesomeIcons.google,
-                  color: ColorConstant.primaryColor,
+              decoration: BoxDecoration(
+                color: ColorConstant.tertiaryColor,
+                borderRadius: BorderRadius.circular(
+                  DimenConstant.borderRadius,
                 ),
-                DimenConstant.separator,
-                Text(
-                  'Continue with Google',
-                  style: TextStyle(
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.google,
                     color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.subtitleText,
                   ),
-                )
-              ],
+                  DimenConstant.separator,
+                  Text(
+                    'Continue with Google',
+                    style: TextStyle(
+                      color: ColorConstant.primaryColor,
+                      fontSize: DimenConstant.subtitleText,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -193,7 +196,7 @@ class LoginOptions extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SelectDietScreen(),
+                          builder: (context) => GetStartedScreen(),
                         ),
                         (route) => false,
                       );

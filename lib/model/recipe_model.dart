@@ -7,9 +7,9 @@ class RecipeModel {
   String image;
   String? chef;
   bool veg;
-  List categories;
-  List ingredients;
-  List steps;
+  List<String> categories;
+  List<String> ingredients;
+  List<String> steps;
 
   RecipeModel({
     required this.id,

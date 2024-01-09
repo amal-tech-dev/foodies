@@ -114,7 +114,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           MaterialPageRoute(
                             builder: (context) => RecipeViewScreen(
                               recipe: recipes[index],
-                              isAddedToKitchen: true,
+                              isAddedToKitchen: false,
                               onKitchenPressed: () {},
                             ),
                           ),

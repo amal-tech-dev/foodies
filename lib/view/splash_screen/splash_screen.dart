@@ -7,7 +7,6 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -32,11 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => navigationController.isFirstVisit
-                ? GetStartedScreen()
-                : navigationController.isLoggedin
-                    ? HomeScreen()
-                    : LoginScreen(),
+            builder: (context) =>
+                navigationController.isLoggedin ? HomeScreen() : LoginScreen(),
           ),
         );
       },

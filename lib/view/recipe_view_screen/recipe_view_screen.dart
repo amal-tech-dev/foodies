@@ -101,9 +101,25 @@ class RecipeViewScreen extends StatelessWidget {
                   ],
                 ),
                 SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 25,
+                  child: DimenConstant.separator,
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: DimenConstant.edgePadding,
+                    ),
+                    child: Text(
+                      recipe.description,
+                      style: TextStyle(
+                        color: ColorConstant.primaryColor,
+                        fontSize: DimenConstant.subtitleText,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
                   ),
+                ),
+                SliverToBoxAdapter(
+                  child: DimenConstant.separator,
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -131,9 +147,7 @@ class RecipeViewScreen extends StatelessWidget {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 20,
-                  ),
+                  child: DimenConstant.separator,
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -154,12 +168,30 @@ class RecipeViewScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                       horizontal: DimenConstant.edgePadding,
                     ),
-                    child: Text(
-                      recipe.cuisine,
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.subtitleText,
-                      ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: DimenConstant.subtitleText / 2,
+                          ),
+                          child: CircleAvatar(
+                            backgroundColor: ColorConstant.secondaryColor,
+                            radius: 5,
+                          ),
+                        ),
+                        DimenConstant.separator,
+                        Expanded(
+                          child: Text(
+                            recipe.cuisine,
+                            style: TextStyle(
+                              color: ColorConstant.primaryColor,
+                              fontSize: DimenConstant.subtitleText,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -185,12 +217,30 @@ class RecipeViewScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                       horizontal: DimenConstant.edgePadding,
                     ),
-                    child: Text(
-                      recipe.categories.join(', '),
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.subtitleText,
-                      ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: DimenConstant.subtitleText / 2,
+                          ),
+                          child: CircleAvatar(
+                            backgroundColor: ColorConstant.secondaryColor,
+                            radius: 5,
+                          ),
+                        ),
+                        DimenConstant.separator,
+                        Expanded(
+                          child: Text(
+                            recipe.categories.join(', ') + '.',
+                            style: TextStyle(
+                              color: ColorConstant.primaryColor,
+                              fontSize: DimenConstant.subtitleText,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -216,12 +266,30 @@ class RecipeViewScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                       horizontal: DimenConstant.edgePadding,
                     ),
-                    child: Text(
-                      recipe.time,
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.subtitleText,
-                      ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: DimenConstant.subtitleText / 2,
+                          ),
+                          child: CircleAvatar(
+                            backgroundColor: ColorConstant.secondaryColor,
+                            radius: 5,
+                          ),
+                        ),
+                        DimenConstant.separator,
+                        Expanded(
+                          child: Text(
+                            recipe.time,
+                            style: TextStyle(
+                              color: ColorConstant.primaryColor,
+                              fontSize: DimenConstant.subtitleText,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -242,19 +310,38 @@ class RecipeViewScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SliverList.builder(
+                SliverList.separated(
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: DimenConstant.edgePadding,
                     ),
-                    child: Text(
-                      recipe.ingredients[index],
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.subtitleText,
-                      ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: DimenConstant.subtitleText / 2,
+                          ),
+                          child: CircleAvatar(
+                            backgroundColor: ColorConstant.secondaryColor,
+                            radius: 5,
+                          ),
+                        ),
+                        DimenConstant.separator,
+                        Expanded(
+                          child: Text(
+                            recipe.ingredients[index],
+                            style: TextStyle(
+                              color: ColorConstant.primaryColor,
+                              fontSize: DimenConstant.subtitleText,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  separatorBuilder: (context, index) => DimenConstant.separator,
                   itemCount: recipe.ingredients.length,
                 ),
                 SliverToBoxAdapter(
@@ -274,19 +361,38 @@ class RecipeViewScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SliverList.builder(
+                SliverList.separated(
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: DimenConstant.edgePadding,
                     ),
-                    child: Text(
-                      recipe.steps[index],
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.subtitleText,
-                      ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: DimenConstant.subtitleText / 2,
+                          ),
+                          child: CircleAvatar(
+                            backgroundColor: ColorConstant.secondaryColor,
+                            radius: 5,
+                          ),
+                        ),
+                        DimenConstant.separator,
+                        Expanded(
+                          child: Text(
+                            recipe.steps[index],
+                            style: TextStyle(
+                              color: ColorConstant.primaryColor,
+                              fontSize: DimenConstant.subtitleText,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  separatorBuilder: (context, index) => DimenConstant.separator,
                   itemCount: recipe.steps.length,
                 ),
               ],

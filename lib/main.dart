@@ -26,12 +26,67 @@ class Foodies extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => PreferedRecipeController()),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: ColorConstant.backgroundColor,
-        ),
-        home: HomeScreen(),
-      ),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: ColorConstant.backgroundColor,
+          ),
+          home: HomeScreen()
+
+          // RecipeViewScreen(
+          //   recipe: RecipeModel(
+          //     id: 0,
+          //     name: 'name',
+          //     cuisine: 'cuisine',
+          //     description: 'description',
+          //     time: 'time',
+          //     image: Assets.thumbnailsGetStarted,
+          //     chef: null,
+          //     veg: true,
+          //     categories: [
+          //       'categories',
+          //       'categories',
+          //       'categories',
+          //       'categories',
+          //     ],
+          //     ingredients: [
+          //       'ingredients',
+          //       'ingredients',
+          //       'ingredients',
+          //       'ingredients',
+          //       'ingredients',
+          //       'ingredients',
+          //     ],
+          //     steps: [
+          //       StepModel(
+          //         title: 'title',
+          //         description: 'description',
+          //       ),
+          //       StepModel(
+          //         title: 'title',
+          //         description: 'description',
+          //       ),
+          //       StepModel(
+          //         title: 'title',
+          //         description: 'description',
+          //       ),
+          //       StepModel(
+          //         title: 'title',
+          //         description: 'description',
+          //       ),
+          //       StepModel(
+          //         title: 'title',
+          //         description: 'description',
+          //       ),
+          //       StepModel(
+          //         title: 'title',
+          //         description: 'description',
+          //       ),
+          //     ],
+          //   ),
+          //   isAddedToKitchen: false,
+          //   onKitchenPressed: () {},
+          // ),
+          ),
     );
   }
 }

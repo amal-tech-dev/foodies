@@ -47,7 +47,7 @@ class RecipeItem extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          recipe.chef.toString().padLeft(8, '0') ?? '',
+                          recipe.chef ?? '',
                           style: TextStyle(
                             color: ColorConstant.secondaryColor,
                           ),
@@ -58,7 +58,7 @@ class RecipeItem extends StatelessWidget {
                 ),
               ),
               Container(
-                height: 150,
+                height: 155,
                 padding: EdgeInsets.all(
                   DimenConstant.edgePadding,
                 ),

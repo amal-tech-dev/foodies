@@ -5,8 +5,8 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/overview_screen/overview_widgets/carousel_item.dart';
+import 'package:foodies/view/select_diet_screen/select_diet_screen.dart';
 import 'package:provider/provider.dart';
 
 class OverviewScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
+                    builder: (context) => SelectDietScreen(),
                   ),
                   (route) => false);
             },
@@ -112,7 +112,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
+                        builder: (context) => SelectDietScreen(),
                       ),
                       (route) => false);
                 }
