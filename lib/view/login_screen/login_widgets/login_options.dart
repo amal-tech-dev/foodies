@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodies/controller/email_login_controller.dart';
-import 'package:foodies/controller/navigation_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginOptions extends StatelessWidget {
   LoginOptions({super.key});
@@ -19,9 +19,11 @@ class LoginOptions extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          onTap: () {
-            Provider.of<NavigationController>(context, listen: false)
-                .loggedIn();
+          onTap: () async {
+            SharedPreferences preferences =
+                await SharedPreferences.getInstance();
+            preferences.setBool('loggedin', true);
+            preferences.setString('login', 'guest');
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -61,10 +63,7 @@ class LoginOptions extends StatelessWidget {
         ),
         DimenConstant.separator,
         InkWell(
-          onTap: () {
-            Provider.of<NavigationController>(context, listen: false)
-                .loggedIn();
-          },
+          onTap: () {},
           child: InkWell(
             onTap: () {},
             child: Container(
@@ -190,17 +189,7 @@ class LoginOptions extends StatelessWidget {
                         ColorConstant.secondaryColor,
                       ),
                     ),
-                    onPressed: () {
-                      Provider.of<NavigationController>(context, listen: false)
-                          .loggedIn();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => GetStartedScreen(),
-                        ),
-                        (route) => false,
-                      );
-                    },
+                    onPressed: () {},
                     child: Text(
                       'Sign In',
                       style: TextStyle(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/cuisine_controller.dart';
-import 'package:foodies/controller/navigation_controller.dart';
 import 'package:foodies/database/database.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
@@ -73,7 +72,9 @@ class SelectCuisineScreen extends StatelessWidget {
                   ),
                 ),
                 backgroundColor: MaterialStatePropertyAll(
-                  ColorConstant.secondaryColor,
+                  Provider.of<CuisineController>(context).cuisineIndexes.isEmpty
+                      ? ColorConstant.tertiaryColor
+                      : ColorConstant.secondaryColor,
                 ),
               ),
               onPressed: () async {
@@ -81,12 +82,16 @@ class SelectCuisineScreen extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: ColorConstant.tertiaryColor,
-                      duration: Duration(seconds: 1),
+                      dismissDirection: DismissDirection.horizontal,
+                      showCloseIcon: true,
+                      closeIconColor: ColorConstant.secondaryColor,
+                      padding: EdgeInsets.all(
+                        DimenConstant.edgePadding,
+                      ),
                       content: Text(
-                        'Select atleast one Cuisine',
+                        'Please Select atleast one Cuisine',
                         style: TextStyle(
                           color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.smallText,
                         ),
                       ),
                     ),
@@ -94,6 +99,7 @@ class SelectCuisineScreen extends StatelessWidget {
                 } else {
                   SharedPreferences preferences =
                       await SharedPreferences.getInstance();
+                  preferences.setBool('newLogin', false);
                   preferences.setStringList(
                     'cuisines',
                     List.generate(
@@ -102,8 +108,6 @@ class SelectCuisineScreen extends StatelessWidget {
                           .cuisines[cuisineController.cuisineIndexes[index]],
                     ),
                   );
-                  Provider.of<NavigationController>(context, listen: false)
-                      .closeSelection();
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(

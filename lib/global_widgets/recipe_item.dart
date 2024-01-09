@@ -133,26 +133,11 @@ class RecipeItem extends StatelessWidget {
                 textAlign: TextAlign.justify,
               ),
               DimenConstant.separator,
-              SizedBox(
-                height: 10,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => Text(
-                    recipe.categories[index],
-                    style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.extraSmallText,
-                    ),
-                  ),
-                  separatorBuilder: (context, index) => Text(
-                    ' · ',
-                    style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.extraSmallText,
-                    ),
-                  ),
-                  itemCount: recipe.categories.length,
+              Text(
+                recipe.categories.join(' · '),
+                style: TextStyle(
+                  color: ColorConstant.primaryColor,
+                  fontSize: DimenConstant.extraSmallText,
                 ),
               ),
               DimenConstant.separator,

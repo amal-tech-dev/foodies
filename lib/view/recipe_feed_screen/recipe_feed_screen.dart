@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:foodies/database/database.dart';
 import 'package:foodies/global_widgets/recipe_item.dart';
+import 'package:foodies/main.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
@@ -10,6 +9,7 @@ import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_bottom_sheet.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RecipeFeedScreen extends StatefulWidget {
   RecipeFeedScreen({super.key});
@@ -19,23 +19,67 @@ class RecipeFeedScreen extends StatefulWidget {
 }
 
 class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
-  List<RecipeModel> recipes = Database.recipes;
+  Diet diet = Diet.semi;
+  List preferedCuisines = [];
+  List<RecipeModel> preferedRecipes = [];
   bool isLoading = false;
 
   @override
   void initState() {
     isLoading = true;
     setState(() {});
-    Timer(
-      Duration(
-        seconds: 3,
-      ),
-      () {
-        isLoading = false;
-        setState(() {});
-      },
-    );
+    getPreference();
+    isLoading = false;
+    setState(() {});
     super.initState();
+  }
+
+  // get data from shared preferences
+  getPreference() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    switch (preferences.getString('diet')) {
+      case 'veg':
+        diet = Diet.veg;
+        break;
+      case 'non':
+        diet = Diet.non;
+        break;
+      case 'semi':
+        diet = Diet.semi;
+        break;
+      default:
+        diet = Diet.semi;
+    }
+    preferedCuisines =
+        preferences.getStringList('cuisines') ?? [Database.cuisines[0]];
+    getData();
+  }
+
+  // get data with preferences
+  getData() {
+    List<RecipeModel> allRecipes = Database.recipes;
+    List<RecipeModel> vegRecipes = [];
+    List<RecipeModel> nonvegRecipes = [];
+    for (int i = 0; i < allRecipes.length; i++) {
+      if (allRecipes[i].veg) {
+        vegRecipes.add(allRecipes[i]);
+      } else {
+        nonvegRecipes.add(allRecipes[i]);
+      }
+    }
+    switch (diet) {
+      case Diet.veg:
+        preferedRecipes = vegRecipes;
+        break;
+      case Diet.non:
+        preferedRecipes = nonvegRecipes;
+        break;
+      case Diet.semi:
+        preferedRecipes = allRecipes;
+        break;
+      default:
+        preferedRecipes = allRecipes;
+    }
   }
 
   @override
@@ -54,6 +98,8 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
               child: Column(
                 children: [
                   InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onTap: () {
                       showModalBottomSheet(
                         context: context,
@@ -69,7 +115,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          recipes.isNotEmpty
+                          preferedRecipes.isNotEmpty
                               ? Icon(
                                   Icons.tune_rounded,
                                   color: ColorConstant.primaryColor,
@@ -113,17 +159,17 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => RecipeViewScreen(
-                              recipe: recipes[index],
+                              recipe: preferedRecipes[index],
                               isAddedToKitchen: false,
                               onKitchenPressed: () {},
                             ),
                           ),
                         ),
                         child: RecipeItem(
-                          recipe: recipes[index],
+                          recipe: preferedRecipes[index],
                         ),
                       ),
-                      itemCount: recipes.length,
+                      itemCount: preferedRecipes.length,
                     ),
                   ),
                 ],

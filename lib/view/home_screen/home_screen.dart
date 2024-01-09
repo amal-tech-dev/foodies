@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
+  int pageIndex = 0;
   List screens = [
     RecipeFeedScreen(),
     SearchScreen(),
@@ -50,50 +50,52 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: screens[currentIndex],
+      body: screens[pageIndex],
       bottomNavigationBar: Theme(
         data: ThemeData(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
         ),
         child: BottomNavigationBar(
-          currentIndex: currentIndex,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
+          currentIndex: pageIndex,
           selectedItemColor: ColorConstant.secondaryColor,
           unselectedItemColor: ColorConstant.primaryColor,
+          selectedFontSize: DimenConstant.smallText,
+          unselectedFontSize: DimenConstant.smallText,
           backgroundColor: ColorConstant.backgroundColor,
           type: BottomNavigationBarType.fixed,
           landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           onTap: (value) {
-            currentIndex = value;
+            pageIndex = value;
             setState(() {});
           },
           items: [
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.fastfood_rounded),
+              activeIcon: Icon(
+                Icons.fastfood_rounded,
+              ),
               icon: Icon(Icons.fastfood_outlined),
-              label: '',
+              label: 'Recipes',
             ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.search_rounded),
               icon: Icon(Icons.search_rounded),
-              label: '',
+              label: 'Search',
             ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.add_rounded),
               icon: Icon(Icons.add_rounded),
-              label: '',
+              label: 'Add',
             ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.food_bank_rounded),
               icon: Icon(Icons.food_bank_outlined),
-              label: '',
+              label: 'Kitchen',
             ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.person_rounded),
               icon: Icon(Icons.person_outline_rounded),
-              label: '',
+              label: 'Profile',
             ),
           ],
         ),

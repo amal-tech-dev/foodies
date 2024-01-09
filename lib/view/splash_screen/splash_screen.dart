@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodies/controller/navigation_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
@@ -19,25 +19,37 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool isLoggedin = false;
+  bool isNewLogin = false;
   @override
   void initState() {
-    var navigationController =
-        Provider.of<NavigationController>(context, listen: false);
     Timer(
       Duration(
         seconds: 3,
       ),
       () {
+        getPreferences();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                navigationController.isLoggedin ? HomeScreen() : LoginScreen(),
+            builder: (context) => isLoggedin
+                ? isNewLogin
+                    ? GetStartedScreen()
+                    : HomeScreen()
+                : LoginScreen(),
           ),
         );
       },
     );
     super.initState();
+  }
+
+  // fetch data from shared preferences
+  getPreferences() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    isLoggedin = preferences.getBool('loggedin') ?? false;
+    isNewLogin = preferences.getBool('newLogin') ?? true;
+    setState(() {});
   }
 
   @override

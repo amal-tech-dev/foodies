@@ -31,7 +31,7 @@ class FilterBottomSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Preferred Diet',
+                    'Diet',
                     style: TextStyle(
                       color: ColorConstant.primaryColor,
                       fontSize: DimenConstant.titleText,

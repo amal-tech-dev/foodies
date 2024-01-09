@@ -1,13 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:foodies/controller/navigation_controller.dart';
+import 'package:foodies/controller/carousel_slider_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/overview_screen/overview_widgets/carousel_item.dart';
 import 'package:foodies/view/select_diet_screen/select_diet_screen.dart';
-import 'package:provider/provider.dart';
 
 class OverviewScreen extends StatefulWidget {
   OverviewScreen({super.key});
@@ -17,8 +16,9 @@ class OverviewScreen extends StatefulWidget {
 }
 
 class _OverviewScreenState extends State<OverviewScreen> {
+  CarouselSliderController carouselSliderController =
+      CarouselSliderController();
   CarouselController carouselController = CarouselController();
-  int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,18 +29,12 @@ class _OverviewScreenState extends State<OverviewScreen> {
             height: 40,
           ),
           TextButton(
-            onPressed: () {
-              Provider.of<NavigationController>(
+            onPressed: () => Navigator.pushAndRemoveUntil(
                 context,
-                listen: false,
-              ).closeOverview();
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SelectDietScreen(),
-                  ),
-                  (route) => false);
-            },
+                MaterialPageRoute(
+                  builder: (context) => SelectDietScreen(),
+                ),
+                (route) => false),
             child: Text(
               'Skip',
               style: TextStyle(
@@ -77,7 +71,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 enableInfiniteScroll: false,
                 scrollPhysics: NeverScrollableScrollPhysics(),
                 onPageChanged: (index, reason) {
-                  currentPageIndex = index;
+                  carouselSliderController.increment();
                   setState(() {});
                 },
               ),
@@ -101,14 +95,10 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 ),
               ),
               onPressed: () {
-                if (currentPageIndex < 2) {
+                if (carouselSliderController.index < 2) {
                   carouselController.nextPage();
                   setState(() {});
                 } else {
-                  Provider.of<NavigationController>(
-                    context,
-                    listen: false,
-                  ).closeOverview();
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
