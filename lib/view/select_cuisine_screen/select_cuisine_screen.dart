@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:foodies/controller/cuisine_controller.dart';
 import 'package:foodies/database/database.dart';
 import 'package:foodies/utils/color_constant.dart';
@@ -40,11 +41,11 @@ class SelectCuisineScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              child: MasonryGridView.builder(
+                crossAxisSpacing: DimenConstant.edgePadding,
+                mainAxisSpacing: DimenConstant.edgePadding,
+                gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  crossAxisSpacing: DimenConstant.edgePadding,
-                  mainAxisSpacing: DimenConstant.edgePadding,
                 ),
                 itemBuilder: (context, index) => CuisineTile(
                   name: Database.cuisines[index],

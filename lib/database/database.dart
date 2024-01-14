@@ -2,14 +2,14 @@ import 'package:foodies/generated/assets.dart';
 import 'package:foodies/model/recipe_model.dart';
 
 class Database {
-  static const List<String> preferences = [
+  static const List<String> diet = [
     'Vegetarian',
     'Non-vegetarian',
     'Semi-vegetarian',
   ];
 
   static const List<String> cuisines = [
-    'All Cuisines',
+    'All',
     'African Cuisine',
     'American Cuisine',
     'Argentinian Cuisine',
@@ -63,7 +63,7 @@ class Database {
   ];
 
   static const List<String> categories = [
-    'All Categories',
+    'All',
     'Appetizers/Starters',
     'Soups and Salads',
     'Main Courses/Entrees',

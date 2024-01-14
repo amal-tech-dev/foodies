@@ -29,6 +29,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
     isLoading = true;
     setState(() {});
     getPreference();
+    getData();
     isLoading = false;
     setState(() {});
     super.initState();
@@ -52,7 +53,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
     }
     preferedCuisines =
         preferences.getStringList('cuisines') ?? [Database.cuisines[0]];
-    getData();
+    setState(() {});
   }
 
   // get data with preferences
@@ -80,6 +81,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
       default:
         preferedRecipes = allRecipes;
     }
+    setState(() {});
   }
 
   @override
@@ -105,6 +107,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                         context: context,
                         builder: (context) => FilterBottomSheet(),
                         backgroundColor: ColorConstant.backgroundColor,
+                        showDragHandle: true,
                       );
                     },
                     child: Padding(

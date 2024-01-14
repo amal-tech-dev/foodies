@@ -1,153 +1,111 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:foodies/database/database.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_item.dart';
 
 class FilterBottomSheet extends StatelessWidget {
   FilterBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    int currentIndex = 0;
     return Container(
       padding: EdgeInsets.all(
         DimenConstant.edgePadding,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            children: [
-              Text(
-                'Filters',
-                style: TextStyle(
-                  color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.mediumText,
-                ),
-              ),
-              DimenConstant.separator,
-              DimenConstant.separator,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Diet',
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.titleText,
+                      color: ColorConstant.secondaryColor,
+                      fontSize: DimenConstant.subtitleText,
                     ),
                   ),
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      value: currentIndex,
-                      alignment: Alignment.centerRight,
-                      icon: Icon(
-                        Icons.expand_more_rounded,
-                      ),
-                      iconEnabledColor: ColorConstant.secondaryColor,
-                      dropdownColor: ColorConstant.backgroundColor,
-                      items: List.generate(
-                        Database.preferences.length,
-                        (index) => DropdownMenuItem(
-                          value: index,
-                          child: Text(
-                            Database.preferences[index],
-                            style: TextStyle(
-                              color: ColorConstant.primaryColor,
-                              fontSize: DimenConstant.subtitleText,
-                            ),
-                          ),
+                  DimenConstant.separator,
+                  SizedBox(
+                    height: 30,
+                    child: Expanded(
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => FilterItem(
+                          name: Database.diet[index],
+                          isPressed: false,
+                          onPressed: () {},
                         ),
+                        separatorBuilder: (context, index) =>
+                            DimenConstant.separator,
+                        itemCount: Database.diet.length,
                       ),
-                      onChanged: (value) {
-                        currentIndex = value ?? currentIndex;
-                      },
                     ),
                   ),
-                ],
-              ),
-              DimenConstant.separator,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                  DimenConstant.separator,
                   Text(
-                    'Cuisine',
+                    'Cuisines',
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.titleText,
+                      color: ColorConstant.secondaryColor,
+                      fontSize: DimenConstant.subtitleText,
                     ),
                   ),
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      value: currentIndex,
-                      alignment: Alignment.centerRight,
-                      icon: Icon(
-                        Icons.expand_more_rounded,
+                  DimenConstant.separator,
+                  SizedBox(
+                    height: 190,
+                    child: MasonryGridView.builder(
+                      crossAxisSpacing: DimenConstant.edgePadding,
+                      mainAxisSpacing: DimenConstant.edgePadding,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate:
+                          SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 5,
                       ),
-                      iconEnabledColor: ColorConstant.secondaryColor,
-                      dropdownColor: ColorConstant.backgroundColor,
-                      items: List.generate(
-                        Database.cuisines.length,
-                        (index) => DropdownMenuItem(
-                          value: index,
-                          child: Text(
-                            Database.cuisines[index],
-                            style: TextStyle(
-                              color: ColorConstant.primaryColor,
-                              fontSize: DimenConstant.subtitleText,
-                            ),
-                          ),
-                        ),
+                      itemBuilder: (context, index) => FilterItem(
+                        name: Database.cuisines[index],
+                        isPressed: false,
+                        onPressed: () {},
                       ),
-                      onChanged: (value) {
-                        currentIndex = value ?? currentIndex;
-                      },
+                      itemCount: Database.cuisines.length,
                     ),
                   ),
-                ],
-              ),
-              DimenConstant.separator,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                  DimenConstant.separator,
                   Text(
                     'Categories',
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.titleText,
+                      color: ColorConstant.secondaryColor,
+                      fontSize: DimenConstant.subtitleText,
                     ),
                   ),
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      value: currentIndex,
-                      alignment: Alignment.centerRight,
-                      icon: Icon(
-                        Icons.expand_more_rounded,
+                  DimenConstant.separator,
+                  SizedBox(
+                    height: 72,
+                    child: MasonryGridView.builder(
+                      crossAxisSpacing: DimenConstant.edgePadding,
+                      mainAxisSpacing: DimenConstant.edgePadding,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate:
+                          SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
                       ),
-                      iconEnabledColor: ColorConstant.secondaryColor,
-                      dropdownColor: ColorConstant.backgroundColor,
-                      items: List.generate(
-                        Database.categories.length,
-                        (index) => DropdownMenuItem(
-                          value: index,
-                          child: Text(
-                            Database.categories[index],
-                            style: TextStyle(
-                              color: ColorConstant.primaryColor,
-                              fontSize: DimenConstant.subtitleText,
-                            ),
-                          ),
-                        ),
+                      itemBuilder: (context, index) => FilterItem(
+                        name: Database.categories[index],
+                        isPressed: false,
+                        onPressed: () {},
                       ),
-                      onChanged: (value) {
-                        currentIndex = value ?? currentIndex;
-                      },
+                      itemCount: Database.categories.length,
                     ),
                   ),
                 ],
               ),
-            ],
+            ),
           ),
+          DimenConstant.separator,
           Row(
             children: [
               Expanded(
@@ -184,7 +142,7 @@ class FilterBottomSheet extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

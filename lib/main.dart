@@ -24,11 +24,12 @@ class Foodies extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => PreferedRecipeController()),
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            scaffoldBackgroundColor: ColorConstant.backgroundColor,
-          ),
-          home: SplashScreen()),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: ColorConstant.backgroundColor,
+        ),
+        home: SplashScreen(),
+      ),
     );
   }
 }
