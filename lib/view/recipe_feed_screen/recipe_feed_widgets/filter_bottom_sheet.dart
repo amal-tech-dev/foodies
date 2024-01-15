@@ -31,18 +31,16 @@ class FilterBottomSheet extends StatelessWidget {
                   DimenConstant.separator,
                   SizedBox(
                     height: 30,
-                    child: Expanded(
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => FilterItem(
-                          name: Database.diet[index],
-                          isPressed: false,
-                          onPressed: () {},
-                        ),
-                        separatorBuilder: (context, index) =>
-                            DimenConstant.separator,
-                        itemCount: Database.diet.length,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => FilterItem(
+                        name: Database.diet[index],
+                        isPressed: false,
+                        onPressed: () {},
                       ),
+                      separatorBuilder: (context, index) =>
+                          DimenConstant.separator,
+                      itemCount: Database.diet.length,
                     ),
                   ),
                   DimenConstant.separator,
@@ -115,9 +113,9 @@ class FilterBottomSheet extends StatelessWidget {
                       ColorConstant.secondaryColor,
                     ),
                   ),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {},
                   child: Text(
-                    'Cancel',
+                    'Reset',
                     style: TextStyle(
                       color: ColorConstant.primaryColor,
                     ),

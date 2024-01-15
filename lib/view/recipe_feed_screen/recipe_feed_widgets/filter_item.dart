@@ -17,6 +17,7 @@ class FilterItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: Colors.transparent,
       onTap: onPressed,
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -32,7 +33,9 @@ class FilterItem extends StatelessWidget {
           child: Text(
             name,
             style: TextStyle(
-              color: ColorConstant.primaryColor,
+              color: isPressed
+                  ? ColorConstant.tertiaryColor
+                  : ColorConstant.primaryColor,
               fontSize: DimenConstant.extraSmallText,
             ),
           ),
