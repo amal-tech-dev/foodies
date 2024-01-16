@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies/database/database.dart';
-import 'package:foodies/global_widgets/recipe_item.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/about_screen/about_screen.dart';
+import 'package:foodies/widgets/recipe_item.dart';
 import 'package:lottie/lottie.dart';
 
 class SearchScreen extends StatefulWidget {

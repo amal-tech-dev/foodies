@@ -6,8 +6,6 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/view/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
-enum Diet { veg, non, semi }
-
 void main() {
   runApp(Foodies());
 }

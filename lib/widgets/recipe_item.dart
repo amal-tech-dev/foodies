@@ -66,12 +66,12 @@ class RecipeItem extends StatelessWidget {
                   gradient: LinearGradient(
                     colors: recipe.veg
                         ? [
-                            ColorConstant.vegColorPrimary,
-                            ColorConstant.vegColorSecondary,
+                            ColorConstant.vegGradientPrimary,
+                            ColorConstant.vegGradientSecondary,
                           ]
                         : [
-                            ColorConstant.nonvegColorPrimary,
-                            ColorConstant.nonvegColorSecondary,
+                            ColorConstant.nonvegGradientPrimary,
+                            ColorConstant.nonvegGradientSecondary,
                           ],
                   ),
                   borderRadius: BorderRadius.circular(20),

@@ -3,7 +3,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_screen/add_recipe_screen.dart';
-import 'package:foodies/view/kitchen_screen/kitchen_screen.dart';
+import 'package:foodies/view/menu_screen/menu_screen.dart';
 import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
 import 'package:foodies/view/search_screen/search_screen.dart';
@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     RecipeFeedScreen(),
     SearchScreen(),
     AddRecipeScreen(),
-    KitchenScreen(),
+    MenuScreen(),
     ProfileScreen(),
   ];
 
@@ -88,9 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Add',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.food_bank_rounded),
-              icon: Icon(Icons.food_bank_outlined),
-              label: 'Kitchen',
+              activeIcon: Icon(Icons.restaurant_menu_rounded),
+              icon: Icon(Icons.restaurant_menu_outlined),
+              label: 'Menu',
             ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.person_rounded),

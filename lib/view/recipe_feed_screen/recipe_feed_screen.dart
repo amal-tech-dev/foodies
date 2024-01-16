@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/database/database.dart';
-import 'package:foodies/global_widgets/recipe_item.dart';
-import 'package:foodies/main.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_bottom_sheet.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
+import 'package:foodies/widgets/recipe_item.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +18,7 @@ class RecipeFeedScreen extends StatefulWidget {
 }
 
 class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
-  Diet diet = Diet.semi;
+  String diet = '';
   List preferedCuisines = [];
   List<RecipeModel> preferedRecipes = [];
   bool isLoading = false;
@@ -38,19 +37,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
   // get data from shared preferences
   getPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    switch (preferences.getString('diet')) {
-      case 'veg':
-        diet = Diet.veg;
-        break;
-      case 'non':
-        diet = Diet.non;
-        break;
-      case 'semi':
-        diet = Diet.semi;
-        break;
-      default:
-        diet = Diet.semi;
-    }
+    diet = preferences.getString('diet')!;
     preferedCuisines =
         preferences.getStringList('cuisines') ?? [Database.cuisines[0]];
     setState(() {});
@@ -68,18 +55,12 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
         nonvegRecipes.add(allRecipes[i]);
       }
     }
-    switch (diet) {
-      case Diet.veg:
-        preferedRecipes = vegRecipes;
-        break;
-      case Diet.non:
-        preferedRecipes = nonvegRecipes;
-        break;
-      case Diet.semi:
-        preferedRecipes = allRecipes;
-        break;
-      default:
-        preferedRecipes = allRecipes;
+    if (diet == 'veg') {
+      preferedRecipes = vegRecipes;
+    } else if (diet == 'non') {
+      preferedRecipes = nonvegRecipes;
+    } else if (diet == 'semi') {
+      preferedRecipes = allRecipes;
     }
     setState(() {});
   }
@@ -162,17 +143,17 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => RecipeViewScreen(
-                              recipe: preferedRecipes[index],
+                              recipe: Database.recipes[index],
                               isAddedToKitchen: false,
                               onKitchenPressed: () {},
                             ),
                           ),
                         ),
                         child: RecipeItem(
-                          recipe: preferedRecipes[index],
+                          recipe: Database.recipes[index],
                         ),
                       ),
-                      itemCount: preferedRecipes.length,
+                      itemCount: Database.recipes.length,
                     ),
                   ),
                 ],
