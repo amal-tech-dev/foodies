@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/about_screen/about_screen.dart';
+import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
@@ -48,14 +49,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ProfileTile(
-                  id: 0,
+                  username: 'guest_000000',
                   name: 'Guest',
-                  imageUrl: '',
+                  image: ImageConstant.profilePicture,
                 ),
-                Visibility(
-                  visible: !isGuest,
-                  child: DimenConstant.separator,
-                ),
+                DimenConstant.separator,
                 Visibility(
                   visible: !isGuest,
                   child: SettingsTile(
@@ -63,10 +61,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     screen: MyRecipesScreen(),
                   ),
                 ),
-                DimenConstant.separator,
-                SettingsTile(
-                  name: 'About Categories and Cuisines',
-                  screen: AboutScreen(),
+                Visibility(
+                  visible: !isGuest,
+                  child: DimenConstant.separator,
                 ),
               ],
             ),
@@ -86,8 +83,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     content: Text(
                       isGuest
-                          ? 'You are logged in as guest. Data cannot be recovered after logging out. Do you want to logout?'
-                          : 'Do you want to logout?',
+                          ? StringConstant.logoutAlertGuest
+                          : StringConstant.logoutAlert,
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
                         fontSize: DimenConstant.smallText,
@@ -107,7 +104,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       DimenConstant.separator,
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
+                          SharedPreferences preferences =
+                              await SharedPreferences.getInstance();
+                          preferences.setBool('loggedin', false);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(

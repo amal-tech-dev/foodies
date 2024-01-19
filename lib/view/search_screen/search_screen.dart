@@ -7,7 +7,6 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/about_screen/about_screen.dart';
 import 'package:foodies/widgets/recipe_item.dart';
 import 'package:lottie/lottie.dart';
 
@@ -138,27 +137,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                       fontSize: DimenConstant.subtitleText,
                                     ),
                                     textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 40,
-                                  ),
-                                  child: InkWell(
-                                    onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AboutScreen(),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'About cuisines and categories',
-                                      style: TextStyle(
-                                        color: ColorConstant.secondaryColor,
-                                        fontSize: DimenConstant.subtitleText,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
                                   ),
                                 ),
                               ],

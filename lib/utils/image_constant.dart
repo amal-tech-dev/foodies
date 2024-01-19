@@ -7,4 +7,5 @@ class ImageConstant {
   static const String loginThumbnail = Assets.thumbnailsLogin;
   static const String signupThumbnail = Assets.thumbnailsSignup;
   static const String addRecipeThumbnail = Assets.thumbnailsAddRecipe;
+  static const String profilePicture = Assets.imagesProfile;
 }

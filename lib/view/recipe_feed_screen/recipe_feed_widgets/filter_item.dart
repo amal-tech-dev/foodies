@@ -38,6 +38,7 @@ class FilterItem extends StatelessWidget {
                   : ColorConstant.primaryColor,
               fontSize: DimenConstant.extraSmallText,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
       ),

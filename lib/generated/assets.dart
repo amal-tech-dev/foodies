@@ -10,6 +10,7 @@ class Assets {
       'assets/food_images/prawn_yellow_rice.png';
   static const String foodImagesVeggieOkonomiyaki =
       'assets/food_images/veggie_okonomiyaki.png';
+  static const String imagesProfile = 'assets/images/profile.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
   static const String lottieEmptyKitchen = 'assets/lottie/empty_kitchen.json';
   static const String lottieLoading = 'assets/lottie/loading.json';

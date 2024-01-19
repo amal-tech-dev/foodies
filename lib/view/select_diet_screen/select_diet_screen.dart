@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/select_cuisine_screen/select_cuisine_screen.dart';
+import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectDietScreen extends StatelessWidget {
@@ -41,7 +41,7 @@ class SelectDietScreen extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SelectCuisineScreen(),
+                    builder: (context) => HomeScreen(),
                   ),
                   (route) => false,
                 );
@@ -77,7 +77,7 @@ class SelectDietScreen extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SelectCuisineScreen(),
+                    builder: (context) => HomeScreen(),
                   ),
                   (route) => false,
                 );
@@ -113,7 +113,7 @@ class SelectDietScreen extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SelectCuisineScreen(),
+                    builder: (context) => HomeScreen(),
                   ),
                   (route) => false,
                 );

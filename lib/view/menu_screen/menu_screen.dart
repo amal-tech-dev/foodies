@@ -67,7 +67,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           horizontal: 40,
                         ),
                         child: Text(
-                          StringConstant.emptyKitchen,
+                          StringConstant.emptyMenu,
                           style: TextStyle(
                             color: ColorConstant.secondaryColor,
                             fontSize: DimenConstant.subtitleText,

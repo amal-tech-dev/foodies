@@ -89,8 +89,8 @@ class RecipeViewScreen extends StatelessWidget {
                       onPressed: onKitchenPressed,
                       icon: Icon(
                         isAddedToKitchen
-                            ? Icons.food_bank_rounded
-                            : Icons.food_bank_outlined,
+                            ? Icons.favorite_rounded
+                            : Icons.favorite_outline_rounded,
                         color: isAddedToKitchen
                             ? ColorConstant.secondaryColor
                             : ColorConstant.primaryColor,

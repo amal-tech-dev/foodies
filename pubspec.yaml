@@ -27,5 +27,6 @@ flutter:
   assets:
     - assets/logo/
     - assets/lottie/
+    - assets/images/
     - assets/thumbnails/
     - assets/food_images/

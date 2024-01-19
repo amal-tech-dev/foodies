@@ -4,13 +4,12 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
 
 class ProfileTile extends StatelessWidget {
-  int id;
-  String name, imageUrl;
+  String username, name, image;
   ProfileTile({
     super.key,
-    required this.id,
+    required this.username,
     required this.name,
-    required this.imageUrl,
+    required this.image,
   });
 
   @override
@@ -25,13 +24,14 @@ class ProfileTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: DimenConstant.edgePadding * 2,
+          horizontal: DimenConstant.edgePadding,
         ),
         child: Row(
           children: [
             CircleAvatar(
-              radius: 40,
+              radius: 50,
               backgroundImage: AssetImage(
-                imageUrl,
+                image,
               ),
             ),
             DimenConstant.separator,
@@ -47,23 +47,12 @@ class ProfileTile extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      'Id: ',
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.smallText,
-                      ),
-                    ),
-                    Text(
-                      id.toString().padLeft(8, '0'),
-                      style: TextStyle(
-                        color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.smallText,
-                      ),
-                    ),
-                  ],
+                Text(
+                  '@${username}',
+                  style: TextStyle(
+                    color: ColorConstant.secondaryColor,
+                    fontSize: DimenConstant.smallText,
+                  ),
                 ),
               ],
             )
