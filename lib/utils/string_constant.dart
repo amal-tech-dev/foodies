@@ -21,6 +21,8 @@ class StringConstant {
       'Indicate your preferred dietary choice. This will assist ${StringConstant.appName} in customizing your meals to suit your taste';
   static const String selectCuisineText =
       'Choose one or more cuisines to help ${StringConstant.appName} to tailor recommendations and offerings to suit your taste.';
+  static const String addRecipeText =
+      'Thank you for sharing your recipe with ${StringConstant.appName}! Can\'t wait to try it out.';
   static const String addRecipeGuestText = 'You need an account to add recipes';
   static const String addRecipeUserText =
       'Spice up your culinary journey on ${StringConstant.appName}. Share your favorite recipes, add your unique twist, and build a following of fellow food enthusiasts. Connect, inspire, and savor the delicious world of home cooking together!';

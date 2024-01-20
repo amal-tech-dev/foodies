@@ -130,8 +130,8 @@ class RecipeViewScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundColor: recipe.veg
-                              ? ColorConstant.vegGradientSecondary
-                              : ColorConstant.nonvegGradientSecondary,
+                              ? ColorConstant.vegSecondaryGradient
+                              : ColorConstant.nonvegSecondaryGradient,
                           radius: 10,
                         ),
                         DimenConstant.separator,

@@ -3,7 +3,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/add_or_edit_recipe_screen/add_or_edit_recipe_screen.dart';
+import 'package:foodies/view/edit_recipe_screen/edit_recipe_screen.dart';
 
 class AddRecipeForUser extends StatelessWidget {
   AddRecipeForUser({super.key});
@@ -56,7 +56,9 @@ class AddRecipeForUser extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddOrEditRecipeScreen(),
+                    builder: (context) => EditRecipeScreen(
+                      toAdd: true,
+                    ),
                   ),
                 );
               },
