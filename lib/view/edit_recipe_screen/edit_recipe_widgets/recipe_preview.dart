@@ -5,7 +5,7 @@ import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 
 class RecipePreview extends StatelessWidget {
-  const RecipePreview({Key? key}) : super(key: key);
+  RecipePreview({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +25,6 @@ class RecipePreview extends StatelessWidget {
               fontSize: DimenConstant.subtitleText,
             ),
             textAlign: TextAlign.center,
-          ),
-        ),
-        SizedBox(
-          height: 150,
-          child: Center(
-            child: CircularProgressIndicator(
-              color: ColorConstant.primaryColor,
-            ),
           ),
         ),
       ],

@@ -8,4 +8,10 @@ class CarouselSliderController with ChangeNotifier {
     index++;
     notifyListeners();
   }
+
+  // decrement index
+  decrement() {
+    if (index >= 2) index--;
+    notifyListeners();
+  }
 }

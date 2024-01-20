@@ -1,9 +1,8 @@
-import 'dart:async';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_form.dart';
+import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_details.dart';
 import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_preview.dart';
 
 class EditRecipeScreen extends StatefulWidget {
@@ -18,27 +17,17 @@ class EditRecipeScreen extends StatefulWidget {
 }
 
 class _EditRecipeScreenState extends State<EditRecipeScreen> {
-  bool isLoading = false;
-
-  @override
-  void initState() {
-    isLoading = true;
-    setState(() {});
-    Timer(
-      Duration(
-        seconds: 3,
-      ),
-      () {
-        isLoading = false;
-        setState(() {});
-      },
-    );
-    super.initState();
-  }
+  CarouselController carouselController = CarouselController();
+  int pageIndex = 0;
+  List<Widget> pages = [
+    RecipePreview(),
+    RecipeDetails(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: ColorConstant.backgroundColor,
         surfaceTintColor: Colors.transparent,
@@ -53,7 +42,101 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
           ),
         ),
       ),
-      body: isLoading ? RecipePreview() : RecipeForm(),
+      body: Padding(
+        padding: const EdgeInsets.all(
+          DimenConstant.edgePadding,
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: CarouselSlider(
+                carouselController: carouselController,
+                items: pages,
+                options: CarouselOptions(
+                  initialPage: pageIndex,
+                  height: double.infinity,
+                  viewportFraction: 1.0,
+                  enableInfiniteScroll: false,
+                  scrollPhysics: NeverScrollableScrollPhysics(),
+                ),
+              ),
+            ),
+            DimenConstant.separator,
+            pageIndex == 0
+                ? ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        ColorConstant.secondaryColor,
+                      ),
+                    ),
+                    onPressed: () {
+                      carouselController.nextPage();
+                      if (pageIndex < pages.length - 1) pageIndex++;
+                      setState(() {});
+                    },
+                    child: Text(
+                      'Let\'s Start',
+                      style: TextStyle(
+                        color: ColorConstant.primaryColor,
+                      ),
+                    ),
+                  )
+                : pageIndex == pages.length - 1
+                    ? ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            ColorConstant.secondaryColor,
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          'Finish',
+                          style: TextStyle(
+                            color: ColorConstant.primaryColor,
+                          ),
+                        ),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            color: ColorConstant.primaryColor,
+                            onPressed: () {
+                              carouselController.previousPage();
+                              if (pageIndex > 0) pageIndex--;
+                              setState(() {});
+                            },
+                            icon: Icon(
+                              Icons.navigate_before_rounded,
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                ColorConstant.secondaryColor,
+                              ),
+                            ),
+                          ),
+                          DimenConstant.separator,
+                          IconButton(
+                            color: ColorConstant.primaryColor,
+                            onPressed: () {
+                              carouselController.nextPage();
+                              if (pageIndex < pages.length - 1) pageIndex++;
+                              setState(() {});
+                            },
+                            icon: Icon(
+                              Icons.navigate_next_rounded,
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                ColorConstant.secondaryColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+          ],
+        ),
+      ),
     );
   }
 }

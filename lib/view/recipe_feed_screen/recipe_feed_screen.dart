@@ -4,6 +4,7 @@ import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_bottom_sheet.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
 import 'package:foodies/widgets/recipe_item.dart';
@@ -39,7 +40,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     diet = preferences.getString('diet')!;
     preferedCuisines =
-        preferences.getStringList('cuisines') ?? [Database.cuisines[0]];
+        preferences.getStringList('cuisines') ?? [StringConstant.cuisines[0]];
     setState(() {});
   }
 

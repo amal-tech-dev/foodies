@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:foodies/database/database.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_item.dart';
 
 class FilterBottomSheet extends StatelessWidget {
@@ -34,13 +34,13 @@ class FilterBottomSheet extends StatelessWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => FilterItem(
-                        name: Database.diet[index],
+                        name: StringConstant.diet[index],
                         isPressed: false,
                         onPressed: () {},
                       ),
                       separatorBuilder: (context, index) =>
                           DimenConstant.separator,
-                      itemCount: Database.diet.length,
+                      itemCount: StringConstant.diet.length,
                     ),
                   ),
                   DimenConstant.separator,
@@ -64,11 +64,11 @@ class FilterBottomSheet extends StatelessWidget {
                         crossAxisCount: 5,
                       ),
                       itemBuilder: (context, index) => FilterItem(
-                        name: Database.cuisines[index],
+                        name: StringConstant.cuisines[index],
                         isPressed: false,
                         onPressed: () {},
                       ),
-                      itemCount: Database.cuisines.length,
+                      itemCount: StringConstant.cuisines.length,
                     ),
                   ),
                   DimenConstant.separator,
@@ -92,11 +92,11 @@ class FilterBottomSheet extends StatelessWidget {
                         crossAxisCount: 2,
                       ),
                       itemBuilder: (context, index) => FilterItem(
-                        name: Database.categories[index],
+                        name: StringConstant.categories[index],
                         isPressed: false,
                         onPressed: () {},
                       ),
-                      itemCount: Database.categories.length,
+                      itemCount: StringConstant.categories.length,
                     ),
                   ),
                 ],
