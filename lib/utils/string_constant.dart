@@ -37,8 +37,8 @@ class StringConstant {
 
   static const List<String> diet = [
     'Vegetarian',
-    'Non-vegetarian',
-    'Semi-vegetarian',
+    'Non-Vegetarian',
+    'Semi-Vegetarian',
   ];
 
   static const List<String> cuisines = [
@@ -98,15 +98,15 @@ class StringConstant {
   static const List<String> categories = [
     'All',
     'Appetizers/Starters',
-    'Soups and Salads',
+    'Breads',
+    'Beverages',
+    'Desserts',
+    'Kids Menu',
     'Main Courses/Entrees',
     'Pasta/Rice/Noodles',
     'Seafood',
     'Side Dishes',
-    'Beverages',
-    'Desserts',
+    'Soups and Salads',
     'Specials',
-    'Kids Menu',
-    'Breads',
   ];
 }

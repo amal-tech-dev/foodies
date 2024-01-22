@@ -2,8 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/preview_recipe.dart';
 import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_details.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_preview.dart';
+import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_image.dart';
+import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_ingredients.dart';
+import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_steps.dart';
+import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/save_recipe.dart';
 
 class EditRecipeScreen extends StatefulWidget {
   bool toAdd;
@@ -20,8 +24,12 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
   CarouselController carouselController = CarouselController();
   int pageIndex = 0;
   List<Widget> pages = [
-    RecipePreview(),
+    PreviewRecipe(),
     RecipeDetails(),
+    RecipeIngredients(),
+    RecipeSteps(),
+    RecipeImage(),
+    SaveRecipe(),
   ];
 
   @override
@@ -82,19 +90,40 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
                     ),
                   )
                 : pageIndex == pages.length - 1
-                    ? ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                            ColorConstant.secondaryColor,
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          'Finish',
-                          style: TextStyle(
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
                             color: ColorConstant.primaryColor,
+                            onPressed: () {
+                              carouselController.previousPage();
+                              if (pageIndex > 0) pageIndex--;
+                              setState(() {});
+                            },
+                            icon: Icon(
+                              Icons.navigate_before_rounded,
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                ColorConstant.secondaryColor,
+                              ),
+                            ),
                           ),
-                        ),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                ColorConstant.secondaryColor,
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              'Finish',
+                              style: TextStyle(
+                                color: ColorConstant.primaryColor,
+                              ),
+                            ),
+                          ),
+                        ],
                       )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,7 +144,6 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
                               ),
                             ),
                           ),
-                          DimenConstant.separator,
                           IconButton(
                             color: ColorConstant.primaryColor,
                             onPressed: () {

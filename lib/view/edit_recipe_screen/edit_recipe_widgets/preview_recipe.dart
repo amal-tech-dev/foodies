@@ -4,8 +4,8 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 
-class RecipePreview extends StatelessWidget {
-  RecipePreview({super.key});
+class PreviewRecipe extends StatelessWidget {
+  PreviewRecipe({super.key});
 
   @override
   Widget build(BuildContext context) {
