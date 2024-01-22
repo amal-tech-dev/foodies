@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:foodies/controller/text_input_format_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 
 class RecipeIngredients extends StatefulWidget {
   RecipeIngredients({super.key});
@@ -27,7 +28,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
           ),
         ),
         Text(
-          'Try to add Ingredient name with required quantity.',
+          StringConstant.addIngredients,
           style: TextStyle(
             color: ColorConstant.secondaryColor,
             fontSize: DimenConstant.miniText,
@@ -55,7 +56,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
                     ingredients[index],
                     style: TextStyle(
                       color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.smallText,
+                      fontSize: DimenConstant.extraSmallText,
                     ),
                     textAlign: TextAlign.justify,
                   ),

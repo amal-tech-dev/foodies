@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:foodies/controller/text_input_format_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 
 class RecipeSteps extends StatefulWidget {
   RecipeSteps({super.key});
@@ -26,7 +27,7 @@ class _RecipeStepsState extends State<RecipeSteps> {
           ),
         ),
         Text(
-          'Try to add Steps precise and easy to understand.',
+          StringConstant.addSteps,
           style: TextStyle(
             color: ColorConstant.secondaryColor,
             fontSize: DimenConstant.miniText,
@@ -54,7 +55,7 @@ class _RecipeStepsState extends State<RecipeSteps> {
                     steps[index],
                     style: TextStyle(
                       color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.smallText,
+                      fontSize: DimenConstant.extraSmallText,
                     ),
                     textAlign: TextAlign.justify,
                   ),

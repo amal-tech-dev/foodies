@@ -34,6 +34,12 @@ class StringConstant {
   static const String logoutAlert = 'Do you want to logout?';
   static const String logoutAlertGuest =
       'You are logged in as guest. Data cannot be recovered after logging out. ${StringConstant.logoutAlert}';
+  static const String addIngredients =
+      'Try to add Ingredient name with required quantity.';
+  static const String addSteps =
+      'Try to add Steps precise and easy to understand.';
+  static const String addImage =
+      'Now add a clear image of your dish similar to below images.';
 
   static const List<String> diet = [
     'Vegetarian',
