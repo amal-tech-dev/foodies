@@ -22,7 +22,7 @@ class PreviewRecipe extends StatelessWidget {
             StringConstant.addRecipeText,
             style: TextStyle(
               color: ColorConstant.secondaryColor,
-              fontSize: DimenConstant.subtitleText,
+              fontSize: DimenConstant.extraSmallText,
             ),
             textAlign: TextAlign.center,
           ),

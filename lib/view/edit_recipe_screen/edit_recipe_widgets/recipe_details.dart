@@ -47,14 +47,14 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   'Name',
                   style: TextStyle(
                     color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.smallText,
+                    fontSize: DimenConstant.miniText,
                   ),
                 ),
                 border: InputBorder.none,
               ),
               style: TextStyle(
                 color: ColorConstant.primaryColor,
-                fontSize: DimenConstant.smallText,
+                fontSize: DimenConstant.miniText,
               ),
               cursorColor: ColorConstant.secondaryColor,
               cursorRadius: Radius.circular(
@@ -90,14 +90,14 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   'Description',
                   style: TextStyle(
                     color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.smallText,
+                    fontSize: DimenConstant.miniText,
                   ),
                 ),
                 border: InputBorder.none,
               ),
               style: TextStyle(
                 color: ColorConstant.primaryColor,
-                fontSize: DimenConstant.smallText,
+                fontSize: DimenConstant.miniText,
               ),
               cursorColor: ColorConstant.secondaryColor,
               cursorRadius: Radius.circular(
@@ -143,7 +143,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           color: isVeg
                               ? ColorConstant.tertiaryColor
                               : ColorConstant.secondaryColor,
-                          fontSize: DimenConstant.smallText,
+                          fontSize: DimenConstant.miniText,
                         ),
                       ),
                     ),
@@ -179,7 +179,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           color: isNonveg
                               ? ColorConstant.tertiaryColor
                               : ColorConstant.secondaryColor,
-                          fontSize: DimenConstant.smallText,
+                          fontSize: DimenConstant.miniText,
                         ),
                       ),
                     ),
@@ -214,7 +214,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     'Cuisines',
                     style: TextStyle(
                       color: ColorConstant.secondaryColor,
-                      fontSize: DimenConstant.smallText,
+                      fontSize: DimenConstant.miniText,
                     ),
                   ),
                   Icon(
@@ -250,7 +250,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             StringConstant.cuisines[index + 1],
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
-                              fontSize: DimenConstant.smallText,
+                              fontSize: DimenConstant.miniText,
                             ),
                           ),
                           Radio(
@@ -300,7 +300,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     'Categories',
                     style: TextStyle(
                       color: ColorConstant.secondaryColor,
-                      fontSize: DimenConstant.smallText,
+                      fontSize: DimenConstant.miniText,
                     ),
                   ),
                   Icon(
@@ -338,7 +338,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             StringConstant.categories[index + 1],
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
-                              fontSize: DimenConstant.smallText,
+                              fontSize: DimenConstant.miniText,
                             ),
                           ),
                           Checkbox(
@@ -381,14 +381,14 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   'Cooking Time',
                   style: TextStyle(
                     color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.smallText,
+                    fontSize: DimenConstant.miniText,
                   ),
                 ),
                 border: InputBorder.none,
               ),
               style: TextStyle(
                 color: ColorConstant.primaryColor,
-                fontSize: DimenConstant.smallText,
+                fontSize: DimenConstant.miniText,
               ),
               cursorColor: ColorConstant.secondaryColor,
               cursorRadius: Radius.circular(

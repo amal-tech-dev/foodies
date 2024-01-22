@@ -29,7 +29,7 @@ class AddRecipeForGuest extends StatelessWidget {
             StringConstant.addRecipeGuestText,
             style: TextStyle(
               color: ColorConstant.primaryColor,
-              fontSize: DimenConstant.subtitleText,
+              fontSize: DimenConstant.extraSmallText,
             ),
             textAlign: TextAlign.center,
           ),
@@ -48,7 +48,7 @@ class AddRecipeForGuest extends StatelessWidget {
             'Login to existing account',
             style: TextStyle(
               color: ColorConstant.secondaryColor,
-              fontSize: DimenConstant.subtitleText,
+              fontSize: DimenConstant.extraSmallText,
             ),
           ),
         ),
@@ -56,7 +56,7 @@ class AddRecipeForGuest extends StatelessWidget {
           '  or  ',
           style: TextStyle(
             color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            fontSize: DimenConstant.miniText,
           ),
         ),
         InkWell(
@@ -70,7 +70,7 @@ class AddRecipeForGuest extends StatelessWidget {
             'Create new account',
             style: TextStyle(
               color: ColorConstant.secondaryColor,
-              fontSize: DimenConstant.subtitleText,
+              fontSize: DimenConstant.extraSmallText,
             ),
           ),
         ),

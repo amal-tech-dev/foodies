@@ -24,6 +24,11 @@ class Foodies extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: ColorConstant.backgroundColor,
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: ColorConstant.secondaryColor,
+            selectionColor: ColorConstant.secondaryColor.withOpacity(0.75),
+            selectionHandleColor: ColorConstant.secondaryColor,
+          ),
         ),
         home: EditRecipeScreen(toAdd: true),
       ),

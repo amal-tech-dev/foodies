@@ -25,7 +25,7 @@ class FilterBottomSheet extends StatelessWidget {
                     'Diet',
                     style: TextStyle(
                       color: ColorConstant.secondaryColor,
-                      fontSize: DimenConstant.subtitleText,
+                      fontSize: DimenConstant.extraSmallText,
                     ),
                   ),
                   DimenConstant.separator,
@@ -48,7 +48,7 @@ class FilterBottomSheet extends StatelessWidget {
                     'Cuisines',
                     style: TextStyle(
                       color: ColorConstant.secondaryColor,
-                      fontSize: DimenConstant.subtitleText,
+                      fontSize: DimenConstant.extraSmallText,
                     ),
                   ),
                   DimenConstant.separator,
@@ -76,7 +76,7 @@ class FilterBottomSheet extends StatelessWidget {
                     'Categories',
                     style: TextStyle(
                       color: ColorConstant.secondaryColor,
-                      fontSize: DimenConstant.subtitleText,
+                      fontSize: DimenConstant.extraSmallText,
                     ),
                   ),
                   DimenConstant.separator,

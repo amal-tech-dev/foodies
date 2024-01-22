@@ -51,7 +51,7 @@ class ProfileTile extends StatelessWidget {
                   '@${username}',
                   style: TextStyle(
                     color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.smallText,
+                    fontSize: DimenConstant.miniText,
                   ),
                 ),
               ],

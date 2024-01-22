@@ -59,7 +59,7 @@ class GetStartedScreen extends StatelessWidget {
                       StringConstant.welcomeSubtitle,
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.subtitleText,
+                        fontSize: DimenConstant.extraSmallText,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
@@ -93,7 +93,7 @@ class GetStartedScreen extends StatelessWidget {
                           'Get Started',
                           style: TextStyle(
                             color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.titleText,
+                            fontSize: DimenConstant.smallText,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

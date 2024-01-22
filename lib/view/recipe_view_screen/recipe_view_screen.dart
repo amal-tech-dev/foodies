@@ -64,7 +64,7 @@ class RecipeViewScreen extends StatelessWidget {
                       recipe.name,
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.titleText,
+                        fontSize: DimenConstant.smallText,
                       ),
                     ),
                   ),
@@ -112,7 +112,7 @@ class RecipeViewScreen extends StatelessWidget {
                       recipe.description,
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.subtitleText,
+                        fontSize: DimenConstant.extraSmallText,
                       ),
                       textAlign: TextAlign.justify,
                     ),
@@ -139,7 +139,7 @@ class RecipeViewScreen extends StatelessWidget {
                           recipe.veg ? 'Vegetarian' : 'Non-Vegetarian',
                           style: TextStyle(
                             color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.subtitleText,
+                            fontSize: DimenConstant.extraSmallText,
                           ),
                         ),
                       ],
@@ -158,7 +158,7 @@ class RecipeViewScreen extends StatelessWidget {
                       'Cuisine',
                       style: TextStyle(
                         color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.titleText,
+                        fontSize: DimenConstant.smallText,
                       ),
                     ),
                   ),
@@ -173,7 +173,7 @@ class RecipeViewScreen extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: DimenConstant.subtitleText / 2,
+                            top: DimenConstant.extraSmallText / 2,
                           ),
                           child: CircleAvatar(
                             backgroundColor: ColorConstant.secondaryColor,
@@ -186,7 +186,7 @@ class RecipeViewScreen extends StatelessWidget {
                             recipe.cuisine,
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
-                              fontSize: DimenConstant.subtitleText,
+                              fontSize: DimenConstant.extraSmallText,
                             ),
                             textAlign: TextAlign.justify,
                           ),
@@ -207,7 +207,7 @@ class RecipeViewScreen extends StatelessWidget {
                       'Categories',
                       style: TextStyle(
                         color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.titleText,
+                        fontSize: DimenConstant.smallText,
                       ),
                     ),
                   ),
@@ -222,7 +222,7 @@ class RecipeViewScreen extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: DimenConstant.subtitleText / 2,
+                            top: DimenConstant.extraSmallText / 2,
                           ),
                           child: CircleAvatar(
                             backgroundColor: ColorConstant.secondaryColor,
@@ -235,7 +235,7 @@ class RecipeViewScreen extends StatelessWidget {
                             recipe.categories.join(', ') + '.',
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
-                              fontSize: DimenConstant.subtitleText,
+                              fontSize: DimenConstant.extraSmallText,
                             ),
                             textAlign: TextAlign.justify,
                           ),
@@ -256,7 +256,7 @@ class RecipeViewScreen extends StatelessWidget {
                       'Cooking Time',
                       style: TextStyle(
                         color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.titleText,
+                        fontSize: DimenConstant.smallText,
                       ),
                     ),
                   ),
@@ -271,7 +271,7 @@ class RecipeViewScreen extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: DimenConstant.subtitleText / 2,
+                            top: DimenConstant.extraSmallText / 2,
                           ),
                           child: CircleAvatar(
                             backgroundColor: ColorConstant.secondaryColor,
@@ -284,7 +284,7 @@ class RecipeViewScreen extends StatelessWidget {
                             recipe.time,
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
-                              fontSize: DimenConstant.subtitleText,
+                              fontSize: DimenConstant.extraSmallText,
                             ),
                             textAlign: TextAlign.justify,
                           ),
@@ -305,7 +305,7 @@ class RecipeViewScreen extends StatelessWidget {
                       'Ingredients',
                       style: TextStyle(
                         color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.titleText,
+                        fontSize: DimenConstant.smallText,
                       ),
                     ),
                   ),
@@ -320,7 +320,7 @@ class RecipeViewScreen extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: DimenConstant.subtitleText / 2,
+                            top: DimenConstant.extraSmallText / 2,
                           ),
                           child: CircleAvatar(
                             backgroundColor: ColorConstant.secondaryColor,
@@ -333,7 +333,7 @@ class RecipeViewScreen extends StatelessWidget {
                             recipe.ingredients[index],
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
-                              fontSize: DimenConstant.subtitleText,
+                              fontSize: DimenConstant.extraSmallText,
                             ),
                             textAlign: TextAlign.justify,
                           ),
@@ -356,7 +356,7 @@ class RecipeViewScreen extends StatelessWidget {
                       'Steps',
                       style: TextStyle(
                         color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.titleText,
+                        fontSize: DimenConstant.smallText,
                       ),
                     ),
                   ),
@@ -371,7 +371,7 @@ class RecipeViewScreen extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: DimenConstant.subtitleText / 2,
+                            top: DimenConstant.extraSmallText / 2,
                           ),
                           child: CircleAvatar(
                             backgroundColor: ColorConstant.secondaryColor,
@@ -384,7 +384,7 @@ class RecipeViewScreen extends StatelessWidget {
                             recipe.steps[index],
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
-                              fontSize: DimenConstant.subtitleText,
+                              fontSize: DimenConstant.extraSmallText,
                             ),
                             textAlign: TextAlign.justify,
                           ),
@@ -424,7 +424,7 @@ class RecipeViewScreen extends StatelessWidget {
                 'Start Cooking',
                 style: TextStyle(
                   color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.subtitleText,
+                  fontSize: DimenConstant.extraSmallText,
                 ),
               ),
             ),

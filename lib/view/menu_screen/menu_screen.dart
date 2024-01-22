@@ -70,7 +70,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           StringConstant.emptyMenu,
                           style: TextStyle(
                             color: ColorConstant.secondaryColor,
-                            fontSize: DimenConstant.subtitleText,
+                            fontSize: DimenConstant.extraSmallText,
                           ),
                           textAlign: TextAlign.center,
                         ),

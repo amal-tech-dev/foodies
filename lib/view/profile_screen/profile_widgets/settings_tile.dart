@@ -35,7 +35,7 @@ class SettingsTile extends StatelessWidget {
           name,
           style: TextStyle(
             color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.subtitleText,
+            fontSize: DimenConstant.extraSmallText,
           ),
         ),
       ),

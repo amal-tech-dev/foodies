@@ -59,7 +59,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                   'Continue as Guest',
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.subtitleText,
+                    fontSize: DimenConstant.extraSmallText,
                   ),
                 )
               ],
@@ -95,7 +95,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                   'Continue with Email',
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.subtitleText,
+                    fontSize: DimenConstant.extraSmallText,
                   ),
                 )
               ],
@@ -224,7 +224,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                     'Continue with Google',
                     style: TextStyle(
                       color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.subtitleText,
+                      fontSize: DimenConstant.extraSmallText,
                     ),
                   )
                 ],

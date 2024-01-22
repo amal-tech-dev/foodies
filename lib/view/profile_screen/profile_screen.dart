@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       'Are you leaving?',
                       style: TextStyle(
                         color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.titleText,
+                        fontSize: DimenConstant.smallText,
                       ),
                     ),
                     content: Text(
@@ -87,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           : StringConstant.logoutAlert,
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.smallText,
+                        fontSize: DimenConstant.miniText,
                       ),
                       textAlign: TextAlign.justify,
                     ),
@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           'Cancel',
                           style: TextStyle(
                             color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.smallText,
+                            fontSize: DimenConstant.miniText,
                           ),
                         ),
                       ),
@@ -120,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           'Leave',
                           style: TextStyle(
                             color: ColorConstant.secondaryColor,
-                            fontSize: DimenConstant.smallText,
+                            fontSize: DimenConstant.miniText,
                           ),
                         ),
                       ),
@@ -132,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 'Logout',
                 style: TextStyle(
                   color: ColorConstant.secondaryColor,
-                  fontSize: DimenConstant.subtitleText,
+                  fontSize: DimenConstant.extraSmallText,
                 ),
               ),
             ),

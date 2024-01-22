@@ -28,7 +28,7 @@ class SelectDietScreen extends StatelessWidget {
                 StringConstant.selectDietText,
                 style: TextStyle(
                   color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.subtitleText,
+                  fontSize: DimenConstant.extraSmallText,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -62,7 +62,7 @@ class SelectDietScreen extends StatelessWidget {
                     'Vegetarian',
                     style: TextStyle(
                       color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.subtitleText,
+                      fontSize: DimenConstant.extraSmallText,
                     ),
                   ),
                 ),
@@ -98,7 +98,7 @@ class SelectDietScreen extends StatelessWidget {
                     'Non-Vegetarian',
                     style: TextStyle(
                       color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.subtitleText,
+                      fontSize: DimenConstant.extraSmallText,
                     ),
                   ),
                 ),
@@ -134,7 +134,7 @@ class SelectDietScreen extends StatelessWidget {
                     'Semi-Vegetarian',
                     style: TextStyle(
                       color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.subtitleText,
+                      fontSize: DimenConstant.extraSmallText,
                     ),
                   ),
                 ),

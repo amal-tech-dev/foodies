@@ -46,7 +46,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
           widget.toAdd ? 'Add Recipe' : 'Edit your Recipe',
           style: TextStyle(
             color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.titleText,
+            fontSize: DimenConstant.smallText,
           ),
         ),
       ),
@@ -89,79 +89,65 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
                       ),
                     ),
                   )
-                : pageIndex == pages.length - 1
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            color: ColorConstant.primaryColor,
-                            onPressed: () {
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Visibility(
+                        visible: pageIndex != 1 ? true : false,
+                        child: IconButton(
+                          color: ColorConstant.primaryColor,
+                          onPressed: () {
+                            if (pageIndex > 1) {
                               carouselController.previousPage();
-                              if (pageIndex > 0) pageIndex--;
-                              setState(() {});
-                            },
-                            icon: Icon(
-                              Icons.navigate_before_rounded,
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                ColorConstant.secondaryColor,
-                              ),
+                              pageIndex--;
+                            }
+                            setState(() {});
+                          },
+                          icon: Icon(
+                            Icons.navigate_before_rounded,
+                          ),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              ColorConstant.secondaryColor,
                             ),
                           ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                ColorConstant.secondaryColor,
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: Text(
-                              'Finish',
-                              style: TextStyle(
-                                color: ColorConstant.primaryColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            color: ColorConstant.primaryColor,
-                            onPressed: () {
-                              carouselController.previousPage();
-                              if (pageIndex > 0) pageIndex--;
-                              setState(() {});
-                            },
-                            icon: Icon(
-                              Icons.navigate_before_rounded,
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                ColorConstant.secondaryColor,
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            color: ColorConstant.primaryColor,
-                            onPressed: () {
-                              carouselController.nextPage();
-                              if (pageIndex < pages.length - 1) pageIndex++;
-                              setState(() {});
-                            },
-                            icon: Icon(
-                              Icons.navigate_next_rounded,
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                ColorConstant.secondaryColor,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
+                      pageIndex == pages.length - 1
+                          ? ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                  ColorConstant.secondaryColor,
+                                ),
+                              ),
+                              onPressed: () {},
+                              child: Text(
+                                'Finish',
+                                style: TextStyle(
+                                  color: ColorConstant.primaryColor,
+                                ),
+                              ),
+                            )
+                          : IconButton(
+                              color: ColorConstant.primaryColor,
+                              onPressed: () {
+                                if (pageIndex < pages.length - 1) {
+                                  carouselController.nextPage();
+                                  pageIndex++;
+                                }
+                                setState(() {});
+                              },
+                              icon: Icon(
+                                Icons.navigate_next_rounded,
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                  ColorConstant.secondaryColor,
+                                ),
+                              ),
+                            ),
+                    ],
+                  ),
           ],
         ),
       ),

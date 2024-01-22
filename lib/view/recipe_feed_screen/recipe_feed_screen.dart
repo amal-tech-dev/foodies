@@ -118,7 +118,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                                       '0',
                                       style: TextStyle(
                                         color: ColorConstant.tertiaryColor,
-                                        fontSize: DimenConstant.extraSmallText,
+                                        fontSize: DimenConstant.nanoText,
                                       ),
                                     ),
                                   ),
@@ -130,7 +130,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                             'Filters',
                             style: TextStyle(
                               color: ColorConstant.secondaryColor,
-                              fontSize: DimenConstant.smallText,
+                              fontSize: DimenConstant.miniText,
                             ),
                           ),
                         ],

@@ -36,7 +36,7 @@ class FilterItem extends StatelessWidget {
               color: isPressed
                   ? ColorConstant.tertiaryColor
                   : ColorConstant.primaryColor,
-              fontSize: DimenConstant.extraSmallText,
+              fontSize: DimenConstant.nanoText,
             ),
             textAlign: TextAlign.center,
           ),

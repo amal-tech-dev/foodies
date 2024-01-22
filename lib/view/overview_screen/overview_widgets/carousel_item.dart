@@ -33,7 +33,7 @@ class CarouselItem extends StatelessWidget {
             subtitle,
             style: TextStyle(
               color: ColorConstant.primaryColor,
-              fontSize: DimenConstant.subtitleText,
+              fontSize: DimenConstant.extraSmallText,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,

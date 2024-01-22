@@ -105,7 +105,7 @@ class RecipeItem extends StatelessWidget {
                         recipe.name,
                         style: TextStyle(
                           color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.subtitleText,
+                          fontSize: DimenConstant.extraSmallText,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -114,7 +114,7 @@ class RecipeItem extends StatelessWidget {
                         recipe.cuisine,
                         style: TextStyle(
                           color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.smallText,
+                          fontSize: DimenConstant.miniText,
                         ),
                         maxLines: 2,
                       ),
@@ -126,7 +126,7 @@ class RecipeItem extends StatelessWidget {
                 recipe.description,
                 style: TextStyle(
                   color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.smallText,
+                  fontSize: DimenConstant.miniText,
                 ),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -137,7 +137,7 @@ class RecipeItem extends StatelessWidget {
                 recipe.categories.join(' · '),
                 style: TextStyle(
                   color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.extraSmallText,
+                  fontSize: DimenConstant.nanoText,
                 ),
               ),
               DimenConstant.separator,

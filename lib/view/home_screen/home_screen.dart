@@ -37,14 +37,14 @@ class _HomeScreenState extends State<HomeScreen> {
               StringConstant.appNamePartOne,
               style: TextStyle(
                 color: ColorConstant.primaryColor,
-                fontSize: DimenConstant.titleText,
+                fontSize: DimenConstant.smallText,
               ),
             ),
             Text(
               StringConstant.appNamePartTwo,
               style: TextStyle(
                 color: ColorConstant.secondaryColor,
-                fontSize: DimenConstant.titleText,
+                fontSize: DimenConstant.smallText,
               ),
             ),
           ],
@@ -60,8 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: pageIndex,
           selectedItemColor: ColorConstant.secondaryColor,
           unselectedItemColor: ColorConstant.primaryColor,
-          selectedFontSize: DimenConstant.smallText,
-          unselectedFontSize: DimenConstant.smallText,
+          selectedFontSize: DimenConstant.miniText,
+          unselectedFontSize: DimenConstant.miniText,
           backgroundColor: ColorConstant.backgroundColor,
           type: BottomNavigationBarType.fixed,
           landscapeLayout: BottomNavigationBarLandscapeLayout.centered,

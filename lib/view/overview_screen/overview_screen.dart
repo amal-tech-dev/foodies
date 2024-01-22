@@ -39,7 +39,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
               'Skip',
               style: TextStyle(
                 color: ColorConstant.primaryColor,
-                fontSize: DimenConstant.subtitleText,
+                fontSize: DimenConstant.extraSmallText,
               ),
             ),
           ),
