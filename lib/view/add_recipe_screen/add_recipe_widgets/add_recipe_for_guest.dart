@@ -26,7 +26,7 @@ class AddRecipeForGuest extends StatelessWidget {
             horizontal: DimenConstant.edgePadding * 3,
           ),
           child: Text(
-            StringConstant.addRecipeGuestText,
+            StringConstant.addRecipeGuest,
             style: TextStyle(
               color: ColorConstant.primaryColor,
               fontSize: DimenConstant.extraSmallText,

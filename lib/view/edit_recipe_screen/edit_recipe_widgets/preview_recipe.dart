@@ -19,7 +19,7 @@ class PreviewRecipe extends StatelessWidget {
             horizontal: DimenConstant.edgePadding * 4,
           ),
           child: Text(
-            StringConstant.addRecipeText,
+            StringConstant.previewRecipe,
             style: TextStyle(
               color: ColorConstant.secondaryColor,
               fontSize: DimenConstant.extraSmallText,

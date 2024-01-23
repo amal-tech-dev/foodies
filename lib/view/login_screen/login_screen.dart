@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                   DimenConstant.edgePadding * 2,
                 ),
                 child: Text(
-                  StringConstant.loginText,
+                  StringConstant.login,
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
                     fontSize: DimenConstant.largeText,

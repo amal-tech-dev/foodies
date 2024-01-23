@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/preview_recipe.dart';
 import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_details.dart';
 import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_image.dart';
@@ -79,13 +80,13 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
                     ),
                     onPressed: () {
                       carouselController.nextPage();
-                      if (pageIndex < pages.length - 1) pageIndex++;
+                      pageIndex++;
                       setState(() {});
                     },
                     child: Text(
                       'Let\'s Start',
                       style: TextStyle(
-                        color: ColorConstant.primaryColor,
+                        color: ColorConstant.tertiaryColor,
                       ),
                     ),
                   )
@@ -97,14 +98,13 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
                         child: IconButton(
                           color: ColorConstant.primaryColor,
                           onPressed: () {
-                            if (pageIndex > 1) {
-                              carouselController.previousPage();
-                              pageIndex--;
-                            }
+                            carouselController.previousPage();
+                            pageIndex--;
                             setState(() {});
                           },
                           icon: Icon(
                             Icons.navigate_before_rounded,
+                            color: ColorConstant.tertiaryColor,
                           ),
                           style: ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(
@@ -122,23 +122,22 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
                               ),
                               onPressed: () {},
                               child: Text(
-                                'Finish',
+                                'Share with ${StringConstant.appName}',
                                 style: TextStyle(
-                                  color: ColorConstant.primaryColor,
+                                  color: ColorConstant.tertiaryColor,
                                 ),
                               ),
                             )
                           : IconButton(
                               color: ColorConstant.primaryColor,
                               onPressed: () {
-                                if (pageIndex < pages.length - 1) {
-                                  carouselController.nextPage();
-                                  pageIndex++;
-                                }
+                                carouselController.nextPage();
+                                pageIndex++;
                                 setState(() {});
                               },
                               icon: Icon(
                                 Icons.navigate_next_rounded,
+                                color: ColorConstant.tertiaryColor,
                               ),
                               style: ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll(

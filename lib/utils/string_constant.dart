@@ -14,21 +14,19 @@ class StringConstant {
       'Add Your Own Recipes and Contribute to a Growing Community of Food Enthusiasts.';
   static const String carouselSubtitle3 =
       'Cook with ${StringConstant.appName} and Elevate Your Kitchen Skills with Step-by-Step Guidance and Tasty Results.';
-  static const String loginText = 'Let\'s You In';
-  static const String signupText = 'Create New Account';
-  static const String forgetPasswordText = 'Enter Your Registered Email Id';
-  static const String selectDietText =
+  static const String login = 'Let\'s You In';
+  static const String signup = 'Create New Account';
+  static const String forgetPassword = 'Enter Your Registered Email Id';
+  static const String selectDiet =
       'Indicate your preferred dietary choice. This will assist ${StringConstant.appName} in customizing your meals to suit your taste';
-  static const String selectCuisineText =
+  static const String selectCuisine =
       'Choose one or more cuisines to help ${StringConstant.appName} to tailor recommendations and offerings to suit your taste.';
-  static const String addRecipeText =
-      'Thank you for sharing your recipe with ${StringConstant.appName}! Can\'t wait to try it out.';
-  static const String addRecipeGuestText = 'You need an account to add recipes';
-  static const String addRecipeUserText =
+  static const String addRecipeGuest = 'You need an account to add recipes';
+  static const String addRecipeUser =
       'Spice up your culinary journey on ${StringConstant.appName}. Share your favorite recipes, add your unique twist, and build a following of fellow food enthusiasts. Connect, inspire, and savor the delicious world of home cooking together!';
-  static const String searchText =
+  static const String search =
       'Search Recipes by Name, Cuisines, Categories or Users';
-  static const String noResultsText = 'No results found, check your spelling';
+  static const String noResults = 'No results found, check your spelling';
   static const String emptyMenu =
       'Your Menu is empty. Add your favourites Recipes to Kitchen for easy access.';
   static const String logoutAlert = 'Do you want to logout?';
@@ -40,6 +38,10 @@ class StringConstant {
       'Try to add Steps precise and easy to understand.';
   static const String addImage =
       'Now add a clear image of your dish similar to below images.';
+  static const String previewRecipe =
+      'Thank you for sharing your recipe with ${StringConstant.appName}! Can\'t wait to try it out.';
+  static const String saveRecipe =
+      'Your recipe is ready. Smells good! Share your recipe with ${StringConstant.appName} and let other Food enthusiasts know about your Recipe.';
 
   static const List<String> diet = [
     'Vegetarian',

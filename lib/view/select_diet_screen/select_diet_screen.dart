@@ -25,7 +25,7 @@ class SelectDietScreen extends StatelessWidget {
                 DimenConstant.edgePadding * 4,
               ),
               child: Text(
-                StringConstant.selectDietText,
+                StringConstant.selectDiet,
                 style: TextStyle(
                   color: ColorConstant.primaryColor,
                   fontSize: DimenConstant.extraSmallText,

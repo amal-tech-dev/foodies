@@ -10,4 +10,5 @@ class ImageConstant {
   static const String addRecipePreviewThumbnail =
       Assets.thumbnailsAddRecipePreview;
   static const String profilePicture = Assets.imagesProfile;
+  static const String pickImage = Assets.imagesPickImage;
 }

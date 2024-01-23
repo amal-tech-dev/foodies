@@ -101,7 +101,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           LottieConstant.startSearching,
                         ),
                         Text(
-                          StringConstant.searchText,
+                          StringConstant.search,
                           style: TextStyle(
                             color: ColorConstant.primaryColor,
                             fontSize: DimenConstant.extraSmallText,
@@ -131,7 +131,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     horizontal: 40,
                                   ),
                                   child: Text(
-                                    StringConstant.noResultsText,
+                                    StringConstant.noResults,
                                     style: TextStyle(
                                       color: ColorConstant.primaryColor,
                                       fontSize: DimenConstant.extraSmallText,

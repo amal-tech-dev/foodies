@@ -40,7 +40,7 @@ class SignupScreen extends StatelessWidget {
                 DimenConstant.edgePadding * 2,
               ),
               child: Text(
-                StringConstant.signupText,
+                StringConstant.signup,
                 style: TextStyle(
                   color: ColorConstant.primaryColor,
                   fontSize: DimenConstant.mediumText,

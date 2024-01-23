@@ -10,11 +10,14 @@ class Assets {
       'assets/food_images/prawn_yellow_rice.png';
   static const String foodImagesVeggieOkonomiyaki =
       'assets/food_images/veggie_okonomiyaki.png';
+  static const String imagesPickImage = 'assets/images/pick_image.png';
   static const String imagesProfile = 'assets/images/profile.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
+  static const String lottieCooking = 'assets/lottie/cooking.json';
   static const String lottieEmptyKitchen = 'assets/lottie/empty_kitchen.json';
   static const String lottieLoading = 'assets/lottie/loading.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';
+  static const String lottieRecipeReady = 'assets/lottie/recipe_ready.json';
   static const String lottieSearching = 'assets/lottie/searching.json';
   static const String lottieStartSearching =
       'assets/lottie/start_searching.json';

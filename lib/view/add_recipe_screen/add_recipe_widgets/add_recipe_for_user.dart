@@ -28,7 +28,7 @@ class AddRecipeForUser extends StatelessWidget {
                 DimenConstant.edgePadding,
               ),
               child: Text(
-                StringConstant.addRecipeUserText,
+                StringConstant.addRecipeUser,
                 style: TextStyle(
                   color: ColorConstant.primaryColor,
                   fontSize: DimenConstant.miniText,
