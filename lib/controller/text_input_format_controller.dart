@@ -5,7 +5,8 @@ class TextInputFormatController extends TextInputFormatter {
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text.isNotEmpty &&
-        newValue.text.substring(newValue.text.length - 1) == '.') {
+        (newValue.text.substring(newValue.text.length - 1) == '.' ||
+            newValue.text.substring(newValue.text.length - 1) == ',')) {
       if (newValue.text.length > oldValue.text.length) {
         return TextEditingValue(
           text: '${newValue.text} ',

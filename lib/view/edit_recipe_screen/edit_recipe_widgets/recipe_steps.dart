@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/controller/text_input_format_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:provider/provider.dart';
 
 class RecipeSteps extends StatefulWidget {
   RecipeSteps({super.key});
@@ -15,6 +17,15 @@ class RecipeSteps extends StatefulWidget {
 class _RecipeStepsState extends State<RecipeSteps> {
   List<String> steps = [];
   TextEditingController stepsController = TextEditingController();
+
+  @override
+  void initState() {
+    steps = Provider.of<AddRecipeController>(context, listen: false)
+        .editedRecipe
+        .steps;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -80,18 +91,14 @@ class _RecipeStepsState extends State<RecipeSteps> {
               horizontal: DimenConstant.edgePadding,
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
-              ),
+              borderRadius: BorderRadius.circular(500),
               borderSide: BorderSide(
                 color: ColorConstant.primaryColor,
                 width: DimenConstant.borderWidth,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
-              ),
+              borderRadius: BorderRadius.circular(500),
               borderSide: BorderSide(
                 color: ColorConstant.secondaryColor,
                 width: DimenConstant.borderWidth,
@@ -138,6 +145,44 @@ class _RecipeStepsState extends State<RecipeSteps> {
             stepsController.clear();
             setState(() {});
           },
+        ),
+        DimenConstant.separator,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              color: ColorConstant.primaryColor,
+              onPressed: () =>
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .carouselSliderController
+                      .previousPage(),
+              icon: Icon(
+                Icons.navigate_before_rounded,
+                color: ColorConstant.tertiaryColor,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
+                ),
+              ),
+            ),
+            IconButton(
+              color: ColorConstant.primaryColor,
+              onPressed: () =>
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .carouselSliderController
+                      .nextPage(),
+              icon: Icon(
+                Icons.navigate_next_rounded,
+                color: ColorConstant.tertiaryColor,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

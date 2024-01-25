@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class SaveRecipe extends StatelessWidget {
   SaveRecipe({super.key});
@@ -11,23 +13,64 @@ class SaveRecipe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Lottie.asset(
-          LottieConstant.recipeReady,
-          repeat: false,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: DimenConstant.edgePadding * 4,
-          ),
-          child: Text(
-            StringConstant.saveRecipe,
-            style: TextStyle(
-              color: ColorConstant.secondaryColor,
-              fontSize: DimenConstant.extraSmallText,
+        Column(
+          children: [
+            Lottie.asset(
+              LottieConstant.recipeReady,
+              repeat: false,
             ),
-            textAlign: TextAlign.center,
-          ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: DimenConstant.edgePadding * 4,
+              ),
+              child: Text(
+                StringConstant.saveRecipe,
+                style: TextStyle(
+                  color: ColorConstant.secondaryColor,
+                  fontSize: DimenConstant.extraSmallText,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+        DimenConstant.separator,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              color: ColorConstant.primaryColor,
+              onPressed: () =>
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .carouselSliderController
+                      .previousPage(),
+              icon: Icon(
+                Icons.navigate_before_rounded,
+                color: ColorConstant.tertiaryColor,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
+                ),
+              ),
+              onPressed: () {},
+              child: Text(
+                'Share with ${StringConstant.appName}',
+                style: TextStyle(
+                  color: ColorConstant.tertiaryColor,
+                ),
+              ),
+            )
+          ],
         ),
       ],
     );

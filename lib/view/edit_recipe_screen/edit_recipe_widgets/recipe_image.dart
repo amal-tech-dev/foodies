@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/generated/assets.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/pick_image_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class RecipeImage extends StatefulWidget {
   RecipeImage({super.key});
@@ -20,6 +22,15 @@ class _RecipeImageState extends State<RecipeImage> {
     Assets.foodImagesPrawnSalad,
   ];
   String selectedImage = Assets.imagesPickImage;
+
+  @override
+  void initState() {
+    selectedImage = Provider.of<AddRecipeController>(context, listen: false)
+        .editedRecipe
+        .image;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -91,6 +102,44 @@ class _RecipeImageState extends State<RecipeImage> {
               ),
             ),
           ),
+        ),
+        DimenConstant.separator,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              color: ColorConstant.primaryColor,
+              onPressed: () =>
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .carouselSliderController
+                      .previousPage(),
+              icon: Icon(
+                Icons.navigate_before_rounded,
+                color: ColorConstant.tertiaryColor,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
+                ),
+              ),
+            ),
+            IconButton(
+              color: ColorConstant.primaryColor,
+              onPressed: () =>
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .carouselSliderController
+                      .nextPage(),
+              icon: Icon(
+                Icons.navigate_next_rounded,
+                color: ColorConstant.tertiaryColor,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

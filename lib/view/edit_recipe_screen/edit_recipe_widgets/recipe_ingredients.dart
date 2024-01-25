@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/controller/text_input_format_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:provider/provider.dart';
 
 class RecipeIngredients extends StatefulWidget {
   RecipeIngredients({super.key});
@@ -15,6 +17,14 @@ class RecipeIngredients extends StatefulWidget {
 class _RecipeIngredientsState extends State<RecipeIngredients> {
   List<String> ingredients = [];
   TextEditingController ingredientsController = TextEditingController();
+
+  @override
+  void initState() {
+    ingredients = Provider.of<AddRecipeController>(context, listen: false)
+        .editedRecipe
+        .ingredients;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,32 +47,35 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
         ),
         DimenConstant.separator,
         Expanded(
-          child: ListView.builder(
-            itemBuilder: (context, index) => Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: DimenConstant.extraSmallText / 2,
-                  ),
-                  child: CircleAvatar(
-                    backgroundColor: ColorConstant.secondaryColor,
-                    radius: 5,
-                  ),
+          child: ListView.separated(
+            itemBuilder: (context, index) => Container(
+              padding: EdgeInsets.symmetric(
+                vertical: DimenConstant.edgePadding * 1.5,
+                horizontal: DimenConstant.edgePadding,
+              ),
+              decoration: BoxDecoration(
+                color: ColorConstant.tertiaryColor,
+                borderRadius: BorderRadius.circular(
+                  DimenConstant.borderRadius,
                 ),
-                DimenConstant.separator,
-                Expanded(
-                  child: Text(
-                    ingredients[index],
-                    style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.extraSmallText,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      ingredients[index],
+                      style: TextStyle(
+                        color: ColorConstant.primaryColor,
+                        fontSize: DimenConstant.extraSmallText,
+                      ),
+                      textAlign: TextAlign.justify,
                     ),
-                    textAlign: TextAlign.justify,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
+            separatorBuilder: (context, index) => DimenConstant.separator,
             itemCount: ingredients.length,
           ),
         ),
@@ -81,18 +94,14 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
               horizontal: DimenConstant.edgePadding,
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
-              ),
+              borderRadius: BorderRadius.circular(500),
               borderSide: BorderSide(
                 color: ColorConstant.primaryColor,
                 width: DimenConstant.borderWidth,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
-              ),
+              borderRadius: BorderRadius.circular(500),
               borderSide: BorderSide(
                 color: ColorConstant.secondaryColor,
                 width: DimenConstant.borderWidth,
@@ -139,6 +148,44 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
             ingredientsController.clear();
             setState(() {});
           },
+        ),
+        DimenConstant.separator,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              color: ColorConstant.primaryColor,
+              onPressed: () =>
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .carouselSliderController
+                      .previousPage(),
+              icon: Icon(
+                Icons.navigate_before_rounded,
+                color: ColorConstant.tertiaryColor,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
+                ),
+              ),
+            ),
+            IconButton(
+              color: ColorConstant.primaryColor,
+              onPressed: () =>
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .carouselSliderController
+                      .nextPage(),
+              icon: Icon(
+                Icons.navigate_next_rounded,
+                color: ColorConstant.tertiaryColor,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

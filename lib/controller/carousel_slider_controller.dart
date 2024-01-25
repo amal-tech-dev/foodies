@@ -1,17 +1,18 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class CarouselSliderController with ChangeNotifier {
-  int index = 0;
+  CarouselController controller = CarouselController();
 
-  // increment index
-  increment() {
-    index++;
+  // go to previous page on carousel slider
+  previousPage() {
+    controller.previousPage();
     notifyListeners();
   }
 
-  // decrement index
-  decrement() {
-    if (index >= 2) index--;
+  // go to next page on carousel slider
+  nextPage() {
+    controller.nextPage();
     notifyListeners();
   }
 }

@@ -39,7 +39,7 @@ class StringConstant {
   static const String addImage =
       'Now add a clear image of your dish similar to below images.';
   static const String previewRecipe =
-      'Thank you for sharing your recipe with ${StringConstant.appName}! Can\'t wait to try it out.';
+      'Thank you for sharing your recipe with ${StringConstant.appName}. Can\'t wait to try it out.';
   static const String saveRecipe =
       'Your recipe is ready. Smells good! Share your recipe with ${StringConstant.appName} and let other Food enthusiasts know about your Recipe.';
 
