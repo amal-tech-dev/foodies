@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/controller/text_input_format_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/dismissible_list_item.dart';
 import 'package:provider/provider.dart';
 
 class RecipeIngredients extends StatefulWidget {
@@ -16,7 +18,10 @@ class RecipeIngredients extends StatefulWidget {
 
 class _RecipeIngredientsState extends State<RecipeIngredients> {
   List<String> ingredients = [];
+  bool isEditing = false;
+  int editingIndex = -1;
   TextEditingController ingredientsController = TextEditingController();
+  FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
@@ -47,40 +52,41 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
         ),
         DimenConstant.separator,
         Expanded(
-          child: ListView.separated(
-            itemBuilder: (context, index) => Container(
-              padding: EdgeInsets.symmetric(
-                vertical: DimenConstant.edgePadding * 1.5,
-                horizontal: DimenConstant.edgePadding,
+          child: SlidableAutoCloseBehavior(
+            child: ListView.separated(
+              itemBuilder: (context, index) => DismissibleListItem(
+                item: ingredients[index],
+                isEditing: editingIndex == index ? true : false,
+                onItemPressed: () {
+                  if (editingIndex == index) {
+                    isEditing = false;
+                    editingIndex = -1;
+                    ingredientsController.clear();
+                  }
+                  setState(() {});
+                },
+                onEditPressed: () {
+                  isEditing = true;
+                  editingIndex = index;
+                  ingredientsController = TextEditingController(
+                    text: ingredients[index],
+                  );
+                  FocusScope.of(context).requestFocus(focusNode);
+                  setState(() {});
+                },
+                onDeletePressed: () {
+                  ingredients.removeAt(index);
+                  setState(() {});
+                },
               ),
-              decoration: BoxDecoration(
-                color: ColorConstant.tertiaryColor,
-                borderRadius: BorderRadius.circular(
-                  DimenConstant.borderRadius,
-                ),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Text(
-                      ingredients[index],
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.extraSmallText,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                ],
-              ),
+              separatorBuilder: (context, index) => DimenConstant.separator,
+              itemCount: ingredients.length,
             ),
-            separatorBuilder: (context, index) => DimenConstant.separator,
-            itemCount: ingredients.length,
           ),
         ),
         DimenConstant.separator,
         TextField(
+          focusNode: focusNode,
           controller: ingredientsController,
           decoration: InputDecoration(
             label: Text(
@@ -110,8 +116,19 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
             suffix: InkWell(
               splashColor: Colors.transparent,
               onTap: () {
-                if (ingredientsController.text.isNotEmpty)
-                  ingredients.add(ingredientsController.text.trim());
+                if (ingredientsController.text.isNotEmpty) {
+                  if (isEditing) {
+                    ingredients.removeAt(editingIndex);
+                    ingredients.insert(
+                      editingIndex,
+                      ingredientsController.text.trim(),
+                    );
+                    isEditing = false;
+                    editingIndex = -1;
+                  } else {
+                    ingredients.add(ingredientsController.text.trim());
+                  }
+                }
                 ingredientsController.clear();
                 setState(() {});
               },
@@ -120,7 +137,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
                   horizontal: DimenConstant.edgePadding,
                 ),
                 child: Text(
-                  'Add',
+                  isEditing ? 'Update' : 'Add',
                   style: TextStyle(
                     color: ColorConstant.secondaryColor,
                     fontSize: DimenConstant.miniText,
