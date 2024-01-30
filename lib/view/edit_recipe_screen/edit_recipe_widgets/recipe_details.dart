@@ -461,6 +461,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
               IconButton(
                 color: ColorConstant.primaryColor,
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   Provider.of<AddRecipeController>(context, listen: false)
                       .update(
                     recipe: RecipeModel(

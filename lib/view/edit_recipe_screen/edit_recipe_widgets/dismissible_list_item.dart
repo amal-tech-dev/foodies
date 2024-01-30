@@ -21,51 +21,45 @@ class DismissibleListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Slidable(
       groupTag: 0,
+      closeOnScroll: true,
       startActionPane: ActionPane(
+        extentRatio: 0.32,
         motion: ScrollMotion(),
         children: [
-          Expanded(
-            child: InkWell(
-              onTap: onDeletePressed,
-              child: Container(
-                padding: EdgeInsets.all(
-                  DimenConstant.edgePadding,
+          InkWell(
+            onTap: onDeletePressed,
+            child: Container(
+              padding: EdgeInsets.all(
+                DimenConstant.edgePadding,
+              ),
+              decoration: BoxDecoration(
+                color: ColorConstant.errorColor,
+                borderRadius: BorderRadius.circular(
+                  DimenConstant.borderRadius,
                 ),
-                decoration: BoxDecoration(
-                  color: ColorConstant.errorColor,
-                  borderRadius: BorderRadius.circular(
-                    DimenConstant.borderRadius,
-                  ),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.delete_rounded,
-                    color: ColorConstant.primaryColor,
-                  ),
-                ),
+              ),
+              child: Icon(
+                Icons.delete_rounded,
+                color: ColorConstant.primaryColor,
               ),
             ),
           ),
           DimenConstant.separator,
-          Expanded(
-            child: InkWell(
-              onTap: onEditPressed,
-              child: Container(
-                padding: EdgeInsets.all(
-                  DimenConstant.edgePadding,
+          InkWell(
+            onTap: onEditPressed,
+            child: Container(
+              padding: EdgeInsets.all(
+                DimenConstant.edgePadding,
+              ),
+              decoration: BoxDecoration(
+                color: ColorConstant.secondaryColor,
+                borderRadius: BorderRadius.circular(
+                  DimenConstant.borderRadius,
                 ),
-                decoration: BoxDecoration(
-                  color: ColorConstant.secondaryColor,
-                  borderRadius: BorderRadius.circular(
-                    DimenConstant.borderRadius,
-                  ),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.edit_rounded,
-                    color: ColorConstant.tertiaryColor,
-                  ),
-                ),
+              ),
+              child: Icon(
+                Icons.edit_rounded,
+                color: ColorConstant.tertiaryColor,
               ),
             ),
           ),
@@ -73,48 +67,44 @@ class DismissibleListItem extends StatelessWidget {
         ],
       ),
       endActionPane: ActionPane(
+        extentRatio: 0.32,
         motion: ScrollMotion(),
         children: [
           DimenConstant.separator,
-          Expanded(
-            child: InkWell(
-              onTap: onEditPressed,
-              child: Container(
-                padding: EdgeInsets.all(
-                  DimenConstant.edgePadding,
+          InkWell(
+            onTap: onEditPressed,
+            child: Container(
+              padding: EdgeInsets.all(
+                DimenConstant.edgePadding,
+              ),
+              decoration: BoxDecoration(
+                color: ColorConstant.secondaryColor,
+                borderRadius: BorderRadius.circular(
+                  DimenConstant.borderRadius,
                 ),
-                decoration: BoxDecoration(
-                  color: ColorConstant.secondaryColor,
-                  borderRadius: BorderRadius.circular(
-                    DimenConstant.borderRadius,
-                  ),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.edit_rounded,
-                    color: ColorConstant.tertiaryColor,
-                  ),
-                ),
+              ),
+              child: Icon(
+                Icons.edit_rounded,
+                color: ColorConstant.tertiaryColor,
               ),
             ),
           ),
           DimenConstant.separator,
-          Expanded(
-            child: InkWell(
-              onTap: onDeletePressed,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: ColorConstant.errorColor,
-                  borderRadius: BorderRadius.circular(
-                    DimenConstant.borderRadius,
-                  ),
+          InkWell(
+            onTap: onDeletePressed,
+            child: Container(
+              padding: EdgeInsets.all(
+                DimenConstant.edgePadding,
+              ),
+              decoration: BoxDecoration(
+                color: ColorConstant.errorColor,
+                borderRadius: BorderRadius.circular(
+                  DimenConstant.borderRadius,
                 ),
-                child: Center(
-                  child: Icon(
-                    Icons.delete_rounded,
-                    color: ColorConstant.primaryColor,
-                  ),
-                ),
+              ),
+              child: Icon(
+                Icons.delete_rounded,
+                color: ColorConstant.primaryColor,
               ),
             ),
           ),

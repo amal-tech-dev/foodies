@@ -17,13 +17,11 @@ class Assets {
   static const String lottieEmptyKitchen = 'assets/lottie/empty_kitchen.json';
   static const String lottieLoading = 'assets/lottie/loading.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';
-  static const String lottieRecipeReady = 'assets/lottie/recipe_ready.json';
   static const String lottieSearching = 'assets/lottie/searching.json';
   static const String lottieStartSearching =
       'assets/lottie/start_searching.json';
   static const String thumbnailsAddRecipe = 'assets/thumbnails/add_recipe.png';
-  static const String thumbnailsAddRecipePreview =
-      'assets/thumbnails/add_recipe_preview.png';
+  static const String thumbnailsChef = 'assets/thumbnails/chef.png';
   static const String thumbnailsGetStarted =
       'assets/thumbnails/get_started.png';
   static const String thumbnailsLogin = 'assets/thumbnails/login.png';

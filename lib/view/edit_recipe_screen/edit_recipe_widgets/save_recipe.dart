@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/utils/lottie_constant.dart';
+import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class SaveRecipe extends StatelessWidget {
@@ -17,9 +16,8 @@ class SaveRecipe extends StatelessWidget {
       children: [
         Column(
           children: [
-            Lottie.asset(
-              LottieConstant.recipeReady,
-              repeat: false,
+            Image.asset(
+              ImageConstant.addRecipePreviewThumbnail,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/generated/assets.dart';
@@ -22,6 +24,8 @@ class _RecipeImageState extends State<RecipeImage> {
     Assets.foodImagesPrawnSalad,
   ];
   String selectedImage = Assets.imagesPickImage;
+  ImagePicker picker = ImagePicker();
+  File? image;
 
   @override
   void initState() {
@@ -54,7 +58,7 @@ class _RecipeImageState extends State<RecipeImage> {
             textAlign: TextAlign.center,
           ),
         ),
-        DimenConstant.separator,
+        SizedBox(height: 25),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(
@@ -77,20 +81,24 @@ class _RecipeImageState extends State<RecipeImage> {
                 context: context,
                 builder: (context) => PickImageBottomSheet(
                   onCameraPressed: () async {
-                    final ImagePicker picker = ImagePicker();
-                    final XFile? image = await picker.pickImage(
+                    final pickedImage = await picker.pickImage(
                       source: ImageSource.camera,
                     );
-                    if (image != null) selectedImage = image.path;
+                    if (pickedImage != null) image = File(pickedImage.path);
                     setState(() {});
                     Navigator.pop(context);
                   },
                   onGalleryPressed: () async {
-                    final ImagePicker picker = ImagePicker();
-                    final XFile? image = await picker.pickImage(
+                    final pickedImage = await picker.pickImage(
                       source: ImageSource.gallery,
                     );
-                    if (image != null) selectedImage = image.path;
+                    if (pickedImage != null) image = File(pickedImage.path);
+                    setState(() {});
+                    Navigator.pop(context);
+                  },
+                  onDeletePressed: () {
+                    selectedImage = Assets.imagesPickImage;
+                    image = null;
                     setState(() {});
                     Navigator.pop(context);
                   },
@@ -98,7 +106,10 @@ class _RecipeImageState extends State<RecipeImage> {
               ),
               child: CircleAvatar(
                 radius: MediaQuery.of(context).size.width * 0.35,
-                backgroundImage: AssetImage(selectedImage),
+                backgroundImage: AssetImage(Assets.imagesPickImage),
+                foregroundImage: image == null
+                    ? AssetImage(selectedImage)
+                    : FileImage(image!) as ImageProvider<Object>,
               ),
             ),
           ),
@@ -109,10 +120,12 @@ class _RecipeImageState extends State<RecipeImage> {
           children: [
             IconButton(
               color: ColorConstant.primaryColor,
-              onPressed: () =>
-                  Provider.of<AddRecipeController>(context, listen: false)
-                      .carouselSliderController
-                      .previousPage(),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                Provider.of<AddRecipeController>(context, listen: false)
+                    .carouselSliderController
+                    .previousPage();
+              },
               icon: Icon(
                 Icons.navigate_before_rounded,
                 color: ColorConstant.tertiaryColor,
@@ -125,10 +138,12 @@ class _RecipeImageState extends State<RecipeImage> {
             ),
             IconButton(
               color: ColorConstant.primaryColor,
-              onPressed: () =>
-                  Provider.of<AddRecipeController>(context, listen: false)
-                      .carouselSliderController
-                      .nextPage(),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                Provider.of<AddRecipeController>(context, listen: false)
+                    .carouselSliderController
+                    .nextPage();
+              },
               icon: Icon(
                 Icons.navigate_next_rounded,
                 color: ColorConstant.tertiaryColor,

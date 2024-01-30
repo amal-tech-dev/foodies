@@ -3,11 +3,12 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
 class PickImageBottomSheet extends StatelessWidget {
-  VoidCallback onCameraPressed, onGalleryPressed;
+  VoidCallback onCameraPressed, onGalleryPressed, onDeletePressed;
   PickImageBottomSheet({
     super.key,
     required this.onCameraPressed,
     required this.onGalleryPressed,
+    required this.onDeletePressed,
   });
 
   @override
@@ -55,6 +56,28 @@ class PickImageBottomSheet extends StatelessWidget {
                   ),
                   Text(
                     'Gallery',
+                    style: TextStyle(
+                      color: ColorConstant.secondaryColor,
+                      fontSize: DimenConstant.extraSmallText,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          InkWell(
+            splashColor: Colors.transparent,
+            onTap: onDeletePressed,
+            child: SizedBox(
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.delete_outline,
+                    color: ColorConstant.primaryColor,
+                    size: 30,
+                  ),
+                  Text(
+                    'Remove',
                     style: TextStyle(
                       color: ColorConstant.secondaryColor,
                       fontSize: DimenConstant.extraSmallText,

@@ -30,6 +30,7 @@ class ProfileTile extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50,
+              backgroundColor: Colors.transparent,
               backgroundImage: AssetImage(
                 image,
               ),

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/controller/text_input_format_controller.dart';
+import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/dismissible_list_item.dart';
 import 'package:provider/provider.dart';
 
 class RecipeSteps extends StatefulWidget {
@@ -16,7 +19,10 @@ class RecipeSteps extends StatefulWidget {
 
 class _RecipeStepsState extends State<RecipeSteps> {
   List<String> steps = [];
+  bool isEditing = false;
+  int editingIndex = -1;
   TextEditingController stepsController = TextEditingController();
+  FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
@@ -47,37 +53,41 @@ class _RecipeStepsState extends State<RecipeSteps> {
         ),
         DimenConstant.separator,
         Expanded(
-          child: ListView.builder(
-            itemBuilder: (context, index) => Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: DimenConstant.extraSmallText / 2,
-                  ),
-                  child: CircleAvatar(
-                    backgroundColor: ColorConstant.secondaryColor,
-                    radius: 5,
-                  ),
-                ),
-                DimenConstant.separator,
-                Expanded(
-                  child: Text(
-                    steps[index],
-                    style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.extraSmallText,
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-              ],
+          child: SlidableAutoCloseBehavior(
+            child: ListView.separated(
+              itemBuilder: (context, index) => DismissibleListItem(
+                item: steps[index],
+                isEditing: editingIndex == index ? true : false,
+                onItemPressed: () {
+                  if (editingIndex == index) {
+                    isEditing = false;
+                    editingIndex = -1;
+                    stepsController.clear();
+                  }
+                  setState(() {});
+                },
+                onEditPressed: () {
+                  isEditing = true;
+                  editingIndex = index;
+                  stepsController = TextEditingController(
+                    text: steps[index],
+                  );
+                  FocusScope.of(context).requestFocus(focusNode);
+                  setState(() {});
+                },
+                onDeletePressed: () {
+                  steps.removeAt(index);
+                  setState(() {});
+                },
+              ),
+              separatorBuilder: (context, index) => DimenConstant.separator,
+              itemCount: steps.length,
             ),
-            itemCount: steps.length,
           ),
         ),
         DimenConstant.separator,
         TextField(
+          focusNode: focusNode,
           controller: stepsController,
           decoration: InputDecoration(
             label: Text(
@@ -91,14 +101,18 @@ class _RecipeStepsState extends State<RecipeSteps> {
               horizontal: DimenConstant.edgePadding,
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(500),
+              borderRadius: BorderRadius.circular(
+                DimenConstant.borderRadius,
+              ),
               borderSide: BorderSide(
                 color: ColorConstant.primaryColor,
                 width: DimenConstant.borderWidth,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(500),
+              borderRadius: BorderRadius.circular(
+                DimenConstant.borderRadius,
+              ),
               borderSide: BorderSide(
                 color: ColorConstant.secondaryColor,
                 width: DimenConstant.borderWidth,
@@ -107,8 +121,19 @@ class _RecipeStepsState extends State<RecipeSteps> {
             suffix: InkWell(
               splashColor: Colors.transparent,
               onTap: () {
-                if (stepsController.text.isNotEmpty)
-                  steps.add(stepsController.text.trim());
+                if (stepsController.text.isNotEmpty) {
+                  if (isEditing) {
+                    steps.removeAt(editingIndex);
+                    steps.insert(
+                      editingIndex,
+                      stepsController.text.trim(),
+                    );
+                    isEditing = false;
+                    editingIndex = -1;
+                  } else {
+                    steps.add(stepsController.text.trim());
+                  }
+                }
                 stepsController.clear();
                 setState(() {});
               },
@@ -117,7 +142,7 @@ class _RecipeStepsState extends State<RecipeSteps> {
                   horizontal: DimenConstant.edgePadding,
                 ),
                 child: Text(
-                  'Add',
+                  isEditing ? 'Update' : 'Add',
                   style: TextStyle(
                     color: ColorConstant.secondaryColor,
                     fontSize: DimenConstant.miniText,
@@ -152,10 +177,56 @@ class _RecipeStepsState extends State<RecipeSteps> {
           children: [
             IconButton(
               color: ColorConstant.primaryColor,
-              onPressed: () =>
-                  Provider.of<AddRecipeController>(context, listen: false)
-                      .carouselSliderController
-                      .previousPage(),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                Provider.of<AddRecipeController>(context, listen: false).update(
+                  recipe: RecipeModel(
+                    id: Provider.of<AddRecipeController>(context, listen: false)
+                        .editedRecipe
+                        .id,
+                    name:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .name,
+                    cuisine:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .cuisine,
+                    description:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .description,
+                    time:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .time,
+                    image:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .image,
+                    chef:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .chef,
+                    veg:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .veg,
+                    categories:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .categories,
+                    ingredients:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .ingredients,
+                    steps: steps,
+                  ),
+                );
+                Provider.of<AddRecipeController>(context, listen: false)
+                    .carouselSliderController
+                    .previousPage();
+              },
               icon: Icon(
                 Icons.navigate_before_rounded,
                 color: ColorConstant.tertiaryColor,
@@ -168,10 +239,56 @@ class _RecipeStepsState extends State<RecipeSteps> {
             ),
             IconButton(
               color: ColorConstant.primaryColor,
-              onPressed: () =>
-                  Provider.of<AddRecipeController>(context, listen: false)
-                      .carouselSliderController
-                      .nextPage(),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                Provider.of<AddRecipeController>(context, listen: false).update(
+                  recipe: RecipeModel(
+                    id: Provider.of<AddRecipeController>(context, listen: false)
+                        .editedRecipe
+                        .id,
+                    name:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .name,
+                    cuisine:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .cuisine,
+                    description:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .description,
+                    time:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .time,
+                    image:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .image,
+                    chef:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .chef,
+                    veg:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .veg,
+                    categories:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .categories,
+                    ingredients:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .ingredients,
+                    steps: steps,
+                  ),
+                );
+                Provider.of<AddRecipeController>(context, listen: false)
+                    .carouselSliderController
+                    .nextPage();
+              },
               icon: Icon(
                 Icons.navigate_next_rounded,
                 color: ColorConstant.tertiaryColor,

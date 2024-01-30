@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/controller/text_input_format_controller.dart';
+import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
@@ -100,14 +101,18 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
               horizontal: DimenConstant.edgePadding,
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(500),
+              borderRadius: BorderRadius.circular(
+                DimenConstant.borderRadius,
+              ),
               borderSide: BorderSide(
                 color: ColorConstant.primaryColor,
                 width: DimenConstant.borderWidth,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(500),
+              borderRadius: BorderRadius.circular(
+                DimenConstant.borderRadius,
+              ),
               borderSide: BorderSide(
                 color: ColorConstant.secondaryColor,
                 width: DimenConstant.borderWidth,
@@ -172,10 +177,56 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
           children: [
             IconButton(
               color: ColorConstant.primaryColor,
-              onPressed: () =>
-                  Provider.of<AddRecipeController>(context, listen: false)
-                      .carouselSliderController
-                      .previousPage(),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                Provider.of<AddRecipeController>(context, listen: false).update(
+                  recipe: RecipeModel(
+                    id: Provider.of<AddRecipeController>(context, listen: false)
+                        .editedRecipe
+                        .id,
+                    name:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .name,
+                    cuisine:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .cuisine,
+                    description:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .description,
+                    time:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .time,
+                    image:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .image,
+                    chef:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .chef,
+                    veg:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .veg,
+                    categories:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .categories,
+                    ingredients: ingredients,
+                    steps:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .steps,
+                  ),
+                );
+                Provider.of<AddRecipeController>(context, listen: false)
+                    .carouselSliderController
+                    .previousPage();
+              },
               icon: Icon(
                 Icons.navigate_before_rounded,
                 color: ColorConstant.tertiaryColor,
@@ -188,10 +239,56 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
             ),
             IconButton(
               color: ColorConstant.primaryColor,
-              onPressed: () =>
-                  Provider.of<AddRecipeController>(context, listen: false)
-                      .carouselSliderController
-                      .nextPage(),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                Provider.of<AddRecipeController>(context, listen: false).update(
+                  recipe: RecipeModel(
+                    id: Provider.of<AddRecipeController>(context, listen: false)
+                        .editedRecipe
+                        .id,
+                    name:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .name,
+                    cuisine:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .cuisine,
+                    description:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .description,
+                    time:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .time,
+                    image:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .image,
+                    chef:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .chef,
+                    veg:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .veg,
+                    categories:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .categories,
+                    ingredients: ingredients,
+                    steps:
+                        Provider.of<AddRecipeController>(context, listen: false)
+                            .editedRecipe
+                            .steps,
+                  ),
+                );
+                Provider.of<AddRecipeController>(context, listen: false)
+                    .carouselSliderController
+                    .nextPage();
+              },
               icon: Icon(
                 Icons.navigate_next_rounded,
                 color: ColorConstant.tertiaryColor,
