@@ -16,89 +16,36 @@ class RecipeItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Visibility(
-                visible: recipe.chef == null ? false : true,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: 25,
-                    bottom: 4,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Recipy By: ',
-                        style: TextStyle(
-                          color: ColorConstant.primaryColor,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UserProfileScreen(),
-                          ),
-                        ),
-                        child: Text(
-                          recipe.chef ?? '',
-                          style: TextStyle(
-                            color: ColorConstant.secondaryColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: 155,
-                padding: EdgeInsets.all(
-                  DimenConstant.edgePadding,
-                ),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: recipe.veg
-                        ? [
-                            ColorConstant.vegPrimaryGradient,
-                            ColorConstant.vegSecondaryGradient,
-                          ]
-                        : [
-                            ColorConstant.nonvegPrimaryGradient,
-                            ColorConstant.nonvegSecondaryGradient,
-                          ],
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            ],
-          ),
-        ),
         Padding(
-          padding: const EdgeInsets.all(
-            DimenConstant.edgePadding,
+          padding: const EdgeInsets.only(
+            top: 50,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  DimenConstant.separator,
-                  CircleAvatar(
-                    radius: 50,
-                    foregroundImage: AssetImage(
-                      recipe.image,
-                    ),
+          child: Container(
+            padding: EdgeInsets.all(
+              DimenConstant.edgePadding,
+            ),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: recipe.veg
+                    ? [
+                        ColorConstant.vegPrimaryGradient,
+                        ColorConstant.vegSecondaryGradient,
+                      ]
+                    : [
+                        ColorConstant.nonvegPrimaryGradient,
+                        ColorConstant.nonvegSecondaryGradient,
+                      ],
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 120,
                   ),
-                  DimenConstant.separator,
-                  Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -120,28 +67,70 @@ class RecipeItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                ],
-              ),
-              Text(
-                recipe.description,
-                style: TextStyle(
-                  color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.miniText,
                 ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.justify,
-              ),
-              DimenConstant.separator,
-              Text(
-                recipe.categories.join(' · '),
-                style: TextStyle(
-                  color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.nanoText,
+                Text(
+                  recipe.description,
+                  style: TextStyle(
+                    color: ColorConstant.primaryColor,
+                    fontSize: DimenConstant.miniText,
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.justify,
                 ),
-              ),
-              DimenConstant.separator,
-            ],
+                DimenConstant.separator,
+                Text(
+                  recipe.categories.join(' · '),
+                  style: TextStyle(
+                    color: ColorConstant.primaryColor,
+                    fontSize: DimenConstant.nanoText,
+                  ),
+                ),
+                DimenConstant.separator,
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          left: 20,
+          child: CircleAvatar(
+            radius: 50,
+            foregroundImage: AssetImage(
+              recipe.image,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 30,
+          right: 20,
+          child: Visibility(
+            visible: recipe.chef == null ? false : true,
+            child: Row(
+              children: [
+                Text(
+                  'Recipy By: ',
+                  style: TextStyle(
+                    color: ColorConstant.primaryColor,
+                    fontSize: DimenConstant.miniText,
+                  ),
+                ),
+                InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserProfileScreen(),
+                    ),
+                  ),
+                  child: Text(
+                    recipe.chef ?? '',
+                    style: TextStyle(
+                      color: ColorConstant.secondaryColor,
+                      fontSize: DimenConstant.miniText,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],

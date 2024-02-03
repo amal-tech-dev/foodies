@@ -42,6 +42,10 @@ class StringConstant {
       'Thank you for sharing your recipe with ${StringConstant.appName}. Can\'t wait to try it out.';
   static const String saveRecipe =
       'Your recipe is ready. Smells good! Share your recipe with ${StringConstant.appName} and let other Food enthusiasts know about your Recipe.';
+  static const String cookingPreparation =
+      'Excellent choice. Now lets start with gathering ingredients.';
+  static const String cookingPantry =
+      'Let\'s gather the required ingredients one by one.';
 
   static const List<String> diet = [
     'Vegetarian',

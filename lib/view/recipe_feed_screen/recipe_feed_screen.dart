@@ -138,7 +138,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                     ),
                   ),
                   Expanded(
-                    child: ListView.builder(
+                    child: ListView.separated(
                       itemBuilder: (context, index) => InkWell(
                         onTap: () => Navigator.push(
                           context,
@@ -154,6 +154,8 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           recipe: Database.recipes[index],
                         ),
                       ),
+                      separatorBuilder: (context, index) =>
+                          DimenConstant.separator,
                       itemCount: Database.recipes.length,
                     ),
                   ),

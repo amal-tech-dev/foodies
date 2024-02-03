@@ -417,7 +417,9 @@ class RecipeViewScreen extends StatelessWidget {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CookingScreen(),
+                  builder: (context) => CookingScreen(
+                    recipe: recipe,
+                  ),
                 ),
               ),
               child: Text(

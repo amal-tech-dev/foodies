@@ -13,7 +13,6 @@ class Assets {
   static const String imagesPickImage = 'assets/images/pick_image.png';
   static const String imagesProfile = 'assets/images/profile.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
-  static const String lottieCooking = 'assets/lottie/cooking.json';
   static const String lottieEmptyKitchen = 'assets/lottie/empty_kitchen.json';
   static const String lottieLoading = 'assets/lottie/loading.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';

@@ -9,12 +9,39 @@ import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/overview_screen/overview_widgets/carousel_item.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class OverviewScreen extends StatelessWidget {
+class OverviewScreen extends StatefulWidget {
   OverviewScreen({super.key});
 
+  @override
+  State<OverviewScreen> createState() => _OverviewScreenState();
+}
+
+class _OverviewScreenState extends State<OverviewScreen> {
   CarouselSliderController carouselSliderController =
       CarouselSliderController();
+
+  @override
+  void initState() {
+    int index = 0;
+    while (index == 0) {
+      carouselSliderController.indicator.nextPage(
+        duration: Duration(seconds: 3),
+        curve: Curves.easeInOut,
+      );
+    }
+    Timer(
+        Duration(
+          seconds: 10,
+        ), () {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+          (route) => false);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,34 +84,42 @@ class OverviewScreen extends StatelessWidget {
             ),
             DimenConstant.separator,
             Expanded(
-              child: CarouselSlider(
-                carouselController: carouselSliderController.controller,
-                items: [
-                  CarouselItem(
-                    title: StringConstant.carouselTitle1,
-                    subtitle: StringConstant.carouselSubtitle1,
+              child: Column(
+                children: [
+                  CarouselSlider(
+                    carouselController: carouselSliderController.controller,
+                    items: [
+                      CarouselItem(
+                        title: StringConstant.carouselTitle1,
+                        subtitle: StringConstant.carouselSubtitle1,
+                      ),
+                      CarouselItem(
+                        title: StringConstant.carouselTitle2,
+                        subtitle: StringConstant.carouselSubtitle2,
+                      ),
+                      CarouselItem(
+                        title: StringConstant.carouselTitle3,
+                        subtitle: StringConstant.carouselSubtitle3,
+                      ),
+                    ],
+                    options: CarouselOptions(
+                      viewportFraction: 1.0,
+                      autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 3),
+                    ),
                   ),
-                  CarouselItem(
-                    title: StringConstant.carouselTitle2,
-                    subtitle: StringConstant.carouselSubtitle2,
-                  ),
-                  CarouselItem(
-                    title: StringConstant.carouselTitle3,
-                    subtitle: StringConstant.carouselSubtitle3,
+                  SmoothPageIndicator(
+                    controller: carouselSliderController.indicator,
+                    count: 3,
+                    effect: ExpandingDotsEffect(
+                      activeDotColor: ColorConstant.secondaryColor,
+                      dotColor: ColorConstant.primaryColor.withOpacity(0.5),
+                      dotHeight: 8,
+                      dotWidth: 8,
+                      spacing: 10,
+                    ),
                   ),
                 ],
-                options: CarouselOptions(
-                  viewportFraction: 1.0,
-                  autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 3),
-                  onPageChanged: (index, reason) => Timer(
-                    Duration(seconds: 5),
-                    () => Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                        (route) => false),
-                  ),
-                ),
               ),
             ),
           ],

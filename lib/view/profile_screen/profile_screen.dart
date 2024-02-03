@@ -39,8 +39,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(
-          DimenConstant.edgePadding,
+        padding: const EdgeInsets.symmetric(
+          horizontal: DimenConstant.edgePadding * 2,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,10 +60,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     name: 'My Recipes',
                     screen: MyRecipesScreen(),
                   ),
-                ),
-                Visibility(
-                  visible: !isGuest,
-                  child: DimenConstant.separator,
                 ),
               ],
             ),

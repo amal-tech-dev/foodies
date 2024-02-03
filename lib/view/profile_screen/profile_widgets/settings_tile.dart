@@ -20,24 +20,22 @@ class SettingsTile extends StatelessWidget {
           builder: (context) => screen,
         ),
       ),
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(
-          DimenConstant.edgePadding * 1.5,
-        ),
-        decoration: BoxDecoration(
-          color: ColorConstant.tertiaryColor,
-          borderRadius: BorderRadius.circular(
-            DimenConstant.borderRadius,
-          ),
-        ),
-        child: Text(
-          name,
-          style: TextStyle(
+      child: Row(
+        children: [
+          Icon(
+            Icons.restaurant_rounded,
+            size: 30,
             color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.extraSmallText,
           ),
-        ),
+          DimenConstant.separator,
+          Text(
+            name,
+            style: TextStyle(
+              color: ColorConstant.secondaryColor,
+              fontSize: DimenConstant.smallText,
+            ),
+          ),
+        ],
       ),
     );
   }
