@@ -34,23 +34,28 @@ class PreviewRecipe extends StatelessWidget {
             ),
           ],
         ),
-        ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(
-              ColorConstant.secondaryColor,
+        DimenConstant.separator,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              color: ColorConstant.primaryColor,
+              onPressed: () =>
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .pageViewController
+                      .nextPage(),
+              icon: Icon(
+                Icons.navigate_next_rounded,
+                color: ColorConstant.tertiaryColor,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  ColorConstant.secondaryColor,
+                ),
+              ),
             ),
-          ),
-          onPressed: () =>
-              Provider.of<AddRecipeController>(context, listen: false)
-                  .carouselSliderController
-                  .nextPage(),
-          child: Text(
-            'Let\'s Start',
-            style: TextStyle(
-              color: ColorConstant.tertiaryColor,
-            ),
-          ),
-        )
+          ],
+        ),
       ],
     );
   }

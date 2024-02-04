@@ -224,7 +224,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
                   ),
                 );
                 Provider.of<AddRecipeController>(context, listen: false)
-                    .carouselSliderController
+                    .pageViewController
                     .previousPage();
               },
               icon: Icon(
@@ -286,7 +286,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
                   ),
                 );
                 Provider.of<AddRecipeController>(context, listen: false)
-                    .carouselSliderController
+                    .pageViewController
                     .nextPage();
               },
               icon: Icon(

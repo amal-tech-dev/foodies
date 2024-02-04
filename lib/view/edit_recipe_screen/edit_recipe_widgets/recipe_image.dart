@@ -123,7 +123,7 @@ class _RecipeImageState extends State<RecipeImage> {
               onPressed: () {
                 FocusScope.of(context).unfocus();
                 Provider.of<AddRecipeController>(context, listen: false)
-                    .carouselSliderController
+                    .pageViewController
                     .previousPage();
               },
               icon: Icon(
@@ -141,7 +141,7 @@ class _RecipeImageState extends State<RecipeImage> {
               onPressed: () {
                 FocusScope.of(context).unfocus();
                 Provider.of<AddRecipeController>(context, listen: false)
-                    .carouselSliderController
+                    .pageViewController
                     .nextPage();
               },
               icon: Icon(

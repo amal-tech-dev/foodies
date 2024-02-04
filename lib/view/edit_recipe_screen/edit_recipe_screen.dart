@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
@@ -11,6 +10,7 @@ import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_ingre
 import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_steps.dart';
 import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/save_recipe.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class EditRecipeScreen extends StatefulWidget {
   bool toAdd;
@@ -27,15 +27,6 @@ class EditRecipeScreen extends StatefulWidget {
 }
 
 class _EditRecipeScreenState extends State<EditRecipeScreen> {
-  List<Widget> pages = [
-    PreviewRecipe(),
-    RecipeDetails(),
-    RecipeIngredients(),
-    RecipeSteps(),
-    RecipeImage(),
-    SaveRecipe(),
-  ];
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -74,18 +65,34 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         child: Column(
           children: [
             Expanded(
-              child: CarouselSlider(
-                carouselController: Provider.of<AddRecipeController>(context)
-                    .carouselSliderController
-                    .controller,
-                items: pages,
-                options: CarouselOptions(
-                  initialPage: 0,
-                  height: double.infinity,
-                  viewportFraction: 1.0,
-                  enableInfiniteScroll: false,
-                  scrollPhysics: NeverScrollableScrollPhysics(),
-                ),
+              child: PageView(
+                controller:
+                    Provider.of<AddRecipeController>(context, listen: false)
+                        .pageViewController
+                        .controller,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  PreviewRecipe(),
+                  RecipeDetails(),
+                  RecipeIngredients(),
+                  RecipeSteps(),
+                  RecipeImage(),
+                  SaveRecipe(),
+                ],
+              ),
+            ),
+            DimenConstant.separator,
+            SmoothPageIndicator(
+              controller:
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .pageViewController
+                      .controller,
+              count: 6,
+              effect: ExpandingDotsEffect(
+                dotHeight: 5,
+                dotWidth: 5,
+                activeDotColor: ColorConstant.secondaryColor,
+                dotColor: ColorConstant.primaryColor.withOpacity(0.5),
               ),
             ),
           ],

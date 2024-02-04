@@ -1,14 +1,11 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class CarouselSliderController with ChangeNotifier {
-  CarouselController controller = CarouselController();
-  PageController indicator = PageController();
+class PageViewController with ChangeNotifier {
+  PageController controller = PageController();
 
   // go to previous page on carousel slider
   previousPage() {
-    controller.previousPage();
-    indicator.previousPage(
+    controller.previousPage(
       duration: Duration(milliseconds: 100),
       curve: Curves.easeInOut,
     );
@@ -17,8 +14,7 @@ class CarouselSliderController with ChangeNotifier {
 
   // go to next page on carousel slider
   nextPage() {
-    controller.nextPage();
-    indicator.nextPage(
+    controller.nextPage(
       duration: Duration(milliseconds: 100),
       curve: Curves.easeInOut,
     );

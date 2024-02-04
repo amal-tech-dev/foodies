@@ -456,8 +456,24 @@ class _RecipeDetailsState extends State<RecipeDetails> {
           ),
           DimenConstant.separator,
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              IconButton(
+                color: ColorConstant.primaryColor,
+                onPressed: () =>
+                    Provider.of<AddRecipeController>(context, listen: false)
+                        .pageViewController
+                        .previousPage(),
+                icon: Icon(
+                  Icons.navigate_before_rounded,
+                  color: ColorConstant.tertiaryColor,
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                    ColorConstant.secondaryColor,
+                  ),
+                ),
+              ),
               IconButton(
                 color: ColorConstant.primaryColor,
                 onPressed: () {
@@ -494,7 +510,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     ),
                   );
                   Provider.of<AddRecipeController>(context, listen: false)
-                      .carouselSliderController
+                      .pageViewController
                       .nextPage();
                 },
                 icon: Icon(

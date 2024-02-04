@@ -42,7 +42,7 @@ class SaveRecipe extends StatelessWidget {
               color: ColorConstant.primaryColor,
               onPressed: () =>
                   Provider.of<AddRecipeController>(context, listen: false)
-                      .carouselSliderController
+                      .pageViewController
                       .previousPage(),
               icon: Icon(
                 Icons.navigate_before_rounded,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodies/controller/carousel_slider_controller.dart';
+import 'package:foodies/controller/page_view_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
 
 class AddRecipeController with ChangeNotifier {
@@ -16,8 +16,7 @@ class AddRecipeController with ChangeNotifier {
     ingredients: [],
     steps: [],
   );
-  CarouselSliderController carouselSliderController =
-      CarouselSliderController();
+  PageViewController pageViewController = PageViewController();
 
   // get existing recipe
   update({required RecipeModel recipe}) {
