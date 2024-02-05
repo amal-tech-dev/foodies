@@ -7,12 +7,12 @@ import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
 
 class RecipeViewScreen extends StatelessWidget {
   RecipeModel recipe;
-  bool isAddedToKitchen;
+  bool isAdded;
   VoidCallback onKitchenPressed;
   RecipeViewScreen({
     super.key,
     required this.recipe,
-    required this.isAddedToKitchen,
+    required this.isAdded,
     required this.onKitchenPressed,
   });
 
@@ -88,10 +88,10 @@ class RecipeViewScreen extends StatelessWidget {
                     IconButton(
                       onPressed: onKitchenPressed,
                       icon: Icon(
-                        isAddedToKitchen
+                        isAdded
                             ? Icons.favorite_rounded
                             : Icons.favorite_outline_rounded,
-                        color: isAddedToKitchen
+                        color: isAdded
                             ? ColorConstant.secondaryColor
                             : ColorConstant.primaryColor,
                         size: 30,

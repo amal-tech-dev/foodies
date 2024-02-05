@@ -15,11 +15,7 @@ class PantryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Opacity(
-      opacity: isChecking
-          ? 1
-          : isChecked
-              ? 1
-              : 0,
+      opacity: isChecking || isChecked ? 1 : 0,
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal:
@@ -33,6 +29,11 @@ class PantryItem extends StatelessWidget {
             color: ColorConstant.tertiaryColor,
             borderRadius: BorderRadius.circular(
               DimenConstant.borderRadius,
+            ),
+            border: Border.all(
+              color:
+                  isChecked ? ColorConstant.secondaryColor : Colors.transparent,
+              width: DimenConstant.borderWidth,
             ),
           ),
           child: Center(

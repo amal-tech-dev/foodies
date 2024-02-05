@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:foodies/database/database.dart';
+import 'package:foodies/database/recipes.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
@@ -143,9 +143,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             )
                           : ListView.builder(
                               itemBuilder: (context, index) => RecipeItem(
-                                recipe: Database.recipes[index],
+                                recipe: Recipes.list[index],
                               ),
-                              itemCount: Database.recipes.length,
+                              itemCount: Recipes.list.length,
                             ),
             ),
           ],

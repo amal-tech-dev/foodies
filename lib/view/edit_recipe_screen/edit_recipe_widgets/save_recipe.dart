@@ -17,7 +17,7 @@ class SaveRecipe extends StatelessWidget {
         Column(
           children: [
             Image.asset(
-              ImageConstant.addRecipePreviewThumbnail,
+              ImageConstant.chef,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodies/database/database.dart';
+import 'package:foodies/database/recipes.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
@@ -46,7 +46,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
 
   // get data with preferences
   getData() {
-    List<RecipeModel> allRecipes = Database.recipes;
+    List<RecipeModel> allRecipes = Recipes.list;
     List<RecipeModel> vegRecipes = [];
     List<RecipeModel> nonvegRecipes = [];
     for (int i = 0; i < allRecipes.length; i++) {
@@ -144,19 +144,19 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => RecipeViewScreen(
-                              recipe: Database.recipes[index],
-                              isAddedToKitchen: false,
+                              recipe: Recipes.list[index],
+                              isAdded: false,
                               onKitchenPressed: () {},
                             ),
                           ),
                         ),
                         child: RecipeItem(
-                          recipe: Database.recipes[index],
+                          recipe: Recipes.list[index],
                         ),
                       ),
                       separatorBuilder: (context, index) =>
                           DimenConstant.separator,
-                      itemCount: Database.recipes.length,
+                      itemCount: Recipes.list.length,
                     ),
                   ),
                 ],

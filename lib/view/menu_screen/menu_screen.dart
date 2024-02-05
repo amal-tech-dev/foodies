@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:foodies/database/database.dart';
+import 'package:foodies/database/recipes.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
@@ -79,9 +79,9 @@ class _MenuScreenState extends State<MenuScreen> {
                   )
                 : ListView.builder(
                     itemBuilder: (context, index) => RecipeItem(
-                      recipe: Database.recipes[index],
+                      recipe: Recipes.list[index],
                     ),
-                    itemCount: Database.recipes.length,
+                    itemCount: Recipes.list.length,
                   ),
       ),
     );

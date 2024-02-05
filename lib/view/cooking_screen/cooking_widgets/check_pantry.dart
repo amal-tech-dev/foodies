@@ -20,7 +20,6 @@ class CheckPantry extends StatefulWidget {
 class _CheckPantryState extends State<CheckPantry> {
   ScrollController scrollController = ScrollController();
   int checkingIndex = -1;
-  List<int> checkedIndexes = [];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ class _CheckPantryState extends State<CheckPantry> {
               itemBuilder: (context, index) => PantryItem(
                 item: widget.ingredients[index],
                 isChecking: checkingIndex == index ? true : false,
-                isChecked: checkedIndexes.contains(index) ? true : false,
+                isChecked: checkingIndex > index ? true : false,
               ),
               separatorBuilder: (context, index) => DimenConstant.separator,
               itemCount: widget.ingredients.length,
@@ -66,7 +65,6 @@ class _CheckPantryState extends State<CheckPantry> {
                 : checkingIndex > widget.ingredients.length - 1
                     ? widget.onPressed
                     : () {
-                        checkedIndexes.add(checkingIndex);
                         scrollController.animateTo(
                           checkingIndex.toDouble() * 20,
                           duration: Duration(milliseconds: 500),

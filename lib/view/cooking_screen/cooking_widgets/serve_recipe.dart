@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/view/home_screen/home_screen.dart';
 
-class CookingPreview extends StatelessWidget {
+class ServeRecipe extends StatelessWidget {
   String name, image;
-  VoidCallback onPressed;
-  CookingPreview({
+  ServeRecipe({
     super.key,
     required this.name,
     required this.image,
-    required this.onPressed,
   });
 
   @override
@@ -37,7 +36,7 @@ class CookingPreview extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Text(
-              StringConstant.cookingPreparation,
+              StringConstant.serveRecipe,
               style: TextStyle(
                 color: ColorConstant.secondaryColor,
                 fontSize: DimenConstant.smallText,
@@ -53,9 +52,15 @@ class CookingPreview extends StatelessWidget {
                   ColorConstant.secondaryColor,
                 ),
               ),
-              onPressed: onPressed,
+              onPressed: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen(),
+                ),
+                (route) => false,
+              ),
               child: Text(
-                'Check the Pantry',
+                'Finish',
                 style: TextStyle(
                   color: ColorConstant.tertiaryColor,
                 ),

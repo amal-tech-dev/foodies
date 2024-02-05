@@ -1,8 +1,8 @@
 import 'package:foodies/generated/assets.dart';
 import 'package:foodies/model/recipe_model.dart';
 
-class Database {
-  static List<RecipeModel> recipes = [
+class Recipes {
+  static List<RecipeModel> list = [
     RecipeModel(
       id: 000000,
       name: 'Barbecue Chicken',

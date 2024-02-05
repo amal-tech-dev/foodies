@@ -46,11 +46,28 @@ class StringConstant {
       'Excellent choice. Now lets start with gathering ingredients.';
   static const String cookingPantry =
       'Let\'s gather the required ingredients one by one.';
+  static const String serveRecipe =
+      'Your recipe is ready to serve. Hope you like it.';
 
   static const List<String> diet = [
     'Vegetarian',
     'Non-Vegetarian',
     'Semi-Vegetarian',
+  ];
+
+  static const List<String> categories = [
+    'All',
+    'Appetizers/Starters',
+    'Breads',
+    'Beverages',
+    'Desserts',
+    'Kids Menu',
+    'Main Courses/Entrees',
+    'Pasta/Rice/Noodles',
+    'Seafood',
+    'Side Dishes',
+    'Soups and Salads',
+    'Specials',
   ];
 
   static const List<String> cuisines = [
@@ -105,20 +122,5 @@ class StringConstant {
     'Uttar Pradesh Cuisine',
     'Vietnamese Cuisine',
     'West Indian Cuisine',
-  ];
-
-  static const List<String> categories = [
-    'All',
-    'Appetizers/Starters',
-    'Breads',
-    'Beverages',
-    'Desserts',
-    'Kids Menu',
-    'Main Courses/Entrees',
-    'Pasta/Rice/Noodles',
-    'Seafood',
-    'Side Dishes',
-    'Soups and Salads',
-    'Specials',
   ];
 }
