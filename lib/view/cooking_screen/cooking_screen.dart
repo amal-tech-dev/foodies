@@ -49,7 +49,6 @@ class _CookingScreenState extends State<CookingScreen> {
         onPressed: nextPage,
       ),
       StartCooking(
-        time: widget.recipe.time,
         steps: widget.recipe.steps,
         onPressed: nextPage,
       ),

@@ -1,18 +1,18 @@
+import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/step_item.dart';
-import 'package:foodies/view/cooking_screen/cooking_widgets/timer_bottom_sheet.dart';
+import 'package:foodies/view/cooking_screen/cooking_widgets/timer_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class StartCooking extends StatefulWidget {
-  String time;
   List<String> steps;
   VoidCallback onPressed;
   StartCooking({
     super.key,
-    required this.time,
     required this.steps,
     required this.onPressed,
   });
@@ -24,7 +24,8 @@ class StartCooking extends StatefulWidget {
 class _StartCookingState extends State<StartCooking> {
   ScrollController scrollController = ScrollController();
   PageController pageController = PageController();
-  int cookingIndex = -1;
+  int cookingIndex = -1, hr = 0, min = 0, sec = 0;
+  bool isTimerPressed = false, isTimerRunning = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -104,7 +105,7 @@ class _StartCookingState extends State<StartCooking> {
                   ),
                 )
               : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
                       style: ButtonStyle(
@@ -125,38 +126,102 @@ class _StartCookingState extends State<StartCooking> {
                         color: ColorConstant.tertiaryColor,
                       ),
                     ),
-                    DimenConstant.separator,
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                          ColorConstant.secondaryColor,
-                        ),
-                      ),
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          backgroundColor: ColorConstant.backgroundColor,
-                          builder: (context) => TimerBottomSheet(),
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.timer_outlined,
-                            color: ColorConstant.tertiaryColor,
-                          ),
-                          DimenConstant.separator,
-                          Text(
-                            'Timer',
-                            style: TextStyle(
-                              color: ColorConstant.tertiaryColor,
-                              fontSize: DimenConstant.miniText,
+                    isTimerRunning
+                        ? Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: DimenConstant.edgePadding,
+                                  horizontal: DimenConstant.edgePadding * 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: ColorConstant.primaryColor,
+                                  borderRadius: BorderRadius.circular(500),
+                                ),
+                                child: TimerCountdown(
+                                  enableDescriptions: false,
+                                  timeTextStyle: TextStyle(
+                                    color: ColorConstant.tertiaryColor,
+                                    fontSize: DimenConstant.miniText,
+                                  ),
+                                  format: hr != 0
+                                      ? CountDownTimerFormat.hoursMinutesSeconds
+                                      : min != 0
+                                          ? CountDownTimerFormat.minutesSeconds
+                                          : CountDownTimerFormat.secondsOnly,
+                                  endTime: DateTime.now().add(
+                                    Duration(
+                                      hours: hr,
+                                      minutes: min,
+                                      seconds: sec,
+                                    ),
+                                  ),
+                                  onEnd: () async {
+                                    await Alarm.set(
+                                      alarmSettings: AlarmSettings(
+                                        id: 0,
+                                        dateTime: DateTime.now(),
+                                        assetAudioPath: '',
+                                        notificationTitle: 'notificationTitle',
+                                        notificationBody: '',
+                                      ),
+                                    );
+                                    isTimerRunning = false;
+                                    hr = 0;
+                                    min = 0;
+                                    sec = 0;
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                              IconButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll(
+                                    ColorConstant.errorColor,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  isTimerRunning = false;
+                                  hr = 0;
+                                  min = 0;
+                                  sec = 0;
+                                  setState(() {});
+                                },
+                                icon: Icon(
+                                  Icons.stop_rounded,
+                                  color: ColorConstant.primaryColor,
+                                ),
+                              ),
+                            ],
+                          )
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                ColorConstant.secondaryColor,
+                              ),
+                            ),
+                            onPressed: () {
+                              if (isTimerPressed) isTimerRunning = true;
+                              isTimerPressed = !isTimerPressed;
+                              setState(() {});
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.timer_outlined,
+                                  color: ColorConstant.tertiaryColor,
+                                ),
+                                DimenConstant.separator,
+                                Text(
+                                  isTimerPressed ? 'Start' : 'Timer',
+                                  style: TextStyle(
+                                    color: ColorConstant.tertiaryColor,
+                                    fontSize: DimenConstant.miniText,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    DimenConstant.separator,
                     IconButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(
@@ -179,7 +244,28 @@ class _StartCookingState extends State<StartCooking> {
                       ),
                     ),
                   ],
-                )
+                ),
+          Visibility(
+            visible: isTimerPressed,
+            child: DimenConstant.separator,
+          ),
+          Visibility(
+            visible: isTimerPressed,
+            child: TimerWidget(
+              onHourChanged: (int value) {
+                hr = value;
+                setState(() {});
+              },
+              onMinuteChanged: (int value) {
+                min = value;
+                setState(() {});
+              },
+              onSecondChanged: (int value) {
+                sec = value;
+                setState(() {});
+              },
+            ),
+          ),
         ],
       ),
     );
