@@ -6,4 +6,5 @@ class LottieConstant {
   static const String searching = Assets.lottieSearching;
   static const String noResults = Assets.lottieNoResults;
   static const String emptyKitchen = Assets.lottieEmptyKitchen;
+  static const String alertPlaying = Assets.lottieAudioPlaying;
 }

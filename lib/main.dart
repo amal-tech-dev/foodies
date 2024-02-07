@@ -34,7 +34,7 @@ class Foodies extends StatelessWidget {
             selectionHandleColor: ColorConstant.secondaryColor,
           ),
         ),
-        home: CookingScreen(recipe: Recipes.list[1]),
+        home: CookingScreen(recipe: Recipes.list[0]),
       ),
     );
   }

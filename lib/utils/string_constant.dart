@@ -48,6 +48,8 @@ class StringConstant {
       'Let\'s gather the required ingredients one by one.';
   static const String serveRecipe =
       'Your recipe is ready to serve. Hope you like it.';
+  static const String notificationTitle = '';
+  static const String notificationBody = '';
 
   static const List<String> diet = [
     'Vegetarian',

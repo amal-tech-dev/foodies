@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String audioTimerAlert = 'assets/audio/timer_alert.mp3';
   static const String foodImagesBbqChicken =
       'assets/food_images/bbq_chicken.png';
   static const String foodImagesPrawnSalad =
@@ -13,6 +14,7 @@ class Assets {
   static const String imagesPickImage = 'assets/images/pick_image.png';
   static const String imagesProfile = 'assets/images/profile.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
+  static const String lottieAudioPlaying = 'assets/lottie/audio_playing.json';
   static const String lottieEmptyKitchen = 'assets/lottie/empty_kitchen.json';
   static const String lottieLoading = 'assets/lottie/loading.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';

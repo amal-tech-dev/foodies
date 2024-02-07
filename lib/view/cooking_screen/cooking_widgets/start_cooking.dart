@@ -1,11 +1,15 @@
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
+import 'package:foodies/utils/audio_constant.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/utils/lottie_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/step_item.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/timer_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class StartCooking extends StatefulWidget {
@@ -25,7 +29,7 @@ class _StartCookingState extends State<StartCooking> {
   ScrollController scrollController = ScrollController();
   PageController pageController = PageController();
   int cookingIndex = -1, hr = 0, min = 0, sec = 0;
-  bool isTimerPressed = false, isTimerRunning = false;
+  bool isTimerPressed = false, isTimerRunning = false, isAlertPlaying = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -126,7 +130,7 @@ class _StartCookingState extends State<StartCooking> {
                         color: ColorConstant.tertiaryColor,
                       ),
                     ),
-                    isTimerRunning
+                    isTimerRunning || isAlertPlaying
                         ? Row(
                             children: [
                               Container(
@@ -138,41 +142,55 @@ class _StartCookingState extends State<StartCooking> {
                                   color: ColorConstant.primaryColor,
                                   borderRadius: BorderRadius.circular(500),
                                 ),
-                                child: TimerCountdown(
-                                  enableDescriptions: false,
-                                  timeTextStyle: TextStyle(
-                                    color: ColorConstant.tertiaryColor,
-                                    fontSize: DimenConstant.miniText,
-                                  ),
-                                  format: hr != 0
-                                      ? CountDownTimerFormat.hoursMinutesSeconds
-                                      : min != 0
-                                          ? CountDownTimerFormat.minutesSeconds
-                                          : CountDownTimerFormat.secondsOnly,
-                                  endTime: DateTime.now().add(
-                                    Duration(
-                                      hours: hr,
-                                      minutes: min,
-                                      seconds: sec,
-                                    ),
-                                  ),
-                                  onEnd: () async {
-                                    await Alarm.set(
-                                      alarmSettings: AlarmSettings(
-                                        id: 0,
-                                        dateTime: DateTime.now(),
-                                        assetAudioPath: '',
-                                        notificationTitle: 'notificationTitle',
-                                        notificationBody: '',
+                                child: isTimerRunning
+                                    ? TimerCountdown(
+                                        enableDescriptions: false,
+                                        timeTextStyle: TextStyle(
+                                          color: ColorConstant.tertiaryColor,
+                                          fontSize: DimenConstant.miniText,
+                                        ),
+                                        format: hr != 0
+                                            ? CountDownTimerFormat
+                                                .hoursMinutesSeconds
+                                            : min != 0
+                                                ? CountDownTimerFormat
+                                                    .minutesSeconds
+                                                : CountDownTimerFormat
+                                                    .secondsOnly,
+                                        endTime: DateTime.now().add(
+                                          Duration(
+                                            hours: hr,
+                                            minutes: min,
+                                            seconds: sec,
+                                          ),
+                                        ),
+                                        onEnd: () async {
+                                          isTimerRunning = false;
+                                          isAlertPlaying = true;
+                                          hr = 0;
+                                          min = 0;
+                                          sec = 0;
+                                          setState(() {});
+                                          await Alarm.set(
+                                            alarmSettings: AlarmSettings(
+                                              id: 0,
+                                              dateTime: DateTime.now(),
+                                              assetAudioPath:
+                                                  AudioConstant.timerAlert,
+                                              notificationTitle: StringConstant
+                                                  .notificationTitle,
+                                              notificationBody: StringConstant
+                                                  .notificationBody,
+                                            ),
+                                          );
+                                        },
+                                      )
+                                    : Lottie.asset(
+                                        LottieConstant.alertPlaying,
+                                        height: 20,
+                                        width: 50,
+                                        fit: BoxFit.fill,
                                       ),
-                                    );
-                                    isTimerRunning = false;
-                                    hr = 0;
-                                    min = 0;
-                                    sec = 0;
-                                    setState(() {});
-                                  },
-                                ),
                               ),
                               IconButton(
                                 style: ButtonStyle(
@@ -180,12 +198,14 @@ class _StartCookingState extends State<StartCooking> {
                                     ColorConstant.errorColor,
                                   ),
                                 ),
-                                onPressed: () {
+                                onPressed: () async {
                                   isTimerRunning = false;
+                                  isAlertPlaying = false;
                                   hr = 0;
                                   min = 0;
                                   sec = 0;
                                   setState(() {});
+                                  await Alarm.stop(0);
                                 },
                                 icon: Icon(
                                   Icons.stop_rounded,
@@ -266,6 +286,10 @@ class _StartCookingState extends State<StartCooking> {
               },
             ),
           ),
+          // Visibility(
+          //   visible:isAlertPlaying,
+          //   child: Lottie.a,
+          // ),
         ],
       ),
     );
