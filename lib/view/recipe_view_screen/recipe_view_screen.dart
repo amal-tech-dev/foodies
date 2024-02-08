@@ -64,7 +64,7 @@ class RecipeViewScreen extends StatelessWidget {
                       recipe.name,
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.smallText,
+                        fontSize: DimenConstant.extraSmallText,
                       ),
                     ),
                   ),
@@ -94,7 +94,6 @@ class RecipeViewScreen extends StatelessWidget {
                         color: isAdded
                             ? ColorConstant.secondaryColor
                             : ColorConstant.primaryColor,
-                        size: 30,
                       ),
                     ),
                     DimenConstant.separator,
@@ -425,7 +424,7 @@ class RecipeViewScreen extends StatelessWidget {
               child: Text(
                 'Start Cooking',
                 style: TextStyle(
-                  color: ColorConstant.primaryColor,
+                  color: ColorConstant.tertiaryColor,
                   fontSize: DimenConstant.extraSmallText,
                 ),
               ),

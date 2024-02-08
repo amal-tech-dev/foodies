@@ -7,6 +7,7 @@ import 'package:foodies/view/menu_screen/menu_screen.dart';
 import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
 import 'package:foodies/view/search_screen/search_screen.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -24,6 +25,20 @@ class _HomeScreenState extends State<HomeScreen> {
     MenuScreen(),
     ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    getPermissions();
+    super.initState();
+  }
+
+  // get permissions required
+  getPermissions() async {
+    if (await Permission.notification.isDenied ||
+        await Permission.notification.isRestricted) {
+      await Permission.notification.request();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1080290120590",
+    "project_id": "madroid-foodies",
+    "storage_bucket": "madroid-foodies.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080290120590:android:676203bf1f866b7bc40adf",
+        "android_client_info": {
+          "package_name": "com.example.foodies"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA8II8s3UZS7jt9-6KpjlHezADtzqK438"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080290120590:android:6433d6e1dca68160c40adf",
+        "android_client_info": {
+          "package_name": "com.madroid.foodies"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA8II8s3UZS7jt9-6KpjlHezADtzqK438"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -26,7 +26,6 @@ class StartCooking extends StatefulWidget {
 }
 
 class _StartCookingState extends State<StartCooking> {
-  ScrollController scrollController = ScrollController();
   PageController pageController = PageController();
   int cookingIndex = -1, hr = 0, min = 0, sec = 0;
   bool isTimerPressed = false, isTimerRunning = false, isAlertPlaying = false;
@@ -40,7 +39,7 @@ class _StartCookingState extends State<StartCooking> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: cookingIndex == -1 || cookingIndex == widget.steps.length
+            child: cookingIndex == -1
                 ? Column(
                     children: [
                       Image.asset(
@@ -59,6 +58,7 @@ class _StartCookingState extends State<StartCooking> {
                   )
                 : PageView(
                     controller: pageController,
+                    physics: NeverScrollableScrollPhysics(),
                     children: List.generate(
                       widget.steps.length,
                       (index) => StepItem(
@@ -76,7 +76,7 @@ class _StartCookingState extends State<StartCooking> {
             child: Center(
               child: SmoothPageIndicator(
                 controller: pageController,
-                count: 6,
+                count: widget.steps.length,
                 effect: ExpandingDotsEffect(
                   dotHeight: 5,
                   dotWidth: 5,
@@ -118,12 +118,14 @@ class _StartCookingState extends State<StartCooking> {
                         ),
                       ),
                       onPressed: () {
-                        pageController.previousPage(
-                          duration: Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                        );
-                        cookingIndex--;
-                        setState(() {});
+                        if (cookingIndex > 0) {
+                          pageController.previousPage(
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                          cookingIndex--;
+                          setState(() {});
+                        }
                       },
                       icon: Icon(
                         Icons.keyboard_arrow_left_rounded,
@@ -173,7 +175,7 @@ class _StartCookingState extends State<StartCooking> {
                                           setState(() {});
                                           await Alarm.set(
                                             alarmSettings: AlarmSettings(
-                                              id: 0,
+                                              id: 1,
                                               dateTime: DateTime.now(),
                                               assetAudioPath:
                                                   AudioConstant.timerAlert,
@@ -181,6 +183,11 @@ class _StartCookingState extends State<StartCooking> {
                                                   .notificationTitle,
                                               notificationBody: StringConstant
                                                   .notificationBody,
+                                              loopAudio: true,
+                                              fadeDuration: 3,
+                                              vibrate: true,
+                                              volume: 1,
+                                              enableNotificationOnKill: true,
                                             ),
                                           );
                                         },
@@ -205,7 +212,7 @@ class _StartCookingState extends State<StartCooking> {
                                   min = 0;
                                   sec = 0;
                                   setState(() {});
-                                  await Alarm.stop(0);
+                                  await Alarm.stop(1);
                                 },
                                 icon: Icon(
                                   Icons.stop_rounded,
@@ -286,10 +293,6 @@ class _StartCookingState extends State<StartCooking> {
               },
             ),
           ),
-          // Visibility(
-          //   visible:isAlertPlaying,
-          //   child: Lottie.a,
-          // ),
         ],
       ),
     );

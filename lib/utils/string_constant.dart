@@ -48,8 +48,9 @@ class StringConstant {
       'Let\'s gather the required ingredients one by one.';
   static const String serveRecipe =
       'Your recipe is ready to serve. Hope you like it.';
-  static const String notificationTitle = '';
-  static const String notificationBody = '';
+  static const String notificationTitle = 'Your food is overcooking!';
+  static const String notificationBody =
+      'Chef, your dish is at risk of overcooking or spoiling. It\'s time to take action and ensure the perfect meal. Check on it now!';
 
   static const List<String> diet = [
     'Vegetarian',

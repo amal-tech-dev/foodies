@@ -9,6 +9,7 @@ import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/overview_screen/overview_widgets/carousel_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OverviewScreen extends StatelessWidget {
   OverviewScreen({super.key});
@@ -30,12 +31,17 @@ class OverviewScreen extends StatelessWidget {
                 top: MediaQuery.of(context).padding.top,
               ),
               child: TextButton(
-                onPressed: () => Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ),
-                    (route) => false),
+                onPressed: () async {
+                  SharedPreferences preferences =
+                      await SharedPreferences.getInstance();
+                  preferences.setBool('newLogin', false);
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                      (route) => false);
+                },
                 child: Text(
                   'Skip',
                   style: TextStyle(
@@ -81,7 +87,10 @@ class OverviewScreen extends StatelessWidget {
                     if (index == 2) {
                       Timer(
                         Duration(seconds: 5),
-                        () {
+                        () async {
+                          SharedPreferences preferences =
+                              await SharedPreferences.getInstance();
+                          preferences.setBool('newLogin', false);
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
