@@ -9,5 +9,7 @@ class ImageConstant {
   static const String addRecipeThumbnail = Assets.thumbnailsAddRecipe;
   static const String chef = Assets.thumbnailsChef;
   static const String profilePicture = Assets.imagesProfile;
-  static const String pickImage = Assets.imagesPickImage;
+  static const String food = Assets.imagesFood;
+  static const String profile = Assets.imagesProfile;
+  static const String cover = Assets.imagesCover;
 }

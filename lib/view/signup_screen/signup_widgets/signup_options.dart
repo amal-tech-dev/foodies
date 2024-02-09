@@ -1,110 +1,216 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/login_screen/login_screen.dart';
+import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dart';
 
-class SignupOptions extends StatelessWidget {
+class SignupOptions extends StatefulWidget {
   SignupOptions({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+  State<SignupOptions> createState() => _SignupOptionsState();
+}
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: DimenConstant.edgePadding * 1.5,
-          ),
-          decoration: BoxDecoration(
-            color: ColorConstant.tertiaryColor,
-            borderRadius: BorderRadius.circular(
-              DimenConstant.borderRadius,
+class _SignupOptionsState extends State<SignupOptions> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  FocusNode passwordFocusNode = FocusNode();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool isPasswordVisible = false;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: DimenConstant.edgePadding * 1.5,
+            ),
+            decoration: BoxDecoration(
+              color: ColorConstant.tertiaryColor,
+              borderRadius: BorderRadius.circular(
+                DimenConstant.borderRadius,
+              ),
+            ),
+            child: TextFormField(
+              controller: emailController,
+              decoration: InputDecoration(
+                label: Text(
+                  'Email',
+                  style: TextStyle(
+                    color: ColorConstant.secondaryColor,
+                  ),
+                ),
+                border: InputBorder.none,
+              ),
+              style: TextStyle(
+                color: ColorConstant.primaryColor,
+              ),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              cursorColor: ColorConstant.secondaryColor,
+              cursorRadius: Radius.circular(
+                DimenConstant.cursorRadius,
+              ),
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(40),
+              ],
+              onTapOutside: (event) => FocusScope.of(context).unfocus(),
+              onFieldSubmitted: (value) =>
+                  FocusScope.of(context).requestFocus(passwordFocusNode),
+              validator: (value) {
+                if (value!.isEmpty) return 'Please enter your email';
+                if (!checkEmail(value)) return 'Please enter a valid email';
+                return null;
+              },
             ),
           ),
-          child: TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              label: Text(
-                'Email',
-                style: TextStyle(
-                  color: ColorConstant.secondaryColor,
+          DimenConstant.separator,
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: DimenConstant.edgePadding * 1.5,
+            ),
+            decoration: BoxDecoration(
+              color: ColorConstant.tertiaryColor,
+              borderRadius: BorderRadius.circular(
+                DimenConstant.borderRadius,
+              ),
+            ),
+            child: TextFormField(
+              controller: passwordController,
+              focusNode: passwordFocusNode,
+              decoration: InputDecoration(
+                label: Text(
+                  'Password',
+                  style: TextStyle(
+                    color: ColorConstant.secondaryColor,
+                  ),
+                ),
+                border: InputBorder.none,
+                suffix: InkWell(
+                  onTap: () {
+                    isPasswordVisible = !isPasswordVisible;
+                    setState(() {});
+                  },
+                  child: Icon(
+                    isPasswordVisible
+                        ? Icons.visibility_off_rounded
+                        : Icons.visibility_rounded,
+                    color: ColorConstant.primaryColor,
+                  ),
                 ),
               ),
-              border: InputBorder.none,
-            ),
-            style: TextStyle(
-              color: ColorConstant.primaryColor,
-            ),
-            cursorColor: ColorConstant.secondaryColor,
-            cursorRadius: Radius.circular(
-              DimenConstant.cursorRadius,
+              style: TextStyle(
+                color: ColorConstant.primaryColor,
+              ),
+              cursorColor: ColorConstant.secondaryColor,
+              cursorRadius: Radius.circular(
+                DimenConstant.cursorRadius,
+              ),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(40),
+              ],
+              obscureText: !isPasswordVisible,
+              onTapOutside: (event) => FocusScope.of(context).unfocus(),
+              onFieldSubmitted: (value) {},
+              validator: (value) {
+                if (value!.length < 8)
+                  return 'Password must be at least 8 characters long';
+                if (!containsUppercase(value))
+                  return 'Password must contain at least one uppercase letter';
+                if (!containsLowercase(value))
+                  return 'Password must contain at least one lowercase letter';
+                if (!containsNumber(value))
+                  return 'Password must contain at least one number';
+                if (!containsSymbol(value))
+                  return 'Password must contain at least one symbol (excluding spaces)';
+                return null;
+              },
             ),
           ),
-        ),
-        DimenConstant.separator,
-        Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: DimenConstant.edgePadding * 1.5,
-          ),
-          decoration: BoxDecoration(
-            color: ColorConstant.tertiaryColor,
-            borderRadius: BorderRadius.circular(
-              DimenConstant.borderRadius,
-            ),
-          ),
-          child: TextField(
-            controller: passwordController,
-            decoration: InputDecoration(
-              label: Text(
-                'Password',
-                style: TextStyle(
-                  color: ColorConstant.secondaryColor,
+          DimenConstant.separator,
+          ElevatedButton(
+            style: ButtonStyle(
+              fixedSize: MaterialStatePropertyAll(
+                Size(
+                  MediaQuery.of(context).size.width,
+                  45,
                 ),
               ),
-              border: InputBorder.none,
-            ),
-            style: TextStyle(
-              color: ColorConstant.primaryColor,
-            ),
-            cursorColor: ColorConstant.secondaryColor,
-            cursorRadius: Radius.circular(
-              DimenConstant.cursorRadius,
-            ),
-          ),
-        ),
-        DimenConstant.separator,
-        ElevatedButton(
-          style: ButtonStyle(
-            fixedSize: MaterialStatePropertyAll(
-              Size(
-                MediaQuery.of(context).size.width,
-                45,
+              backgroundColor: MaterialStatePropertyAll(
+                ColorConstant.secondaryColor,
               ),
             ),
-            backgroundColor: MaterialStatePropertyAll(
-              ColorConstant.secondaryColor,
-            ),
-          ),
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LoginScreen(),
+            onPressed: () async {
+              if (formKey.currentState!.validate()) {
+                try {
+                  UserCredential userCredential =
+                      await firebaseAuth.createUserWithEmailAndPassword(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  );
+                  await firebaseAuth.signInWithEmailAndPassword(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  );
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'weak-password') {
+                    print('The password provided is too weak.');
+                  } else if (e.code == 'email-already-in-use') {
+                    print('The account already exists for that email.');
+                  }
+                } catch (e) {
+                  print('Error: $e');
+                }
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddUserDetailsScreen(),
+                  ),
+                  (route) => false,
+                );
+              }
+            },
+            child: Text(
+              'Sign Up',
+              style: TextStyle(
+                color: ColorConstant.tertiaryColor,
               ),
-              (route) => false,
-            );
-          },
-          child: Text(
-            'Sign Up',
-            style: TextStyle(
-              color: ColorConstant.primaryColor,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
+  }
+
+  // simple email validation using a regular expression
+  bool checkEmail(String email) {
+    final emailRegex =
+        RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', caseSensitive: false);
+    return emailRegex.hasMatch(email);
+  }
+
+  // check password contains uppercase letter
+  bool containsUppercase(String value) {
+    return value.contains(RegExp(r'[A-Z]'));
+  }
+
+  // check password contains lowercase letter
+  bool containsLowercase(String value) {
+    return value.contains(RegExp(r'[a-z]'));
+  }
+
+  // check password contains number
+  bool containsNumber(String value) {
+    return value.contains(RegExp(r'[0-9]'));
+  }
+
+  // check password contains symbol except space
+  bool containsSymbol(String value) {
+    return value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
   }
 }

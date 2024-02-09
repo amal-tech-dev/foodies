@@ -11,7 +11,8 @@ class Assets {
       'assets/food_images/prawn_yellow_rice.png';
   static const String foodImagesVeggieOkonomiyaki =
       'assets/food_images/veggie_okonomiyaki.png';
-  static const String imagesPickImage = 'assets/images/pick_image.png';
+  static const String imagesCover = 'assets/images/cover.png';
+  static const String imagesFood = 'assets/images/food.png';
   static const String imagesProfile = 'assets/images/profile.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
   static const String lottieAudioPlaying = 'assets/lottie/audio_playing.json';

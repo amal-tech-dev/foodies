@@ -9,6 +9,8 @@ environment:
 dependencies:
   alarm: ^3.0.8
   carousel_slider: ^4.2.1
+  cloud_firestore: ^4.15.4
+  firebase_auth: ^4.17.4
   firebase_core: ^2.25.4
   flutter:
     sdk: flutter

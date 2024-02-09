@@ -17,16 +17,16 @@ class SignupScreen extends StatelessWidget {
         padding: const EdgeInsets.all(
           DimenConstant.edgePadding,
         ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(
-                DimenConstant.edgePadding,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 40,
               ),
-              child: Expanded(
+              Padding(
+                padding: const EdgeInsets.all(
+                  DimenConstant.edgePadding,
+                ),
                 child: Center(
                   child: Image.asset(
                     ImageConstant.signupThumbnail,
@@ -34,50 +34,48 @@ class SignupScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(
-                DimenConstant.edgePadding * 2,
-              ),
-              child: Text(
-                StringConstant.signup,
-                style: TextStyle(
-                  color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.mediumText,
+              Padding(
+                padding: const EdgeInsets.all(
+                  DimenConstant.edgePadding * 2,
                 ),
-              ),
-            ),
-            Expanded(
-              child: SignupOptions(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Already have an account? > ',
+                child: Text(
+                  StringConstant.signup,
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
+                    fontSize: DimenConstant.mediumText,
                   ),
                 ),
-                InkWell(
-                  onTap: () => Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ),
-                    (route) => false,
-                  ),
-                  child: Text(
-                    'Sign In',
+              ),
+              SignupOptions(),
+              DimenConstant.separator,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Already have an account? > ',
                     style: TextStyle(
-                      color: ColorConstant.secondaryColor,
+                      color: ColorConstant.primaryColor,
                     ),
                   ),
-                ),
-              ],
-            ),
-            DimenConstant.separator,
-          ],
+                  InkWell(
+                    onTap: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                      (route) => false,
+                    ),
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: ColorConstant.secondaryColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

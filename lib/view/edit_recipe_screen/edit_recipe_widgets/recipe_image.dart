@@ -6,7 +6,7 @@ import 'package:foodies/generated/assets.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/pick_image_bottom_sheet.dart';
+import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +23,7 @@ class _RecipeImageState extends State<RecipeImage> {
     Assets.foodImagesBbqChicken,
     Assets.foodImagesPrawnSalad,
   ];
-  String selectedImage = Assets.imagesPickImage;
+  String selectedImage = Assets.imagesFood;
   ImagePicker picker = ImagePicker();
   File? image;
 
@@ -74,7 +74,6 @@ class _RecipeImageState extends State<RecipeImage> {
         Expanded(
           child: Center(
             child: InkWell(
-              splashColor: Colors.transparent,
               onTap: () => showModalBottomSheet(
                 backgroundColor: ColorConstant.backgroundColor,
                 showDragHandle: true,
@@ -97,7 +96,7 @@ class _RecipeImageState extends State<RecipeImage> {
                     Navigator.pop(context);
                   },
                   onDeletePressed: () {
-                    selectedImage = Assets.imagesPickImage;
+                    selectedImage = Assets.imagesFood;
                     image = null;
                     setState(() {});
                     Navigator.pop(context);
@@ -106,7 +105,7 @@ class _RecipeImageState extends State<RecipeImage> {
               ),
               child: CircleAvatar(
                 radius: MediaQuery.of(context).size.width * 0.35,
-                backgroundImage: AssetImage(Assets.imagesPickImage),
+                backgroundImage: AssetImage(Assets.imagesFood),
                 foregroundImage: image == null
                     ? AssetImage(selectedImage)
                     : FileImage(image!) as ImageProvider<Object>,
