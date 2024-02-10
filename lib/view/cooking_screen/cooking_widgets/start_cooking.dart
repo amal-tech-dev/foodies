@@ -33,7 +33,7 @@ class _StartCookingState extends State<StartCooking> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(
-        DimenConstant.edgePadding,
+        DimenConstant.padding,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,8 +137,8 @@ class _StartCookingState extends State<StartCooking> {
                             children: [
                               Container(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: DimenConstant.edgePadding,
-                                  horizontal: DimenConstant.edgePadding * 2,
+                                  vertical: DimenConstant.padding,
+                                  horizontal: DimenConstant.padding * 2,
                                 ),
                                 decoration: BoxDecoration(
                                   color: ColorConstant.primaryColor,

@@ -98,7 +98,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
               ),
             ),
             contentPadding: EdgeInsets.symmetric(
-              horizontal: DimenConstant.edgePadding,
+              horizontal: DimenConstant.padding,
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(
@@ -139,7 +139,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: DimenConstant.edgePadding,
+                  horizontal: DimenConstant.padding,
                 ),
                 child: Text(
                   isEditing ? 'Update' : 'Add',

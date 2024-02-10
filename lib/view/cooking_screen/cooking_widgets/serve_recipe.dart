@@ -16,7 +16,7 @@ class ServeRecipe extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(
-        DimenConstant.edgePadding,
+        DimenConstant.padding,
       ),
       child: Center(
         child: Column(

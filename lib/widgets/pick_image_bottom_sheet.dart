@@ -15,7 +15,7 @@ class PickImageBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(
-        DimenConstant.edgePadding,
+        DimenConstant.padding,
       ),
       height: 100,
       child: Row(

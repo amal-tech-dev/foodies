@@ -42,7 +42,7 @@ class _MenuScreenState extends State<MenuScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(
-          DimenConstant.edgePadding,
+          DimenConstant.padding,
         ),
         child: isLoading
             ? Center(

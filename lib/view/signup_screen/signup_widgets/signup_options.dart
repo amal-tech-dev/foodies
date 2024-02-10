@@ -17,7 +17,7 @@ class _SignupOptionsState extends State<SignupOptions> {
   TextEditingController passwordController = TextEditingController();
   FocusNode passwordFocusNode = FocusNode();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool isPasswordVisible = false;
+  bool isPasswordVisible = false, isLoading = false;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
@@ -28,7 +28,7 @@ class _SignupOptionsState extends State<SignupOptions> {
         children: [
           Container(
             padding: EdgeInsets.symmetric(
-              horizontal: DimenConstant.edgePadding * 1.5,
+              horizontal: DimenConstant.padding * 1.5,
             ),
             decoration: BoxDecoration(
               color: ColorConstant.tertiaryColor,
@@ -71,7 +71,7 @@ class _SignupOptionsState extends State<SignupOptions> {
           DimenConstant.separator,
           Container(
             padding: EdgeInsets.symmetric(
-              horizontal: DimenConstant.edgePadding * 1.5,
+              horizontal: DimenConstant.padding * 1.5,
             ),
             decoration: BoxDecoration(
               color: ColorConstant.tertiaryColor,
@@ -135,44 +135,71 @@ class _SignupOptionsState extends State<SignupOptions> {
           DimenConstant.separator,
           ElevatedButton(
             style: ButtonStyle(
-              fixedSize: MaterialStatePropertyAll(
-                Size(
-                  MediaQuery.of(context).size.width,
-                  45,
-                ),
-              ),
               backgroundColor: MaterialStatePropertyAll(
                 ColorConstant.secondaryColor,
               ),
             ),
             onPressed: () async {
               if (formKey.currentState!.validate()) {
+                isLoading = true;
+                setState(() {});
                 try {
                   UserCredential userCredential =
                       await firebaseAuth.createUserWithEmailAndPassword(
                     email: emailController.text.trim(),
                     password: passwordController.text.trim(),
                   );
+                  await userCredential.user!.reload();
                   await firebaseAuth.signInWithEmailAndPassword(
                     email: emailController.text.trim(),
                     password: passwordController.text.trim(),
                   );
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddUserDetailsScreen(),
+                    ),
+                    (route) => false,
+                  );
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'weak-password') {
-                    print('The password provided is too weak.');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: ColorConstant.tertiaryColor,
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.all(
+                          DimenConstant.padding,
+                        ),
+                        content: Text(
+                          'The password provided is too weak.',
+                          style: TextStyle(
+                            color: ColorConstant.primaryColor,
+                            fontSize: DimenConstant.miniText,
+                          ),
+                        ),
+                      ),
+                    );
                   } else if (e.code == 'email-already-in-use') {
-                    print('The account already exists for that email.');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: ColorConstant.tertiaryColor,
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.all(
+                          DimenConstant.padding,
+                        ),
+                        content: Text(
+                          'The account already exists for that email.',
+                          style: TextStyle(
+                            color: ColorConstant.primaryColor,
+                            fontSize: DimenConstant.miniText,
+                          ),
+                        ),
+                      ),
+                    );
                   }
                 } catch (e) {
                   print('Error: $e');
                 }
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddUserDetailsScreen(),
-                  ),
-                  (route) => false,
-                );
               }
             },
             child: Text(
@@ -182,6 +209,18 @@ class _SignupOptionsState extends State<SignupOptions> {
               ),
             ),
           ),
+          Visibility(
+            visible: isLoading,
+            child: SizedBox(
+              height: 100,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: ColorConstant.secondaryColor,
+                  strokeCap: StrokeCap.round,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

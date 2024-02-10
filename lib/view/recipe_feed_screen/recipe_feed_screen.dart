@@ -77,7 +77,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
             )
           : Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: DimenConstant.edgePadding,
+                horizontal: DimenConstant.padding,
               ),
               child: Column(
                 children: [
@@ -94,7 +94,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(
-                        DimenConstant.edgePadding,
+                        DimenConstant.padding,
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,

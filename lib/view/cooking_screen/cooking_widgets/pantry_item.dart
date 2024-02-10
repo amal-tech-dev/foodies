@@ -23,7 +23,7 @@ class PantryItem extends StatelessWidget {
         ),
         child: Container(
           padding: EdgeInsets.all(
-            DimenConstant.edgePadding,
+            DimenConstant.padding,
           ),
           decoration: BoxDecoration(
             color: ColorConstant.tertiaryColor,

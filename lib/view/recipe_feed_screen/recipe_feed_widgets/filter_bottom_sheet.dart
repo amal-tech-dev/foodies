@@ -12,7 +12,7 @@ class FilterBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(
-        DimenConstant.edgePadding,
+        DimenConstant.padding,
       ),
       child: Column(
         children: [
@@ -55,8 +55,8 @@ class FilterBottomSheet extends StatelessWidget {
                   SizedBox(
                     height: 190,
                     child: MasonryGridView.builder(
-                      crossAxisSpacing: DimenConstant.edgePadding,
-                      mainAxisSpacing: DimenConstant.edgePadding,
+                      crossAxisSpacing: DimenConstant.padding,
+                      mainAxisSpacing: DimenConstant.padding,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       gridDelegate:
@@ -83,8 +83,8 @@ class FilterBottomSheet extends StatelessWidget {
                   SizedBox(
                     height: 72,
                     child: MasonryGridView.builder(
-                      crossAxisSpacing: DimenConstant.edgePadding,
-                      mainAxisSpacing: DimenConstant.edgePadding,
+                      crossAxisSpacing: DimenConstant.padding,
+                      mainAxisSpacing: DimenConstant.padding,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       gridDelegate:

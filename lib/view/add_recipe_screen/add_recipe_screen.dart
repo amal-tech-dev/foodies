@@ -35,7 +35,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(
-          DimenConstant.edgePadding,
+          DimenConstant.padding,
         ),
         child: isGuest ? AddRecipeForGuest() : AddRecipeForUser(),
       ),

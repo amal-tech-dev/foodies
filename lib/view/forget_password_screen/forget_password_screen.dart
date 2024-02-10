@@ -14,7 +14,7 @@ class ForgetPasswordScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(
-          DimenConstant.edgePadding,
+          DimenConstant.padding,
         ),
         child: Column(
           children: [
@@ -30,7 +30,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(
-                DimenConstant.edgePadding,
+                DimenConstant.padding,
               ),
               child: Expanded(
                 child: Center(
@@ -43,7 +43,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(
-                DimenConstant.edgePadding * 2,
+                DimenConstant.padding * 2,
               ),
               child: Text(
                 StringConstant.forgetPassword,

@@ -28,13 +28,13 @@ class _SearchScreenState extends State<SearchScreen> {
       resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(
-          DimenConstant.edgePadding,
+          DimenConstant.padding,
         ),
         child: Column(
           children: [
             Container(
               padding: EdgeInsets.symmetric(
-                horizontal: DimenConstant.edgePadding * 1.5,
+                horizontal: DimenConstant.padding * 1.5,
               ),
               decoration: BoxDecoration(
                 color: ColorConstant.tertiaryColor,

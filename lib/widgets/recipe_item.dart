@@ -22,7 +22,7 @@ class RecipeItem extends StatelessWidget {
           ),
           child: Container(
             padding: EdgeInsets.all(
-              DimenConstant.edgePadding,
+              DimenConstant.padding,
             ),
             decoration: BoxDecoration(
               gradient: LinearGradient(

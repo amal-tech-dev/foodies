@@ -67,7 +67,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     decoration: BoxDecoration(
                       color: ColorConstant.tertiaryColor,
@@ -108,7 +108,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   DimenConstant.separator,
                   Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     decoration: BoxDecoration(
                       color: ColorConstant.tertiaryColor,
@@ -159,8 +159,8 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                              vertical: DimenConstant.edgePadding * 2,
-                              horizontal: DimenConstant.edgePadding,
+                              vertical: DimenConstant.padding * 2,
+                              horizontal: DimenConstant.padding,
                             ),
                             decoration: BoxDecoration(
                               color: isVeg
@@ -194,8 +194,8 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                              vertical: DimenConstant.edgePadding * 2,
-                              horizontal: DimenConstant.edgePadding,
+                              vertical: DimenConstant.padding * 2,
+                              horizontal: DimenConstant.padding,
                             ),
                             decoration: BoxDecoration(
                               color: !isVeg
@@ -231,8 +231,8 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                        vertical: DimenConstant.edgePadding * 2,
-                        horizontal: DimenConstant.edgePadding,
+                        vertical: DimenConstant.padding * 2,
+                        horizontal: DimenConstant.padding,
                       ),
                       decoration: BoxDecoration(
                         color: ColorConstant.tertiaryColor,
@@ -268,7 +268,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         child: ListView.builder(
                           itemBuilder: (context, index) => Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: DimenConstant.edgePadding,
+                              horizontal: DimenConstant.padding,
                             ),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -321,8 +321,8 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                        vertical: DimenConstant.edgePadding * 2,
-                        horizontal: DimenConstant.edgePadding,
+                        vertical: DimenConstant.padding * 2,
+                        horizontal: DimenConstant.padding,
                       ),
                       decoration: BoxDecoration(
                         color: ColorConstant.tertiaryColor,
@@ -358,7 +358,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         child: ListView.builder(
                           itemBuilder: (context, index) => Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: DimenConstant.edgePadding,
+                              horizontal: DimenConstant.padding,
                             ),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -413,7 +413,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   DimenConstant.separator,
                   Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     decoration: BoxDecoration(
                       color: ColorConstant.tertiaryColor,

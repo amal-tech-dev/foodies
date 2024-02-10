@@ -25,7 +25,7 @@ class _CheckPantryState extends State<CheckPantry> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(
-        DimenConstant.edgePadding,
+        DimenConstant.padding,
       ),
       child: Column(
         children: [

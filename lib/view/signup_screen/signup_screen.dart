@@ -15,7 +15,7 @@ class SignupScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(
-          DimenConstant.edgePadding,
+          DimenConstant.padding,
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -25,7 +25,7 @@ class SignupScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(
-                  DimenConstant.edgePadding,
+                  DimenConstant.padding,
                 ),
                 child: Center(
                   child: Image.asset(
@@ -36,7 +36,7 @@ class SignupScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(
-                  DimenConstant.edgePadding * 2,
+                  DimenConstant.padding * 2,
                 ),
                 child: Text(
                   StringConstant.signup,

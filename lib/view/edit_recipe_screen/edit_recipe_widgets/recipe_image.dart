@@ -47,8 +47,8 @@ class _RecipeImageState extends State<RecipeImage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: DimenConstant.edgePadding * 3),
+          padding:
+              const EdgeInsets.symmetric(horizontal: DimenConstant.padding * 3),
           child: Text(
             StringConstant.addImage,
             style: TextStyle(

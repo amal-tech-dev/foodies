@@ -27,7 +27,7 @@ class CarouselItem extends StatelessWidget {
         DimenConstant.separator,
         Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: DimenConstant.edgePadding * 3,
+            horizontal: DimenConstant.padding * 3,
           ),
           child: Text(
             subtitle,

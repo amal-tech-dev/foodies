@@ -23,7 +23,7 @@ class ProfileTile extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: DimenConstant.edgePadding * 2,
+          vertical: DimenConstant.padding * 2,
         ),
         child: Row(
           children: [

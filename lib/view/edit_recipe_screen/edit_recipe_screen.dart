@@ -60,7 +60,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(
-          DimenConstant.edgePadding,
+          DimenConstant.padding,
         ),
         child: Column(
           children: [

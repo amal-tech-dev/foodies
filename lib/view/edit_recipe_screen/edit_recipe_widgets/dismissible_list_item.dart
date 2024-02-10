@@ -30,7 +30,7 @@ class DismissibleListItem extends StatelessWidget {
             onTap: onDeletePressed,
             child: Container(
               padding: EdgeInsets.all(
-                DimenConstant.edgePadding,
+                DimenConstant.padding,
               ),
               decoration: BoxDecoration(
                 color: ColorConstant.errorColor,
@@ -49,7 +49,7 @@ class DismissibleListItem extends StatelessWidget {
             onTap: onEditPressed,
             child: Container(
               padding: EdgeInsets.all(
-                DimenConstant.edgePadding,
+                DimenConstant.padding,
               ),
               decoration: BoxDecoration(
                 color: ColorConstant.secondaryColor,
@@ -75,7 +75,7 @@ class DismissibleListItem extends StatelessWidget {
             onTap: onEditPressed,
             child: Container(
               padding: EdgeInsets.all(
-                DimenConstant.edgePadding,
+                DimenConstant.padding,
               ),
               decoration: BoxDecoration(
                 color: ColorConstant.secondaryColor,
@@ -94,7 +94,7 @@ class DismissibleListItem extends StatelessWidget {
             onTap: onDeletePressed,
             child: Container(
               padding: EdgeInsets.all(
-                DimenConstant.edgePadding,
+                DimenConstant.padding,
               ),
               decoration: BoxDecoration(
                 color: ColorConstant.errorColor,
@@ -116,8 +116,8 @@ class DismissibleListItem extends StatelessWidget {
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(
-            vertical: DimenConstant.edgePadding * 1.5,
-            horizontal: DimenConstant.edgePadding,
+            vertical: DimenConstant.padding * 1.5,
+            horizontal: DimenConstant.padding,
           ),
           decoration: BoxDecoration(
             color: ColorConstant.tertiaryColor,

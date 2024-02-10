@@ -15,23 +15,23 @@ class LoginScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(
-          DimenConstant.edgePadding,
+          DimenConstant.padding,
         ),
         child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
-                height: 40,
+                height: kToolbarHeight,
               ),
               Center(
                 child: Image.asset(
                   ImageConstant.loginThumbnail,
-                  height: MediaQuery.of(context).size.height * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.15,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(
-                  DimenConstant.edgePadding * 2,
+                  DimenConstant.padding * 2,
                 ),
                 child: Text(
                   StringConstant.login,

@@ -40,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: DimenConstant.edgePadding * 2,
+          horizontal: DimenConstant.padding * 2,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

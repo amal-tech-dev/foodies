@@ -21,7 +21,7 @@ class FilterItem extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: DimenConstant.edgePadding * 2,
+          horizontal: DimenConstant.padding * 2,
         ),
         decoration: BoxDecoration(
           color: isPressed

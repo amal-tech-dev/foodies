@@ -15,7 +15,7 @@ class AddRecipeForGuest extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(
-            DimenConstant.edgePadding * 4,
+            DimenConstant.padding * 4,
           ),
           child: Image.asset(
             ImageConstant.loginThumbnail,
@@ -23,7 +23,7 @@ class AddRecipeForGuest extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: DimenConstant.edgePadding * 3,
+            horizontal: DimenConstant.padding * 3,
           ),
           child: Text(
             StringConstant.addRecipeGuest,

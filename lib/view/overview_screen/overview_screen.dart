@@ -21,7 +21,7 @@ class OverviewScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(
-          DimenConstant.edgePadding,
+          DimenConstant.padding,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,

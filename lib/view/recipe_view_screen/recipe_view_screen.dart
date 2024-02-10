@@ -105,7 +105,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Text(
                       recipe.description,
@@ -123,7 +123,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Row(
                       children: [
@@ -151,7 +151,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Text(
                       'Cuisine',
@@ -165,7 +165,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,7 +200,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Text(
                       'Categories',
@@ -214,7 +214,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,7 +249,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Text(
                       'Cooking Time',
@@ -263,7 +263,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,7 +298,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Text(
                       'Ingredients',
@@ -312,7 +312,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverList.separated(
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -349,7 +349,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Text(
                       'Steps',
@@ -363,7 +363,7 @@ class RecipeViewScreen extends StatelessWidget {
                 SliverList.separated(
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.edgePadding,
+                      horizontal: DimenConstant.padding,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -399,7 +399,7 @@ class RecipeViewScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(
-              DimenConstant.edgePadding,
+              DimenConstant.padding,
             ),
             child: ElevatedButton(
               style: ButtonStyle(

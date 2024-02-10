@@ -16,11 +16,11 @@ class StepItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(
-        DimenConstant.edgePadding,
+        DimenConstant.padding,
       ),
       child: Container(
         padding: EdgeInsets.all(
-          DimenConstant.edgePadding * 2,
+          DimenConstant.padding * 2,
         ),
         decoration: BoxDecoration(
           color: ColorConstant.tertiaryColor,

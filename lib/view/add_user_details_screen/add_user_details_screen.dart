@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies/controller/text_input_format_controller.dart';
@@ -9,10 +10,9 @@ import 'package:foodies/generated/assets.dart';
 import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/home_screen/home_screen.dart';
+import 'package:foodies/view/get_started_screen/get_started_screen.dart';
+import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../widgets/pick_image_bottom_sheet.dart';
 
 class AddUserDetailsScreen extends StatefulWidget {
   AddUserDetailsScreen({super.key});
@@ -24,6 +24,7 @@ class AddUserDetailsScreen extends StatefulWidget {
 class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
@@ -34,6 +35,8 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
   String emptyProfile = Assets.imagesProfile;
   ImagePicker picker = ImagePicker();
   File? profile, cover;
+  UserModel userModel = UserModel();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +51,31 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
             fontSize: DimenConstant.smallText,
           ),
         ),
+        actions: [
+          Visibility(
+            visible: isLoading,
+            child: SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(
+                color: ColorConstant.secondaryColor,
+                strokeWidth: 2.5,
+                strokeCap: StrokeCap.round,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          )
+        ],
       ),
       body: Padding(
         padding: EdgeInsetsDirectional.all(
-          DimenConstant.edgePadding,
+          DimenConstant.padding,
         ),
         child: SingleChildScrollView(
           child: Form(
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -161,10 +182,9 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                DimenConstant.separator,
                 Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: DimenConstant.edgePadding,
+                    horizontal: DimenConstant.padding,
                   ),
                   decoration: BoxDecoration(
                     color: ColorConstant.tertiaryColor,
@@ -196,6 +216,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       LengthLimitingTextInputFormatter(40),
                       TextInputFormatController(),
                     ],
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     textCapitalization: TextCapitalization.sentences,
                     onTapOutside: (event) => FocusScope.of(context).unfocus(),
                     onFieldSubmitted: (value) =>
@@ -209,7 +230,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 DimenConstant.separator,
                 Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: DimenConstant.edgePadding,
+                    horizontal: DimenConstant.padding,
                   ),
                   decoration: BoxDecoration(
                     color: ColorConstant.tertiaryColor,
@@ -241,13 +262,13 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     inputFormatters: [
                       LengthLimitingTextInputFormatter(15),
                     ],
-                    textCapitalization: TextCapitalization.sentences,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     onTapOutside: (event) => FocusScope.of(context).unfocus(),
                     onFieldSubmitted: (value) =>
                         FocusScope.of(context).requestFocus(bioFocusNode),
                     validator: (value) {
                       if (value!.isEmpty) return 'Enter a valid username';
-                      if (checkUsername(value))
+                      if (!checkUsername(value))
                         return 'Only alphabets, numbers and underscore are allowed';
                       return null;
                     },
@@ -255,9 +276,8 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 ),
                 DimenConstant.separator,
                 Container(
-                  height: 100,
                   padding: EdgeInsets.symmetric(
-                    horizontal: DimenConstant.edgePadding,
+                    horizontal: DimenConstant.padding,
                   ),
                   decoration: BoxDecoration(
                     color: ColorConstant.tertiaryColor,
@@ -269,7 +289,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     controller: bioController,
                     focusNode: bioFocusNode,
                     decoration: InputDecoration(
-                      alignLabelWithHint: true,
                       label: Text(
                         'Bio (optional)',
                         style: TextStyle(
@@ -287,13 +306,14 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     cursorRadius: Radius.circular(
                       DimenConstant.cursorRadius,
                     ),
-                    maxLines: 5,
                     inputFormatters: [
                       LengthLimitingTextInputFormatter(200),
                       TextInputFormatController(),
                     ],
                     textCapitalization: TextCapitalization.sentences,
                     onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                    onFieldSubmitted: (value) =>
+                        FocusScope.of(context).unfocus(),
                   ),
                 ),
                 DimenConstant.separator,
@@ -310,30 +330,33 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     ),
                   ),
                   onPressed: () async {
-                    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-                    UserModel userModel = UserModel(
-                      username: usernameController.text.trim(),
-                      name: nameController.text.trim(),
-                      bio: bioController.text.trim(),
-                      profile: '',
-                      cover: '',
-                      menu: [],
-                      recipes: [],
-                    );
                     if (formKey.currentState!.validate()) {
-                      final user = firebaseAuth.currentUser;
-                      firebaseFirestore
-                          .collection('users')
-                          .doc(user!.uid)
-                          .set(userModel.toJson());
+                      isLoading = true;
+                      setState(() {});
+                      try {
+                        User user = firebaseAuth.currentUser!;
+                        await uploadImagesAndUpdateModel(profile, cover);
+                        userModel.username = usernameController.text.trim();
+                        userModel.name = nameController.text.trim();
+                        userModel.bio = bioController.text.isNotEmpty
+                            ? bioController.text.trim()
+                            : null;
+                        await firebaseFirestore
+                            .collection('users')
+                            .doc(user.uid)
+                            .set(userModel.toJson());
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GetStartedScreen(),
+                          ),
+                          (route) => false,
+                        );
+                      } catch (e) {
+                        // Handle the error here
+                        print('Error: $e');
+                      }
                     }
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
-                      (route) => false,
-                    );
                   },
                   child: Text(
                     'Create Account',
@@ -348,6 +371,29 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
         ),
       ),
     );
+  }
+
+  // Method to upload profile and cover images to Firebase Storage
+  Future<void> uploadImagesAndUpdateModel(
+      File? profileImage, File? coverImage) async {
+    if (profileImage != null) {
+      userModel.profile = await uploadImage(profileImage, 'profiles');
+    }
+    if (coverImage != null) {
+      userModel.cover = await uploadImage(coverImage, 'covers');
+    }
+  }
+
+  // Private method to upload image to Firebase Storage
+  Future<String> uploadImage(File imageFile, String folderName) async {
+    final storage = FirebaseStorage.instance;
+    final fileName =
+        '${DateTime.now().millisecondsSinceEpoch}_${imageFile.path.split('/').last}';
+    final Reference reference = storage.ref().child(folderName).child(fileName);
+    final UploadTask uploadTask = reference.putFile(imageFile);
+    final TaskSnapshot taskSnapshot = await uploadTask;
+    final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    return downloadUrl;
   }
 
   // check username contains only lowercase letters, numbers, and underscore

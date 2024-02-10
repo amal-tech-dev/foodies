@@ -21,7 +21,7 @@ class PreviewRecipe extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: DimenConstant.edgePadding * 4,
+                horizontal: DimenConstant.padding * 4,
               ),
               child: Text(
                 StringConstant.previewRecipe,
