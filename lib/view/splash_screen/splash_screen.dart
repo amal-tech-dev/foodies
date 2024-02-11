@@ -1,15 +1,14 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
@@ -19,6 +18,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  User? user;
   bool isLoggedin = false;
   bool isNewLogin = false;
   @override
@@ -28,15 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
         seconds: 3,
       ),
       () {
-        getPreferences();
+        getUser();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => isLoggedin
-                ? isNewLogin
-                    ? GetStartedScreen()
-                    : HomeScreen()
-                : LoginScreen(),
+            builder: (context) => user != null ? HomeScreen() : LoginScreen(),
           ),
         );
       },
@@ -44,12 +40,10 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  // fetch data from shared preferences
-  getPreferences() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    isLoggedin = preferences.getBool('loggedin') ?? false;
-    isNewLogin = preferences.getBool('newLogin') ?? true;
-    setState(() {});
+  // fetch user from firebase
+  getUser() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    user = firebaseAuth.currentUser;
   }
 
   @override

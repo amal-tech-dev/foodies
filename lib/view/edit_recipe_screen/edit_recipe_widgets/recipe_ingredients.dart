@@ -28,7 +28,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
   void initState() {
     ingredients = Provider.of<AddRecipeController>(context, listen: false)
         .editedRecipe
-        .ingredients;
+        .ingredients!;
     super.initState();
   }
 
@@ -181,9 +181,6 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
                 FocusScope.of(context).unfocus();
                 Provider.of<AddRecipeController>(context, listen: false).update(
                   recipe: RecipeModel(
-                    id: Provider.of<AddRecipeController>(context, listen: false)
-                        .editedRecipe
-                        .id,
                     name:
                         Provider.of<AddRecipeController>(context, listen: false)
                             .editedRecipe
@@ -243,9 +240,6 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
                 FocusScope.of(context).unfocus();
                 Provider.of<AddRecipeController>(context, listen: false).update(
                   recipe: RecipeModel(
-                    id: Provider.of<AddRecipeController>(context, listen: false)
-                        .editedRecipe
-                        .id,
                     name:
                         Provider.of<AddRecipeController>(context, listen: false)
                             .editedRecipe

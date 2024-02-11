@@ -36,25 +36,25 @@ class _CookingScreenState extends State<CookingScreen> {
     ];
     List<Widget> pages = [
       CookingPreview(
-        name: widget.recipe.name,
-        image: widget.recipe.image,
+        name: widget.recipe.name!,
+        image: widget.recipe.image!,
         onPressed: nextPage,
       ),
       CheckPantry(
-        ingredients: widget.recipe.ingredients,
+        ingredients: widget.recipe.ingredients!,
         onPressed: nextPage,
       ),
       TimePreview(
-        time: widget.recipe.time,
+        time: widget.recipe.time!,
         onPressed: nextPage,
       ),
       StartCooking(
-        steps: widget.recipe.steps,
+        steps: widget.recipe.steps!,
         onPressed: nextPage,
       ),
       ServeRecipe(
-        name: widget.recipe.name,
-        image: widget.recipe.image,
+        name: widget.recipe.name!,
+        image: widget.recipe.image!,
       ),
     ];
 

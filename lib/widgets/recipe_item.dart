@@ -26,7 +26,7 @@ class RecipeItem extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: recipe.veg
+                colors: recipe.veg!
                     ? [
                         ColorConstant.vegPrimaryGradient,
                         ColorConstant.vegSecondaryGradient,
@@ -49,7 +49,7 @@ class RecipeItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        recipe.name,
+                        recipe.name!,
                         style: TextStyle(
                           color: ColorConstant.primaryColor,
                           fontSize: DimenConstant.extraSmallText,
@@ -58,7 +58,7 @@ class RecipeItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        recipe.cuisine,
+                        recipe.cuisine!,
                         style: TextStyle(
                           color: ColorConstant.primaryColor,
                           fontSize: DimenConstant.miniText,
@@ -69,7 +69,7 @@ class RecipeItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  recipe.description,
+                  recipe.description!,
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
                     fontSize: DimenConstant.miniText,
@@ -80,7 +80,7 @@ class RecipeItem extends StatelessWidget {
                 ),
                 DimenConstant.separator,
                 Text(
-                  recipe.categories.join(' · '),
+                  recipe.categories!.join(' · '),
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
                     fontSize: DimenConstant.nanoText,
@@ -96,7 +96,7 @@ class RecipeItem extends StatelessWidget {
           child: CircleAvatar(
             radius: 50,
             foregroundImage: AssetImage(
-              recipe.image,
+              recipe.image!,
             ),
           ),
         ),

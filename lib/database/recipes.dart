@@ -4,7 +4,6 @@ import 'package:foodies/model/recipe_model.dart';
 class Recipes {
   static List<RecipeModel> list = [
     RecipeModel(
-      id: 000000,
       name: 'Barbecue Chicken',
       cuisine: 'American Cuisine',
       description:
@@ -48,7 +47,6 @@ class Recipes {
       ],
     ),
     RecipeModel(
-      id: 000001,
       name: 'Veggie Okonomiyaki',
       cuisine: 'Japanese Cuisine',
       description:
@@ -85,7 +83,6 @@ class Recipes {
       ],
     ),
     RecipeModel(
-      id: 000002,
       name: 'Prawn Salad',
       cuisine: 'Spanish Cuisine',
       description:
@@ -122,7 +119,6 @@ class Recipes {
       ],
     ),
     RecipeModel(
-      id: 000003,
       name: 'Prawn Yellow Rice',
       cuisine: 'Spanish Cuisine',
       description:

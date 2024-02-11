@@ -43,14 +43,14 @@ class _RecipeDetailsState extends State<RecipeDetails> {
             .time);
     isVeg = Provider.of<AddRecipeController>(context, listen: false)
         .editedRecipe
-        .veg;
+        .veg!;
     selectedCuisine = Provider.of<AddRecipeController>(context, listen: false)
         .editedRecipe
-        .cuisine;
+        .cuisine!;
     selectedCategories =
         Provider.of<AddRecipeController>(context, listen: false)
             .editedRecipe
-            .categories;
+            .categories!;
     super.initState();
   }
 
@@ -481,10 +481,6 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   Provider.of<AddRecipeController>(context, listen: false)
                       .update(
                     recipe: RecipeModel(
-                      id: Provider.of<AddRecipeController>(context,
-                              listen: false)
-                          .editedRecipe
-                          .id,
                       name: nameController.text.trim(),
                       cuisine: selectedCuisine,
                       description: descriptionController.text.trim(),

@@ -50,7 +50,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
     List<RecipeModel> vegRecipes = [];
     List<RecipeModel> nonvegRecipes = [];
     for (int i = 0; i < allRecipes.length; i++) {
-      if (allRecipes[i].veg) {
+      if (allRecipes[i].veg!) {
         vegRecipes.add(allRecipes[i]);
       } else {
         nonvegRecipes.add(allRecipes[i]);

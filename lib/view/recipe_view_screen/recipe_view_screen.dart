@@ -42,7 +42,7 @@ class RecipeViewScreen extends StatelessWidget {
                           height: double.infinity,
                           width: double.infinity,
                           child: Image.asset(
-                            recipe.image,
+                            recipe.image!,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -61,7 +61,7 @@ class RecipeViewScreen extends StatelessWidget {
                       ],
                     ),
                     title: Text(
-                      recipe.name,
+                      recipe.name!,
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
                         fontSize: DimenConstant.extraSmallText,
@@ -108,7 +108,7 @@ class RecipeViewScreen extends StatelessWidget {
                       horizontal: DimenConstant.padding,
                     ),
                     child: Text(
-                      recipe.description,
+                      recipe.description!,
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
                         fontSize: DimenConstant.extraSmallText,
@@ -128,14 +128,14 @@ class RecipeViewScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: recipe.veg
+                          backgroundColor: recipe.veg!
                               ? ColorConstant.vegSecondaryGradient
                               : ColorConstant.nonvegSecondaryGradient,
                           radius: 10,
                         ),
                         DimenConstant.separator,
                         Text(
-                          recipe.veg ? 'Vegetarian' : 'Non-Vegetarian',
+                          recipe.veg! ? 'Vegetarian' : 'Non-Vegetarian',
                           style: TextStyle(
                             color: ColorConstant.primaryColor,
                             fontSize: DimenConstant.extraSmallText,
@@ -182,7 +182,7 @@ class RecipeViewScreen extends StatelessWidget {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            recipe.cuisine,
+                            recipe.cuisine!,
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -231,7 +231,7 @@ class RecipeViewScreen extends StatelessWidget {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            recipe.categories.join(', ') + '.',
+                            recipe.categories!.join(', ') + '.',
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -280,7 +280,7 @@ class RecipeViewScreen extends StatelessWidget {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            recipe.time,
+                            recipe.time!,
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -329,7 +329,7 @@ class RecipeViewScreen extends StatelessWidget {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            recipe.ingredients[index],
+                            recipe.ingredients![index],
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -341,7 +341,7 @@ class RecipeViewScreen extends StatelessWidget {
                     ),
                   ),
                   separatorBuilder: (context, index) => DimenConstant.separator,
-                  itemCount: recipe.ingredients.length,
+                  itemCount: recipe.ingredients!.length,
                 ),
                 SliverToBoxAdapter(
                   child: DimenConstant.separator,
@@ -380,7 +380,7 @@ class RecipeViewScreen extends StatelessWidget {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            recipe.steps[index],
+                            recipe.steps![index],
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -392,7 +392,7 @@ class RecipeViewScreen extends StatelessWidget {
                     ),
                   ),
                   separatorBuilder: (context, index) => DimenConstant.separator,
-                  itemCount: recipe.steps.length,
+                  itemCount: recipe.steps!.length,
                 ),
               ],
             ),

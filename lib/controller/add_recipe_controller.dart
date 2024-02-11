@@ -4,7 +4,6 @@ import 'package:foodies/model/recipe_model.dart';
 
 class AddRecipeController with ChangeNotifier {
   RecipeModel editedRecipe = RecipeModel(
-    id: 0,
     name: '',
     cuisine: '',
     description: '',
@@ -27,7 +26,6 @@ class AddRecipeController with ChangeNotifier {
   // reset recipe
   clear() {
     editedRecipe = RecipeModel(
-      id: 0,
       name: '',
       cuisine: '',
       description: '',

@@ -47,7 +47,7 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Create a new account > ',
+                    'Create a new account - ',
                     style: TextStyle(
                       color: ColorConstant.primaryColor,
                     ),

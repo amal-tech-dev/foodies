@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -321,13 +323,21 @@ class _LoginOptionsState extends State<LoginOptions> {
                   await SharedPreferences.getInstance();
               preferences.setBool('loggedin', true);
               preferences.setString('login', 'user');
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => GetStartedScreen(),
-                ),
-                (route) => false,
-              );
+              User? user = FirebaseAuth.instance.currentUser;
+              if (user != null) {
+                CollectionReference reference =
+                    FirebaseFirestore.instance.collection('users');
+                DocumentSnapshot document = await reference.doc(user.uid).get();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => document.exists
+                        ? GetStartedScreen()
+                        : AddUserDetailsScreen(),
+                  ),
+                  (route) => false,
+                );
+              }
             } on FirebaseAuthException catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

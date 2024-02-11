@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
@@ -17,6 +18,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   bool isGuest = true;
 
   @override
@@ -101,16 +103,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       DimenConstant.separator,
                       InkWell(
                         onTap: () async {
-                          SharedPreferences preferences =
-                              await SharedPreferences.getInstance();
-                          preferences.setBool('loggedin', false);
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
-                            ),
-                            (route) => false,
-                          );
+                          try {
+                            await firebaseAuth.signOut();
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ),
+                              (route) => false,
+                            );
+                          } on FirebaseAuthException catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: ColorConstant.tertiaryColor,
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.all(
+                                  DimenConstant.padding,
+                                ),
+                                content: Text(
+                                  'Unable to logout',
+                                  style: TextStyle(
+                                    color: ColorConstant.primaryColor,
+                                    fontSize: DimenConstant.miniText,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
                         },
                         child: Text(
                           'Leave',

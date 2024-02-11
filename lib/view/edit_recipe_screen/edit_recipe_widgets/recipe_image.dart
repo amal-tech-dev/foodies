@@ -31,7 +31,7 @@ class _RecipeImageState extends State<RecipeImage> {
   void initState() {
     selectedImage = Provider.of<AddRecipeController>(context, listen: false)
         .editedRecipe
-        .image;
+        .image!;
     super.initState();
   }
 
