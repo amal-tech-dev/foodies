@@ -18,7 +18,7 @@ class _SignupOptionsState extends State<SignupOptions> {
   FocusNode passwordFocusNode = FocusNode();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isPasswordVisible = false, isLoading = false;
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -145,12 +145,12 @@ class _SignupOptionsState extends State<SignupOptions> {
                 setState(() {});
                 try {
                   UserCredential userCredential =
-                      await firebaseAuth.createUserWithEmailAndPassword(
+                      await auth.createUserWithEmailAndPassword(
                     email: emailController.text.trim(),
                     password: passwordController.text.trim(),
                   );
                   await userCredential.user!.reload();
-                  await firebaseAuth.signInWithEmailAndPassword(
+                  await auth.signInWithEmailAndPassword(
                     email: emailController.text.trim(),
                     password: passwordController.text.trim(),
                   );

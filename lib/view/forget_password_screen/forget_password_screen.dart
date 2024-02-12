@@ -16,23 +16,20 @@ class ForgetPasswordScreen extends StatelessWidget {
         padding: const EdgeInsets.all(
           DimenConstant.padding,
         ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 40,
-            ),
-            Row(
-              children: [
-                BackButton(
-                  color: ColorConstant.primaryColor,
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(
-                DimenConstant.padding,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: kToolbarHeight,
               ),
-              child: Expanded(
+              BackButton(
+                color: ColorConstant.primaryColor,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(
+                  DimenConstant.padding,
+                ),
                 child: Center(
                   child: Image.asset(
                     ImageConstant.signupThumbnail,
@@ -40,24 +37,22 @@ class ForgetPasswordScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(
-                DimenConstant.padding * 2,
-              ),
-              child: Text(
-                StringConstant.forgetPassword,
-                style: TextStyle(
-                  color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.mediumText,
+              Padding(
+                padding: const EdgeInsets.all(
+                  DimenConstant.padding * 2,
                 ),
-                textAlign: TextAlign.center,
+                child: Text(
+                  StringConstant.forgetPassword,
+                  style: TextStyle(
+                    color: ColorConstant.primaryColor,
+                    fontSize: DimenConstant.mediumText,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            Expanded(
-              child: ForgetPasswordOptions(),
-            ),
-          ],
+              ForgetPasswordOptions(),
+            ],
+          ),
         ),
       ),
     );

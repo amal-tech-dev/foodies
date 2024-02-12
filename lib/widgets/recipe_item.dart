@@ -95,7 +95,7 @@ class RecipeItem extends StatelessWidget {
           left: 20,
           child: CircleAvatar(
             radius: 50,
-            foregroundImage: AssetImage(
+            foregroundImage: NetworkImage(
               recipe.image!,
             ),
           ),
@@ -122,7 +122,7 @@ class RecipeItem extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    recipe.chef ?? '',
+                    '@${recipe.chef}' ?? '',
                     style: TextStyle(
                       color: ColorConstant.secondaryColor,
                       fontSize: DimenConstant.miniText,

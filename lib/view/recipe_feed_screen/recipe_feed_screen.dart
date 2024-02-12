@@ -1,69 +1,60 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:foodies/database/recipes.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
-import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_bottom_sheet.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
 import 'package:foodies/widgets/recipe_item.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RecipeFeedScreen extends StatefulWidget {
-  RecipeFeedScreen({super.key});
+  RecipeFeedScreen({
+    super.key,
+  });
 
   @override
   State<RecipeFeedScreen> createState() => _RecipeFeedScreenState();
 }
 
 class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
-  String diet = '';
-  List preferedCuisines = [];
-  List<RecipeModel> preferedRecipes = [];
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  List<RecipeModel> recipes = [];
+  List<String> diet = [], cuisines = [], categories = [];
   bool isLoading = false;
 
   @override
   void initState() {
-    isLoading = true;
-    setState(() {});
-    getPreference();
-    getData();
-    isLoading = false;
+    getDiet();
+    getCuisines();
+    getCategories();
     setState(() {});
     super.initState();
   }
 
-  // get data from shared preferences
-  getPreference() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    diet = preferences.getString('diet')!;
-    preferedCuisines =
-        preferences.getStringList('cuisines') ?? [StringConstant.cuisines[0]];
-    setState(() {});
+  // get diet from firestore
+  getDiet() async {
+    DocumentSnapshot snapshot =
+        await firestore.collection('database').doc('diet').get();
+    final data = snapshot.data() as Map<String, dynamic>;
+    diet = List<String>.from(data['diet']);
   }
 
-  // get data with preferences
-  getData() {
-    List<RecipeModel> allRecipes = Recipes.list;
-    List<RecipeModel> vegRecipes = [];
-    List<RecipeModel> nonvegRecipes = [];
-    for (int i = 0; i < allRecipes.length; i++) {
-      if (allRecipes[i].veg!) {
-        vegRecipes.add(allRecipes[i]);
-      } else {
-        nonvegRecipes.add(allRecipes[i]);
-      }
-    }
-    if (diet == 'veg') {
-      preferedRecipes = vegRecipes;
-    } else if (diet == 'non') {
-      preferedRecipes = nonvegRecipes;
-    } else if (diet == 'semi') {
-      preferedRecipes = allRecipes;
-    }
-    setState(() {});
+  // get cuisine from firestore
+  getCuisines() async {
+    DocumentSnapshot snapshot =
+        await firestore.collection('database').doc('cuisines').get();
+    final data = snapshot.data() as Map<String, dynamic>;
+    cuisines = List<String>.from(data['cuisines']);
+  }
+
+  // get categories from firestore
+  getCategories() async {
+    DocumentSnapshot snapshot =
+        await firestore.collection('database').doc('categories').get();
+    final data = snapshot.data() as Map<String, dynamic>;
+    categories = List<String>.from(data['categories']);
   }
 
   @override
@@ -87,7 +78,11 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                     onTap: () {
                       showModalBottomSheet(
                         context: context,
-                        builder: (context) => FilterBottomSheet(),
+                        builder: (context) => FilterBottomSheet(
+                          diet: diet,
+                          cuisines: cuisines,
+                          categories: categories,
+                        ),
                         backgroundColor: ColorConstant.backgroundColor,
                         showDragHandle: true,
                       );
@@ -100,29 +95,11 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          preferedRecipes.isNotEmpty
-                              ? Icon(
-                                  Icons.tune_rounded,
-                                  color: ColorConstant.primaryColor,
-                                  size: 18,
-                                )
-                              : Container(
-                                  height: 18,
-                                  width: 18,
-                                  decoration: BoxDecoration(
-                                    color: ColorConstant.primaryColor,
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '0',
-                                      style: TextStyle(
-                                        color: ColorConstant.tertiaryColor,
-                                        fontSize: DimenConstant.nanoText,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                          Icon(
+                            Icons.tune_rounded,
+                            color: ColorConstant.primaryColor,
+                            size: 18,
+                          ),
                           SizedBox(
                             width: 3,
                           ),
@@ -138,25 +115,47 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                     ),
                   ),
                   Expanded(
-                    child: ListView.separated(
-                      itemBuilder: (context, index) => InkWell(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RecipeViewScreen(
-                              recipe: Recipes.list[index],
-                              isAdded: false,
-                              onKitchenPressed: () {},
+                    child: StreamBuilder(
+                      stream: firestore.collection('recipes').snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: Lottie.asset(
+                              LottieConstant.loading,
+                            ),
+                          );
+                        }
+                        if (snapshot.connectionState ==
+                                ConnectionState.active &&
+                            snapshot.data != null) {
+                          for (var value in snapshot.data!.docs) {
+                            recipes.add(
+                              RecipeModel.fromJson(value.data()),
+                            );
+                          }
+                        }
+                        return ListView.separated(
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RecipeViewScreen(
+                                  recipe: recipes[index],
+                                  isAdded: false,
+                                  onKitchenPressed: () {},
+                                ),
+                              ),
+                            ),
+                            child: RecipeItem(
+                              recipe: recipes[index],
                             ),
                           ),
-                        ),
-                        child: RecipeItem(
-                          recipe: Recipes.list[index],
-                        ),
-                      ),
-                      separatorBuilder: (context, index) =>
-                          DimenConstant.separator,
-                      itemCount: Recipes.list.length,
+                          separatorBuilder: (context, index) =>
+                              DimenConstant.separator,
+                          itemCount: recipes.length,
+                        );
+                      },
                     ),
                   ),
                 ],

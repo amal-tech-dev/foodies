@@ -22,9 +22,9 @@ class AddUserDetailsScreen extends StatefulWidget {
 }
 
 class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
-  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseStorage storage = FirebaseStorage.instance;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
@@ -217,7 +217,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       TextInputFormatController(),
                     ],
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    textCapitalization: TextCapitalization.sentences,
+                    textCapitalization: TextCapitalization.words,
                     onTapOutside: (event) => FocusScope.of(context).unfocus(),
                     onFieldSubmitted: (value) =>
                         FocusScope.of(context).requestFocus(usernameFocusNode),
@@ -269,7 +269,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     validator: (value) {
                       if (value!.isEmpty) return 'Enter a valid username';
                       if (!checkUsername(value))
-                        return 'Only alphabets, numbers and underscore are allowed';
+                        return 'Only alphabets, numbers and charecters ( . _ ) are allowed';
                       return null;
                     },
                   ),
@@ -334,14 +334,21 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       isLoading = true;
                       setState(() {});
                       try {
-                        User user = firebaseAuth.currentUser!;
-                        await uploadImagesAndUpdateModel(profile, cover);
+                        User user = auth.currentUser!;
                         userModel.username = usernameController.text.trim();
-                        userModel.name = nameController.text.trim();
-                        userModel.bio = bioController.text.isNotEmpty
-                            ? bioController.text.trim()
-                            : null;
-                        await firebaseFirestore
+                        userModel.name =
+                            nameController.text.trim().toLowerCase();
+                        if (bioController.text.isNotEmpty) {
+                          userModel.bio = bioController.text.trim();
+                        }
+                        if (profile != null) {
+                          userModel.profile =
+                              await uploadImage(profile!, 'profiles');
+                        }
+                        if (cover != null) {
+                          userModel.cover = await uploadImage(cover!, 'covers');
+                        }
+                        await firestore
                             .collection('users')
                             .doc(user.uid)
                             .set(userModel.toJson());
@@ -373,17 +380,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
     );
   }
 
-  // Method to upload profile and cover images to Firebase Storage
-  Future<void> uploadImagesAndUpdateModel(
-      File? profileImage, File? coverImage) async {
-    if (profileImage != null) {
-      userModel.profile = await uploadImage(profileImage, 'profiles');
-    }
-    if (coverImage != null) {
-      userModel.cover = await uploadImage(coverImage, 'covers');
-    }
-  }
-
   // Private method to upload image to Firebase Storage
   Future<String> uploadImage(File imageFile, String folderName) async {
     final storage = FirebaseStorage.instance;
@@ -398,6 +394,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
 
   // check username contains only lowercase letters, numbers, and underscore
   bool checkUsername(String value) {
-    return value.contains(RegExp(r'^[a-z0-9_]+$'));
+    return value.contains(RegExp(r'^[a-z0-9_.]+$'));
   }
 }

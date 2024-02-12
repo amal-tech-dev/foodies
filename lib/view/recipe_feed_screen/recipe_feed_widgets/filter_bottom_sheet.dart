@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_item.dart';
 
-class FilterBottomSheet extends StatelessWidget {
-  FilterBottomSheet({super.key});
+class FilterBottomSheet extends StatefulWidget {
+  List<String> diet, cuisines, categories;
+  FilterBottomSheet({
+    super.key,
+    required this.diet,
+    required this.cuisines,
+    required this.categories,
+  });
 
+  @override
+  State<FilterBottomSheet> createState() => _FilterBottomSheetState();
+}
+
+class _FilterBottomSheetState extends State<FilterBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,13 +44,13 @@ class FilterBottomSheet extends StatelessWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => FilterItem(
-                        name: StringConstant.diet[index],
+                        name: widget.diet[index],
                         isPressed: false,
                         onPressed: () {},
                       ),
                       separatorBuilder: (context, index) =>
                           DimenConstant.separator,
-                      itemCount: StringConstant.diet.length,
+                      itemCount: widget.diet.length,
                     ),
                   ),
                   DimenConstant.separator,
@@ -64,11 +74,11 @@ class FilterBottomSheet extends StatelessWidget {
                         crossAxisCount: 5,
                       ),
                       itemBuilder: (context, index) => FilterItem(
-                        name: StringConstant.cuisines[index],
+                        name: widget.cuisines[index],
                         isPressed: false,
                         onPressed: () {},
                       ),
-                      itemCount: StringConstant.cuisines.length,
+                      itemCount: widget.cuisines.length,
                     ),
                   ),
                   DimenConstant.separator,
@@ -92,11 +102,11 @@ class FilterBottomSheet extends StatelessWidget {
                         crossAxisCount: 2,
                       ),
                       itemBuilder: (context, index) => FilterItem(
-                        name: StringConstant.categories[index],
+                        name: widget.categories[index],
                         isPressed: false,
                         onPressed: () {},
                       ),
-                      itemCount: StringConstant.categories.length,
+                      itemCount: widget.categories.length,
                     ),
                   ),
                 ],
@@ -117,7 +127,7 @@ class FilterBottomSheet extends StatelessWidget {
                   child: Text(
                     'Reset',
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
+                      color: ColorConstant.tertiaryColor,
                     ),
                   ),
                 ),
@@ -130,11 +140,11 @@ class FilterBottomSheet extends StatelessWidget {
                       ColorConstant.secondaryColor,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {},
                   child: Text(
                     'Save',
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
+                      color: ColorConstant.tertiaryColor,
                     ),
                   ),
                 ),

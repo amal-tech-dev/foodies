@@ -9,7 +9,6 @@ import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dar
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginOptions extends StatefulWidget {
   LoginOptions({super.key});
@@ -19,7 +18,7 @@ class LoginOptions extends StatefulWidget {
 }
 
 class _LoginOptionsState extends State<LoginOptions> {
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isEmailPressed = false, isPasswordVisible = false, isLoading = false;
@@ -36,11 +35,7 @@ class _LoginOptionsState extends State<LoginOptions> {
             isLoading = true;
             setState(() {});
             try {
-              await firebaseAuth.signInAnonymously();
-              SharedPreferences preferences =
-                  await SharedPreferences.getInstance();
-              preferences.setBool('loggedin', true);
-              preferences.setString('login', 'guest');
+              await auth.signInAnonymously();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -87,6 +82,86 @@ class _LoginOptionsState extends State<LoginOptions> {
                 DimenConstant.separator,
                 Text(
                   'Continue as Guest',
+                  style: TextStyle(
+                    color: ColorConstant.primaryColor,
+                    fontSize: DimenConstant.extraSmallText,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        DimenConstant.separator,
+        InkWell(
+          onTap: () async {
+            isLoading = true;
+            setState(() {});
+            try {
+              GoogleSignIn google = GoogleSignIn();
+              GoogleSignInAccount? account = await google.signIn();
+              if (account != null) {
+                GoogleSignInAuthentication authentication =
+                    await account.authentication;
+                AuthCredential credential = GoogleAuthProvider.credential(
+                  accessToken: authentication.accessToken,
+                  idToken: authentication.idToken,
+                );
+                await auth.signInWithCredential(credential);
+              }
+              User? user = FirebaseAuth.instance.currentUser;
+              if (user != null) {
+                CollectionReference reference =
+                    FirebaseFirestore.instance.collection('users');
+                DocumentSnapshot document = await reference.doc(user.uid).get();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => document.exists
+                        ? GetStartedScreen()
+                        : AddUserDetailsScreen(),
+                  ),
+                  (route) => false,
+                );
+              }
+            } on FirebaseAuthException catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: ColorConstant.tertiaryColor,
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.all(
+                    DimenConstant.padding,
+                  ),
+                  content: Text(
+                    'Unable to login',
+                    style: TextStyle(
+                      color: ColorConstant.primaryColor,
+                      fontSize: DimenConstant.miniText,
+                    ),
+                  ),
+                ),
+              );
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.all(
+              DimenConstant.padding * 1.5,
+            ),
+            decoration: BoxDecoration(
+              color: ColorConstant.tertiaryColor,
+              borderRadius: BorderRadius.circular(
+                DimenConstant.borderRadius,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FaIcon(
+                  FontAwesomeIcons.google,
+                  color: ColorConstant.primaryColor,
+                ),
+                DimenConstant.separator,
+                Text(
+                  'Continue with Google',
                   style: TextStyle(
                     color: ColorConstant.primaryColor,
                     fontSize: DimenConstant.extraSmallText,
@@ -253,14 +328,10 @@ class _LoginOptionsState extends State<LoginOptions> {
                       isLoading = true;
                       setState(() {});
                       try {
-                        await firebaseAuth.signInWithEmailAndPassword(
+                        await auth.signInWithEmailAndPassword(
                           email: emailController.text.trim(),
                           password: passwordController.text.trim(),
                         );
-                        SharedPreferences preferences =
-                            await SharedPreferences.getInstance();
-                        preferences.setBool('loggedin', true);
-                        preferences.setString('login', 'user');
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -302,91 +373,10 @@ class _LoginOptionsState extends State<LoginOptions> {
             ),
           ),
         ),
-        DimenConstant.separator,
-        InkWell(
-          onTap: () async {
-            isLoading = true;
-            setState(() {});
-            try {
-              GoogleSignIn google = GoogleSignIn();
-              GoogleSignInAccount? account = await google.signIn();
-              if (account != null) {
-                GoogleSignInAuthentication authentication =
-                    await account.authentication;
-                AuthCredential credential = GoogleAuthProvider.credential(
-                  accessToken: authentication.accessToken,
-                  idToken: authentication.idToken,
-                );
-                await firebaseAuth.signInWithCredential(credential);
-              }
-              SharedPreferences preferences =
-                  await SharedPreferences.getInstance();
-              preferences.setBool('loggedin', true);
-              preferences.setString('login', 'user');
-              User? user = FirebaseAuth.instance.currentUser;
-              if (user != null) {
-                CollectionReference reference =
-                    FirebaseFirestore.instance.collection('users');
-                DocumentSnapshot document = await reference.doc(user.uid).get();
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => document.exists
-                        ? GetStartedScreen()
-                        : AddUserDetailsScreen(),
-                  ),
-                  (route) => false,
-                );
-              }
-            } on FirebaseAuthException catch (e) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: ColorConstant.tertiaryColor,
-                  behavior: SnackBarBehavior.floating,
-                  margin: EdgeInsets.all(
-                    DimenConstant.padding,
-                  ),
-                  content: Text(
-                    'Unable to login',
-                    style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.miniText,
-                    ),
-                  ),
-                ),
-              );
-            }
-          },
-          child: Container(
-            padding: EdgeInsets.all(
-              DimenConstant.padding * 1.5,
-            ),
-            decoration: BoxDecoration(
-              color: ColorConstant.tertiaryColor,
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FaIcon(
-                  FontAwesomeIcons.google,
-                  color: ColorConstant.primaryColor,
-                ),
-                DimenConstant.separator,
-                Text(
-                  'Continue with Google',
-                  style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.extraSmallText,
-                  ),
-                )
-              ],
-            ),
-          ),
+        Visibility(
+          visible: isLoading,
+          child: DimenConstant.separator,
         ),
-        DimenConstant.separator,
         Visibility(
           visible: isLoading,
           child: Center(

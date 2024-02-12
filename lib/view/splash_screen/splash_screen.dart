@@ -18,17 +18,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
-  bool isLoggedin = false;
-  bool isNewLogin = false;
   @override
   void initState() {
+    user = auth.currentUser;
     Timer(
       Duration(
         seconds: 3,
       ),
       () {
-        getUser();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -38,12 +37,6 @@ class _SplashScreenState extends State<SplashScreen> {
       },
     );
     super.initState();
-  }
-
-  // fetch user from firebase
-  getUser() async {
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    user = firebaseAuth.currentUser;
   }
 
   @override
