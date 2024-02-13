@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/add_recipe_screen/add_recipe_widgets/add_recipe_for_guest.dart';
 import 'package:foodies/view/add_recipe_screen/add_recipe_widgets/add_recipe_for_user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AddRecipeScreen extends StatefulWidget {
   AddRecipeScreen({super.key});
@@ -13,21 +13,27 @@ class AddRecipeScreen extends StatefulWidget {
 
 class _AddRecipeScreenState extends State<AddRecipeScreen> {
   bool isGuest = true;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void initState() {
-    getPrefs();
+    checkLoginType();
     super.initState();
   }
 
-  // get shared preferences
-  getPrefs() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    if (preferences.getString('login') == 'user') {
-      isGuest = false;
-    } else if (preferences.getString('login') == 'guest') {
-      isGuest = true;
-    }
+  // check login type
+  checkLoginType() async {
+    auth.authStateChanges().listen(
+      (event) {
+        if (event != null) {
+          if (event.isAnonymous)
+            isGuest = true;
+          else
+            isGuest = false;
+          setState(() {});
+        }
+      },
+    );
   }
 
   @override

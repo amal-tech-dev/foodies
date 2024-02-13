@@ -4,12 +4,20 @@ class FilterController with ChangeNotifier {
   List<String> filters = [];
 
   // add filters
-  setFilters(List selectedFilters) {
+  setFilters(List<String> selectedFilters) {
+    filters = selectedFilters;
     notifyListeners();
   }
 
-  // remove filters
-  resetFilters(String diet, List cuisines, List categories) {
+  // remove particular filters
+  removeFilter(String filter) {
+    filters.remove(filter);
+    notifyListeners();
+  }
+
+  // remove all filters
+  resetFilters() {
+    filters = [];
     notifyListeners();
   }
 }

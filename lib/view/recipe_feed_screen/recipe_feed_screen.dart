@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_bottom_sheet.dart';
+import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_item.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
 import 'package:foodies/widgets/recipe_item.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class RecipeFeedScreen extends StatefulWidget {
   RecipeFeedScreen({
@@ -72,48 +75,79 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
               ),
               child: Column(
                 children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => FilterBottomSheet(
-                          diet: diet,
-                          cuisines: cuisines,
-                          categories: categories,
-                        ),
-                        backgroundColor: ColorConstant.backgroundColor,
-                        showDragHandle: true,
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                        DimenConstant.padding,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Icon(
-                            Icons.tune_rounded,
-                            color: ColorConstant.primaryColor,
-                            size: 18,
-                          ),
-                          SizedBox(
-                            width: 3,
-                          ),
-                          Text(
-                            'Filters',
-                            style: TextStyle(
-                              color: ColorConstant.secondaryColor,
-                              fontSize: DimenConstant.miniText,
+                  SizedBox(
+                    height: 25,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => FilterItem(
+                              name: Provider.of<FilterController>(context)
+                                  .filters[index],
+                              isPressed: true,
+                              onPressed: () {
+                                Provider.of<FilterController>(
+                                  context,
+                                  listen: false,
+                                ).removeFilter(
+                                  Provider.of<FilterController>(
+                                    context,
+                                    listen: false,
+                                  ).filters[index],
+                                );
+                              },
                             ),
+                            separatorBuilder: (context, index) => SizedBox(
+                              width: 5,
+                            ),
+                            itemCount: Provider.of<FilterController>(context)
+                                .filters
+                                .length,
                           ),
-                        ],
-                      ),
+                        ),
+                        DimenConstant.separator,
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => FilterBottomSheet(
+                                diet: diet,
+                                cuisines: cuisines,
+                                categories: categories,
+                              ),
+                              backgroundColor: ColorConstant.backgroundColor,
+                              showDragHandle: true,
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.tune_rounded,
+                                color: ColorConstant.primaryColor,
+                                size: 18,
+                              ),
+                              SizedBox(
+                                width: 3,
+                              ),
+                              Text(
+                                'Filters',
+                                style: TextStyle(
+                                  color: ColorConstant.secondaryColor,
+                                  fontSize: DimenConstant.miniText,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  DimenConstant.separator,
                   Expanded(
                     child: StreamBuilder(
                       stream: firestore.collection('recipes').snapshots(),
@@ -136,8 +170,9 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           }
                         }
                         return ListView.separated(
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () => Navigator.push(
+                          itemBuilder: (context, index) => RecipeItem(
+                            recipe: recipes[index],
+                            onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => RecipeViewScreen(
@@ -146,9 +181,6 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                                   onKitchenPressed: () {},
                                 ),
                               ),
-                            ),
-                            child: RecipeItem(
-                              recipe: recipes[index],
                             ),
                           ),
                           separatorBuilder: (context, index) =>

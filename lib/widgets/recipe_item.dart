@@ -6,10 +6,12 @@ import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
 
 class RecipeItem extends StatelessWidget {
   RecipeModel recipe;
+  VoidCallback onPressed;
 
   RecipeItem({
     super.key,
     required this.recipe,
+    required this.onPressed,
   });
 
   @override
@@ -20,83 +22,89 @@ class RecipeItem extends StatelessWidget {
           padding: const EdgeInsets.only(
             top: 50,
           ),
-          child: Container(
-            padding: EdgeInsets.all(
-              DimenConstant.padding,
-            ),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: recipe.veg!
-                    ? [
-                        ColorConstant.vegPrimaryGradient,
-                        ColorConstant.vegSecondaryGradient,
-                      ]
-                    : [
-                        ColorConstant.nonvegPrimaryGradient,
-                        ColorConstant.nonvegSecondaryGradient,
-                      ],
+          child: InkWell(
+            onTap: onPressed,
+            child: Container(
+              padding: EdgeInsets.all(
+                DimenConstant.padding,
               ),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 120,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        recipe.name!,
-                        style: TextStyle(
-                          color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.extraSmallText,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: recipe.veg!
+                      ? [
+                          ColorConstant.vegPrimaryGradient,
+                          ColorConstant.vegSecondaryGradient,
+                        ]
+                      : [
+                          ColorConstant.nonvegPrimaryGradient,
+                          ColorConstant.nonvegSecondaryGradient,
+                        ],
+                ),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 120,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          recipe.name!,
+                          style: TextStyle(
+                            color: ColorConstant.primaryColor,
+                            fontSize: DimenConstant.extraSmallText,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        recipe.cuisine!,
-                        style: TextStyle(
-                          color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.miniText,
+                        Text(
+                          recipe.cuisine!,
+                          style: TextStyle(
+                            color: ColorConstant.primaryColor,
+                            fontSize: DimenConstant.miniText,
+                          ),
+                          maxLines: 2,
                         ),
-                        maxLines: 2,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Text(
-                  recipe.description!,
-                  style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.miniText,
+                  Text(
+                    recipe.description!,
+                    style: TextStyle(
+                      color: ColorConstant.primaryColor,
+                      fontSize: DimenConstant.miniText,
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.justify,
                   ),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.justify,
-                ),
-                DimenConstant.separator,
-                Text(
-                  recipe.categories!.join(' · '),
-                  style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.nanoText,
+                  DimenConstant.separator,
+                  Text(
+                    recipe.categories!.join(' · '),
+                    style: TextStyle(
+                      color: ColorConstant.primaryColor,
+                      fontSize: DimenConstant.nanoText,
+                    ),
                   ),
-                ),
-                DimenConstant.separator,
-              ],
+                  DimenConstant.separator,
+                ],
+              ),
             ),
           ),
         ),
         Positioned(
           left: 20,
-          child: CircleAvatar(
-            radius: 50,
-            foregroundImage: NetworkImage(
-              recipe.image!,
+          child: InkWell(
+            onTap: onPressed,
+            child: CircleAvatar(
+              radius: 50,
+              foregroundImage: NetworkImage(
+                recipe.image!,
+              ),
             ),
           ),
         ),

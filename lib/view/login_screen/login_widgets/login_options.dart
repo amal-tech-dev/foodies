@@ -9,6 +9,7 @@ import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dar
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hive/hive.dart';
 
 class LoginOptions extends StatefulWidget {
   LoginOptions({super.key});
@@ -36,6 +37,7 @@ class _LoginOptionsState extends State<LoginOptions> {
             setState(() {});
             try {
               await auth.signInAnonymously();
+              await Hive.openBox('menuBox');
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -276,7 +278,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                           isPasswordVisible
                               ? Icons.visibility_off_rounded
                               : Icons.visibility_rounded,
-                          color: ColorConstant.primaryColor,
+                          color: ColorConstant.secondaryColor,
                         ),
                       ),
                     ),

@@ -1,4 +1,3 @@
-import 'package:foodies/generated/assets.dart';
 import 'package:foodies/model/recipe_model.dart';
 
 class Recipes {
@@ -9,7 +8,7 @@ class Recipes {
       description:
           'Barbecue chicken consists of chicken parts or entire chickens that are barbecued, grilled or smoked.',
       time: '10-14 minutes.',
-      image: Assets.foodImagesBbqChicken,
+      image: '',
       chef: null,
       veg: false,
       categories: [
@@ -52,7 +51,7 @@ class Recipes {
       description:
           'Okonomiyaki is a popular pan-fried dish that consists of batter and cabbage. Selected toppings and ingredients are added which can vary greatly.',
       time: '5-7 minutes.',
-      image: Assets.foodImagesVeggieOkonomiyaki,
+      image: '',
       chef: null,
       veg: true,
       categories: [
@@ -88,7 +87,7 @@ class Recipes {
       description:
           'This vibrant prawn salad is a great lunchtime option whether you’re on the go, at work or fancy a quick bite to eat in the sunshine at the weekend.',
       time: '3-5 minutes',
-      image: Assets.foodImagesPrawnSalad,
+      image: '',
       chef: null,
       veg: false,
       categories: [
@@ -124,7 +123,7 @@ class Recipes {
       description:
           'Prawn Yellow Rice is a flavorful and vibrant dish that combines the succulence of prawns with the aromatic and visually appealing hues of yellow rice.',
       time: '25-60 mins.',
-      image: Assets.foodImagesPrawnYellowRice,
+      image: '',
       chef: 'guest_181',
       veg: false,
       categories: [

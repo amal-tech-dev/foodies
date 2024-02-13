@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foodies/controller/text_input_format_controller.dart';
 import 'package:foodies/database/recipes.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
@@ -18,9 +19,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  bool startSearching = true;
-  bool isSearching = false;
-  bool noResultsFound = false;
+  bool startSearching = true, isSearching = false, noResultsFound = false;
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
@@ -42,45 +41,30 @@ class _SearchScreenState extends State<SearchScreen> {
                   DimenConstant.borderRadius,
                 ),
               ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: searchController,
-                      enableSuggestions: true,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.singleLineFormatter,
-                      ],
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Find recipes',
-                        hintStyle: TextStyle(
-                          color: ColorConstant.primaryColor.withOpacity(0.5),
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                      ),
-                      cursorColor: ColorConstant.secondaryColor,
-                      cursorRadius: Radius.circular(
-                        DimenConstant.cursorRadius,
-                      ),
-                    ),
+              child: TextField(
+                controller: searchController,
+                decoration: InputDecoration(
+                  hintText: 'Find recipes',
+                  hintStyle: TextStyle(
+                    color: ColorConstant.primaryColor.withOpacity(0.5),
                   ),
-                  DimenConstant.separator,
-                  InkWell(
+                  border: InputBorder.none,
+                  suffix: InkWell(
                     onTap: () {
+                      FocusScope.of(context).unfocus();
                       startSearching = false;
                       isSearching = true;
                       setState(() {});
                       Timer(
-                          Duration(
-                            seconds: 3,
-                          ), () {
-                        isSearching = false;
-                        noResultsFound = true;
-                        setState(() {});
-                      });
+                        Duration(
+                          seconds: 3,
+                        ),
+                        () {
+                          isSearching = false;
+                          noResultsFound = true;
+                          setState(() {});
+                        },
+                      );
                     },
                     child: Text(
                       'Search',
@@ -88,66 +72,96 @@ class _SearchScreenState extends State<SearchScreen> {
                         color: ColorConstant.secondaryColor,
                       ),
                     ),
-                  )
+                  ),
+                ),
+                style: TextStyle(
+                  color: ColorConstant.primaryColor,
+                ),
+                cursorColor: ColorConstant.secondaryColor,
+                cursorRadius: Radius.circular(
+                  DimenConstant.cursorRadius,
+                ),
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(40),
+                  TextInputFormatController(),
                 ],
+                onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                onEditingComplete: () {
+                  FocusScope.of(context).unfocus();
+                  startSearching = false;
+                  isSearching = true;
+                  setState(() {});
+                  Timer(
+                    Duration(
+                      seconds: 3,
+                    ),
+                    () {
+                      isSearching = false;
+                      noResultsFound = true;
+                      setState(() {});
+                    },
+                  );
+                },
               ),
             ),
             DimenConstant.separator,
-            Expanded(
-              child: startSearching
-                  ? Column(
-                      children: [
-                        Lottie.asset(
-                          LottieConstant.startSearching,
-                        ),
-                        Text(
-                          StringConstant.search,
-                          style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.extraSmallText,
-                          ),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    )
-                  : isSearching
-                      ? Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Lottie.asset(
-                              LottieConstant.searching,
-                            ),
-                          ),
-                        )
-                      : noResultsFound
-                          ? Column(
-                              children: [
-                                Lottie.asset(
-                                  LottieConstant.noResults,
-                                  repeat: false,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 40,
-                                  ),
-                                  child: Text(
-                                    StringConstant.noResults,
-                                    style: TextStyle(
-                                      color: ColorConstant.primaryColor,
-                                      fontSize: DimenConstant.extraSmallText,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                            )
-                          : ListView.builder(
-                              itemBuilder: (context, index) => RecipeItem(
-                                recipe: Recipes.list[index],
-                              ),
-                              itemCount: Recipes.list.length,
-                            ),
-            ),
+            if (startSearching)
+              Expanded(
+                child: Center(
+                  child: Text(
+                    StringConstant.search,
+                    style: TextStyle(
+                      color: ColorConstant.secondaryColor,
+                      fontSize: DimenConstant.extraSmallText,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            else if (isSearching)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(
+                    DimenConstant.padding * 2,
+                  ),
+                  child: Lottie.asset(
+                    LottieConstant.searching,
+                  ),
+                ),
+              )
+            else if (noResultsFound)
+              Column(
+                children: [
+                  Lottie.asset(
+                    LottieConstant.noResults,
+                    repeat: false,
+                    height: 200,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                    ),
+                    child: Text(
+                      StringConstant.noResults,
+                      style: TextStyle(
+                        color: ColorConstant.secondaryColor,
+                        fontSize: DimenConstant.extraSmallText,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              )
+            else
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) => RecipeItem(
+                    recipe: Recipes.list[index],
+                    onPressed: () {},
+                  ),
+                  itemCount: Recipes.list.length,
+                ),
+              ),
           ],
         ),
       ),

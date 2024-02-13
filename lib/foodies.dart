@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/add_recipe_controller.dart';
+import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/controller/preferred_recipe_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/view/splash_screen/splash_screen.dart';
@@ -15,12 +16,16 @@ class Foodies extends StatelessWidget {
         ChangeNotifierProvider(
             create: (context) => PreferredRecipeController()),
         ChangeNotifierProvider(create: (context) => AddRecipeController()),
+        ChangeNotifierProvider(
+          create: (context) => FilterController(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: ColorConstant.backgroundColor,
           splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           textSelectionTheme: TextSelectionThemeData(
             cursorColor: ColorConstant.secondaryColor,
             selectionColor: ColorConstant.secondaryColor.withOpacity(0.75),

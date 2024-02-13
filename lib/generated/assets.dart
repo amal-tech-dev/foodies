@@ -3,14 +3,6 @@ class Assets {
   Assets._();
 
   static const String audioTimerAlert = 'assets/audio/timer_alert.mp3';
-  static const String foodImagesBbqChicken =
-      'assets/food_images/bbq_chicken.png';
-  static const String foodImagesPrawnSalad =
-      'assets/food_images/prawn_salad.png';
-  static const String foodImagesPrawnYellowRice =
-      'assets/food_images/prawn_yellow_rice.png';
-  static const String foodImagesVeggieOkonomiyaki =
-      'assets/food_images/veggie_okonomiyaki.png';
   static const String imagesCover = 'assets/images/cover.png';
   static const String imagesFood = 'assets/images/food.png';
   static const String imagesProfile = 'assets/images/profile.png';
@@ -20,8 +12,6 @@ class Assets {
   static const String lottieLoading = 'assets/lottie/loading.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';
   static const String lottieSearching = 'assets/lottie/searching.json';
-  static const String lottieStartSearching =
-      'assets/lottie/start_searching.json';
   static const String thumbnailsAddRecipe = 'assets/thumbnails/add_recipe.png';
   static const String thumbnailsChef = 'assets/thumbnails/chef.png';
   static const String thumbnailsGetStarted =

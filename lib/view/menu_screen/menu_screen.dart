@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/database/recipes.dart';
+import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
@@ -17,13 +19,16 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  bool isLoading = false;
-  bool isEmpty = false;
+  bool isLoading = false, isEmpty = false, isGuest = false;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  List<RecipeModel> recipes = [];
+  List<String> menu = [];
 
   @override
   void initState() {
     isLoading = true;
     setState(() {});
+    checkLoginType();
     Timer(
       Duration(
         seconds: 3,
@@ -35,6 +40,21 @@ class _MenuScreenState extends State<MenuScreen> {
       },
     );
     super.initState();
+  }
+
+  // check login type
+  checkLoginType() async {
+    auth.authStateChanges().listen(
+      (event) {
+        if (event != null) {
+          if (event.isAnonymous)
+            isGuest = true;
+          else
+            isGuest = false;
+          setState(() {});
+        }
+      },
+    );
   }
 
   @override
@@ -80,6 +100,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 : ListView.builder(
                     itemBuilder: (context, index) => RecipeItem(
                       recipe: Recipes.list[index],
+                      onPressed: () {},
                     ),
                     itemCount: Recipes.list.length,
                   ),

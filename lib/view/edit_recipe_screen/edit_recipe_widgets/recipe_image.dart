@@ -18,11 +18,7 @@ class RecipeImage extends StatefulWidget {
 }
 
 class _RecipeImageState extends State<RecipeImage> {
-  final List examples = [
-    Assets.foodImagesPrawnYellowRice,
-    Assets.foodImagesBbqChicken,
-    Assets.foodImagesPrawnSalad,
-  ];
+  List<String> examples = [];
   String selectedImage = Assets.imagesFood;
   ImagePicker picker = ImagePicker();
   File? image;
