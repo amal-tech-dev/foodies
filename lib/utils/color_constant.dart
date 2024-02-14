@@ -10,4 +10,7 @@ class ColorConstant {
   static const Color vegSecondaryGradient = Color(0xFF028A0F);
   static const Color nonvegPrimaryGradient = Color(0xFFFFA07A);
   static const Color nonvegSecondaryGradient = Color(0xFFD21404);
+  static const Color shimmerPrimaryGradient = Color(0xFF3A3A3A);
+  static const Color shimmerSecondaryGradient = Color(0xFF3F3F3F);
+  static const Color shimmerTertiaryGradient = Color(0xFF4A4A4A);
 }

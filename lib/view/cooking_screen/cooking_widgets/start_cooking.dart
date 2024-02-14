@@ -87,191 +87,211 @@ class _StartCookingState extends State<StartCooking> {
             ),
           ),
           DimenConstant.separator,
-          cookingIndex == -1
-              ? Center(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        ColorConstant.secondaryColor,
-                      ),
-                    ),
-                    onPressed: () {
-                      cookingIndex++;
-                      setState(() {});
-                    },
-                    child: Text(
-                      'Start',
-                      style: TextStyle(
-                        color: ColorConstant.tertiaryColor,
-                        fontSize: DimenConstant.miniText,
-                      ),
+          if (cookingIndex == -1)
+            Center(
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                    ColorConstant.secondaryColor,
+                  ),
+                ),
+                onPressed: () {
+                  cookingIndex++;
+                  setState(() {});
+                },
+                child: Text(
+                  'Start',
+                  style: TextStyle(
+                    color: ColorConstant.tertiaryColor,
+                    fontSize: DimenConstant.miniText,
+                  ),
+                ),
+              ),
+            )
+          else
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(
+                      ColorConstant.secondaryColor,
                     ),
                   ),
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                          ColorConstant.secondaryColor,
+                  onPressed: () {
+                    if (cookingIndex > 0) {
+                      pageController.previousPage(
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                      cookingIndex--;
+                      setState(() {});
+                    }
+                  },
+                  icon: Icon(
+                    Icons.keyboard_arrow_left_rounded,
+                    color: ColorConstant.tertiaryColor,
+                  ),
+                ),
+                if (isTimerRunning || isAlertPlaying)
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: DimenConstant.padding,
+                          horizontal: DimenConstant.padding * 2,
                         ),
-                      ),
-                      onPressed: () {
-                        if (cookingIndex > 0) {
-                          pageController.previousPage(
-                            duration: Duration(milliseconds: 500),
-                            curve: Curves.easeInOut,
-                          );
-                          cookingIndex--;
-                          setState(() {});
-                        }
-                      },
-                      icon: Icon(
-                        Icons.keyboard_arrow_left_rounded,
-                        color: ColorConstant.tertiaryColor,
-                      ),
-                    ),
-                    isTimerRunning || isAlertPlaying
-                        ? Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: DimenConstant.padding,
-                                  horizontal: DimenConstant.padding * 2,
+                        decoration: BoxDecoration(
+                          color: ColorConstant.primaryColor,
+                          borderRadius: BorderRadius.circular(500),
+                        ),
+                        child: isTimerRunning
+                            ? TimerCountdown(
+                                enableDescriptions: false,
+                                timeTextStyle: TextStyle(
+                                  color: ColorConstant.tertiaryColor,
+                                  fontSize: DimenConstant.miniText,
                                 ),
-                                decoration: BoxDecoration(
-                                  color: ColorConstant.primaryColor,
-                                  borderRadius: BorderRadius.circular(500),
-                                ),
-                                child: isTimerRunning
-                                    ? TimerCountdown(
-                                        enableDescriptions: false,
-                                        timeTextStyle: TextStyle(
-                                          color: ColorConstant.tertiaryColor,
-                                          fontSize: DimenConstant.miniText,
-                                        ),
-                                        format: hr != 0
-                                            ? CountDownTimerFormat
-                                                .hoursMinutesSeconds
-                                            : min != 0
-                                                ? CountDownTimerFormat
-                                                    .minutesSeconds
-                                                : CountDownTimerFormat
-                                                    .secondsOnly,
-                                        endTime: DateTime.now().add(
-                                          Duration(
-                                            hours: hr,
-                                            minutes: min,
-                                            seconds: sec,
-                                          ),
-                                        ),
-                                        onEnd: () async {
-                                          isTimerRunning = false;
-                                          isAlertPlaying = true;
-                                          hr = 0;
-                                          min = 0;
-                                          sec = 0;
-                                          setState(() {});
-                                          await Alarm.set(
-                                            alarmSettings: AlarmSettings(
-                                              id: 1,
-                                              dateTime: DateTime.now(),
-                                              assetAudioPath:
-                                                  AudioConstant.timerAlert,
-                                              notificationTitle: StringConstant
-                                                  .notificationTitle,
-                                              notificationBody: StringConstant
-                                                  .notificationBody,
-                                              loopAudio: true,
-                                              fadeDuration: 3,
-                                              vibrate: true,
-                                              volume: 1,
-                                              enableNotificationOnKill: true,
-                                            ),
-                                          );
-                                        },
-                                      )
-                                    : Lottie.asset(
-                                        LottieConstant.alertPlaying,
-                                        height: 20,
-                                        width: 50,
-                                        fit: BoxFit.fill,
-                                      ),
-                              ),
-                              IconButton(
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
-                                    ColorConstant.errorColor,
+                                format: hr != 0
+                                    ? CountDownTimerFormat.hoursMinutesSeconds
+                                    : min != 0
+                                        ? CountDownTimerFormat.minutesSeconds
+                                        : CountDownTimerFormat.secondsOnly,
+                                endTime: DateTime.now().add(
+                                  Duration(
+                                    hours: hr,
+                                    minutes: min,
+                                    seconds: sec,
                                   ),
                                 ),
-                                onPressed: () async {
+                                onEnd: () async {
                                   isTimerRunning = false;
-                                  isAlertPlaying = false;
+                                  isAlertPlaying = true;
                                   hr = 0;
                                   min = 0;
                                   sec = 0;
                                   setState(() {});
-                                  await Alarm.stop(1);
+                                  await Alarm.set(
+                                    alarmSettings: AlarmSettings(
+                                      id: 1,
+                                      dateTime: DateTime.now(),
+                                      assetAudioPath: AudioConstant.timerAlert,
+                                      notificationTitle:
+                                          StringConstant.notificationTitle,
+                                      notificationBody:
+                                          StringConstant.notificationBody,
+                                      loopAudio: true,
+                                      fadeDuration: 3,
+                                      vibrate: true,
+                                      volume: 1,
+                                      enableNotificationOnKill: true,
+                                    ),
+                                  );
                                 },
-                                icon: Icon(
-                                  Icons.stop_rounded,
-                                  color: ColorConstant.primaryColor,
-                                ),
+                              )
+                            : Lottie.asset(
+                                LottieConstant.alertPlaying,
+                                height: 20,
+                                width: 50,
+                                fit: BoxFit.fill,
                               ),
-                            ],
-                          )
-                        : ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                ColorConstant.secondaryColor,
-                              ),
-                            ),
-                            onPressed: () {
-                              if (isTimerPressed) isTimerRunning = true;
-                              isTimerPressed = !isTimerPressed;
-                              setState(() {});
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.timer_outlined,
-                                  color: ColorConstant.tertiaryColor,
-                                ),
-                                DimenConstant.separator,
-                                Text(
-                                  isTimerPressed ? 'Start' : 'Timer',
-                                  style: TextStyle(
-                                    color: ColorConstant.tertiaryColor,
-                                    fontSize: DimenConstant.miniText,
-                                  ),
-                                ),
-                              ],
-                            ),
+                      ),
+                      IconButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            ColorConstant.errorColor,
                           ),
-                    IconButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                          ColorConstant.secondaryColor,
+                        ),
+                        onPressed: () async {
+                          isTimerRunning = false;
+                          isAlertPlaying = false;
+                          hr = 0;
+                          min = 0;
+                          sec = 0;
+                          setState(() {});
+                          await Alarm.stop(1);
+                        },
+                        icon: Icon(
+                          Icons.stop_rounded,
+                          color: ColorConstant.primaryColor,
                         ),
                       ),
-                      onPressed: cookingIndex == widget.steps.length - 1
-                          ? widget.onPressed
-                          : () {
-                              pageController.nextPage(
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.easeInOut,
-                              );
-                              cookingIndex++;
-                              setState(() {});
-                            },
-                      icon: Icon(
-                        Icons.keyboard_arrow_right_rounded,
-                        color: ColorConstant.tertiaryColor,
+                    ],
+                  )
+                else
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            ColorConstant.secondaryColor,
+                          ),
+                        ),
+                        onPressed: () {
+                          if (isTimerPressed) isTimerRunning = true;
+                          isTimerPressed = !isTimerPressed;
+                          setState(() {});
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.timer_outlined,
+                              color: ColorConstant.tertiaryColor,
+                            ),
+                            DimenConstant.separator,
+                            Text(
+                              isTimerPressed ? 'Start' : 'Timer',
+                              style: TextStyle(
+                                color: ColorConstant.tertiaryColor,
+                                fontSize: DimenConstant.miniText,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+                      Visibility(
+                        visible: isTimerPressed,
+                        child: IconButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              ColorConstant.errorColor,
+                            ),
+                          ),
+                          onPressed: () async {
+                            isTimerPressed = false;
+                            setState(() {});
+                          },
+                          icon: Icon(
+                            Icons.close_rounded,
+                            color: ColorConstant.primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                IconButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(
+                      ColorConstant.secondaryColor,
                     ),
-                  ],
+                  ),
+                  onPressed: cookingIndex == widget.steps.length - 1
+                      ? widget.onPressed
+                      : () {
+                          pageController.nextPage(
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
+                          cookingIndex++;
+                          setState(() {});
+                        },
+                  icon: Icon(
+                    Icons.keyboard_arrow_right_rounded,
+                    color: ColorConstant.tertiaryColor,
+                  ),
                 ),
+              ],
+            ),
           Visibility(
             visible: isTimerPressed,
             child: DimenConstant.separator,

@@ -28,37 +28,25 @@ class RecipeViewScreen extends StatelessWidget {
                   backgroundColor: ColorConstant.backgroundColor,
                   surfaceTintColor: Colors.transparent,
                   floating: true,
-                  expandedHeight: 200,
-                  collapsedHeight: 56,
+                  expandedHeight: 250,
+                  collapsedHeight: kToolbarHeight,
                   pinned: true,
                   centerTitle: true,
                   leading: BackButton(
                     color: ColorConstant.primaryColor,
                   ),
                   flexibleSpace: FlexibleSpaceBar(
-                    background: Stack(
-                      children: [
-                        Container(
-                          height: double.infinity,
-                          width: double.infinity,
-                          child: Image.asset(
+                    background: Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
                             recipe.image!,
-                            fit: BoxFit.cover,
                           ),
+                          fit: BoxFit.cover,
                         ),
-                        Container(
-                          height: double.infinity,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                ColorConstant.tertiaryColor.withOpacity(0.3),
-                                ColorConstant.tertiaryColor.withOpacity(0.3),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                     title: Text(
                       recipe.name!,
