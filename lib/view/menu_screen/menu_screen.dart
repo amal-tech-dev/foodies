@@ -1,14 +1,15 @@
-import 'dart:async';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:foodies/database/recipes.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
 import 'package:foodies/widgets/recipe_item.dart';
+import 'package:foodies/widgets/shimmer_widget.dart';
+import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -19,42 +20,44 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  bool isLoading = false, isEmpty = false, isGuest = false;
+  bool isLoading = false;
   FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<RecipeModel> recipes = [];
   List<String> menu = [];
 
   @override
   void initState() {
-    isLoading = true;
-    setState(() {});
-    checkLoginType();
-    Timer(
-      Duration(
-        seconds: 3,
-      ),
-      () {
-        isLoading = false;
-        isEmpty = true;
-        setState(() {});
-      },
-    );
+    getMenuList();
     super.initState();
   }
 
-  // check login type
-  checkLoginType() async {
-    auth.authStateChanges().listen(
-      (event) {
-        if (event != null) {
-          if (event.isAnonymous)
-            isGuest = true;
-          else
-            isGuest = false;
-          setState(() {});
-        }
-      },
-    );
+  // get menu list
+  getMenuList() async {
+    isLoading = true;
+    setState(() {});
+    if (auth.currentUser!.isAnonymous && auth.currentUser == null) {
+      Box<String> menuBox = Hive.box<String>('menuBox');
+      menu = menuBox.values.toList();
+    } else {
+      String uid = auth.currentUser!.uid;
+      DocumentSnapshot snapshot =
+          await firestore.collection('users').doc(uid).get();
+      if (snapshot.exists) {
+        menu = List<String>.from(
+            (snapshot.data() as Map<String, dynamic>)['menu']);
+      }
+    }
+    for (String docId in menu) {
+      DocumentSnapshot snapshot =
+          await firestore.collection('recipes').doc(docId).get();
+      if (snapshot.exists) {
+        recipes
+            .add(RecipeModel.fromJson(snapshot.data() as Map<String, dynamic>));
+      }
+    }
+    isLoading = false;
+    setState(() {});
   }
 
   @override
@@ -65,12 +68,12 @@ class _MenuScreenState extends State<MenuScreen> {
           DimenConstant.padding,
         ),
         child: isLoading
-            ? Center(
-                child: Lottie.asset(
-                  LottieConstant.loading,
-                ),
+            ? ListView.separated(
+                itemBuilder: (context, index) => ShimmerWidget(),
+                separatorBuilder: (context, index) => DimenConstant.separator,
+                itemCount: 10,
               )
-            : isEmpty
+            : recipes.isEmpty
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -97,12 +100,24 @@ class _MenuScreenState extends State<MenuScreen> {
                       ),
                     ],
                   )
-                : ListView.builder(
-                    itemBuilder: (context, index) => RecipeItem(
-                      recipe: Recipes.list[index],
-                      onPressed: () {},
+                : Expanded(
+                    child: ListView.separated(
+                      itemBuilder: (context, index) => RecipeItem(
+                        recipe: recipes[index],
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RecipeViewScreen(
+                              recipe: recipes[index],
+                              recipeId: menu[index],
+                            ),
+                          ),
+                        ),
+                      ),
+                      separatorBuilder: (context, index) =>
+                          DimenConstant.separator,
+                      itemCount: recipes.length,
                     ),
-                    itemCount: Recipes.list.length,
                   ),
       ),
     );

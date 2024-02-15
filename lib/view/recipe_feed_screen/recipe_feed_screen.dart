@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
@@ -21,8 +22,9 @@ class RecipeFeedScreen extends StatefulWidget {
 }
 
 class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
+  FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  List<RecipeModel> recipes = [];
+  Map<String, RecipeModel> recipes = {};
   List<String> diet = [], cuisines = [], categories = [];
 
   @override
@@ -149,22 +151,23 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                   }
                   if (snapshot.connectionState == ConnectionState.active &&
                       snapshot.data != null) {
-                    for (var value in snapshot.data!.docs) {
-                      recipes.add(
-                        RecipeModel.fromJson(value.data()),
+                    for (var doc in snapshot.data!.docs) {
+                      String docId = doc.id;
+                      RecipeModel recipe = RecipeModel.fromJson(
+                        doc.data() as Map<String, dynamic>,
                       );
+                      recipes[docId] = recipe;
                     }
                   }
                   return ListView.separated(
                     itemBuilder: (context, index) => RecipeItem(
-                      recipe: recipes[index],
+                      recipe: recipes.values.toList()[index],
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => RecipeViewScreen(
-                            recipe: recipes[index],
-                            isAdded: false,
-                            onKitchenPressed: () {},
+                            recipe: recipes.values.toList()[index],
+                            recipeId: recipes.keys.toList()[index],
                           ),
                         ),
                       ),

@@ -1,20 +1,95 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
 import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
+import 'package:hive/hive.dart';
 
-class RecipeViewScreen extends StatelessWidget {
+class RecipeViewScreen extends StatefulWidget {
   RecipeModel recipe;
-  bool isAdded;
-  VoidCallback onKitchenPressed;
+  String recipeId;
   RecipeViewScreen({
     super.key,
     required this.recipe,
-    required this.isAdded,
-    required this.onKitchenPressed,
+    required this.recipeId,
   });
+
+  @override
+  State<RecipeViewScreen> createState() => _RecipeViewScreenState();
+}
+
+class _RecipeViewScreenState extends State<RecipeViewScreen> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  bool menuCheck = false;
+
+  @override
+  void initState() {
+    initialise();
+    super.initState();
+  }
+
+  // initialise data
+  initialise() async {
+    menuCheck = await checkRecipeInMenu(widget.recipeId);
+    setState(() {});
+  }
+
+  // update menu based on authentication status
+  Future<void> updateMenu(String docId) async {
+    if (auth.currentUser?.isAnonymous ?? false)
+      await updateGuestMenu(docId);
+    else
+      await updateUserMenu(docId);
+  }
+
+// check if the recipe exists in menu
+  Future<bool> checkRecipeInMenu(String docId) async {
+    if (auth.currentUser!.isAnonymous || auth.currentUser == null)
+      return await checkGuestMenu(docId);
+    else
+      return await checkUserMenu(docId);
+  }
+
+// update menu for guest
+  Future<void> updateGuestMenu(String docId) async {
+    Box<String> menuBox = Hive.box<String>('menuBox');
+    if (menuBox.containsKey(docId))
+      menuBox.delete(docId);
+    else
+      menuBox.put(docId, docId);
+  }
+
+// update menu for user
+  Future<void> updateUserMenu(String docId) async {
+    String uid = auth.currentUser!.uid;
+    DocumentReference reference = firestore.collection('users').doc(uid);
+    DocumentSnapshot snapshot = await reference.get();
+    List<String> menu = List<String>.from(snapshot.get('menu') ?? []);
+    if (menu.contains(docId))
+      menu.remove(docId);
+    else
+      menu.add(docId);
+    await reference.update({'menu': menu});
+  }
+
+// check recipe for guest
+  Future<bool> checkGuestMenu(String docId) async {
+    Box<String> box = Hive.box<String>('menuBox');
+    return box.containsKey(docId);
+  }
+
+// check recipe for user
+  Future<bool> checkUserMenu(String docId) async {
+    String uid = auth.currentUser!.uid;
+    DocumentReference reference = firestore.collection('users').doc(uid);
+    DocumentSnapshot snapshot = await reference.get();
+    List<String> menu = List<String>.from(snapshot.get('menu') ?? []);
+    return menu.contains(docId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +103,8 @@ class RecipeViewScreen extends StatelessWidget {
                   backgroundColor: ColorConstant.backgroundColor,
                   surfaceTintColor: Colors.transparent,
                   floating: true,
-                  expandedHeight: 250,
+                  expandedHeight:
+                      MediaQuery.of(context).size.width - kToolbarHeight,
                   collapsedHeight: kToolbarHeight,
                   pinned: true,
                   centerTitle: true,
@@ -36,20 +112,43 @@ class RecipeViewScreen extends StatelessWidget {
                     color: ColorConstant.primaryColor,
                   ),
                   flexibleSpace: FlexibleSpaceBar(
-                    background: Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            recipe.image!,
+                    background: Stack(
+                      children: [
+                        Container(
+                          height: double.infinity,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                widget.recipe.image!,
+                              ),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          fit: BoxFit.cover,
                         ),
-                      ),
+                        Container(
+                          height: double.infinity,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                ColorConstant.tertiaryColor.withOpacity(0.3),
+                                ColorConstant.tertiaryColor.withOpacity(0.2),
+                                ColorConstant.tertiaryColor.withOpacity(0.1),
+                                ColorConstant.tertiaryColor.withOpacity(0.0),
+                                ColorConstant.tertiaryColor.withOpacity(0.0),
+                                ColorConstant.tertiaryColor.withOpacity(0.1),
+                                ColorConstant.tertiaryColor.withOpacity(0.3),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     title: Text(
-                      recipe.name!,
+                      widget.recipe.name!,
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
                         fontSize: DimenConstant.extraSmallText,
@@ -58,7 +157,7 @@ class RecipeViewScreen extends StatelessWidget {
                   ),
                   actions: [
                     Visibility(
-                      visible: recipe.chef == null ? false : true,
+                      visible: widget.recipe.chef == null ? false : true,
                       child: IconButton(
                         onPressed: () => Navigator.push(
                           context,
@@ -72,14 +171,17 @@ class RecipeViewScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(),
                     IconButton(
-                      onPressed: onKitchenPressed,
+                      onPressed: () async {
+                        await updateMenu(widget.recipeId);
+                        initialise();
+                        setState(() {});
+                      },
                       icon: Icon(
-                        isAdded
+                        menuCheck
                             ? Icons.favorite_rounded
                             : Icons.favorite_outline_rounded,
-                        color: isAdded
+                        color: menuCheck
                             ? ColorConstant.secondaryColor
                             : ColorConstant.primaryColor,
                       ),
@@ -96,7 +198,7 @@ class RecipeViewScreen extends StatelessWidget {
                       horizontal: DimenConstant.padding,
                     ),
                     child: Text(
-                      recipe.description!,
+                      widget.recipe.description!,
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
                         fontSize: DimenConstant.extraSmallText,
@@ -116,14 +218,14 @@ class RecipeViewScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: recipe.veg!
+                          backgroundColor: widget.recipe.veg!
                               ? ColorConstant.vegSecondaryGradient
                               : ColorConstant.nonvegSecondaryGradient,
                           radius: 10,
                         ),
                         DimenConstant.separator,
                         Text(
-                          recipe.veg! ? 'Vegetarian' : 'Non-Vegetarian',
+                          widget.recipe.veg! ? 'Vegetarian' : 'Non-Vegetarian',
                           style: TextStyle(
                             color: ColorConstant.primaryColor,
                             fontSize: DimenConstant.extraSmallText,
@@ -170,7 +272,7 @@ class RecipeViewScreen extends StatelessWidget {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            recipe.cuisine!,
+                            widget.recipe.cuisine!,
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -219,7 +321,7 @@ class RecipeViewScreen extends StatelessWidget {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            recipe.categories!.join(', ') + '.',
+                            widget.recipe.categories!.join(', ') + '.',
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -268,7 +370,7 @@ class RecipeViewScreen extends StatelessWidget {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            recipe.time!,
+                            widget.recipe.time!,
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -317,7 +419,7 @@ class RecipeViewScreen extends StatelessWidget {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            recipe.ingredients![index],
+                            widget.recipe.ingredients![index],
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -329,7 +431,7 @@ class RecipeViewScreen extends StatelessWidget {
                     ),
                   ),
                   separatorBuilder: (context, index) => DimenConstant.separator,
-                  itemCount: recipe.ingredients!.length,
+                  itemCount: widget.recipe.ingredients!.length,
                 ),
                 SliverToBoxAdapter(
                   child: DimenConstant.separator,
@@ -368,7 +470,7 @@ class RecipeViewScreen extends StatelessWidget {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            recipe.steps![index],
+                            widget.recipe.steps![index],
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -380,7 +482,7 @@ class RecipeViewScreen extends StatelessWidget {
                     ),
                   ),
                   separatorBuilder: (context, index) => DimenConstant.separator,
-                  itemCount: recipe.steps!.length,
+                  itemCount: widget.recipe.steps!.length,
                 ),
               ],
             ),
@@ -405,7 +507,7 @@ class RecipeViewScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CookingScreen(
-                    recipe: recipe,
+                    recipe: widget.recipe,
                   ),
                 ),
               ),
