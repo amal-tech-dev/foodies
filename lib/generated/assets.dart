@@ -8,8 +8,9 @@ class Assets {
   static const String imagesProfile = 'assets/images/profile.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
   static const String lottieAudioPlaying = 'assets/lottie/audio_playing.json';
-  static const String lottieEmptyKitchen = 'assets/lottie/empty_kitchen.json';
+  static const String lottieEmpty = 'assets/lottie/empty.json';
   static const String lottieLoading = 'assets/lottie/loading.json';
+  static const String lottieNoInternet = 'assets/lottie/no_internet.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';
   static const String lottieSearching = 'assets/lottie/searching.json';
   static const String thumbnailsAddRecipe = 'assets/thumbnails/add_recipe.png';

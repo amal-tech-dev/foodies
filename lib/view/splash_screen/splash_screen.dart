@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,7 @@ import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
+import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
@@ -20,8 +22,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
+  bool isConnected = true;
   @override
   void initState() {
+    checkConnectivity();
     user = auth.currentUser;
     Timer(
       Duration(
@@ -31,12 +35,26 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => user != null ? HomeScreen() : LoginScreen(),
+            builder: (context) => isConnected
+                ? NoConnectionScreen()
+                : user != null
+                    ? HomeScreen()
+                    : LoginScreen(),
           ),
         );
       },
     );
     super.initState();
+  }
+
+  // check internet connectivity
+  checkConnectivity() async {
+    ConnectivityResult connectivity = await Connectivity().checkConnectivity();
+    if (connectivity == ConnectivityResult.none)
+      isConnected = false;
+    else
+      isConnected = true;
+    setState(() {});
   }
 
   @override

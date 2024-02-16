@@ -7,9 +7,10 @@ environment:
   sdk: '>=3.2.1 <4.0.0'
 
 dependencies:
-  alarm: ^3.0.8
+  alarm: ^3.0.10
   carousel_slider: ^4.2.1
   cloud_firestore: ^4.15.4
+  connectivity_plus: ^5.0.2
   firebase_auth: ^4.17.4
   firebase_core: ^2.25.4
   firebase_storage: ^11.6.5

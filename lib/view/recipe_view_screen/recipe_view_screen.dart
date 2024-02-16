@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies/controller/menu_list_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
 import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 class RecipeViewScreen extends StatefulWidget {
   RecipeModel recipe;
@@ -176,6 +178,10 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         await updateMenu(widget.recipeId);
                         initialise();
                         setState(() {});
+                        Provider.of<MenuListController>(
+                          context,
+                          listen: false,
+                        ).getMenuList();
                       },
                       icon: Icon(
                         menuCheck
