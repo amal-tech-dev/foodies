@@ -348,6 +348,8 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                         if (cover != null) {
                           userModel.cover = await uploadImage(cover!, 'covers');
                         }
+                        userModel.followers = 0;
+                        userModel.following = 0;
                         await firestore
                             .collection('users')
                             .doc(user.uid)

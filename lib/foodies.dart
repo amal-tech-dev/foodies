@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/add_recipe_controller.dart';
+import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/controller/menu_list_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
@@ -16,6 +17,7 @@ class Foodies extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AddRecipeController()),
         ChangeNotifierProvider(create: (context) => FilterController()),
         ChangeNotifierProvider(create: (context) => MenuListController()),
+        ChangeNotifierProvider(create: (context) => ConnectivityController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

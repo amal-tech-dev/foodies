@@ -4,8 +4,9 @@ class UserModel {
   String? bio;
   String? profile;
   String? cover;
+  int? followers;
+  int? following;
   List<String>? menu;
-  List<String>? recipes;
 
   UserModel({
     this.username,
@@ -13,8 +14,9 @@ class UserModel {
     this.bio,
     this.profile,
     this.cover,
+    this.followers,
+    this.following,
     this.menu,
-    this.recipes,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -23,12 +25,11 @@ class UserModel {
         bio: json["bio"],
         profile: json["profile"],
         cover: json["cover"],
+        followers: json["followers"],
+        following: json["following"],
         menu: json["menu"] == null
             ? []
             : List<String>.from(json["menu"]!.map((x) => x)),
-        recipes: json["recipes"] == null
-            ? []
-            : List<String>.from(json["recipes"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,8 +38,8 @@ class UserModel {
         "bio": bio,
         "profile": profile,
         "cover": cover,
+        "followers": followers,
+        "following": following,
         "menu": menu == null ? [] : List<dynamic>.from(menu!.map((x) => x)),
-        "recipes":
-            recipes == null ? [] : List<dynamic>.from(recipes!.map((x) => x)),
       };
 }

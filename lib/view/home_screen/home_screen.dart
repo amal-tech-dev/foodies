@@ -1,5 +1,5 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
@@ -10,6 +10,7 @@ import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
 import 'package:foodies/view/search_screen/search_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -32,7 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     getPermissions();
-    checkConnectivity();
+    Provider.of<ConnectivityController>(
+      context,
+      listen: false,
+    ).checkConnectivity();
     super.initState();
   }
 
@@ -42,16 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
         await Permission.notification.isRestricted) {
       await Permission.notification.request();
     }
-  }
-
-  // check internet connectivity
-  checkConnectivity() async {
-    ConnectivityResult connectivity = await Connectivity().checkConnectivity();
-    if (connectivity == ConnectivityResult.none)
-      isConnected = false;
-    else
-      isConnected = true;
-    setState(() {});
   }
 
   @override
@@ -79,7 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: isConnected ? NoConnectionScreen() : screens[pageIndex],
+      body: Provider.of<ConnectivityController>(context).isConnected
+          ? NoConnectionScreen()
+          : screens[pageIndex],
       bottomNavigationBar: Theme(
         data: ThemeData(
           splashColor: Colors.transparent,
