@@ -40,10 +40,10 @@ class _SplashScreenState extends State<SplashScreen> {
           MaterialPageRoute(
             builder: (context) =>
                 Provider.of<ConnectivityController>(context).isConnected
-                    ? NoConnectionScreen()
-                    : user != null
+                    ? user != null
                         ? HomeScreen()
-                        : LoginScreen(),
+                        : LoginScreen()
+                    : NoConnectionScreen(),
           ),
         );
       },

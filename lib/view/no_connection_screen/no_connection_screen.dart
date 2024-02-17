@@ -10,21 +10,25 @@ class NoConnectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Lottie.asset(
-            LottieConstant.noInternet,
-            fit: BoxFit.fill,
-          ),
-          DimenConstant.separator,
-          Text(
-            'No internet connection',
-            style: TextStyle(
-              color: ColorConstant.primaryColor,
-              fontSize: DimenConstant.smallText,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Lottie.asset(
+              LottieConstant.noInternet,
+              fit: BoxFit.fill,
+              width: MediaQuery.of(context).size.width * 0.6,
             ),
-          ),
-        ],
+            DimenConstant.separator,
+            Text(
+              'No internet connection',
+              style: TextStyle(
+                color: ColorConstant.secondaryColor,
+                fontSize: DimenConstant.smallText,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
