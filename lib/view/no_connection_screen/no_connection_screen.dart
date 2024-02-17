@@ -18,17 +18,10 @@ class NoConnectionScreen extends StatelessWidget {
           ),
           DimenConstant.separator,
           Text(
-            'data',
+            'No internet connection',
             style: TextStyle(
               color: ColorConstant.primaryColor,
               fontSize: DimenConstant.smallText,
-            ),
-          ),
-          Text(
-            'data',
-            style: TextStyle(
-              color: ColorConstant.secondaryColor,
-              fontSize: DimenConstant.miniText,
             ),
           ),
         ],

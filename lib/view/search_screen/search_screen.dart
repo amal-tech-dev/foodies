@@ -3,12 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies/controller/text_input_format_controller.dart';
-import 'package:foodies/database/recipes.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/widgets/recipe_item.dart';
 import 'package:lottie/lottie.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -152,16 +150,16 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ],
               )
-            else
-              Expanded(
-                child: ListView.builder(
-                  itemBuilder: (context, index) => RecipeItem(
-                    recipe: Recipes.list[index],
-                    onPressed: () {},
-                  ),
-                  itemCount: Recipes.list.length,
-                ),
-              ),
+            // else
+            //   Expanded(
+            //     child: ListView.builder(
+            //       itemBuilder: (context, index) => RecipeItem(
+            //         recipe: Recipes.list[index],
+            //         onPressed: () {},
+            //       ),
+            //       itemCount: Recipes.list.length,
+            //     ),
+            //   ),
           ],
         ),
       ),
