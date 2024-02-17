@@ -27,7 +27,7 @@ class Foodies extends StatelessWidget {
           highlightColor: Colors.transparent,
           textSelectionTheme: TextSelectionThemeData(
             cursorColor: ColorConstant.secondaryColor,
-            selectionColor: ColorConstant.secondaryColor.withOpacity(0.75),
+            selectionColor: ColorConstant.secondaryColor.withOpacity(0.5),
             selectionHandleColor: ColorConstant.secondaryColor,
           ),
         ),
