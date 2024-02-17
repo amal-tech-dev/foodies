@@ -14,9 +14,9 @@ class Foodies extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AddRecipeController()),
         ChangeNotifierProvider(create: (context) => FilterController()),
         ChangeNotifierProvider(create: (context) => MenuListController()),
+        ChangeNotifierProvider(create: (context) => AddRecipeController()),
         ChangeNotifierProvider(create: (context) => ConnectivityController()),
       ],
       child: MaterialApp(
