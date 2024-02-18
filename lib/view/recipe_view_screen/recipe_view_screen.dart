@@ -1,22 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodies/controller/menu_list_controller.dart';
+import 'package:foodies/controller/shared_list_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
-import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 class RecipeViewScreen extends StatefulWidget {
-  RecipeModel recipe;
-  String recipeId;
+  String id;
   RecipeViewScreen({
     super.key,
-    required this.recipe,
-    required this.recipeId,
+    required this.id,
   });
 
   @override
@@ -26,7 +24,8 @@ class RecipeViewScreen extends StatefulWidget {
 class _RecipeViewScreenState extends State<RecipeViewScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  bool menuCheck = false;
+  RecipeModel recipe = RecipeModel();
+  int likes = 0, shared = 0;
 
   @override
   void initState() {
@@ -36,61 +35,21 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
 
   // initialise data
   initialise() async {
-    menuCheck = await checkRecipeInMenu(widget.recipeId);
+    DocumentReference reference =
+        firestore.collection('recipes').doc(widget.id);
+    DocumentSnapshot snapshot = await reference.get();
+    recipe = RecipeModel.fromJson(snapshot.data() as Map<String, dynamic>);
+    likes = recipe.likes ?? 0;
+    shared = recipe.shared ?? 0;
     setState(() {});
-  }
-
-  // update menu based on authentication status
-  Future<void> updateMenu(String docId) async {
-    if (auth.currentUser?.isAnonymous ?? false)
-      await updateGuestMenu(docId);
-    else
-      await updateUserMenu(docId);
-  }
-
-// check if the recipe exists in menu
-  Future<bool> checkRecipeInMenu(String docId) async {
-    if (auth.currentUser!.isAnonymous || auth.currentUser == null)
-      return await checkGuestMenu(docId);
-    else
-      return await checkUserMenu(docId);
-  }
-
-// update menu for guest
-  Future<void> updateGuestMenu(String docId) async {
-    Box<String> menuBox = Hive.box<String>('menuBox');
-    if (menuBox.containsKey(docId))
-      menuBox.delete(docId);
-    else
-      menuBox.put(docId, docId);
-  }
-
-// update menu for user
-  Future<void> updateUserMenu(String docId) async {
-    String uid = auth.currentUser!.uid;
-    DocumentReference reference = firestore.collection('users').doc(uid);
-    DocumentSnapshot snapshot = await reference.get();
-    List<String> menu = List<String>.from(snapshot.get('menu') ?? []);
-    if (menu.contains(docId))
-      menu.remove(docId);
-    else
-      menu.add(docId);
-    await reference.update({'menu': menu});
-  }
-
-// check recipe for guest
-  Future<bool> checkGuestMenu(String docId) async {
-    Box<String> box = Hive.box<String>('menuBox');
-    return box.containsKey(docId);
-  }
-
-// check recipe for user
-  Future<bool> checkUserMenu(String docId) async {
-    String uid = auth.currentUser!.uid;
-    DocumentReference reference = firestore.collection('users').doc(uid);
-    DocumentSnapshot snapshot = await reference.get();
-    List<String> menu = List<String>.from(snapshot.get('menu') ?? []);
-    return menu.contains(docId);
+    await Provider.of<MenuListController>(
+      context,
+      listen: false,
+    ).checkRecipeInMenu(widget.id);
+    await Provider.of<SharedListController>(
+      context,
+      listen: false,
+    ).checkRecipeIsShared(widget.id);
   }
 
   @override
@@ -122,7 +81,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(
-                                widget.recipe.image!,
+                                recipe.image ?? '',
                               ),
                               fit: BoxFit.cover,
                             ),
@@ -150,50 +109,135 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       ],
                     ),
                     title: Text(
-                      widget.recipe.name!,
+                      recipe.name ?? '',
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
                         fontSize: DimenConstant.extraSmallText,
                       ),
                     ),
                   ),
-                  actions: [
-                    Visibility(
-                      visible: widget.recipe.chef == null ? false : true,
-                      child: IconButton(
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UserProfileScreen(),
+                ),
+                SliverToBoxAdapter(
+                  child: DimenConstant.separator,
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: DimenConstant.padding,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Consumer<MenuListController>(
+                          builder: (context, value, child) => InkWell(
+                            onTap: () async {
+                              await value.updateMenu(widget.id);
+                              initialise();
+                              setState(() {});
+                              value.getMenuList();
+                            },
+                            child: Column(
+                              children: [
+                                FaIcon(
+                                  value.check
+                                      ? FontAwesomeIcons.solidHeart
+                                      : FontAwesomeIcons.heart,
+                                  color: value.check
+                                      ? ColorConstant.errorColor
+                                      : ColorConstant.primaryColor,
+                                  size: 20,
+                                ),
+                                StreamBuilder(
+                                  stream: firestore
+                                      .collection('recipes')
+                                      .doc(widget.id)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.active) {
+                                      var data = snapshot.data!.data();
+                                      likes = data!['likes'] as int;
+                                    }
+                                    return Text(
+                                      '${likes.toString()} Likes',
+                                      style: TextStyle(
+                                        color: ColorConstant.primaryColor,
+                                        fontSize: DimenConstant.miniText,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        icon: Icon(
-                          Icons.person_rounded,
-                          color: ColorConstant.primaryColor,
+                        Visibility(
+                          visible: recipe.chef != null ? true : false,
+                          child: InkWell(
+                            onTap: () async {},
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.person_rounded,
+                                  color: ColorConstant.userColor,
+                                ),
+                                Text(
+                                  recipe.chef ?? '',
+                                  style: TextStyle(
+                                    color: ColorConstant.primaryColor,
+                                    fontSize: DimenConstant.miniText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
+                        Consumer<SharedListController>(
+                          builder: (context, value, child) => InkWell(
+                            onTap: () async {
+                              await value.updateSharedList(widget.id);
+                              await value.shareRecipe(widget.id);
+                              initialise();
+                              setState(() {});
+                            },
+                            child: Column(
+                              children: [
+                                FaIcon(
+                                  value.check
+                                      ? FontAwesomeIcons.solidShareFromSquare
+                                      : FontAwesomeIcons.shareFromSquare,
+                                  color: value.check
+                                      ? ColorConstant.secondaryColor
+                                      : ColorConstant.primaryColor,
+                                  size: 20,
+                                ),
+                                StreamBuilder(
+                                  stream: firestore
+                                      .collection('recipes')
+                                      .doc(widget.id)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.active) {
+                                      var data = snapshot.data!.data();
+                                      shared = data!['shared'] as int;
+                                    }
+                                    return Text(
+                                      '${shared.toString()} Shared',
+                                      style: TextStyle(
+                                        color: ColorConstant.primaryColor,
+                                        fontSize: DimenConstant.miniText,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      onPressed: () async {
-                        await updateMenu(widget.recipeId);
-                        initialise();
-                        setState(() {});
-                        Provider.of<MenuListController>(
-                          context,
-                          listen: false,
-                        ).getMenuList();
-                      },
-                      icon: Icon(
-                        menuCheck
-                            ? Icons.favorite_rounded
-                            : Icons.favorite_outline_rounded,
-                        color: menuCheck
-                            ? ColorConstant.secondaryColor
-                            : ColorConstant.primaryColor,
-                      ),
-                    ),
-                    DimenConstant.separator,
-                  ],
+                  ),
                 ),
                 SliverToBoxAdapter(
                   child: DimenConstant.separator,
@@ -204,7 +248,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       horizontal: DimenConstant.padding,
                     ),
                     child: Text(
-                      widget.recipe.description!,
+                      recipe.description ?? '',
                       style: TextStyle(
                         color: ColorConstant.primaryColor,
                         fontSize: DimenConstant.extraSmallText,
@@ -224,14 +268,14 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     child: Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: widget.recipe.veg!
+                          backgroundColor: recipe.veg ?? true
                               ? ColorConstant.vegSecondaryGradient
                               : ColorConstant.nonvegSecondaryGradient,
                           radius: 10,
                         ),
                         DimenConstant.separator,
                         Text(
-                          widget.recipe.veg! ? 'Vegetarian' : 'Non-Vegetarian',
+                          recipe.veg ?? true ? 'Vegetarian' : 'Non-Vegetarian',
                           style: TextStyle(
                             color: ColorConstant.primaryColor,
                             fontSize: DimenConstant.extraSmallText,
@@ -278,7 +322,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            widget.recipe.cuisine!,
+                            recipe.cuisine ?? '',
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -327,7 +371,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            widget.recipe.categories!.join(', ') + '.',
+                            '${recipe.categories?.join(',') ?? []}.',
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -376,7 +420,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            widget.recipe.time!,
+                            recipe.time ?? '',
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -425,7 +469,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            widget.recipe.ingredients![index],
+                            recipe.ingredients?[index] ?? '',
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -437,7 +481,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     ),
                   ),
                   separatorBuilder: (context, index) => DimenConstant.separator,
-                  itemCount: widget.recipe.ingredients!.length,
+                  itemCount: recipe.ingredients?.length ?? 0,
                 ),
                 SliverToBoxAdapter(
                   child: DimenConstant.separator,
@@ -476,7 +520,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         DimenConstant.separator,
                         Expanded(
                           child: Text(
-                            widget.recipe.steps![index],
+                            recipe.steps?[index] ?? '',
                             style: TextStyle(
                               color: ColorConstant.primaryColor,
                               fontSize: DimenConstant.extraSmallText,
@@ -488,7 +532,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     ),
                   ),
                   separatorBuilder: (context, index) => DimenConstant.separator,
-                  itemCount: widget.recipe.steps!.length,
+                  itemCount: recipe.steps?.length ?? 0,
                 ),
               ],
             ),
@@ -513,7 +557,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CookingScreen(
-                    recipe: widget.recipe,
+                    recipe: recipe,
                   ),
                 ),
               ),

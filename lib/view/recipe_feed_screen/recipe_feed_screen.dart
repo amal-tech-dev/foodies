@@ -153,21 +153,19 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                       snapshot.data != null) {
                     for (var doc in snapshot.data!.docs) {
                       String docId = doc.id;
-                      RecipeModel recipe = RecipeModel.fromJson(
-                        doc.data() as Map<String, dynamic>,
-                      );
+                      RecipeModel recipe = RecipeModel.fromJson(doc.data());
                       recipes[docId] = recipe;
                     }
                   }
                   return ListView.separated(
                     itemBuilder: (context, index) => RecipeItem(
+                      id: recipes.keys.toList()[index],
                       recipe: recipes.values.toList()[index],
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => RecipeViewScreen(
-                            recipe: recipes.values.toList()[index],
-                            recipeId: recipes.keys.toList()[index],
+                            id: recipes.keys.toList()[index],
                           ),
                         ),
                       ),

@@ -21,7 +21,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int pageIndex = 0;
-  bool isConnected = false;
   List screens = [
     RecipeFeedScreen(),
     SearchScreen(),

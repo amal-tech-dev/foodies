@@ -24,7 +24,7 @@ class ServeRecipe extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 100,
-              backgroundImage: AssetImage(image),
+              backgroundImage: NetworkImage(image),
             ),
             DimenConstant.separator,
             Text(

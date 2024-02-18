@@ -60,13 +60,13 @@ class _MenuScreenState extends State<MenuScreen> {
               : Expanded(
                   child: ListView.separated(
                     itemBuilder: (context, index) => RecipeItem(
+                      id: '',
                       recipe: value.recipes[index],
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => RecipeViewScreen(
-                            recipe: value.recipes[index],
-                            recipeId: value.menu[index],
+                            id: value.menu[index],
                           ),
                         ),
                       ),
