@@ -32,7 +32,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 ),
                 child: Center(
                   child: Image.asset(
-                    ImageConstant.signupThumbnail,
+                    ImageConstant.signup,
                     height: MediaQuery.of(context).size.height * 0.175,
                   ),
                 ),

@@ -59,7 +59,7 @@ class OverviewScreen extends StatelessWidget {
                 horizontal: 20.0,
               ),
               child: Image.asset(
-                ImageConstant.overviewThumbnail,
+                ImageConstant.overview,
               ),
             ),
             DimenConstant.separator,

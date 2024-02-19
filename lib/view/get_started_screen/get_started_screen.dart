@@ -17,7 +17,7 @@ class GetStartedScreen extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              ImageConstant.getStartedThumbnail,
+              ImageConstant.getStarted,
             ),
             fit: BoxFit.cover,
           ),

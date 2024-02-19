@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
               ),
               Center(
                 child: Image.asset(
-                  ImageConstant.loginThumbnail,
+                  ImageConstant.login,
                   height: MediaQuery.of(context).size.height * 0.15,
                 ),
               ),

@@ -179,7 +179,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               children: [
                                 Icon(
                                   Icons.person_rounded,
-                                  color: ColorConstant.userColor,
+                                  color: ColorConstant.primaryColor,
                                 ),
                                 Text(
                                   recipe.chef ?? '',

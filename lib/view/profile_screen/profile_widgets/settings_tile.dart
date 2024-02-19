@@ -3,39 +3,47 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
 class SettingsTile extends StatelessWidget {
+  IconData icon;
   String name;
-  Widget screen;
+  VoidCallback onPressed;
+
   SettingsTile({
     super.key,
+    required this.icon,
     required this.name,
-    required this.screen,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => screen,
+      onTap: () => onPressed,
+      child: Container(
+        padding: EdgeInsets.all(
+          DimenConstant.padding,
         ),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            Icons.restaurant_rounded,
-            size: 30,
-            color: ColorConstant.primaryColor,
+        decoration: BoxDecoration(
+          color: ColorConstant.tertiaryColor,
+          borderRadius: BorderRadius.circular(
+            DimenConstant.borderRadius,
           ),
-          DimenConstant.separator,
-          Text(
-            name,
-            style: TextStyle(
-              color: ColorConstant.secondaryColor,
-              fontSize: DimenConstant.smallText,
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: ColorConstant.primaryColor,
             ),
-          ),
-        ],
+            DimenConstant.separator,
+            Text(
+              name,
+              style: TextStyle(
+                color: ColorConstant.secondaryColor,
+                fontSize: DimenConstant.extraSmallText,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -18,7 +18,7 @@ class AddRecipeForGuest extends StatelessWidget {
             DimenConstant.padding * 4,
           ),
           child: Image.asset(
-            ImageConstant.loginThumbnail,
+            ImageConstant.login,
           ),
         ),
         Padding(

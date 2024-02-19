@@ -1,14 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
-import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
-import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/settings_tile.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
@@ -18,23 +17,37 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  bool isGuest = true;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  UserModel? userModel;
 
   @override
   void initState() {
-    getPrefs();
+    checkLoginType();
     super.initState();
   }
 
-// get shared preferences
-  getPrefs() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    if (preferences.getString('login') == 'user') {
-      isGuest = false;
-    } else if (preferences.getString('login') == 'guest') {
-      isGuest = true;
-    }
+// check login type
+  checkLoginType() async {
+    auth.authStateChanges().listen(
+      (event) {
+        if (event != null) {
+          if (event.isAnonymous)
+            userModel = null;
+          else
+            getUserDetails();
+          setState(() {});
+        }
+      },
+    );
+  }
+
+  // get user details
+  getUserDetails() async {
+    User user = auth.currentUser!;
+    DocumentReference reference = firestore.collection('users').doc(user.uid);
+    DocumentSnapshot snapshot = await reference.get();
+    userModel = UserModel.fromJson(snapshot.data() as Map<String, dynamic>);
   }
 
   @override
@@ -42,30 +55,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: DimenConstant.padding * 2,
+          horizontal: DimenConstant.padding,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ProfileTile(
-                  username: 'guest_000000',
-                  name: 'Guest',
-                  image: ImageConstant.profilePicture,
+            SettingsTile(
+              icon: Icons.person_rounded,
+              name: 'Profile',
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserProfileScreen(),
                 ),
-                DimenConstant.separator,
-                Visibility(
-                  visible: !isGuest,
-                  child: SettingsTile(
-                    name: 'My Recipes',
-                    screen: MyRecipesScreen(),
-                  ),
-                ),
-              ],
+              ),
             ),
-            TextButton(
+            DimenConstant.separator,
+            SettingsTile(
+              icon: Icons.timer_outlined,
+              name: 'Timer',
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserProfileScreen(),
+                ),
+              ),
+            ),
+            DimenConstant.separator,
+            SettingsTile(
+              icon: Icons.logout_rounded,
+              name: 'Logout',
               onPressed: () {
                 showDialog(
                   context: context,
@@ -80,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     content: Text(
-                      isGuest
+                      userModel == null
                           ? StringConstant.logoutAlertGuest
                           : StringConstant.logoutAlert,
                       style: TextStyle(
@@ -104,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       InkWell(
                         onTap: () async {
                           try {
-                            await firebaseAuth.signOut();
+                            await auth.signOut();
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -134,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Text(
                           'Leave',
                           style: TextStyle(
-                            color: ColorConstant.secondaryColor,
+                            color: ColorConstant.errorColor,
                             fontSize: DimenConstant.miniText,
                           ),
                         ),
@@ -143,13 +161,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 );
               },
-              child: Text(
-                'Logout',
-                style: TextStyle(
-                  color: ColorConstant.secondaryColor,
-                  fontSize: DimenConstant.extraSmallText,
-                ),
-              ),
             ),
           ],
         ),

@@ -56,7 +56,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
   getCategories() async {
     DocumentSnapshot snapshot =
         await firestore.collection('database').doc('categories').get();
-    final data = snapshot.data() as Map<String, dynamic>;
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     categories = List<String>.from(data['categories']);
   }
 
@@ -147,7 +147,12 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting ||
                       snapshot.data == null) {
-                    return ShimmerWidget();
+                    return ListView.separated(
+                      itemBuilder: (context, index) => ShimmerWidget(),
+                      separatorBuilder: (context, index) =>
+                          DimenConstant.separator,
+                      itemCount: 10,
+                    );
                   }
                   if (snapshot.connectionState == ConnectionState.active &&
                       snapshot.data != null) {
@@ -159,7 +164,6 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                   }
                   return ListView.separated(
                     itemBuilder: (context, index) => RecipeItem(
-                      id: recipes.keys.toList()[index],
                       recipe: recipes.values.toList()[index],
                       onPressed: () => Navigator.push(
                         context,

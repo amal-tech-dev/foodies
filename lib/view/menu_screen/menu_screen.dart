@@ -17,50 +17,54 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  bool isLoading = false;
+  bool isEmpty = false;
 
   @override
   void initState() {
     Provider.of<MenuListController>(context, listen: false).getMenuList();
+    if (Provider.of<MenuListController>(context, listen: false).recipes.isEmpty)
+      isEmpty = true;
+    else
+      isEmpty = false;
+    setState(() {});
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<MenuListController>(
-        builder: (context, value, child) => Padding(
-          padding: const EdgeInsets.all(
-            DimenConstant.padding,
-          ),
-          child: value.recipes.isEmpty
-              ? Column(
-                  children: [
-                    Lottie.asset(
-                      LottieConstant.empty,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.fill,
+      body: isEmpty
+          ? Column(
+              children: [
+                Lottie.asset(
+                  LottieConstant.empty,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.fill,
+                ),
+                DimenConstant.separator,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                  ),
+                  child: Text(
+                    StringConstant.emptyMenu,
+                    style: TextStyle(
+                      color: ColorConstant.secondaryColor,
+                      fontSize: DimenConstant.extraSmallText,
                     ),
-                    DimenConstant.separator,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 40,
-                      ),
-                      child: Text(
-                        StringConstant.emptyMenu,
-                        style: TextStyle(
-                          color: ColorConstant.secondaryColor,
-                          fontSize: DimenConstant.extraSmallText,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                )
-              : Expanded(
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            )
+          : Expanded(
+              child: Consumer<MenuListController>(
+                builder: (context, value, child) => Padding(
+                  padding: const EdgeInsets.all(
+                    DimenConstant.padding,
+                  ),
                   child: ListView.separated(
                     itemBuilder: (context, index) => RecipeItem(
-                      id: '',
                       recipe: value.recipes[index],
                       onPressed: () => Navigator.push(
                         context,
@@ -76,8 +80,8 @@ class _MenuScreenState extends State<MenuScreen> {
                     itemCount: value.recipes.length,
                   ),
                 ),
-        ),
-      ),
+              ),
+            ),
     );
   }
 }
