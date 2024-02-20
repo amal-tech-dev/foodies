@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
-class SettingsTile extends StatelessWidget {
+class SettingTile extends StatelessWidget {
   IconData icon;
   String name;
   VoidCallback onPressed;
 
-  SettingsTile({
+  SettingTile({
     super.key,
     required this.icon,
     required this.name,
@@ -17,7 +17,7 @@ class SettingsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => onPressed,
+      onTap: onPressed,
       child: Container(
         padding: EdgeInsets.all(
           DimenConstant.padding,

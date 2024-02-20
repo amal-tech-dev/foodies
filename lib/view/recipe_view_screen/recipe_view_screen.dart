@@ -155,8 +155,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.active) {
-                                      var data = snapshot.data!.data();
-                                      likes = data!['likes'] as int;
+                                      Map<String, dynamic> data = snapshot.data!
+                                          .data() as Map<String, dynamic>;
+                                      likes = data['likes'];
                                     }
                                     return Text(
                                       '${likes.toString()} Likes',

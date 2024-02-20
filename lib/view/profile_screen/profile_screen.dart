@@ -6,6 +6,8 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
+import 'package:foodies/view/profile_screen/profile_widgets/guest_tile.dart';
+import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/settings_tile.dart';
 import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
 
@@ -19,6 +21,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  bool isGuest = false;
   UserModel? userModel;
 
   @override
@@ -32,22 +35,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     auth.authStateChanges().listen(
       (event) {
         if (event != null) {
-          if (event.isAnonymous)
+          if (event.isAnonymous) {
+            isGuest = true;
             userModel = null;
-          else
-            getUserDetails();
-          setState(() {});
+            setState(() {});
+          } else {
+            isGuest = false;
+            getUserdata();
+          }
         }
       },
     );
   }
 
   // get user details
-  getUserDetails() async {
-    User user = auth.currentUser!;
-    DocumentReference reference = firestore.collection('users').doc(user.uid);
+  getUserdata() async {
+    DocumentReference reference =
+        firestore.collection('users').doc(auth.currentUser!.uid);
     DocumentSnapshot snapshot = await reference.get();
-    userModel = UserModel.fromJson(snapshot.data() as Map<String, dynamic>);
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    userModel = UserModel.fromJson(data);
+    setState(() {});
   }
 
   @override
@@ -59,29 +67,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         child: Column(
           children: [
-            SettingsTile(
-              icon: Icons.person_rounded,
-              name: 'Profile',
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserProfileScreen(),
-                ),
-              ),
-            ),
+            isGuest
+                ? GuestTile()
+                : ProfileTile(
+                    name: userModel?.name ?? '',
+                    username: userModel?.username ?? '',
+                    image: userModel?.profile,
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserProfileScreen(
+                          uid: auth.currentUser!.uid,
+                        ),
+                      ),
+                    ),
+                  ),
             DimenConstant.separator,
-            SettingsTile(
+            SettingTile(
               icon: Icons.timer_outlined,
               name: 'Timer',
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserProfileScreen(),
-                ),
-              ),
+              onPressed: () {},
             ),
             DimenConstant.separator,
-            SettingsTile(
+            SettingTile(
               icon: Icons.logout_rounded,
               name: 'Logout',
               onPressed: () {
@@ -93,16 +101,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: Text(
                       'Are you leaving?',
                       style: TextStyle(
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.primaryColor,
                         fontSize: DimenConstant.smallText,
                       ),
                     ),
                     content: Text(
-                      userModel == null
+                      isGuest
                           ? StringConstant.logoutAlertGuest
                           : StringConstant.logoutAlert,
                       style: TextStyle(
-                        color: ColorConstant.primaryColor,
+                        color: ColorConstant.secondaryColor,
                         fontSize: DimenConstant.miniText,
                       ),
                       textAlign: TextAlign.justify,

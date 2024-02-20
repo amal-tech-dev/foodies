@@ -39,7 +39,9 @@ class RecipeItem extends StatelessWidget {
                           ColorConstant.nonvegSecondaryGradient,
                         ],
                 ),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(
+                  DimenConstant.borderRadius * 2,
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

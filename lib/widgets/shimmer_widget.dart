@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
+import 'package:foodies/utils/dimen_constant.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerWidget extends StatelessWidget {
@@ -28,7 +29,9 @@ class ShimmerWidget extends StatelessWidget {
               height: 150,
               decoration: BoxDecoration(
                 color: ColorConstant.primaryColor,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(
+                  DimenConstant.borderRadius * 2,
+                ),
               ),
             ),
           ),
