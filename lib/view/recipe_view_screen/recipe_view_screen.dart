@@ -39,7 +39,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
         firestore.collection('recipes').doc(widget.id);
     DocumentSnapshot snapshot = await reference.get();
     recipe = RecipeModel.fromJson(snapshot.data() as Map<String, dynamic>);
-    likes = recipe.likes ?? 0;
+    likes = recipe.likes?.length ?? 0;
     shared = recipe.shared ?? 0;
     setState(() {});
     await Provider.of<MenuListController>(

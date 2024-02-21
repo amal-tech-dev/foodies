@@ -31,7 +31,7 @@ class StringConstant {
       'Your Menu is empty. Add your favourites Recipes to Kitchen for easy access.';
   static const String logoutAlert = 'Do you want to logout?';
   static const String logoutAlertGuest =
-      'You are logged in as guest. Data cannot be recovered after logging out. ${StringConstant.logoutAlert}';
+      'You are loggedin as guest. Data will be deleted after logging out. ${StringConstant.logoutAlert}';
   static const String addIngredients =
       'Try to add Ingredient name with required quantity.';
   static const String addSteps =

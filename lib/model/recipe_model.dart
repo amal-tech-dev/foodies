@@ -7,6 +7,7 @@ class RecipeModel {
   String? image;
   bool? veg;
   int? shared;
+  int? views;
   List<String>? likes;
   List<String>? categories;
   List<String>? ingredients;
@@ -21,6 +22,7 @@ class RecipeModel {
     this.image,
     this.veg,
     this.shared,
+    this.views,
     this.likes,
     this.categories,
     this.ingredients,
@@ -36,6 +38,7 @@ class RecipeModel {
         image: json["image"],
         veg: json["veg"],
         shared: json["shared"],
+        views: json["views"],
         likes: json["likes"] == null
             ? []
             : List<String>.from(json["likes"]!.map((x) => x)),
@@ -59,6 +62,7 @@ class RecipeModel {
         "image": image,
         "veg": veg,
         "shared": shared,
+        "views": views,
         "likes": likes == null ? [] : List<dynamic>.from(likes!.map((x) => x)),
         "categories": categories == null
             ? []

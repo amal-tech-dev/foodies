@@ -7,7 +7,7 @@ import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/dismissible_list_item.dart';
+import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/dismissible_list_item.dart';
 import 'package:provider/provider.dart';
 
 class RecipeSteps extends StatefulWidget {

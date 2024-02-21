@@ -39,7 +39,7 @@ class SettingTile extends StatelessWidget {
               name,
               style: TextStyle(
                 color: ColorConstant.secondaryColor,
-                fontSize: DimenConstant.extraSmallText,
+                fontSize: DimenConstant.smallText,
               ),
             ),
           ],

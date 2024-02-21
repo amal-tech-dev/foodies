@@ -10,6 +10,7 @@ import 'package:foodies/view/profile_screen/profile_widgets/guest_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/settings_tile.dart';
 import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
+import 'package:hive/hive.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
@@ -130,6 +131,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       InkWell(
                         onTap: () async {
                           try {
+                            if (isGuest) {
+                              await auth.currentUser!.delete();
+                              Hive.box<String>('menuBox').close();
+                            }
                             await auth.signOut();
                             Navigator.pushAndRemoveUntil(
                               context,

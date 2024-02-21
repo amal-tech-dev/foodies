@@ -3,30 +3,30 @@ import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/preview_recipe.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_details.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_image.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_ingredients.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/recipe_steps.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_widgets/save_recipe.dart';
+import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/preview_recipe.dart';
+import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/recipe_details.dart';
+import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/recipe_image.dart';
+import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/recipe_ingredients.dart';
+import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/recipe_steps.dart';
+import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/save_recipe.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class EditRecipeScreen extends StatefulWidget {
+class AddRecipeDetailsScreen extends StatefulWidget {
   bool toAdd;
   RecipeModel? recipe;
 
-  EditRecipeScreen({
+  AddRecipeDetailsScreen({
     super.key,
     required this.toAdd,
     this.recipe,
   });
 
   @override
-  State<EditRecipeScreen> createState() => _EditRecipeScreenState();
+  State<AddRecipeDetailsScreen> createState() => _AddRecipeDetailsScreenState();
 }
 
-class _EditRecipeScreenState extends State<EditRecipeScreen> {
+class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
