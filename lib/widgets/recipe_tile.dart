@@ -3,11 +3,11 @@ import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
-class RecipeItem extends StatelessWidget {
+class RecipeTile extends StatelessWidget {
   RecipeModel recipe;
   VoidCallback onPressed;
 
-  RecipeItem({
+  RecipeTile({
     super.key,
     required this.recipe,
     required this.onPressed,

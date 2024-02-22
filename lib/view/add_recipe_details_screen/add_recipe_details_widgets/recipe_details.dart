@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies/controller/add_recipe_controller.dart';
@@ -5,7 +6,6 @@ import 'package:foodies/controller/text_input_format_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/utils/string_constant.dart';
 import 'package:provider/provider.dart';
 
 class RecipeDetails extends StatefulWidget {
@@ -25,7 +25,8 @@ class _RecipeDetailsState extends State<RecipeDetails> {
   bool isCategoriesPressed = false;
   bool isVeg = true;
   String selectedCuisine = '';
-  List<String> selectedCategories = [];
+  List<String> selectedCategories = [], cuisines = [], categories = [];
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -51,7 +52,29 @@ class _RecipeDetailsState extends State<RecipeDetails> {
         Provider.of<AddRecipeController>(context, listen: false)
             .editedRecipe
             .categories!;
+    getCuisines();
+    getCategories();
     super.initState();
+  }
+
+  // get cuisines from firebase
+  getCuisines() async {
+    DocumentReference reference =
+        firestore.collection('database').doc('cuisines');
+    DocumentSnapshot snapshot = await reference.get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    cuisines = data['cusines'];
+    setState(() {});
+  }
+
+  // get categories from firebase
+  getCategories() async {
+    DocumentReference reference =
+        firestore.collection('database').doc('categories');
+    DocumentSnapshot snapshot = await reference.get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    categories = data['categories'];
+    setState(() {});
   }
 
   @override
@@ -273,8 +296,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             child: InkWell(
                               splashColor: Colors.transparent,
                               onTap: () {
-                                selectedCuisine =
-                                    StringConstant.cuisines[index + 1];
+                                selectedCuisine = cuisines[index];
                                 setState(() {});
                               },
                               child: Row(
@@ -282,7 +304,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    StringConstant.cuisines[index + 1],
+                                    cuisines[index],
                                     style: TextStyle(
                                       color: ColorConstant.primaryColor,
                                       fontSize: DimenConstant.miniText,
@@ -291,11 +313,10 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                   Radio(
                                     activeColor: ColorConstant.secondaryColor,
                                     value: index + 1,
-                                    groupValue: StringConstant.cuisines
-                                        .indexOf(selectedCuisine),
+                                    groupValue:
+                                        cuisines.indexOf(selectedCuisine),
                                     onChanged: (value) {
-                                      selectedCuisine =
-                                          StringConstant.cuisines[value!];
+                                      selectedCuisine = cuisines[value! as int];
                                       setState(() {});
                                     },
                                   )
@@ -303,7 +324,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                               ),
                             ),
                           ),
-                          itemCount: StringConstant.cuisines.length - 1,
+                          itemCount: cuisines.length,
                         ),
                       ),
                     ),
@@ -363,12 +384,10 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             child: InkWell(
                               splashColor: Colors.transparent,
                               onTap: () {
-                                selectedCategories.contains(
-                                        StringConstant.categories[index + 1])
-                                    ? selectedCategories.remove(
-                                        StringConstant.categories[index + 1])
-                                    : selectedCategories.add(
-                                        StringConstant.categories[index + 1]);
+                                selectedCategories.contains(categories[index])
+                                    ? selectedCategories
+                                        .remove(categories[index])
+                                    : selectedCategories.add(categories[index]);
                                 setState(() {});
                               },
                               child: Row(
@@ -376,7 +395,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    StringConstant.categories[index + 1],
+                                    categories[index],
                                     style: TextStyle(
                                       color: ColorConstant.primaryColor,
                                       fontSize: DimenConstant.miniText,
@@ -385,19 +404,16 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                   Checkbox(
                                     activeColor: ColorConstant.secondaryColor,
                                     checkColor: ColorConstant.tertiaryColor,
-                                    value: selectedCategories.contains(
-                                            StringConstant
-                                                .categories[index + 1])
+                                    value: selectedCategories
+                                            .contains(categories[index])
                                         ? true
                                         : false,
                                     onChanged: (value) {
                                       value!
-                                          ? selectedCategories.add(
-                                              StringConstant
-                                                  .categories[index + 1])
-                                          : selectedCategories.remove(
-                                              StringConstant
-                                                  .categories[index + 1]);
+                                          ? selectedCategories
+                                              .add(categories[index])
+                                          : selectedCategories
+                                              .remove(categories[index]);
                                       setState(() {});
                                     },
                                   )
@@ -405,7 +421,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                               ),
                             ),
                           ),
-                          itemCount: StringConstant.categories.length - 1,
+                          itemCount: categories.length,
                         ),
                       ),
                     ),

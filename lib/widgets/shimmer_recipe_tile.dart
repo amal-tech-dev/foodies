@@ -3,8 +3,8 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ShimmerWidget extends StatelessWidget {
-  ShimmerWidget({super.key});
+class ShimmerRecipeTile extends StatelessWidget {
+  ShimmerRecipeTile({super.key});
 
   @override
   Widget build(BuildContext context) {

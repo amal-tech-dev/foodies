@@ -32,6 +32,8 @@ class StringConstant {
   static const String logoutAlert = 'Do you want to logout?';
   static const String logoutAlertGuest =
       'You are loggedin as guest. Data will be deleted after logging out. ${StringConstant.logoutAlert}';
+  static const String deleteAccount =
+      'Your data will be deleted and cannot be recovered. Are you sure to delete your account?';
   static const String addIngredients =
       'Try to add Ingredient name with required quantity.';
   static const String addSteps =
@@ -51,79 +53,4 @@ class StringConstant {
   static const String notificationTitle = 'Your food is overcooking!';
   static const String notificationBody =
       'Chef, your dish is at risk of overcooking or spoiling. It\'s time to take action and ensure the perfect meal. Check on it now!';
-
-  static const List<String> diet = [
-    'Vegetarian',
-    'Non-Vegetarian',
-    'Semi-Vegetarian',
-  ];
-
-  static const List<String> categories = [
-    'All',
-    'Appetizers/Starters',
-    'Breads',
-    'Beverages',
-    'Desserts',
-    'Kids Menu',
-    'Main Courses/Entrees',
-    'Pasta/Rice/Noodles',
-    'Seafood',
-    'Side Dishes',
-    'Soups and Salads',
-    'Specials',
-  ];
-
-  static const List<String> cuisines = [
-    'All',
-    'African Cuisine',
-    'American Cuisine',
-    'Argentinian Cuisine',
-    'Bengali Cuisine',
-    'Brazilian Cuisine',
-    'Caribbean Cuisine',
-    'Chinese Cuisine',
-    'Cuban Cuisine',
-    'East Indian Cuisine',
-    'Ethiopian Cuisine',
-    'Filipino Cuisine',
-    'French Cuisine',
-    'German Cuisine',
-    'Goan Cuisine',
-    'Greek Cuisine',
-    'Gujarati Cuisine',
-    'Hyderabadi Cuisine',
-    'Indian Cuisine',
-    'Iranian (Persian) Cuisine',
-    'Italian Cuisine',
-    'Japanese Cuisine',
-    'Kashmiri Cuisine',
-    'Kerala Cuisine',
-    'Korean Cuisine',
-    'Lebanese Cuisine',
-    'Madhya Pradesh Cuisine',
-    'Maharashtrian Cuisine',
-    'Malaysian Cuisine',
-    'Manipuri Cuisine',
-    'Mediterranean Cuisine',
-    'Mexican Cuisine',
-    'Middle Eastern Cuisine',
-    'Moroccan Cuisine',
-    'North Indian Cuisine',
-    'Northeast Indian Cuisine',
-    'Odia Cuisine',
-    'Peruvian Cuisine',
-    'Portuguese Cuisine',
-    'Punjabi Cuisine',
-    'Rajasthani Cuisine',
-    'Russian Cuisine',
-    'South Indian Cuisine',
-    'Spanish Cuisine',
-    'Swedish Cuisine',
-    'Tamil Cuisine',
-    'Thai Cuisine',
-    'Turkish Cuisine',
-    'Uttar Pradesh Cuisine',
-    'Vietnamese Cuisine',
-    'West Indian Cuisine',
-  ];
 }

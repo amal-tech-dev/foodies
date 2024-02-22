@@ -6,7 +6,10 @@ import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
-import 'package:foodies/view/profile_screen/profile_widgets/recipe_tile.dart';
+import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/view/edit_user_details_screen/edit_user_details_screen.dart';
+import 'package:foodies/view/login_screen/login_screen.dart';
+import 'package:foodies/view/profile_screen/profile_widgets/recipe_image_tile.dart';
 
 class UserProfileScreen extends StatefulWidget {
   String uid;
@@ -47,6 +50,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
@@ -56,6 +60,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
               Container(
                 height: MediaQuery.of(context).size.width * 0.5625,
+                padding: EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding / 2,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(
@@ -76,23 +83,133 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     fit: BoxFit.fitWidth,
                   ),
                 ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.width * 0.5625,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: ColorConstant.tertiaryColor.withOpacity(0.05),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                  ),
-                ),
                 child: SafeArea(
-                  child: Column(
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       BackButton(
                         color: ColorConstant.primaryColor,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            ColorConstant.tertiaryColor.withOpacity(0.1),
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: myProfile,
+                        child: IconButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              ColorConstant.tertiaryColor.withOpacity(0.1),
+                            ),
+                          ),
+                          onPressed: () => showMenu(
+                            color: ColorConstant.backgroundColor,
+                            context: context,
+                            position: RelativeRect.fromLTRB(
+                              100,
+                              90,
+                              0,
+                              0,
+                            ),
+                            items: [
+                              PopupMenuItem(
+                                height: 40,
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        EditUserDetailsScreen(),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Edit Account',
+                                  style: TextStyle(
+                                    color: ColorConstant.primaryColor,
+                                    fontSize: DimenConstant.extraSmallText,
+                                  ),
+                                ),
+                              ),
+                              PopupMenuItem(
+                                height: 40,
+                                onTap: () => showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    backgroundColor:
+                                        ColorConstant.backgroundColor,
+                                    surfaceTintColor: Colors.transparent,
+                                    title: Text(
+                                      'Delete account',
+                                      style: TextStyle(
+                                        color: ColorConstant.primaryColor,
+                                        fontSize: DimenConstant.smallText,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      StringConstant.deleteAccount,
+                                      style: TextStyle(
+                                        color: ColorConstant.secondaryColor,
+                                        fontSize: DimenConstant.miniText,
+                                      ),
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                    actions: [
+                                      InkWell(
+                                        onTap: () => Navigator.pop(context),
+                                        child: Text(
+                                          'Cancel',
+                                          style: TextStyle(
+                                            color: ColorConstant.primaryColor,
+                                            fontSize: DimenConstant.miniText,
+                                          ),
+                                        ),
+                                      ),
+                                      DimenConstant.separator,
+                                      InkWell(
+                                        onTap: () async {
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LoginScreen(),
+                                            ),
+                                            (route) => false,
+                                          );
+                                          DocumentReference reference =
+                                              firestore
+                                                  .collection('users')
+                                                  .doc(auth.currentUser!.uid);
+                                          await reference.delete();
+                                          await auth.currentUser!.delete();
+                                          await auth.signOut();
+                                        },
+                                        child: Text(
+                                          'Delete',
+                                          style: TextStyle(
+                                            color: ColorConstant.errorColor,
+                                            fontSize: DimenConstant.miniText,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                child: Text(
+                                  'Delete Account',
+                                  style: TextStyle(
+                                    color: ColorConstant.errorColor,
+                                    fontSize: DimenConstant.extraSmallText,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          icon: Icon(
+                            Icons.more_vert_rounded,
+                            color: ColorConstant.primaryColor,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -143,7 +260,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       radius: MediaQuery.of(context).size.width * 0.15625,
                       backgroundColor: ColorConstant.backgroundColor,
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(3.5),
                         child: CircleAvatar(
                           radius: MediaQuery.of(context).size.width * 0.15625,
                           backgroundImage: userModel.profile != null
@@ -209,7 +326,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '@${userModel.username!}',
+                '@${userModel.username ?? ''}',
                 style: TextStyle(
                   color: ColorConstant.secondaryColor,
                   fontSize: DimenConstant.smallText,
@@ -217,7 +334,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
               DimenConstant.separator,
               Visibility(
-                visible: userModel.verified!,
+                visible: userModel.verified ?? false,
                 child: Icon(
                   Icons.verified_rounded,
                   color: ColorConstant.secondaryColor,
@@ -225,161 +342,106 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(
-              DimenConstant.padding,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Visibility(
-                  visible: !myProfile,
-                  child: Center(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                          ColorConstant.secondaryColor,
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: DimenConstant.padding * 2,
-                        ),
-                        child: Text(
-                          'Follow',
-                          style: TextStyle(
-                            color: ColorConstant.tertiaryColor,
-                          ),
-                        ),
-                      ),
+          Visibility(
+            visible: !myProfile,
+            child: Center(
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                    ColorConstant.secondaryColor,
+                  ),
+                ),
+                onPressed: () {},
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: DimenConstant.padding * 2,
+                  ),
+                  child: Text(
+                    'Follow',
+                    style: TextStyle(
+                      color: ColorConstant.tertiaryColor,
                     ),
                   ),
                 ),
-                Text(
-                  'Bio',
-                  style: TextStyle(
-                    color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.extraSmallText,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                DimenConstant.separator,
-                Text(
-                  userModel.bio!,
-                  style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.extraSmallText,
-                  ),
-                  textAlign: TextAlign.justify,
-                ),
-                DimenConstant.separator,
-                Text(
-                  'Recipes',
-                  style: TextStyle(
-                    color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.extraSmallText,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                DimenConstant.separator,
-                (userModel.recipes ?? []).isEmpty
-                    ? Text(
-                        'No recipes yet.',
-                        style: TextStyle(
-                          color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.extraSmallText,
-                        ),
-                        textAlign: TextAlign.justify,
-                      )
-                    :
-                    // RecipeTile(id: ''),
-                    Expanded(
-                        child: GridView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: DimenConstant.padding,
-                            mainAxisSpacing: DimenConstant.padding,
-                          ),
-                          itemBuilder: (context, index) => RecipeTile(
-                            id: '',
-                          ),
-                          itemCount: 10,
-                        ),
-                      ),
-              ],
+              ),
             ),
           ),
-          // Visibility(
-          //   visible: myProfile,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(
-          //       DimenConstant.padding,
-          //     ),
-          //     child: Row(
-          //       children: [
-          //         Expanded(
-          //           child: InkWell(
-          //             onTap: () => Navigator.push(
-          //               context,
-          //               MaterialPageRoute(
-          //                 builder: (context) => EditUserDetailsScreen(),
-          //               ),
-          //             ),
-          //             child: Container(
-          //               padding: EdgeInsets.all(
-          //                 DimenConstant.padding,
-          //               ),
-          //               decoration: BoxDecoration(
-          //                 color: ColorConstant.secondaryColor,
-          //                 borderRadius: BorderRadius.circular(
-          //                   DimenConstant.borderRadius,
-          //                 ),
-          //               ),
-          //               child: Center(
-          //                 child: Text(
-          //                   'Edit Account',
-          //                   style: TextStyle(
-          //                     color: ColorConstant.tertiaryColor,
-          //                     fontSize: DimenConstant.extraSmallText,
-          //                   ),
-          //                 ),
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //         DimenConstant.separator,
-          //         Expanded(
-          //           child: InkWell(
-          //             onTap: () {},
-          //             child: Container(
-          //               padding: EdgeInsets.all(
-          //                 DimenConstant.padding,
-          //               ),
-          //               decoration: BoxDecoration(
-          //                 color: ColorConstant.errorColor,
-          //                 borderRadius: BorderRadius.circular(
-          //                   DimenConstant.borderRadius,
-          //                 ),
-          //               ),
-          //               child: Center(
-          //                 child: Text(
-          //                   'Delete Account',
-          //                   style: TextStyle(
-          //                     color: ColorConstant.primaryColor,
-          //                     fontSize: DimenConstant.extraSmallText,
-          //                   ),
-          //                 ),
-          //               ),
-          //             ),
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: DimenConstant.padding,
+            ),
+            child: Text(
+              'Bio',
+              style: TextStyle(
+                color: ColorConstant.secondaryColor,
+                fontSize: DimenConstant.extraSmallText,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          DimenConstant.separator,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: DimenConstant.padding,
+            ),
+            child: Text(
+              userModel.bio ?? '',
+              style: TextStyle(
+                color: ColorConstant.primaryColor,
+                fontSize: DimenConstant.extraSmallText,
+              ),
+              textAlign: TextAlign.justify,
+            ),
+          ),
+          DimenConstant.separator,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: DimenConstant.padding,
+            ),
+            child: Text(
+              'Recipes',
+              style: TextStyle(
+                color: ColorConstant.secondaryColor,
+                fontSize: DimenConstant.extraSmallText,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          DimenConstant.separator,
+          (userModel.recipes ?? []).isEmpty
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: DimenConstant.padding,
+                  ),
+                  child: Text(
+                    'No recipes yet.',
+                    style: TextStyle(
+                      color: ColorConstant.primaryColor,
+                      fontSize: DimenConstant.extraSmallText,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                )
+              : Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: DimenConstant.padding,
+                      right: DimenConstant.padding,
+                      bottom: DimenConstant.padding,
+                    ),
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: DimenConstant.padding,
+                        mainAxisSpacing: DimenConstant.padding,
+                      ),
+                      itemBuilder: (context, index) => RecipeImageTile(
+                        id: userModel.recipes![index],
+                      ),
+                      itemCount: userModel.recipes!.length,
+                    ),
+                  ),
+                ),
         ],
       ),
     );

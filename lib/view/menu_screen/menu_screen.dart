@@ -5,7 +5,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
-import 'package:foodies/widgets/recipe_item.dart';
+import 'package:foodies/widgets/recipe_tile.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -64,7 +64,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     DimenConstant.padding,
                   ),
                   child: ListView.separated(
-                    itemBuilder: (context, index) => RecipeItem(
+                    itemBuilder: (context, index) => RecipeTile(
                       recipe: value.recipes[index],
                       onPressed: () => Navigator.push(
                         context,

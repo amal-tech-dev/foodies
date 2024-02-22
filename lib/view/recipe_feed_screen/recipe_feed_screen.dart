@@ -8,8 +8,8 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_bottom_sheet.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_item.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
-import 'package:foodies/widgets/recipe_item.dart';
-import 'package:foodies/widgets/shimmer_widget.dart';
+import 'package:foodies/widgets/recipe_tile.dart';
+import 'package:foodies/widgets/shimmer_recipe_tile.dart';
 import 'package:provider/provider.dart';
 
 class RecipeFeedScreen extends StatefulWidget {
@@ -148,7 +148,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting ||
                       snapshot.data == null) {
                     return ListView.separated(
-                      itemBuilder: (context, index) => ShimmerWidget(),
+                      itemBuilder: (context, index) => ShimmerRecipeTile(),
                       separatorBuilder: (context, index) =>
                           DimenConstant.separator,
                       itemCount: 10,
@@ -163,7 +163,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                     }
                   }
                   return ListView.separated(
-                    itemBuilder: (context, index) => RecipeItem(
+                    itemBuilder: (context, index) => RecipeTile(
                       recipe: recipes.values.toList()[index],
                       onPressed: () => Navigator.push(
                         context,
