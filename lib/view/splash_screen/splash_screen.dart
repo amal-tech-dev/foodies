@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/font_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
@@ -70,6 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: TextStyle(
                   color: ColorConstant.primaryColor,
                   fontSize: DimenConstant.extraLargeText,
+                  fontFamily: FontConstant.font,
                 ),
               ),
               Text(
@@ -77,6 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: TextStyle(
                   color: ColorConstant.secondaryColor,
                   fontSize: DimenConstant.extraLargeText,
+                  fontFamily: FontConstant.font,
                 ),
               ),
             ],

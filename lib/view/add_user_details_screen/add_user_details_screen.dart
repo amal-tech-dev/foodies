@@ -290,7 +290,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     focusNode: bioFocusNode,
                     decoration: InputDecoration(
                       label: Text(
-                        'Bio (optional)',
+                        'Bio',
                         style: TextStyle(
                           color: ColorConstant.secondaryColor,
                           fontSize: DimenConstant.miniText,
@@ -314,6 +314,10 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     onTapOutside: (event) => FocusScope.of(context).unfocus(),
                     onFieldSubmitted: (value) =>
                         FocusScope.of(context).unfocus(),
+                    validator: (value) {
+                      if (value!.isEmpty) return 'Your bio is empty';
+                      return null;
+                    },
                   ),
                 ),
                 DimenConstant.separator,
@@ -335,12 +339,10 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       setState(() {});
                       try {
                         User user = auth.currentUser!;
-                        userModel.username = usernameController.text.trim();
-                        userModel.name =
-                            nameController.text.trim().toLowerCase();
-                        if (bioController.text.isNotEmpty) {
-                          userModel.bio = bioController.text.trim();
-                        }
+                        userModel.username =
+                            usernameController.text.trim().toLowerCase();
+                        userModel.name = nameController.text.trim();
+                        userModel.bio = bioController.text.trim();
                         if (profile != null) {
                           userModel.profile =
                               await uploadImage(profile!, 'profiles');
@@ -350,6 +352,9 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                         }
                         userModel.followers = [];
                         userModel.following = [];
+                        userModel.menu = [];
+                        userModel.recipes = [];
+                        userModel.verified = false;
                         await firestore
                             .collection('users')
                             .doc(user.uid)

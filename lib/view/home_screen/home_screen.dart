@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/font_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_screen/add_recipe_screen.dart';
 import 'package:foodies/view/menu_screen/menu_screen.dart';
@@ -60,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(
                 color: ColorConstant.primaryColor,
                 fontSize: DimenConstant.smallText,
+                fontFamily: FontConstant.font,
               ),
             ),
             Text(
@@ -67,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(
                 color: ColorConstant.secondaryColor,
                 fontSize: DimenConstant.smallText,
+                fontFamily: FontConstant.font,
               ),
             ),
           ],
