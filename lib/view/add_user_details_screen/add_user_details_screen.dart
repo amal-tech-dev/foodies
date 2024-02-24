@@ -6,10 +6,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies/controller/text_input_format_controller.dart';
-import 'package:foodies/generated/assets.dart';
 import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,8 +31,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
   TextEditingController bioController = TextEditingController();
   FocusNode usernameFocusNode = FocusNode();
   FocusNode bioFocusNode = FocusNode();
-  String emptyCover = Assets.imagesCover;
-  String emptyProfile = Assets.imagesProfile;
   ImagePicker picker = ImagePicker();
   File? profile, cover;
   UserModel userModel = UserModel();
@@ -94,7 +92,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     context: context,
                     builder: (context) => PickImageBottomSheet(
                       onCameraPressed: () async {
-                        final pickedImage = await picker.pickImage(
+                        XFile? pickedImage = await picker.pickImage(
                           source: ImageSource.camera,
                         );
                         if (pickedImage != null) cover = File(pickedImage.path);
@@ -102,7 +100,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                         Navigator.pop(context);
                       },
                       onGalleryPressed: () async {
-                        final pickedImage = await picker.pickImage(
+                        XFile? pickedImage = await picker.pickImage(
                           source: ImageSource.gallery,
                         );
                         if (pickedImage != null) cover = File(pickedImage.path);
@@ -124,7 +122,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                       image: DecorationImage(
                         image: cover == null
-                            ? AssetImage(emptyCover)
+                            ? AssetImage(ImageConstant.cover)
                             : FileImage(cover!) as ImageProvider<Object>,
                         fit: BoxFit.cover,
                       ),
@@ -148,7 +146,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       context: context,
                       builder: (context) => PickImageBottomSheet(
                         onCameraPressed: () async {
-                          final pickedImage = await picker.pickImage(
+                          XFile? pickedImage = await picker.pickImage(
                             source: ImageSource.camera,
                           );
                           if (pickedImage != null)
@@ -157,7 +155,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                           Navigator.pop(context);
                         },
                         onGalleryPressed: () async {
-                          final pickedImage = await picker.pickImage(
+                          XFile? pickedImage = await picker.pickImage(
                             source: ImageSource.gallery,
                           );
                           if (pickedImage != null)
@@ -173,10 +171,10 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                     child: CircleAvatar(
-                      radius: 80,
-                      backgroundImage: AssetImage(Assets.imagesFood),
+                      radius: 60,
+                      backgroundImage: AssetImage(ImageConstant.food),
                       foregroundImage: profile == null
-                          ? AssetImage(emptyProfile)
+                          ? AssetImage(ImageConstant.profile)
                           : FileImage(profile!) as ImageProvider<Object>,
                     ),
                   ),
@@ -389,13 +387,12 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
 
   // Private method to upload image to Firebase Storage
   Future<String> uploadImage(File imageFile, String folderName) async {
-    final storage = FirebaseStorage.instance;
-    final fileName =
+    String fileName =
         '${DateTime.now().millisecondsSinceEpoch}_${imageFile.path.split('/').last}';
-    final Reference reference = storage.ref().child(folderName).child(fileName);
-    final UploadTask uploadTask = reference.putFile(imageFile);
-    final TaskSnapshot taskSnapshot = await uploadTask;
-    final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    Reference reference = storage.ref().child(folderName).child(fileName);
+    UploadTask uploadTask = reference.putFile(imageFile);
+    TaskSnapshot taskSnapshot = await uploadTask;
+    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
     return downloadUrl;
   }
 

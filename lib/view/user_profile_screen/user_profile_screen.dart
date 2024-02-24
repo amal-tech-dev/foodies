@@ -54,13 +54,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     cover = userModel.cover ?? ImageConstant.cover;
     followers = userModel.followers!.length;
     following = userModel.following!.length;
-    if (userModel.followers!.contains(myUid)) isFollowing = true;
+    if (userModel.followers!.contains(myUid))
+      isFollowing = true;
+    else
+      isFollowing = false;
     setState(() {});
   }
 
   // delete image in firebase
-  deleteImage(String field) async {
-    await storage.refFromURL(userModel.cover!).delete();
+  deleteImage(String field, String url) async {
+    await storage.refFromURL(url).delete();
     await firestore.collection('users').doc(myUid).update({field: null});
     getUserData();
     setState(() {});
@@ -103,7 +106,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       context: context,
                       builder: (context) => PickImageBottomSheet(
                         onCameraPressed: () async {
-                          final pickedImage = await picker.pickImage(
+                          XFile? pickedImage = await picker.pickImage(
                             source: ImageSource.camera,
                           );
                           if (pickedImage != null) {
@@ -113,7 +116,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           Navigator.pop(context);
                         },
                         onGalleryPressed: () async {
-                          final pickedImage = await picker.pickImage(
+                          XFile? pickedImage = await picker.pickImage(
                             source: ImageSource.gallery,
                           );
                           if (pickedImage != null) {
@@ -123,7 +126,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           Navigator.pop(context);
                         },
                         onDeletePressed: () {
-                          deleteImage('cover');
+                          deleteImage('cover', userModel.cover!);
                           Navigator.pop(context);
                         },
                       ),
@@ -252,8 +255,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                                 firestore
                                                     .collection('users')
                                                     .doc(myUid);
-                                            deleteImage('profile');
-                                            deleteImage('cover');
+                                            deleteImage(
+                                                'profile', userModel.profile!);
+                                            deleteImage(
+                                                'cover', userModel.cover!);
                                             await reference.delete();
                                             await auth.currentUser!.delete();
                                             await auth.signOut();
@@ -340,7 +345,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             context: context,
                             builder: (context) => PickImageBottomSheet(
                               onCameraPressed: () async {
-                                final pickedImage = await picker.pickImage(
+                                XFile? pickedImage = await picker.pickImage(
                                   source: ImageSource.camera,
                                 );
                                 if (pickedImage != null) {
@@ -350,7 +355,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 Navigator.pop(context);
                               },
                               onGalleryPressed: () async {
-                                final pickedImage = await picker.pickImage(
+                                XFile? pickedImage = await picker.pickImage(
                                   source: ImageSource.gallery,
                                 );
                                 if (pickedImage != null) {
@@ -360,7 +365,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 Navigator.pop(context);
                               },
                               onDeletePressed: () {
-                                deleteImage('profile');
+                                deleteImage('profile', userModel.profile!);
                                 Navigator.pop(context);
                               },
                             ),
@@ -459,10 +464,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           ),
           Visibility(
             visible: !currentUser,
-            child: DimenConstant.separator,
-          ),
-          Visibility(
-            visible: currentUser,
             child: Center(
               child: ElevatedButton(
                 style: ButtonStyle(
@@ -477,20 +478,21 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       firestore.collection('users').doc(widget.uid);
                   DocumentReference followingReference =
                       firestore.collection('users').doc(myUid);
-                  DocumentSnapshot snapshot = await followingReference.get();
-                  Map<String, dynamic> data =
-                      snapshot.data() as Map<String, dynamic>;
-                  List list = data['following'];
                   if (userModel.followers!.contains(myUid)) {
-                    userModel.followers!.add(myUid);
-                    list.add(widget.uid);
+                    await followingReference.update({
+                      'following': FieldValue.arrayRemove([myUid])
+                    });
+                    await followersReference.update({
+                      'followers': FieldValue.arrayRemove([widget.uid])
+                    });
                   } else {
-                    userModel.followers!.remove(myUid);
-                    list.remove(widget.uid);
+                    await followingReference.update({
+                      'following': FieldValue.arrayUnion([myUid])
+                    });
+                    await followersReference.update({
+                      'followers': FieldValue.arrayUnion([widget.uid])
+                    });
                   }
-                  await followingReference.update({'following': list});
-                  await followersReference
-                      .update({'followers': userModel.followers});
                   getUserData();
                   setState(() {});
                 },

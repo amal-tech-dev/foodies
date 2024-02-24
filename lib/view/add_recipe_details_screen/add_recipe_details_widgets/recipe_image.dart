@@ -76,7 +76,7 @@ class _RecipeImageState extends State<RecipeImage> {
                 context: context,
                 builder: (context) => PickImageBottomSheet(
                   onCameraPressed: () async {
-                    final pickedImage = await picker.pickImage(
+                    XFile? pickedImage = await picker.pickImage(
                       source: ImageSource.camera,
                     );
                     if (pickedImage != null) image = File(pickedImage.path);
@@ -84,7 +84,7 @@ class _RecipeImageState extends State<RecipeImage> {
                     Navigator.pop(context);
                   },
                   onGalleryPressed: () async {
-                    final pickedImage = await picker.pickImage(
+                    XFile? pickedImage = await picker.pickImage(
                       source: ImageSource.gallery,
                     );
                     if (pickedImage != null) image = File(pickedImage.path);
