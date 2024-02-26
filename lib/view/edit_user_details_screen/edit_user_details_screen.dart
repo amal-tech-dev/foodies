@@ -51,8 +51,8 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
     DocumentSnapshot snapshot = await reference.get();
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     userModel = UserModel.fromJson(data);
-    profileUrl = userModel.profile ?? '';
-    coverUrl = userModel.cover ?? '';
+    profileUrl = userModel.profile;
+    coverUrl = userModel.cover;
     nameController = TextEditingController(text: userModel.name ?? '');
     usernameController = TextEditingController(text: userModel.username ?? '');
     bioController = TextEditingController(text: userModel.bio ?? '');
@@ -169,7 +169,8 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                     ),
                   ),
                   child: Container(
-                    height: 200,
+                    height: MediaQuery.of(context).size.width * 0.5625,
+                    width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
                         DimenConstant.borderRadius,
@@ -416,18 +417,12 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                       if (userModel.bio != bioController.text.trim())
                         await reference
                             .update({'bio': bioController.text.trim()});
-                      if (profile != null) {
-                        if (profile == null && profileUrl == null)
-                          deleteImage('profile', userModel.profile!);
-                        else
-                          updateImage('profile', profile!);
-                      }
-                      if (cover != null) {
-                        if (cover == null && coverUrl == null)
-                          deleteImage('cover', userModel.cover!);
-                        else
-                          updateImage('cover', cover!);
-                      }
+                      if (profile == null && profileUrl == null)
+                        deleteImage('profile', userModel.profile!);
+                      if (profile != null) updateImage('profile', profile!);
+                      if (cover == null && coverUrl == null)
+                        deleteImage('cover', userModel.cover!);
+                      if (cover != null) updateImage('cover', cover!);
                       Navigator.pop(context);
                     }
                   },

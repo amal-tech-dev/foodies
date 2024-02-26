@@ -10,6 +10,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/view/crop_image_screen/crop_image_screen.dart';
 import 'package:foodies/view/edit_user_details_screen/edit_user_details_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/recipe_image_tile.dart';
@@ -116,14 +117,45 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           Navigator.pop(context);
                         },
                         onGalleryPressed: () async {
-                          XFile? pickedImage = await picker.pickImage(
-                            source: ImageSource.gallery,
-                          );
-                          if (pickedImage != null) {
-                            File image = File(pickedImage.path);
-                            updateImage('cover', image);
-                          }
-                          Navigator.pop(context);
+                          // XFile? pickedImage = await picker.pickImage(
+                          // source: ImageSource.gallery,
+                          // );
+                          // if (pickedImage != null) {
+                          // CroppedFile? croppedImage =
+                          //     await ImageCropper().cropImage(
+                          //   sourcePath: pickedImage.path,
+                          //   aspectRatio: CropAspectRatio(
+                          //     ratioX: 1,
+                          //     ratioY: 1,
+                          //   ),
+                          //   uiSettings: [
+                          //     AndroidUiSettings(
+                          //       toolbarTitle: 'Cropper',
+                          //       toolbarColor: Colors.deepOrange,
+                          //       toolbarWidgetColor: Colors.white,
+                          //       initAspectRatio:
+                          //           CropAspectRatioPreset.original,
+                          //       lockAspectRatio: false,
+                          //     ),
+                          //   ],
+                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CropImageScreen(
+                                // image: File(pickedImage.path),
+                                imageType: 'cover',
+                              ),
+                            ),
+                          )
+                              //     .then((image) async {
+                              //   // File croppedImage = File(image.path);
+                              //   // updateImage('cover', File(croppedImage!.path));
+                              // })
+                              ;
+                          // File image = File(pickedImage.path);
+                          // }
+                          // Navigator.pop(context);
                         },
                         onDeletePressed: () {
                           deleteImage('cover', userModel.cover!);
@@ -155,7 +187,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           : AssetImage(
                               cover,
                             ),
-                      fit: BoxFit.fitWidth,
                     ),
                   ),
                   child: SafeArea(

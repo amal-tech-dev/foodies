@@ -43,7 +43,10 @@ class _RecipeImageTileState extends State<RecipeImageTile> {
       children: [
         CircleAvatar(
           radius: MediaQuery.of(context).size.width / 6,
-          backgroundImage: image == null
+          backgroundImage: AssetImage(
+            ImageConstant.food,
+          ),
+          foregroundImage: image == null
               ? AssetImage(
                   ImageConstant.food,
                 )
