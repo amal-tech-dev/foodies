@@ -61,119 +61,154 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: DimenConstant.padding,
-        ),
-        child: Column(
-          children: [
+    return RefreshIndicator(
+      color: ColorConstant.secondaryColor,
+      backgroundColor: ColorConstant.backgroundColor,
+      onRefresh: () async => await checkLoginType(),
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
             isGuest
-                ? GuestTile()
-                : ProfileTile(
-                    name: userModel?.name ?? '',
-                    username: userModel?.username ?? '',
-                    image: userModel?.profile,
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => UserProfileScreen(
-                          uid: auth.currentUser!.uid,
+                ? SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.all(
+                        DimenConstant.padding,
+                      ),
+                      child: GuestTile(),
+                    ),
+                  )
+                : SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: DimenConstant.padding,
+                        left: DimenConstant.padding,
+                        right: DimenConstant.padding,
+                      ),
+                      child: ProfileTile(
+                        name: userModel?.name ?? '',
+                        username: userModel?.username ?? '',
+                        image: userModel?.profile,
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserProfileScreen(
+                              uid: auth.currentUser!.uid,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-            DimenConstant.separator,
-            SettingTile(
-              icon: Icons.timer_outlined,
-              name: 'Timer',
-              onPressed: () {},
+            SliverToBoxAdapter(
+              child: DimenConstant.separator,
             ),
-            DimenConstant.separator,
-            SettingTile(
-              icon: Icons.logout_rounded,
-              name: 'Logout',
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    backgroundColor: ColorConstant.backgroundColor,
-                    surfaceTintColor: Colors.transparent,
-                    title: Text(
-                      'Are you leaving?',
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.smallText,
-                      ),
-                    ),
-                    content: Text(
-                      isGuest
-                          ? StringConstant.logoutAlertGuest
-                          : StringConstant.logoutAlert,
-                      style: TextStyle(
-                        color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.miniText,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                    actions: [
-                      InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: Text(
-                          'Cancel',
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: SettingTile(
+                  icon: Icons.timer_outlined,
+                  name: 'Timer',
+                  onPressed: () {},
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: DimenConstant.separator,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: SettingTile(
+                  icon: Icons.logout_rounded,
+                  name: 'Logout',
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        backgroundColor: ColorConstant.backgroundColor,
+                        surfaceTintColor: Colors.transparent,
+                        title: Text(
+                          'Are you leaving?',
                           style: TextStyle(
                             color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.miniText,
+                            fontSize: DimenConstant.smallText,
                           ),
                         ),
-                      ),
-                      DimenConstant.separator,
-                      InkWell(
-                        onTap: () async {
-                          try {
-                            if (isGuest) {
-                              await auth.currentUser!.delete();
-                              Hive.box<String>('menuBox').close();
-                            }
-                            await auth.signOut();
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
-                              ),
-                              (route) => false,
-                            );
-                          } on FirebaseAuthException catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: ColorConstant.tertiaryColor,
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.all(
-                                  DimenConstant.padding,
-                                ),
-                                content: Text(
-                                  'Unable to logout',
-                                  style: TextStyle(
-                                    color: ColorConstant.primaryColor,
-                                    fontSize: DimenConstant.miniText,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                        child: Text(
-                          'Leave',
+                        content: Text(
+                          isGuest
+                              ? StringConstant.logoutAlertGuest
+                              : StringConstant.logoutAlert,
                           style: TextStyle(
-                            color: ColorConstant.errorColor,
+                            color: ColorConstant.secondaryColor,
                             fontSize: DimenConstant.miniText,
                           ),
+                          textAlign: TextAlign.justify,
                         ),
+                        actions: [
+                          InkWell(
+                            onTap: () => Navigator.pop(context),
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: ColorConstant.primaryColor,
+                                fontSize: DimenConstant.miniText,
+                              ),
+                            ),
+                          ),
+                          DimenConstant.separator,
+                          InkWell(
+                            onTap: () async {
+                              try {
+                                if (isGuest) {
+                                  await auth.currentUser!.delete();
+                                  Hive.box<String>('menuBox').close();
+                                }
+                                await auth.signOut();
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginScreen(),
+                                  ),
+                                  (route) => false,
+                                );
+                              } on FirebaseAuthException catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor:
+                                        ColorConstant.tertiaryColor,
+                                    behavior: SnackBarBehavior.floating,
+                                    margin: EdgeInsets.all(
+                                      DimenConstant.padding,
+                                    ),
+                                    content: Text(
+                                      'Unable to logout',
+                                      style: TextStyle(
+                                        color: ColorConstant.primaryColor,
+                                        fontSize: DimenConstant.miniText,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                            child: Text(
+                              'Leave',
+                              style: TextStyle(
+                                color: ColorConstant.errorColor,
+                                fontSize: DimenConstant.miniText,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ),
             ),
           ],
         ),

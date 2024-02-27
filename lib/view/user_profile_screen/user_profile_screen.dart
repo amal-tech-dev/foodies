@@ -10,11 +10,12 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/crop_image_screen/crop_image_screen.dart';
+import 'package:foodies/view/change_password_screen/change_password_screen.dart';
 import 'package:foodies/view/edit_user_details_screen/edit_user_details_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/recipe_image_tile.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -38,6 +39,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   String profile = ImageConstant.profile, cover = ImageConstant.cover;
   String myUid = FirebaseAuth.instance.currentUser!.uid;
   ImagePicker picker = ImagePicker();
+  ImageCropper cropper = ImageCropper();
+  GlobalKey<RefreshIndicatorState> refreshKey =
+      GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -66,8 +70,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   deleteImage(String field, String url) async {
     await storage.refFromURL(url).delete();
     await firestore.collection('users').doc(myUid).update({field: null});
-    getUserData();
-    setState(() {});
+    refreshKey.currentState?.show();
   }
 
   // update image in firebase
@@ -82,544 +85,566 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         .collection('users')
         .doc(myUid)
         .update({field: imageReference});
-    getUserData();
-    setState(() {});
+    refreshKey.currentState?.show();
+  }
+
+  // pick image and crop for requirements
+  pickAndCropImage(ImageSource source, String field) async {
+    XFile? pickedImage = await picker.pickImage(source: source);
+    if (pickedImage != null) {
+      CroppedFile? croppedImage = await cropper.cropImage(
+        sourcePath: pickedImage.path,
+        aspectRatio: CropAspectRatio(
+          ratioX: field == 'cover' ? 16 : 1,
+          ratioY: field == 'cover' ? 9 : 1,
+        ),
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Crop ${field} image',
+            toolbarColor: ColorConstant.backgroundColor,
+            toolbarWidgetColor: ColorConstant.primaryColor,
+            backgroundColor: ColorConstant.tertiaryColor,
+            cropFrameColor: ColorConstant.primaryColor,
+            cropFrameStrokeWidth: 3,
+            lockAspectRatio: true,
+            hideBottomControls: true,
+          ),
+        ],
+      );
+      if (croppedImage != null) {
+        File image = File(croppedImage.path);
+        updateImage(field, image);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.71875,
-                width: MediaQuery.of(context).size.width,
-              ),
-              InkWell(
-                onTap: () {
-                  if (currentUser) {
-                    showModalBottomSheet(
-                      backgroundColor: ColorConstant.backgroundColor,
-                      showDragHandle: true,
-                      context: context,
-                      builder: (context) => PickImageBottomSheet(
-                        onCameraPressed: () async {
-                          XFile? pickedImage = await picker.pickImage(
-                            source: ImageSource.camera,
-                          );
-                          if (pickedImage != null) {
-                            File image = File(pickedImage.path);
-                            updateImage('cover', image);
-                          }
-                          Navigator.pop(context);
-                        },
-                        onGalleryPressed: () async {
-                          // XFile? pickedImage = await picker.pickImage(
-                          // source: ImageSource.gallery,
-                          // );
-                          // if (pickedImage != null) {
-                          // CroppedFile? croppedImage =
-                          //     await ImageCropper().cropImage(
-                          //   sourcePath: pickedImage.path,
-                          //   aspectRatio: CropAspectRatio(
-                          //     ratioX: 1,
-                          //     ratioY: 1,
-                          //   ),
-                          //   uiSettings: [
-                          //     AndroidUiSettings(
-                          //       toolbarTitle: 'Cropper',
-                          //       toolbarColor: Colors.deepOrange,
-                          //       toolbarWidgetColor: Colors.white,
-                          //       initAspectRatio:
-                          //           CropAspectRatioPreset.original,
-                          //       lockAspectRatio: false,
-                          //     ),
-                          //   ],
-                          // );
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CropImageScreen(
-                                // image: File(pickedImage.path),
-                                imageType: 'cover',
-                              ),
-                            ),
-                          )
-                              //     .then((image) async {
-                              //   // File croppedImage = File(image.path);
-                              //   // updateImage('cover', File(croppedImage!.path));
-                              // })
-                              ;
-                          // File image = File(pickedImage.path);
-                          // }
-                          // Navigator.pop(context);
-                        },
-                        onDeletePressed: () {
-                          deleteImage('cover', userModel.cover!);
-                          Navigator.pop(context);
-                        },
-                      ),
-                    );
-                  }
-                },
-                child: Container(
-                  height: MediaQuery.of(context).size.width * 0.5625,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: DimenConstant.padding / 2,
+    return RefreshIndicator(
+      key: refreshKey,
+      color: ColorConstant.secondaryColor,
+      backgroundColor: ColorConstant.backgroundColor,
+      onRefresh: () async => await getUserData(),
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.71875,
+                    width: MediaQuery.of(context).size.width,
                   ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(
-                        DimenConstant.borderRadius * 4,
+                  InkWell(
+                    onTap: () {
+                      if (currentUser) {
+                        showModalBottomSheet(
+                          backgroundColor: ColorConstant.backgroundColor,
+                          showDragHandle: true,
+                          context: context,
+                          builder: (context) => PickImageBottomSheet(
+                            onCameraPressed: () async {
+                              pickAndCropImage(ImageSource.camera, 'cover');
+                              Navigator.pop(context);
+                            },
+                            onGalleryPressed: () async {
+                              pickAndCropImage(ImageSource.gallery, 'cover');
+                              Navigator.pop(context);
+                            },
+                            onDeletePressed: () {
+                              deleteImage('cover', userModel.cover!);
+                              Navigator.pop(context);
+                            },
+                          ),
+                        );
+                      }
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.width * 0.5625,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: DimenConstant.padding / 2,
                       ),
-                      bottomRight: Radius.circular(
-                        DimenConstant.borderRadius * 4,
-                      ),
-                    ),
-                    image: DecorationImage(
-                      image: userModel.cover != null
-                          ? NetworkImage(
-                              cover,
-                            ) as ImageProvider<Object>
-                          : AssetImage(
-                              cover,
-                            ),
-                    ),
-                  ),
-                  child: SafeArea(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        BackButton(
-                          color: ColorConstant.primaryColor,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              ColorConstant.tertiaryColor.withOpacity(0.1),
-                            ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(
+                            DimenConstant.borderRadius * 4,
+                          ),
+                          bottomRight: Radius.circular(
+                            DimenConstant.borderRadius * 4,
                           ),
                         ),
-                        Visibility(
-                          visible: currentUser,
-                          child: IconButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                ColorConstant.tertiaryColor.withOpacity(0.1),
+                        image: DecorationImage(
+                          image: userModel.cover != null
+                              ? NetworkImage(
+                                  cover,
+                                ) as ImageProvider<Object>
+                              : AssetImage(
+                                  cover,
+                                ),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      child: SafeArea(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            BackButton(
+                              color: ColorConstant.primaryColor,
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                  ColorConstant.tertiaryColor.withOpacity(0.1),
+                                ),
                               ),
                             ),
-                            onPressed: () => showMenu(
-                              color: ColorConstant.backgroundColor,
-                              context: context,
-                              position: RelativeRect.fromLTRB(
-                                100,
-                                90,
-                                0,
-                                0,
-                              ),
-                              items: [
-                                PopupMenuItem(
-                                  height: 40,
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditUserDetailsScreen(),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Edit Account',
-                                    style: TextStyle(
-                                      color: ColorConstant.primaryColor,
-                                      fontSize: DimenConstant.extraSmallText,
-                                    ),
+                            Visibility(
+                              visible: currentUser,
+                              child: IconButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll(
+                                    ColorConstant.tertiaryColor
+                                        .withOpacity(0.1),
                                   ),
                                 ),
-                                PopupMenuItem(
-                                  height: 40,
-                                  onTap: () => showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      backgroundColor:
-                                          ColorConstant.backgroundColor,
-                                      surfaceTintColor: Colors.transparent,
-                                      title: Text(
-                                        'Delete account',
+                                onPressed: () => showMenu(
+                                  color: ColorConstant.backgroundColor,
+                                  surfaceTintColor: Colors.transparent,
+                                  context: context,
+                                  position: RelativeRect.fromLTRB(
+                                    100,
+                                    90,
+                                    0,
+                                    0,
+                                  ),
+                                  items: [
+                                    PopupMenuItem(
+                                      height: 40,
+                                      onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ChangePasswordScreen(),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Change Password',
                                         style: TextStyle(
                                           color: ColorConstant.primaryColor,
-                                          fontSize: DimenConstant.smallText,
+                                          fontSize:
+                                              DimenConstant.extraSmallText,
                                         ),
                                       ),
-                                      content: Text(
-                                        StringConstant.deleteAccount,
+                                    ),
+                                    PopupMenuItem(
+                                      height: 40,
+                                      onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditUserDetailsScreen(),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Edit Account',
                                         style: TextStyle(
-                                          color: ColorConstant.secondaryColor,
-                                          fontSize: DimenConstant.miniText,
+                                          color: ColorConstant.primaryColor,
+                                          fontSize:
+                                              DimenConstant.extraSmallText,
                                         ),
-                                        textAlign: TextAlign.justify,
                                       ),
-                                      actions: [
-                                        InkWell(
-                                          onTap: () => Navigator.pop(context),
-                                          child: Text(
-                                            'Cancel',
+                                    ),
+                                    PopupMenuItem(
+                                      height: 40,
+                                      onTap: () => showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          backgroundColor:
+                                              ColorConstant.backgroundColor,
+                                          surfaceTintColor: Colors.transparent,
+                                          title: Text(
+                                            'Delete account',
                                             style: TextStyle(
                                               color: ColorConstant.primaryColor,
-                                              fontSize: DimenConstant.miniText,
+                                              fontSize: DimenConstant.smallText,
                                             ),
                                           ),
-                                        ),
-                                        DimenConstant.separator,
-                                        InkWell(
-                                          onTap: () async {
-                                            Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginScreen(),
-                                              ),
-                                              (route) => false,
-                                            );
-                                            DocumentReference reference =
-                                                firestore
-                                                    .collection('users')
-                                                    .doc(myUid);
-                                            deleteImage(
-                                                'profile', userModel.profile!);
-                                            deleteImage(
-                                                'cover', userModel.cover!);
-                                            await reference.delete();
-                                            await auth.currentUser!.delete();
-                                            await auth.signOut();
-                                          },
-                                          child: Text(
-                                            'Delete',
+                                          content: Text(
+                                            StringConstant.deleteAccount,
                                             style: TextStyle(
-                                              color: ColorConstant.errorColor,
+                                              color:
+                                                  ColorConstant.secondaryColor,
                                               fontSize: DimenConstant.miniText,
                                             ),
+                                            textAlign: TextAlign.justify,
                                           ),
+                                          actions: [
+                                            InkWell(
+                                              onTap: () =>
+                                                  Navigator.pop(context),
+                                              child: Text(
+                                                'Cancel',
+                                                style: TextStyle(
+                                                  color: ColorConstant
+                                                      .primaryColor,
+                                                  fontSize:
+                                                      DimenConstant.miniText,
+                                                ),
+                                              ),
+                                            ),
+                                            DimenConstant.separator,
+                                            InkWell(
+                                              onTap: () async {
+                                                Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LoginScreen(),
+                                                  ),
+                                                  (route) => false,
+                                                );
+                                                DocumentReference reference =
+                                                    firestore
+                                                        .collection('users')
+                                                        .doc(myUid);
+                                                deleteImage('profile',
+                                                    userModel.profile!);
+                                                deleteImage(
+                                                    'cover', userModel.cover!);
+                                                await reference.delete();
+                                                await auth.currentUser!
+                                                    .delete();
+                                                await auth.signOut();
+                                              },
+                                              child: Text(
+                                                'Delete',
+                                                style: TextStyle(
+                                                  color:
+                                                      ColorConstant.errorColor,
+                                                  fontSize:
+                                                      DimenConstant.miniText,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
+                                      child: Text(
+                                        'Delete Account',
+                                        style: TextStyle(
+                                          color: ColorConstant.errorColor,
+                                          fontSize:
+                                              DimenConstant.extraSmallText,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  child: Text(
-                                    'Delete Account',
-                                    style: TextStyle(
-                                      color: ColorConstant.errorColor,
-                                      fontSize: DimenConstant.extraSmallText,
-                                    ),
-                                  ),
+                                  ],
                                 ),
-                              ],
+                                icon: Icon(
+                                  Icons.more_vert_rounded,
+                                  color: ColorConstant.primaryColor,
+                                ),
+                              ),
                             ),
-                            icon: Icon(
-                              Icons.more_vert_rounded,
-                              color: ColorConstant.primaryColor,
-                            ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Positioned(
-                left: DimenConstant.padding,
-                right: DimenConstant.padding,
-                bottom: 0,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
+                  Positioned(
+                    left: DimenConstant.padding,
+                    right: DimenConstant.padding,
+                    bottom: 0,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        StreamBuilder(
-                          stream: firestore
-                              .collection('users')
-                              .doc(widget.uid)
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.active) {
-                              Map<String, dynamic> data =
-                                  snapshot.data!.data() as Map<String, dynamic>;
-                              List list = data['followers'];
-                              followers = list.length as num;
-                            }
-                            return AnimatedFlipCounter(
-                              value: followers,
-                              textStyle: TextStyle(
-                                color: ColorConstant.primaryColor,
-                                fontSize: DimenConstant.extraSmallText,
-                              ),
-                            );
-                          },
-                        ),
-                        Text(
-                          'Followers',
-                          style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.miniText,
-                          ),
-                        ),
-                      ],
-                    ),
-                    InkWell(
-                      onTap: () {
-                        if (currentUser) {
-                          showModalBottomSheet(
-                            backgroundColor: ColorConstant.backgroundColor,
-                            showDragHandle: true,
-                            context: context,
-                            builder: (context) => PickImageBottomSheet(
-                              onCameraPressed: () async {
-                                XFile? pickedImage = await picker.pickImage(
-                                  source: ImageSource.camera,
-                                );
-                                if (pickedImage != null) {
-                                  File image = File(pickedImage.path);
-                                  updateImage('profile', image);
+                        Column(
+                          children: [
+                            StreamBuilder(
+                              stream: firestore
+                                  .collection('users')
+                                  .doc(widget.uid)
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.active) {
+                                  Map<String, dynamic> data = snapshot.data!
+                                      .data() as Map<String, dynamic>;
+                                  List list = data['followers'];
+                                  followers = list.length as num;
                                 }
-                                Navigator.pop(context);
-                              },
-                              onGalleryPressed: () async {
-                                XFile? pickedImage = await picker.pickImage(
-                                  source: ImageSource.gallery,
+                                return AnimatedFlipCounter(
+                                  value: followers,
+                                  textStyle: TextStyle(
+                                    color: ColorConstant.primaryColor,
+                                    fontSize: DimenConstant.extraSmallText,
+                                  ),
                                 );
-                                if (pickedImage != null) {
-                                  File image = File(pickedImage.path);
-                                  updateImage('profile', image);
-                                }
-                                Navigator.pop(context);
-                              },
-                              onDeletePressed: () {
-                                deleteImage('profile', userModel.profile!);
-                                Navigator.pop(context);
                               },
                             ),
-                          );
-                        }
-                      },
-                      child: CircleAvatar(
-                        radius: MediaQuery.of(context).size.width * 0.15625,
-                        backgroundColor: ColorConstant.backgroundColor,
-                        child: Padding(
-                          padding: const EdgeInsets.all(3.5),
+                            Text(
+                              'Followers',
+                              style: TextStyle(
+                                color: ColorConstant.primaryColor,
+                                fontSize: DimenConstant.miniText,
+                              ),
+                            ),
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () {
+                            if (currentUser) {
+                              showModalBottomSheet(
+                                backgroundColor: ColorConstant.backgroundColor,
+                                showDragHandle: true,
+                                context: context,
+                                builder: (context) => PickImageBottomSheet(
+                                  onCameraPressed: () async {
+                                    pickAndCropImage(
+                                        ImageSource.camera, 'profile');
+                                    Navigator.pop(context);
+                                  },
+                                  onGalleryPressed: () async {
+                                    pickAndCropImage(
+                                        ImageSource.gallery, 'profile');
+                                    Navigator.pop(context);
+                                  },
+                                  onDeletePressed: () {
+                                    deleteImage('profile', userModel.profile!);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              );
+                            }
+                          },
                           child: CircleAvatar(
                             radius: MediaQuery.of(context).size.width * 0.15625,
-                            backgroundImage: AssetImage(
-                              ImageConstant.profile,
-                            ),
-                            foregroundImage: userModel.profile != null
-                                ? NetworkImage(
-                                    profile,
-                                  ) as ImageProvider<Object>
-                                : AssetImage(
-                                    profile,
-                                  ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        StreamBuilder(
-                          stream: firestore
-                              .collection('users')
-                              .doc(widget.uid)
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.active) {
-                              Map<String, dynamic> data =
-                                  snapshot.data!.data() as Map<String, dynamic>;
-                              List list = data['following'];
-                              following = list.length as num;
-                            }
-                            return AnimatedFlipCounter(
-                              value: following,
-                              textStyle: TextStyle(
-                                color: ColorConstant.primaryColor,
-                                fontSize: DimenConstant.extraSmallText,
+                            backgroundColor: ColorConstant.backgroundColor,
+                            child: Padding(
+                              padding: const EdgeInsets.all(3.5),
+                              child: CircleAvatar(
+                                radius:
+                                    MediaQuery.of(context).size.width * 0.15625,
+                                backgroundImage: AssetImage(
+                                  ImageConstant.profile,
+                                ),
+                                foregroundImage: userModel.profile != null
+                                    ? NetworkImage(
+                                        profile,
+                                      ) as ImageProvider<Object>
+                                    : AssetImage(
+                                        profile,
+                                      ),
                               ),
-                            );
-                          },
-                        ),
-                        Text(
-                          'Following',
-                          style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.miniText,
+                            ),
                           ),
+                        ),
+                        Column(
+                          children: [
+                            StreamBuilder(
+                              stream: firestore
+                                  .collection('users')
+                                  .doc(widget.uid)
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.active) {
+                                  Map<String, dynamic> data = snapshot.data!
+                                      .data() as Map<String, dynamic>;
+                                  List list = data['following'];
+                                  following = list.length as num;
+                                }
+                                return AnimatedFlipCounter(
+                                  value: following,
+                                  textStyle: TextStyle(
+                                    color: ColorConstant.primaryColor,
+                                    fontSize: DimenConstant.extraSmallText,
+                                  ),
+                                );
+                              },
+                            ),
+                            Text(
+                              'Following',
+                              style: TextStyle(
+                                color: ColorConstant.primaryColor,
+                                fontSize: DimenConstant.miniText,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          DimenConstant.separator,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                userModel.name ?? '',
-                style: TextStyle(
-                  color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.largeText,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              DimenConstant.separator,
-              Visibility(
-                visible: userModel.verified ?? false,
-                child: Icon(
-                  Icons.verified_rounded,
-                  color: ColorConstant.secondaryColor,
-                ),
-              ),
-            ],
-          ),
-          Center(
-            child: Text(
-              '@${userModel.username ?? ''}',
-              style: TextStyle(
-                color: ColorConstant.secondaryColor,
-                fontSize: DimenConstant.smallText,
-              ),
-            ),
-          ),
-          Visibility(
-            visible: !currentUser,
-            child: Center(
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(
-                    isFollowing
-                        ? ColorConstant.primaryColor
-                        : ColorConstant.secondaryColor,
                   ),
-                ),
-                onPressed: () async {
-                  DocumentReference followersReference =
-                      firestore.collection('users').doc(widget.uid);
-                  DocumentReference followingReference =
-                      firestore.collection('users').doc(myUid);
-                  if (userModel.followers!.contains(myUid)) {
-                    await followingReference.update({
-                      'following': FieldValue.arrayRemove([myUid])
-                    });
-                    await followersReference.update({
-                      'followers': FieldValue.arrayRemove([widget.uid])
-                    });
-                  } else {
-                    await followingReference.update({
-                      'following': FieldValue.arrayUnion([myUid])
-                    });
-                    await followersReference.update({
-                      'followers': FieldValue.arrayUnion([widget.uid])
-                    });
-                  }
-                  getUserData();
-                  setState(() {});
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: DimenConstant.padding * 2,
-                  ),
-                  child: Text(
-                    isFollowing ? 'Following' : 'Follow',
-                    style: TextStyle(
-                      color: isFollowing
-                          ? ColorConstant.tertiaryColor
-                          : ColorConstant.tertiaryColor,
-                    ),
-                  ),
-                ),
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: DimenConstant.padding,
+            SliverToBoxAdapter(
+              child: DimenConstant.separator,
             ),
-            child: Text(
-              'Bio',
-              style: TextStyle(
-                color: ColorConstant.secondaryColor,
-                fontSize: DimenConstant.extraSmallText,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          DimenConstant.separator,
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: DimenConstant.padding,
-            ),
-            child: Text(
-              userModel.bio ?? '',
-              style: TextStyle(
-                color: ColorConstant.primaryColor,
-                fontSize: DimenConstant.extraSmallText,
-              ),
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          DimenConstant.separator,
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: DimenConstant.padding,
-            ),
-            child: Text(
-              'Recipes',
-              style: TextStyle(
-                color: ColorConstant.secondaryColor,
-                fontSize: DimenConstant.extraSmallText,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          DimenConstant.separator,
-          (userModel.recipes ?? []).isEmpty
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: DimenConstant.padding,
-                  ),
-                  child: Text(
-                    'No recipes yet.',
+            SliverToBoxAdapter(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    userModel.name ?? '',
                     style: TextStyle(
                       color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.extraSmallText,
+                      fontSize: DimenConstant.largeText,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.center,
                   ),
-                )
-              : Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: DimenConstant.padding,
-                      right: DimenConstant.padding,
-                      bottom: DimenConstant.padding,
+                  DimenConstant.separator,
+                  Visibility(
+                    visible: userModel.verified ?? false,
+                    child: Icon(
+                      Icons.verified_rounded,
+                      color: ColorConstant.secondaryColor,
                     ),
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: DimenConstant.padding,
-                        mainAxisSpacing: DimenConstant.padding,
+                  ),
+                ],
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Center(
+                child: Text(
+                  '@${userModel.username ?? ''}',
+                  style: TextStyle(
+                    color: ColorConstant.secondaryColor,
+                    fontSize: DimenConstant.smallText,
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Visibility(
+                visible: !currentUser,
+                child: Center(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        isFollowing
+                            ? ColorConstant.primaryColor
+                            : ColorConstant.secondaryColor,
                       ),
-                      itemBuilder: (context, index) => RecipeImageTile(
-                        id: userModel.recipes![index],
+                    ),
+                    onPressed: () async {
+                      DocumentReference followersReference =
+                          firestore.collection('users').doc(widget.uid);
+                      DocumentReference followingReference =
+                          firestore.collection('users').doc(myUid);
+                      if (userModel.followers!.contains(myUid)) {
+                        await followingReference.update({
+                          'following': FieldValue.arrayRemove([myUid])
+                        });
+                        await followersReference.update({
+                          'followers': FieldValue.arrayRemove([widget.uid])
+                        });
+                      } else {
+                        await followingReference.update({
+                          'following': FieldValue.arrayUnion([myUid])
+                        });
+                        await followersReference.update({
+                          'followers': FieldValue.arrayUnion([widget.uid])
+                        });
+                      }
+                      getUserData();
+                      setState(() {});
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: DimenConstant.padding * 2,
                       ),
-                      itemCount: userModel.recipes!.length,
+                      child: Text(
+                        isFollowing ? 'Following' : 'Follow',
+                        style: TextStyle(
+                          color: isFollowing
+                              ? ColorConstant.tertiaryColor
+                              : ColorConstant.tertiaryColor,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-        ],
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: DimenConstant.separator,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: Text(
+                  'Bio',
+                  style: TextStyle(
+                    color: ColorConstant.secondaryColor,
+                    fontSize: DimenConstant.extraSmallText,
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: Text(
+                  userModel.bio ?? '',
+                  style: TextStyle(
+                    color: ColorConstant.primaryColor,
+                    fontSize: DimenConstant.extraSmallText,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: DimenConstant.separator,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: Text(
+                  'Recipes',
+                  style: TextStyle(
+                    color: ColorConstant.secondaryColor,
+                    fontSize: DimenConstant.extraSmallText,
+                  ),
+                ),
+              ),
+            ),
+            (userModel.recipes ?? []).isEmpty
+                ? SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: DimenConstant.padding,
+                      ),
+                      child: Text(
+                        'No recipes yet.',
+                        style: TextStyle(
+                          color: ColorConstant.primaryColor,
+                          fontSize: DimenConstant.extraSmallText,
+                        ),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                  )
+                : SliverGrid.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: DimenConstant.padding,
+                      mainAxisSpacing: DimenConstant.padding,
+                    ),
+                    itemBuilder: (context, index) => RecipeImageTile(
+                      id: userModel.recipes![index],
+                    ),
+                    itemCount: userModel.recipes!.length,
+                  ),
+          ],
+        ),
       ),
     );
   }

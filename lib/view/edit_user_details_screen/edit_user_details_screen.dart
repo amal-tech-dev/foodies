@@ -11,6 +11,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditUserDetailsScreen extends StatefulWidget {
@@ -31,6 +32,7 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
   FocusNode usernameFocusNode = FocusNode();
   FocusNode bioFocusNode = FocusNode();
   ImagePicker picker = ImagePicker();
+  ImageCropper cropper = ImageCropper();
   File? profile, cover;
   String? profileUrl, coverUrl;
   UserModel userModel = UserModel();
@@ -106,6 +108,42 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
     setState(() {});
   }
 
+  // pick image and crop for requirements
+  pickAndCropImage(ImageSource source, String field) async {
+    XFile? pickedImage = await picker.pickImage(source: source);
+    if (pickedImage != null) {
+      CroppedFile? croppedImage = await cropper.cropImage(
+        sourcePath: pickedImage.path,
+        aspectRatio: CropAspectRatio(
+          ratioX: field == 'cover' ? 16 : 1,
+          ratioY: field == 'cover' ? 9 : 1,
+        ),
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Crop ${field} image',
+            toolbarColor: ColorConstant.backgroundColor,
+            toolbarWidgetColor: ColorConstant.primaryColor,
+            backgroundColor: ColorConstant.tertiaryColor,
+            cropFrameColor: ColorConstant.primaryColor,
+            cropFrameStrokeWidth: 3,
+            lockAspectRatio: true,
+            hideBottomControls: true,
+          ),
+        ],
+      );
+      if (croppedImage != null) {
+        if (field == 'cover') {
+          cover = File(croppedImage.path);
+          coverUrl = null;
+        } else {
+          profile = File(croppedImage.path);
+          profileUrl = null;
+        }
+        setState(() {});
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,25 +177,11 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                     context: context,
                     builder: (context) => PickImageBottomSheet(
                       onCameraPressed: () async {
-                        XFile? pickedImage = await picker.pickImage(
-                          source: ImageSource.camera,
-                        );
-                        if (pickedImage != null) {
-                          cover = File(pickedImage.path);
-                          coverUrl = null;
-                        }
-                        setState(() {});
+                        pickAndCropImage(ImageSource.camera, 'cover');
                         Navigator.pop(context);
                       },
                       onGalleryPressed: () async {
-                        XFile? pickedImage = await picker.pickImage(
-                          source: ImageSource.gallery,
-                        );
-                        if (pickedImage != null) {
-                          cover = File(pickedImage.path);
-                          coverUrl = null;
-                        }
-                        setState(() {});
+                        pickAndCropImage(ImageSource.gallery, 'cover');
                         Navigator.pop(context);
                       },
                       onDeletePressed: () {
@@ -197,24 +221,12 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                         context: context,
                         builder: (context) => PickImageBottomSheet(
                           onCameraPressed: () async {
-                            XFile? pickedImage = await picker.pickImage(
-                              source: ImageSource.camera,
-                            );
-                            if (pickedImage != null) {
-                              profile = File(pickedImage.path);
-                              profileUrl = null;
-                            }
+                            pickAndCropImage(ImageSource.camera, 'profile');
                             setState(() {});
                             Navigator.pop(context);
                           },
                           onGalleryPressed: () async {
-                            XFile? pickedImage = await picker.pickImage(
-                              source: ImageSource.gallery,
-                            );
-                            if (pickedImage != null) {
-                              profile = File(pickedImage.path);
-                              profileUrl = null;
-                            }
+                            pickAndCropImage(ImageSource.gallery, 'profile');
                             setState(() {});
                             Navigator.pop(context);
                           },
