@@ -5,6 +5,7 @@ import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/view/account_settings_screen/account_settings_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/guest_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
@@ -101,6 +102,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
             SliverToBoxAdapter(
               child: DimenConstant.separator,
+            ),
+            SliverToBoxAdapter(
+              child: Visibility(
+                visible: !isGuest,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: DimenConstant.padding,
+                  ),
+                  child: SettingTile(
+                    icon: Icons.account_circle_outlined,
+                    name: 'Account',
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AccountSettingsScreen(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Visibility(
+                visible: !isGuest,
+                child: DimenConstant.separator,
+              ),
             ),
             SliverToBoxAdapter(
               child: Padding(

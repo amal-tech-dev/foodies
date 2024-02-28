@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
-class ChangePasswordScreen extends StatelessWidget {
-  ChangePasswordScreen({super.key});
+class AccountSettingsScreen extends StatelessWidget {
+  AccountSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,19 @@ class ChangePasswordScreen extends StatelessWidget {
           color: ColorConstant.primaryColor,
         ),
         title: Text(
-          'Change password',
+          'Account Settings',
           style: TextStyle(
             color: ColorConstant.primaryColor,
             fontSize: DimenConstant.smallText,
           ),
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(
+          DimenConstant.padding,
+        ),
+        child: Column(
+          children: [],
         ),
       ),
     );

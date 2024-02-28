@@ -116,7 +116,7 @@ class _SignupOptionsState extends State<SignupOptions> {
               ],
               obscureText: !isPasswordVisible,
               onTapOutside: (event) => FocusScope.of(context).unfocus(),
-              onFieldSubmitted: (value) {},
+              onFieldSubmitted: (value) => FocusScope.of(context).unfocus(),
               validator: (value) {
                 if (value!.length < 8)
                   return 'Password must be at least 8 characters long';

@@ -10,7 +10,6 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/change_password_screen/change_password_screen.dart';
 import 'package:foodies/view/edit_user_details_screen/edit_user_details_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/recipe_image_tile.dart';
@@ -217,24 +216,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     0,
                                   ),
                                   items: [
-                                    PopupMenuItem(
-                                      height: 40,
-                                      onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ChangePasswordScreen(),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'Change Password',
-                                        style: TextStyle(
-                                          color: ColorConstant.primaryColor,
-                                          fontSize:
-                                              DimenConstant.extraSmallText,
-                                        ),
-                                      ),
-                                    ),
                                     PopupMenuItem(
                                       height: 40,
                                       onTap: () => Navigator.push(
