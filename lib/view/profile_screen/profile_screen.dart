@@ -9,8 +9,8 @@ import 'package:foodies/view/account_settings_screen/account_settings_screen.dar
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/guest_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
-import 'package:foodies/view/profile_screen/profile_widgets/settings_tile.dart';
 import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
+import 'package:foodies/widgets/settings_tile.dart';
 import 'package:hive/hive.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -110,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: SettingTile(
+                  child: SettingsTile(
                     icon: Icons.account_circle_outlined,
                     name: 'Account',
                     onPressed: () => Navigator.push(
@@ -134,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.symmetric(
                   horizontal: DimenConstant.padding,
                 ),
-                child: SettingTile(
+                child: SettingsTile(
                   icon: Icons.timer_outlined,
                   name: 'Timer',
                   onPressed: () {},
@@ -149,7 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.symmetric(
                   horizontal: DimenConstant.padding,
                 ),
-                child: SettingTile(
+                child: SettingsTile(
                   icon: Icons.logout_rounded,
                   name: 'Logout',
                   onPressed: () {

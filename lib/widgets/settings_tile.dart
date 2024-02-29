@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
-class SettingTile extends StatelessWidget {
+class SettingsTile extends StatelessWidget {
   IconData icon;
   String name;
   VoidCallback onPressed;
+  Color? color;
 
-  SettingTile({
+  SettingsTile({
     super.key,
     required this.icon,
     required this.name,
     required this.onPressed,
+    this.color,
   });
 
   @override
@@ -30,6 +32,7 @@ class SettingTile extends StatelessWidget {
         ),
         child: Row(
           children: [
+            DimenConstant.separator,
             Icon(
               icon,
               color: ColorConstant.primaryColor,
@@ -38,7 +41,7 @@ class SettingTile extends StatelessWidget {
             Text(
               name,
               style: TextStyle(
-                color: ColorConstant.secondaryColor,
+                color: color ?? ColorConstant.secondaryColor,
                 fontSize: DimenConstant.smallText,
               ),
             ),
