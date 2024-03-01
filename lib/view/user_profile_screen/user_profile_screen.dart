@@ -9,9 +9,6 @@ import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
-import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/edit_user_details_screen/edit_user_details_screen.dart';
-import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/recipe_image_tile.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -186,143 +183,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       child: SafeArea(
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             BackButton(
                               color: ColorConstant.primaryColor,
                               style: ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll(
                                   ColorConstant.tertiaryColor.withOpacity(0.1),
-                                ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: currentUser,
-                              child: IconButton(
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
-                                    ColorConstant.tertiaryColor
-                                        .withOpacity(0.1),
-                                  ),
-                                ),
-                                onPressed: () => showMenu(
-                                  color: ColorConstant.backgroundColor,
-                                  surfaceTintColor: Colors.transparent,
-                                  context: context,
-                                  position: RelativeRect.fromLTRB(
-                                    100,
-                                    90,
-                                    0,
-                                    0,
-                                  ),
-                                  items: [
-                                    PopupMenuItem(
-                                      height: 40,
-                                      onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              EditUserDetailsScreen(),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'Edit Account',
-                                        style: TextStyle(
-                                          color: ColorConstant.primaryColor,
-                                          fontSize:
-                                              DimenConstant.extraSmallText,
-                                        ),
-                                      ),
-                                    ),
-                                    PopupMenuItem(
-                                      height: 40,
-                                      onTap: () => showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          backgroundColor:
-                                              ColorConstant.backgroundColor,
-                                          surfaceTintColor: Colors.transparent,
-                                          title: Text(
-                                            'Delete account',
-                                            style: TextStyle(
-                                              color: ColorConstant.primaryColor,
-                                              fontSize: DimenConstant.smallText,
-                                            ),
-                                          ),
-                                          content: Text(
-                                            StringConstant.deleteAccount,
-                                            style: TextStyle(
-                                              color:
-                                                  ColorConstant.secondaryColor,
-                                              fontSize: DimenConstant.miniText,
-                                            ),
-                                            textAlign: TextAlign.justify,
-                                          ),
-                                          actions: [
-                                            InkWell(
-                                              onTap: () =>
-                                                  Navigator.pop(context),
-                                              child: Text(
-                                                'Cancel',
-                                                style: TextStyle(
-                                                  color: ColorConstant
-                                                      .primaryColor,
-                                                  fontSize:
-                                                      DimenConstant.miniText,
-                                                ),
-                                              ),
-                                            ),
-                                            DimenConstant.separator,
-                                            InkWell(
-                                              onTap: () async {
-                                                Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LoginScreen(),
-                                                  ),
-                                                  (route) => false,
-                                                );
-                                                DocumentReference reference =
-                                                    firestore
-                                                        .collection('users')
-                                                        .doc(myUid);
-                                                deleteImage('profile',
-                                                    userModel.profile!);
-                                                deleteImage(
-                                                    'cover', userModel.cover!);
-                                                await reference.delete();
-                                                await auth.currentUser!
-                                                    .delete();
-                                                await auth.signOut();
-                                              },
-                                              child: Text(
-                                                'Delete',
-                                                style: TextStyle(
-                                                  color:
-                                                      ColorConstant.errorColor,
-                                                  fontSize:
-                                                      DimenConstant.miniText,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'Delete Account',
-                                        style: TextStyle(
-                                          color: ColorConstant.errorColor,
-                                          fontSize:
-                                              DimenConstant.extraSmallText,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                icon: Icon(
-                                  Icons.more_vert_rounded,
-                                  color: ColorConstant.primaryColor,
                                 ),
                               ),
                             ),

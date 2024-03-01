@@ -53,4 +53,6 @@ class StringConstant {
   static const String notificationTitle = 'Your food is overcooking!';
   static const String notificationBody =
       'Chef, your dish is at risk of overcooking or spoiling. It\'s time to take action and ensure the perfect meal. Check on it now!';
+  static const String emailUpdate =
+      'An email has send to your new email. Click on the link to update email.';
 }

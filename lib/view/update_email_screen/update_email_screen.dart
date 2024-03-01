@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 
 class UpdateEmailScreen extends StatefulWidget {
   UpdateEmailScreen({super.key});
@@ -94,6 +95,14 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                 ),
               ),
               DimenConstant.separator,
+              Visibility(
+                visible: loading,
+                child: CircularProgressIndicator(
+                  color: ColorConstant.secondaryColor,
+                  strokeCap: StrokeCap.round,
+                ),
+              ),
+              DimenConstant.separator,
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(
@@ -101,14 +110,34 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                   ),
                 ),
                 onPressed: () async {
+                  loading = true;
+                  setState(() {});
                   if (formKey.currentState!.validate()) {
                     User user = auth.currentUser!;
-                    await user.sendEmailVerification();
-                    if (user.emailVerified) {
-                      await user.updateEmail(newEmail);
-                    }
-                    // Navigator.pop(context);
+                    if (user.emailVerified)
+                      await user.verifyBeforeUpdateEmail(
+                        emailController.text.trim(),
+                      );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: ColorConstant.tertiaryColor,
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.all(
+                          DimenConstant.padding,
+                        ),
+                        content: Text(
+                          StringConstant.emailUpdate,
+                          style: TextStyle(
+                            color: ColorConstant.primaryColor,
+                            fontSize: DimenConstant.miniText,
+                          ),
+                        ),
+                      ),
+                    );
+                    Navigator.pop(context);
                   }
+                  loading = true;
+                  setState(() {});
                 },
                 child: Text(
                   'Update',

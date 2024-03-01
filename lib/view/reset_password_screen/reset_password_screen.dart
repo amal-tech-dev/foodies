@@ -13,11 +13,13 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController currentPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  FocusNode passwordFocusNode = FocusNode();
+  FocusNode newPasswordFocusNode = FocusNode();
+  FocusNode confirmPasswordFocusNode = FocusNode();
   FirebaseAuth auth = FirebaseAuth.instance;
-  bool isPasswordVisible = false;
+  bool passwordVisibility = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,20 +59,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ),
                 ),
                 child: TextFormField(
-                  controller: passwordController,
+                  controller: currentPasswordController,
                   decoration: InputDecoration(
-                    labelText: 'Enter Password',
+                    labelText: 'Current Password',
                     labelStyle: TextStyle(
                       color: ColorConstant.secondaryColor,
                     ),
                     border: InputBorder.none,
                     suffix: InkWell(
                       onTap: () {
-                        isPasswordVisible = !isPasswordVisible;
+                        passwordVisibility = !passwordVisibility;
                         setState(() {});
                       },
                       child: Icon(
-                        isPasswordVisible
+                        passwordVisibility
                             ? Icons.visibility_off_rounded
                             : Icons.visibility_rounded,
                         color: ColorConstant.primaryColor,
@@ -88,10 +90,55 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(40),
                   ],
-                  obscureText: !isPasswordVisible,
+                  obscureText: !passwordVisibility,
                   onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   onFieldSubmitted: (value) =>
-                      FocusScope.of(context).requestFocus(passwordFocusNode),
+                      FocusScope.of(context).requestFocus(newPasswordFocusNode),
+                  validator: (value) {
+                    User user = auth.currentUser!;
+                    AuthCredential credential = EmailAuthProvider.credential(
+                      email: user.email!,
+                      password: currentPasswordController.text.trim(),
+                    );
+                    return null;
+                  },
+                ),
+              ),
+              DimenConstant.separator,
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                decoration: BoxDecoration(
+                  color: ColorConstant.tertiaryColor,
+                  borderRadius: BorderRadius.circular(
+                    DimenConstant.borderRadius,
+                  ),
+                ),
+                child: TextFormField(
+                  controller: newPasswordController,
+                  focusNode: newPasswordFocusNode,
+                  decoration: InputDecoration(
+                    labelText: 'New Password',
+                    labelStyle: TextStyle(
+                      color: ColorConstant.secondaryColor,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                  style: TextStyle(
+                    color: ColorConstant.primaryColor,
+                  ),
+                  cursorColor: ColorConstant.secondaryColor,
+                  cursorRadius: Radius.circular(
+                    DimenConstant.cursorRadius,
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(40),
+                  ],
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                  onFieldSubmitted: (value) => FocusScope.of(context)
+                      .requestFocus(confirmPasswordFocusNode),
                   validator: (value) {
                     if (value!.length < 8)
                       return 'Password must be at least 8 characters long';
@@ -119,8 +166,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ),
                 ),
                 child: TextFormField(
-                  controller: passwordController,
-                  focusNode: passwordFocusNode,
+                  controller: currentPasswordController,
+                  focusNode: confirmPasswordFocusNode,
                   decoration: InputDecoration(
                     labelText: 'Confirm Password',
                     labelStyle: TextStyle(
@@ -143,7 +190,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   onFieldSubmitted: (value) => FocusScope.of(context).unfocus(),
                   validator: (value) {
-                    if (value != passwordController.text.trim())
+                    if (value != newPasswordController.text.trim())
                       return 'Passwords doesn\'t match';
                     return null;
                   },

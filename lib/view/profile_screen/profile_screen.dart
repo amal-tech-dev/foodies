@@ -23,7 +23,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  bool isGuest = false;
+  bool guest = false;
   UserModel? userModel;
 
   @override
@@ -38,11 +38,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       (event) {
         if (event != null) {
           if (event.isAnonymous) {
-            isGuest = true;
+            guest = true;
             userModel = null;
             setState(() {});
           } else {
-            isGuest = false;
+            guest = false;
             getUserdata();
           }
         }
@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            isGuest
+            guest
                 ? SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.all(
@@ -105,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             SliverToBoxAdapter(
               child: Visibility(
-                visible: !isGuest,
+                visible: !guest,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
@@ -125,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             SliverToBoxAdapter(
               child: Visibility(
-                visible: !isGuest,
+                visible: !guest,
                 child: DimenConstant.separator,
               ),
             ),
@@ -166,7 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         content: Text(
-                          isGuest
+                          guest
                               ? StringConstant.logoutAlertGuest
                               : StringConstant.logoutAlert,
                           style: TextStyle(
@@ -190,7 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           InkWell(
                             onTap: () async {
                               try {
-                                if (isGuest) {
+                                if (guest) {
                                   await auth.currentUser!.delete();
                                   Hive.box<String>('menuBox').close();
                                 }

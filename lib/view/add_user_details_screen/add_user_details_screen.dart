@@ -357,6 +357,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                             .collection('users')
                             .doc(user.uid)
                             .set(userModel.toJson());
+                        await user.sendEmailVerification();
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(

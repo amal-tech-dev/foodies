@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/edit_user_details_screen/edit_user_details_screen.dart';
+import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/reset_password_screen/reset_password_screen.dart';
 import 'package:foodies/view/update_email_screen/update_email_screen.dart';
 import 'package:foodies/widgets/settings_tile.dart';
@@ -11,6 +16,17 @@ class AccountSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    FirebaseStorage storage = FirebaseStorage.instance;
+    String myUid = FirebaseAuth.instance.currentUser!.uid;
+
+    // delete image in firebase
+    deleteImage(String field, String url) async {
+      await storage.refFromURL(url).delete();
+      await firestore.collection('users').doc(myUid).update({field: null});
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConstant.backgroundColor,
@@ -69,9 +85,74 @@ class AccountSettingsScreen extends StatelessWidget {
               icon: Icons.delete_outline_rounded,
               name: 'Delete Account',
               color: ColorConstant.errorColor,
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    backgroundColor: ColorConstant.backgroundColor,
+                    surfaceTintColor: Colors.transparent,
+                    title: Text(
+                      'Delete account',
+                      style: TextStyle(
+                        color: ColorConstant.primaryColor,
+                        fontSize: DimenConstant.smallText,
+                      ),
+                    ),
+                    content: Text(
+                      StringConstant.deleteAccount,
+                      style: TextStyle(
+                        color: ColorConstant.secondaryColor,
+                        fontSize: DimenConstant.miniText,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                    actions: [
+                      InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            color: ColorConstant.primaryColor,
+                            fontSize: DimenConstant.miniText,
+                          ),
+                        ),
+                      ),
+                      DimenConstant.separator,
+                      InkWell(
+                        onTap: () async {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ),
+                            (route) => false,
+                          );
+                          DocumentReference reference =
+                              firestore.collection('users').doc(myUid);
+                          DocumentSnapshot snapshot = await reference.get();
+                          Map<String, dynamic> data =
+                              snapshot.data() as Map<String, dynamic>;
+                          if (data['profile'] != null)
+                            deleteImage('profile', data['profile']);
+                          if (data['cover'] != null)
+                            deleteImage('cover', data['cover']);
+                          await reference.delete();
+                          await auth.currentUser!.delete();
+                          await auth.signOut();
+                        },
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(
+                            color: ColorConstant.errorColor,
+                            fontSize: DimenConstant.miniText,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
-            DimenConstant.separator,
           ],
         ),
       ),

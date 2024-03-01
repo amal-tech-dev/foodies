@@ -92,7 +92,7 @@ class GetStartedScreen extends StatelessWidget {
                         child: Text(
                           'Get Started',
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
+                            color: ColorConstant.tertiaryColor,
                             fontSize: DimenConstant.smallText,
                             fontWeight: FontWeight.bold,
                           ),

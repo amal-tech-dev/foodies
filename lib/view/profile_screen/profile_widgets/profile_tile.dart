@@ -34,8 +34,10 @@ class ProfileTile extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              radius: 50,
-              backgroundImage: image != null
+              radius: 50,backgroundImage:AssetImage(
+              ImageConstant.profile,
+            ) ,
+              foregroundImage: image != null
                   ? NetworkImage(
                       image!,
                     )
