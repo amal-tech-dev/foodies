@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
@@ -22,7 +21,6 @@ class RecipeFeedScreen extends StatefulWidget {
 }
 
 class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
-  FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   Map<String, RecipeModel> recipes = {};
   List<String> diet = [], cuisines = [], categories = [];
@@ -145,6 +143,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
               child: StreamBuilder(
                 stream: firestore.collection('recipes').snapshots(),
                 builder: (context, snapshot) {
+                  String docId = '';
                   if (snapshot.connectionState == ConnectionState.waiting ||
                       snapshot.data == null) {
                     return ListView.separated(
@@ -156,8 +155,9 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                   }
                   if (snapshot.connectionState == ConnectionState.active &&
                       snapshot.data != null) {
-                    for (var doc in snapshot.data!.docs) {
-                      String docId = doc.id;
+                    for (QueryDocumentSnapshot<Map<String, dynamic>> doc
+                        in snapshot.data!.docs) {
+                      docId = doc.id;
                       RecipeModel recipe = RecipeModel.fromJson(doc.data());
                       recipes[docId] = recipe;
                     }
@@ -165,14 +165,21 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                   return ListView.separated(
                     itemBuilder: (context, index) => RecipeTile(
                       recipe: recipes.values.toList()[index],
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RecipeViewScreen(
-                            id: recipes.keys.toList()[index],
+                      onPressed: () async {
+                        DocumentReference reference =
+                            firestore.collection('recipes').doc(docId);
+                        await reference.update({
+                          'views': FieldValue.increment(1),
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RecipeViewScreen(
+                              id: recipes.keys.toList()[index],
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                     separatorBuilder: (context, index) =>
                         DimenConstant.separator,

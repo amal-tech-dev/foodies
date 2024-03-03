@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:foodies/controller/menu_list_controller.dart';
-import 'package:foodies/controller/shared_list_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
-import 'package:provider/provider.dart';
+import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/recipe_stats.dart';
 
 class RecipeViewScreen extends StatefulWidget {
   String id;
@@ -25,7 +22,6 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   RecipeModel recipe = RecipeModel();
-  int likes = 0, shared = 0;
 
   @override
   void initState() {
@@ -39,17 +35,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
         firestore.collection('recipes').doc(widget.id);
     DocumentSnapshot snapshot = await reference.get();
     recipe = RecipeModel.fromJson(snapshot.data() as Map<String, dynamic>);
-    likes = recipe.likes?.length ?? 0;
-    shared = recipe.shared ?? 0;
     setState(() {});
-    await Provider.of<MenuListController>(
-      context,
-      listen: false,
-    ).checkRecipeInMenu(widget.id);
-    await Provider.of<SharedListController>(
-      context,
-      listen: false,
-    ).checkRecipeIsShared(widget.id);
   }
 
   @override
@@ -69,8 +55,18 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                   collapsedHeight: kToolbarHeight,
                   pinned: true,
                   centerTitle: true,
-                  leading: BackButton(
-                    color: ColorConstant.primaryColor,
+                  leading: Padding(
+                    padding: const EdgeInsets.all(
+                      DimenConstant.padding / 2,
+                    ),
+                    child: BackButton(
+                      color: ColorConstant.primaryColor,
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(
+                          ColorConstant.backgroundColor.withOpacity(0.1),
+                        ),
+                      ),
+                    ),
                   ),
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
@@ -95,9 +91,8 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                ColorConstant.tertiaryColor.withOpacity(0.3),
-                                ColorConstant.tertiaryColor.withOpacity(0.2),
-                                ColorConstant.tertiaryColor.withOpacity(0.1),
+                                ColorConstant.tertiaryColor.withOpacity(0.0),
+                                ColorConstant.tertiaryColor.withOpacity(0.0),
                                 ColorConstant.tertiaryColor.withOpacity(0.0),
                                 ColorConstant.tertiaryColor.withOpacity(0.0),
                                 ColorConstant.tertiaryColor.withOpacity(0.1),
@@ -125,118 +120,8 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     padding: const EdgeInsets.symmetric(
                       vertical: DimenConstant.padding,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Consumer<MenuListController>(
-                          builder: (context, value, child) => InkWell(
-                            onTap: () async {
-                              await value.updateMenu(widget.id);
-                              initialise();
-                              setState(() {});
-                              value.getMenuList();
-                            },
-                            child: Column(
-                              children: [
-                                FaIcon(
-                                  value.check
-                                      ? FontAwesomeIcons.solidHeart
-                                      : FontAwesomeIcons.heart,
-                                  color: value.check
-                                      ? ColorConstant.errorColor
-                                      : ColorConstant.primaryColor,
-                                  size: 20,
-                                ),
-                                StreamBuilder(
-                                  stream: firestore
-                                      .collection('recipes')
-                                      .doc(widget.id)
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.active) {
-                                      Map<String, dynamic> data = snapshot.data!
-                                          .data() as Map<String, dynamic>;
-                                      likes = data['likes'];
-                                    }
-                                    return Text(
-                                      '${likes.toString()} Likes',
-                                      style: TextStyle(
-                                        color: ColorConstant.primaryColor,
-                                        fontSize: DimenConstant.miniText,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Visibility(
-                          visible: recipe.chef != null ? true : false,
-                          child: InkWell(
-                            onTap: () async {},
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.person_rounded,
-                                  color: ColorConstant.primaryColor,
-                                ),
-                                Text(
-                                  recipe.chef ?? '',
-                                  style: TextStyle(
-                                    color: ColorConstant.primaryColor,
-                                    fontSize: DimenConstant.miniText,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Consumer<SharedListController>(
-                          builder: (context, value, child) => InkWell(
-                            onTap: () async {
-                              await value.updateSharedList(widget.id);
-                              await value.shareRecipe(widget.id);
-                              initialise();
-                              setState(() {});
-                            },
-                            child: Column(
-                              children: [
-                                FaIcon(
-                                  value.check
-                                      ? FontAwesomeIcons.solidShareFromSquare
-                                      : FontAwesomeIcons.shareFromSquare,
-                                  color: value.check
-                                      ? ColorConstant.secondaryColor
-                                      : ColorConstant.primaryColor,
-                                  size: 20,
-                                ),
-                                StreamBuilder(
-                                  stream: firestore
-                                      .collection('recipes')
-                                      .doc(widget.id)
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.active) {
-                                      var data = snapshot.data!.data();
-                                      shared = data!['shared'] as int;
-                                    }
-                                    return Text(
-                                      '${shared.toString()} Shared',
-                                      style: TextStyle(
-                                        color: ColorConstant.primaryColor,
-                                        fontSize: DimenConstant.miniText,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: RecipeStats(
+                      id: widget.id,
                     ),
                   ),
                 ),
@@ -313,7 +198,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: DimenConstant.extraSmallText / 2,
+                            top: (DimenConstant.extraSmallText / 2) - 2.5,
                           ),
                           child: CircleAvatar(
                             backgroundColor: ColorConstant.secondaryColor,
@@ -362,7 +247,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: DimenConstant.extraSmallText / 2,
+                            top: (DimenConstant.extraSmallText / 2) - 2.5,
                           ),
                           child: CircleAvatar(
                             backgroundColor: ColorConstant.secondaryColor,
@@ -411,7 +296,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: DimenConstant.extraSmallText / 2,
+                            top: (DimenConstant.extraSmallText / 2) - 2.5,
                           ),
                           child: CircleAvatar(
                             backgroundColor: ColorConstant.secondaryColor,
@@ -460,7 +345,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: DimenConstant.extraSmallText / 2,
+                            top: (DimenConstant.extraSmallText / 2) - 2.5,
                           ),
                           child: CircleAvatar(
                             backgroundColor: ColorConstant.secondaryColor,
@@ -511,7 +396,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: DimenConstant.extraSmallText / 2,
+                            top: (DimenConstant.extraSmallText / 2) - 2.5,
                           ),
                           child: CircleAvatar(
                             backgroundColor: ColorConstant.secondaryColor,

@@ -184,11 +184,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            DimenConstant.separator,
                             BackButton(
                               color: ColorConstant.primaryColor,
                               style: ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll(
-                                  ColorConstant.tertiaryColor.withOpacity(0.1),
+                                  ColorConstant.backgroundColor
+                                      .withOpacity(0.1),
                                 ),
                               ),
                             ),

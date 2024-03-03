@@ -7,6 +7,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/account_settings_screen/account_settings_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
+import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/guest_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
 import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
@@ -117,6 +118,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => AccountSettingsScreen(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Visibility(
+                visible: !guest,
+                child: DimenConstant.separator,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Visibility(
+                visible: !guest,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: DimenConstant.padding,
+                  ),
+                  child: SettingsTile(
+                    icon: Icons.fastfood_rounded,
+                    name: 'My Recipes',
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyRecipesScreen(),
                       ),
                     ),
                   ),

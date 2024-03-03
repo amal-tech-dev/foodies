@@ -95,11 +95,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   onFieldSubmitted: (value) =>
                       FocusScope.of(context).requestFocus(newPasswordFocusNode),
                   validator: (value) {
-                    User user = auth.currentUser!;
-                    AuthCredential credential = EmailAuthProvider.credential(
-                      email: user.email!,
-                      password: currentPasswordController.text.trim(),
-                    );
                     return null;
                   },
                 ),
@@ -226,6 +221,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         ),
       ),
     );
+  }
+
+  // check password
+  checkPassword() async {
+    User user = auth.currentUser!;
+    AuthCredential credential = EmailAuthProvider.credential(
+      email: user.email!,
+      password: currentPasswordController.text.trim(),
+    );
+    await user.reauthenticateWithCredential(credential);
   }
 
   // check password contains uppercase letter

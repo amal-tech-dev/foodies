@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodies/controller/menu_list_controller.dart';
+import 'package:foodies/controller/likes_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
@@ -21,8 +21,8 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   void initState() {
-    Provider.of<MenuListController>(context, listen: false).getMenuList();
-    if (Provider.of<MenuListController>(context, listen: false).recipes.isEmpty)
+    Provider.of<LikesController>(context, listen: false).getMenuList();
+    if (Provider.of<LikesController>(context, listen: false).recipes.isEmpty)
       isEmpty = true;
     else
       isEmpty = false;
@@ -58,7 +58,7 @@ class _MenuScreenState extends State<MenuScreen> {
               ],
             )
           : Expanded(
-              child: Consumer<MenuListController>(
+              child: Consumer<LikesController>(
                 builder: (context, value, child) => Padding(
                   padding: const EdgeInsets.all(
                     DimenConstant.padding,
