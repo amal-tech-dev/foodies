@@ -47,7 +47,6 @@ flutter:
     - assets/audio/
     - assets/lottie/
     - assets/images/
-    - assets/thumbnails/
 
   fonts:
     - family: Bauhaus

@@ -33,14 +33,14 @@ class DismissibleListItem extends StatelessWidget {
                 DimenConstant.padding,
               ),
               decoration: BoxDecoration(
-                color: ColorConstant.errorColor,
+                color: ColorConstant.error,
                 borderRadius: BorderRadius.circular(
                   DimenConstant.borderRadius,
                 ),
               ),
               child: Icon(
                 Icons.delete_rounded,
-                color: ColorConstant.primaryColor,
+                color: ColorConstant.primary,
               ),
             ),
           ),
@@ -52,14 +52,14 @@ class DismissibleListItem extends StatelessWidget {
                 DimenConstant.padding,
               ),
               decoration: BoxDecoration(
-                color: ColorConstant.secondaryColor,
+                color: ColorConstant.secondary,
                 borderRadius: BorderRadius.circular(
                   DimenConstant.borderRadius,
                 ),
               ),
               child: Icon(
                 Icons.edit_rounded,
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
             ),
           ),
@@ -78,14 +78,14 @@ class DismissibleListItem extends StatelessWidget {
                 DimenConstant.padding,
               ),
               decoration: BoxDecoration(
-                color: ColorConstant.secondaryColor,
+                color: ColorConstant.secondary,
                 borderRadius: BorderRadius.circular(
                   DimenConstant.borderRadius,
                 ),
               ),
               child: Icon(
                 Icons.edit_rounded,
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
             ),
           ),
@@ -97,14 +97,14 @@ class DismissibleListItem extends StatelessWidget {
                 DimenConstant.padding,
               ),
               decoration: BoxDecoration(
-                color: ColorConstant.errorColor,
+                color: ColorConstant.error,
                 borderRadius: BorderRadius.circular(
                   DimenConstant.borderRadius,
                 ),
               ),
               child: Icon(
                 Icons.delete_rounded,
-                color: ColorConstant.primaryColor,
+                color: ColorConstant.primary,
               ),
             ),
           ),
@@ -120,10 +120,9 @@ class DismissibleListItem extends StatelessWidget {
             horizontal: DimenConstant.padding,
           ),
           decoration: BoxDecoration(
-            color: ColorConstant.tertiaryColor,
+            color: ColorConstant.tertiary,
             border: Border.all(
-              color:
-                  isEditing ? ColorConstant.secondaryColor : Colors.transparent,
+              color: isEditing ? ColorConstant.secondary : Colors.transparent,
               width: DimenConstant.borderWidth,
             ),
             borderRadius: BorderRadius.circular(
@@ -133,8 +132,8 @@ class DismissibleListItem extends StatelessWidget {
           child: Text(
             item,
             style: TextStyle(
-              color: ColorConstant.primaryColor,
-              fontSize: DimenConstant.miniText,
+              color: ColorConstant.primary,
+              fontSize: DimenConstant.mini,
             ),
             textAlign: TextAlign.justify,
           ),

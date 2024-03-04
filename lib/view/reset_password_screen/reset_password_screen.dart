@@ -25,16 +25,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundColor,
+        backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
         leading: BackButton(
-          color: ColorConstant.primaryColor,
+          color: ColorConstant.primary,
         ),
         title: Text(
           'Reset Password',
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.small,
           ),
         ),
       ),
@@ -53,7 +53,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   horizontal: DimenConstant.padding,
                 ),
                 decoration: BoxDecoration(
-                  color: ColorConstant.tertiaryColor,
+                  color: ColorConstant.tertiary,
                   borderRadius: BorderRadius.circular(
                     DimenConstant.borderRadius,
                   ),
@@ -63,7 +63,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   decoration: InputDecoration(
                     labelText: 'Current Password',
                     labelStyle: TextStyle(
-                      color: ColorConstant.secondaryColor,
+                      color: ColorConstant.secondary,
                     ),
                     border: InputBorder.none,
                     suffix: InkWell(
@@ -75,14 +75,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         passwordVisibility
                             ? Icons.visibility_off_rounded
                             : Icons.visibility_rounded,
-                        color: ColorConstant.primaryColor,
+                        color: ColorConstant.primary,
                       ),
                     ),
                   ),
                   style: TextStyle(
-                    color: ColorConstant.primaryColor,
+                    color: ColorConstant.primary,
                   ),
-                  cursorColor: ColorConstant.secondaryColor,
+                  cursorColor: ColorConstant.secondary,
                   cursorRadius: Radius.circular(
                     DimenConstant.cursorRadius,
                   ),
@@ -105,7 +105,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   horizontal: DimenConstant.padding,
                 ),
                 decoration: BoxDecoration(
-                  color: ColorConstant.tertiaryColor,
+                  color: ColorConstant.tertiary,
                   borderRadius: BorderRadius.circular(
                     DimenConstant.borderRadius,
                   ),
@@ -116,14 +116,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   decoration: InputDecoration(
                     labelText: 'New Password',
                     labelStyle: TextStyle(
-                      color: ColorConstant.secondaryColor,
+                      color: ColorConstant.secondary,
                     ),
                     border: InputBorder.none,
                   ),
                   style: TextStyle(
-                    color: ColorConstant.primaryColor,
+                    color: ColorConstant.primary,
                   ),
-                  cursorColor: ColorConstant.secondaryColor,
+                  cursorColor: ColorConstant.secondary,
                   cursorRadius: Radius.circular(
                     DimenConstant.cursorRadius,
                   ),
@@ -155,7 +155,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   horizontal: DimenConstant.padding,
                 ),
                 decoration: BoxDecoration(
-                  color: ColorConstant.tertiaryColor,
+                  color: ColorConstant.tertiary,
                   borderRadius: BorderRadius.circular(
                     DimenConstant.borderRadius,
                   ),
@@ -166,14 +166,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   decoration: InputDecoration(
                     labelText: 'Confirm Password',
                     labelStyle: TextStyle(
-                      color: ColorConstant.secondaryColor,
+                      color: ColorConstant.secondary,
                     ),
                     border: InputBorder.none,
                   ),
                   style: TextStyle(
-                    color: ColorConstant.primaryColor,
+                    color: ColorConstant.primary,
                   ),
-                  cursorColor: ColorConstant.secondaryColor,
+                  cursorColor: ColorConstant.secondary,
                   cursorRadius: Radius.circular(
                     DimenConstant.cursorRadius,
                   ),
@@ -196,7 +196,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondaryColor,
+                      ColorConstant.secondary,
                     ),
                   ),
                   onPressed: () async {
@@ -211,7 +211,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   child: Text(
                     'Reset',
                     style: TextStyle(
-                      color: ColorConstant.tertiaryColor,
+                      color: ColorConstant.tertiary,
                     ),
                   ),
                 ),

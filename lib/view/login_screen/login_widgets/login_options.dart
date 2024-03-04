@@ -48,7 +48,7 @@ class _LoginOptionsState extends State<LoginOptions> {
             } on FirebaseAuthException catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  backgroundColor: ColorConstant.tertiaryColor,
+                  backgroundColor: ColorConstant.tertiary,
                   behavior: SnackBarBehavior.floating,
                   margin: EdgeInsets.all(
                     DimenConstant.padding,
@@ -56,8 +56,8 @@ class _LoginOptionsState extends State<LoginOptions> {
                   content: Text(
                     'Unable to login',
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.miniText,
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.mini,
                     ),
                   ),
                 ),
@@ -69,7 +69,7 @@ class _LoginOptionsState extends State<LoginOptions> {
               DimenConstant.padding * 1.5,
             ),
             decoration: BoxDecoration(
-              color: ColorConstant.tertiaryColor,
+              color: ColorConstant.tertiary,
               borderRadius: BorderRadius.circular(
                 DimenConstant.borderRadius,
               ),
@@ -79,14 +79,14 @@ class _LoginOptionsState extends State<LoginOptions> {
               children: [
                 Icon(
                   Icons.person,
-                  color: ColorConstant.primaryColor,
+                  color: ColorConstant.primary,
                 ),
                 DimenConstant.separator,
                 Text(
                   'Continue as Guest',
                   style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.extraSmallText,
+                    color: ColorConstant.primary,
+                    fontSize: DimenConstant.extraSmall,
                   ),
                 )
               ],
@@ -128,7 +128,7 @@ class _LoginOptionsState extends State<LoginOptions> {
             } on FirebaseAuthException catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  backgroundColor: ColorConstant.tertiaryColor,
+                  backgroundColor: ColorConstant.tertiary,
                   behavior: SnackBarBehavior.floating,
                   margin: EdgeInsets.all(
                     DimenConstant.padding,
@@ -136,8 +136,8 @@ class _LoginOptionsState extends State<LoginOptions> {
                   content: Text(
                     'Unable to login',
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.miniText,
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.mini,
                     ),
                   ),
                 ),
@@ -149,7 +149,7 @@ class _LoginOptionsState extends State<LoginOptions> {
               DimenConstant.padding * 1.5,
             ),
             decoration: BoxDecoration(
-              color: ColorConstant.tertiaryColor,
+              color: ColorConstant.tertiary,
               borderRadius: BorderRadius.circular(
                 DimenConstant.borderRadius,
               ),
@@ -159,14 +159,14 @@ class _LoginOptionsState extends State<LoginOptions> {
               children: [
                 FaIcon(
                   FontAwesomeIcons.google,
-                  color: ColorConstant.primaryColor,
+                  color: ColorConstant.primary,
                 ),
                 DimenConstant.separator,
                 Text(
                   'Continue with Google',
                   style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.extraSmallText,
+                    color: ColorConstant.primary,
+                    fontSize: DimenConstant.extraSmall,
                   ),
                 )
               ],
@@ -185,7 +185,7 @@ class _LoginOptionsState extends State<LoginOptions> {
               DimenConstant.padding * 1.5,
             ),
             decoration: BoxDecoration(
-              color: ColorConstant.tertiaryColor,
+              color: ColorConstant.tertiary,
               borderRadius: BorderRadius.circular(
                 DimenConstant.borderRadius,
               ),
@@ -195,14 +195,14 @@ class _LoginOptionsState extends State<LoginOptions> {
               children: [
                 Icon(
                   Icons.alternate_email_outlined,
-                  color: ColorConstant.primaryColor,
+                  color: ColorConstant.primary,
                 ),
                 DimenConstant.separator,
                 Text(
                   'Continue with Email',
                   style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.extraSmallText,
+                    color: ColorConstant.primary,
+                    fontSize: DimenConstant.extraSmall,
                   ),
                 )
               ],
@@ -227,16 +227,16 @@ class _LoginOptionsState extends State<LoginOptions> {
                       label: Text(
                         'Email',
                         style: TextStyle(
-                          color: ColorConstant.secondaryColor,
+                          color: ColorConstant.secondary,
                         ),
                       ),
                       border: InputBorder.none,
                     ),
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
+                      color: ColorConstant.primary,
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    cursorColor: ColorConstant.secondaryColor,
+                    cursorColor: ColorConstant.secondary,
                     cursorRadius: Radius.circular(
                       DimenConstant.cursorRadius,
                     ),
@@ -265,7 +265,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                       label: Text(
                         'Password',
                         style: TextStyle(
-                          color: ColorConstant.secondaryColor,
+                          color: ColorConstant.secondary,
                         ),
                       ),
                       border: InputBorder.none,
@@ -278,14 +278,14 @@ class _LoginOptionsState extends State<LoginOptions> {
                           isPasswordVisible
                               ? Icons.visibility_off_rounded
                               : Icons.visibility_rounded,
-                          color: ColorConstant.secondaryColor,
+                          color: ColorConstant.secondary,
                         ),
                       ),
                     ),
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
+                      color: ColorConstant.primary,
                     ),
-                    cursorColor: ColorConstant.secondaryColor,
+                    cursorColor: ColorConstant.secondary,
                     cursorRadius: Radius.circular(
                       DimenConstant.cursorRadius,
                     ),
@@ -314,7 +314,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                   child: Text(
                     'Forget Password?',
                     style: TextStyle(
-                      color: ColorConstant.secondaryColor,
+                      color: ColorConstant.secondary,
                     ),
                   ),
                 ),
@@ -323,7 +323,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
-                        ColorConstant.secondaryColor,
+                        ColorConstant.secondary,
                       ),
                     ),
                     onPressed: () async {
@@ -346,7 +346,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                         if (e.code == 'invalid-credential') {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              backgroundColor: ColorConstant.tertiaryColor,
+                              backgroundColor: ColorConstant.tertiary,
                               behavior: SnackBarBehavior.floating,
                               margin: EdgeInsets.all(
                                 DimenConstant.padding,
@@ -354,8 +354,8 @@ class _LoginOptionsState extends State<LoginOptions> {
                               content: Text(
                                 'Invalid user or password',
                                 style: TextStyle(
-                                  color: ColorConstant.primaryColor,
-                                  fontSize: DimenConstant.miniText,
+                                  color: ColorConstant.primary,
+                                  fontSize: DimenConstant.mini,
                                 ),
                               ),
                             ),
@@ -366,7 +366,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                     child: Text(
                       'Sign In',
                       style: TextStyle(
-                        color: ColorConstant.tertiaryColor,
+                        color: ColorConstant.tertiary,
                       ),
                     ),
                   ),
@@ -383,7 +383,7 @@ class _LoginOptionsState extends State<LoginOptions> {
           visible: isLoading,
           child: Center(
             child: CircularProgressIndicator(
-              color: ColorConstant.secondaryColor,
+              color: ColorConstant.secondary,
               strokeCap: StrokeCap.round,
             ),
           ),

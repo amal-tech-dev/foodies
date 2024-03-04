@@ -20,30 +20,30 @@ class TimePreview extends StatelessWidget {
           Text(
             'Cooking time',
             style: TextStyle(
-              color: ColorConstant.primaryColor,
-              fontSize: DimenConstant.mediumText,
+              color: ColorConstant.primary,
+              fontSize: DimenConstant.medium,
             ),
           ),
           Text(
             time,
             style: TextStyle(
-              color: ColorConstant.secondaryColor,
-              fontSize: DimenConstant.largeText,
+              color: ColorConstant.secondary,
+              fontSize: DimenConstant.large,
             ),
           ),
           DimenConstant.separator,
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(
-                ColorConstant.secondaryColor,
+                ColorConstant.secondary,
               ),
             ),
             onPressed: onPressed,
             child: Text(
               'Next',
               style: TextStyle(
-                color: ColorConstant.tertiaryColor,
-                fontSize: DimenConstant.extraSmallText,
+                color: ColorConstant.tertiary,
+                fontSize: DimenConstant.extraSmall,
               ),
             ),
           ),

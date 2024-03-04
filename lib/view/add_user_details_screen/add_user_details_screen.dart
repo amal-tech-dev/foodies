@@ -40,13 +40,13 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundColor,
+        backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
         title: Text(
           'Complete your profile',
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.small,
           ),
         ),
         actions: [
@@ -56,7 +56,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
               height: 20,
               width: 20,
               child: CircularProgressIndicator(
-                color: ColorConstant.secondaryColor,
+                color: ColorConstant.secondary,
                 strokeWidth: 2.5,
                 strokeCap: StrokeCap.round,
               ),
@@ -80,14 +80,14 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 Text(
                   'Select a cover image (optional)',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.extraSmallText,
+                    color: ColorConstant.secondary,
+                    fontSize: DimenConstant.extraSmall,
                   ),
                 ),
                 DimenConstant.separator,
                 InkWell(
                   onTap: () => showModalBottomSheet(
-                    backgroundColor: ColorConstant.backgroundColor,
+                    backgroundColor: ColorConstant.background,
                     showDragHandle: true,
                     context: context,
                     builder: (context) => PickImageBottomSheet(
@@ -133,15 +133,15 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 Text(
                   'Select your profile picture (optional)',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.extraSmallText,
+                    color: ColorConstant.secondary,
+                    fontSize: DimenConstant.extraSmall,
                   ),
                 ),
                 DimenConstant.separator,
                 Center(
                   child: InkWell(
                     onTap: () => showModalBottomSheet(
-                      backgroundColor: ColorConstant.backgroundColor,
+                      backgroundColor: ColorConstant.background,
                       showDragHandle: true,
                       context: context,
                       builder: (context) => PickImageBottomSheet(
@@ -185,7 +185,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     horizontal: DimenConstant.padding,
                   ),
                   decoration: BoxDecoration(
-                    color: ColorConstant.tertiaryColor,
+                    color: ColorConstant.tertiary,
                     borderRadius: BorderRadius.circular(
                       DimenConstant.borderRadius,
                     ),
@@ -196,17 +196,17 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       label: Text(
                         'Display Name',
                         style: TextStyle(
-                          color: ColorConstant.secondaryColor,
-                          fontSize: DimenConstant.miniText,
+                          color: ColorConstant.secondary,
+                          fontSize: DimenConstant.mini,
                         ),
                       ),
                       border: InputBorder.none,
                     ),
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.miniText,
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.mini,
                     ),
-                    cursorColor: ColorConstant.secondaryColor,
+                    cursorColor: ColorConstant.secondary,
                     cursorRadius: Radius.circular(
                       DimenConstant.cursorRadius,
                     ),
@@ -231,7 +231,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     horizontal: DimenConstant.padding,
                   ),
                   decoration: BoxDecoration(
-                    color: ColorConstant.tertiaryColor,
+                    color: ColorConstant.tertiary,
                     borderRadius: BorderRadius.circular(
                       DimenConstant.borderRadius,
                     ),
@@ -243,17 +243,17 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       label: Text(
                         'Username',
                         style: TextStyle(
-                          color: ColorConstant.secondaryColor,
-                          fontSize: DimenConstant.miniText,
+                          color: ColorConstant.secondary,
+                          fontSize: DimenConstant.mini,
                         ),
                       ),
                       border: InputBorder.none,
                     ),
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.miniText,
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.mini,
                     ),
-                    cursorColor: ColorConstant.secondaryColor,
+                    cursorColor: ColorConstant.secondary,
                     cursorRadius: Radius.circular(
                       DimenConstant.cursorRadius,
                     ),
@@ -278,7 +278,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     horizontal: DimenConstant.padding,
                   ),
                   decoration: BoxDecoration(
-                    color: ColorConstant.tertiaryColor,
+                    color: ColorConstant.tertiary,
                     borderRadius: BorderRadius.circular(
                       DimenConstant.borderRadius,
                     ),
@@ -290,17 +290,17 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       label: Text(
                         'Bio',
                         style: TextStyle(
-                          color: ColorConstant.secondaryColor,
-                          fontSize: DimenConstant.miniText,
+                          color: ColorConstant.secondary,
+                          fontSize: DimenConstant.mini,
                         ),
                       ),
                       border: InputBorder.none,
                     ),
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.miniText,
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.mini,
                     ),
-                    cursorColor: ColorConstant.secondaryColor,
+                    cursorColor: ColorConstant.secondary,
                     cursorRadius: Radius.circular(
                       DimenConstant.cursorRadius,
                     ),
@@ -328,7 +328,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                     backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondaryColor,
+                      ColorConstant.secondary,
                     ),
                   ),
                   onPressed: () async {
@@ -374,7 +374,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   child: Text(
                     'Create Account',
                     style: TextStyle(
-                      color: ColorConstant.tertiaryColor,
+                      color: ColorConstant.tertiary,
                     ),
                   ),
                 ),

@@ -8,9 +8,15 @@ class Assets {
       'assets/fonts/bauhaus_bold_italic.ttf';
   static const String fontsBauhausItalic = 'assets/fonts/bauhaus_italic.ttf';
   static const String fontsBauhausRegular = 'assets/fonts/bauhaus_regular.ttf';
+  static const String imagesAddRecipe = 'assets/images/add_recipe.png';
+  static const String imagesChef = 'assets/images/chef.png';
   static const String imagesCover = 'assets/images/cover.png';
   static const String imagesFood = 'assets/images/food.png';
+  static const String imagesGetStarted = 'assets/images/get_started.png';
+  static const String imagesLogin = 'assets/images/login.png';
+  static const String imagesOverview = 'assets/images/overview.png';
   static const String imagesProfile = 'assets/images/profile.png';
+  static const String imagesSignup = 'assets/images/signup.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
   static const String lottieAudioPlaying = 'assets/lottie/audio_playing.json';
   static const String lottieEmpty = 'assets/lottie/empty.json';
@@ -18,11 +24,4 @@ class Assets {
   static const String lottieNoInternet = 'assets/lottie/no_internet.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';
   static const String lottieSearching = 'assets/lottie/searching.json';
-  static const String thumbnailsAddRecipe = 'assets/thumbnails/add_recipe.png';
-  static const String thumbnailsChef = 'assets/thumbnails/chef.png';
-  static const String thumbnailsGetStarted =
-      'assets/thumbnails/get_started.png';
-  static const String thumbnailsLogin = 'assets/thumbnails/login.png';
-  static const String thumbnailsOverview = 'assets/thumbnails/overview.png';
-  static const String thumbnailsSignup = 'assets/thumbnails/signup.png';
 }

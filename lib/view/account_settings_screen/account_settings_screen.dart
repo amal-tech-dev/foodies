@@ -9,7 +9,7 @@ import 'package:foodies/view/edit_user_details_screen/edit_user_details_screen.d
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/reset_password_screen/reset_password_screen.dart';
 import 'package:foodies/view/update_email_screen/update_email_screen.dart';
-import 'package:foodies/widgets/settings_tile.dart';
+import 'package:foodies/widgets/custom_widget.dart';
 
 class AccountSettingsScreen extends StatelessWidget {
   AccountSettingsScreen({super.key});
@@ -29,16 +29,16 @@ class AccountSettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundColor,
+        backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
         leading: BackButton(
-          color: ColorConstant.primaryColor,
+          color: ColorConstant.primary,
         ),
         title: Text(
           'Account Settings',
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.small,
           ),
         ),
       ),
@@ -48,61 +48,103 @@ class AccountSettingsScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SettingsTile(
-              icon: Icons.info_outline_rounded,
-              name: 'Personal Info',
+            CustomWidget(
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => EditUserDetailsScreen(),
                 ),
               ),
+              child: Row(
+                children: [
+                  DimenConstant.separator,
+                  Icon(
+                    Icons.info_outline_rounded,
+                    color: ColorConstant.primary,
+                  ),
+                  DimenConstant.separator,
+                  Text(
+                    'Personal Info',
+                    style: TextStyle(
+                      color: ColorConstant.secondary,
+                      fontSize: DimenConstant.small,
+                    ),
+                  ),
+                ],
+              ),
             ),
             DimenConstant.separator,
-            SettingsTile(
-              icon: Icons.email_outlined,
-              name: 'Update Email',
+            CustomWidget(
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => UpdateEmailScreen(),
                 ),
               ),
+              child: Row(
+                children: [
+                  DimenConstant.separator,
+                  Icon(
+                    Icons.email_outlined,
+                    color: ColorConstant.primary,
+                  ),
+                  DimenConstant.separator,
+                  Text(
+                    'Update Email',
+                    style: TextStyle(
+                      color: ColorConstant.secondary,
+                      fontSize: DimenConstant.small,
+                    ),
+                  ),
+                ],
+              ),
             ),
             DimenConstant.separator,
-            SettingsTile(
-              icon: Icons.password_rounded,
-              name: 'Reset Password',
+            CustomWidget(
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ResetPasswordScreen(),
                 ),
               ),
+              child: Row(
+                children: [
+                  DimenConstant.separator,
+                  Icon(
+                    Icons.password_rounded,
+                    color: ColorConstant.primary,
+                  ),
+                  DimenConstant.separator,
+                  Text(
+                    'Reset Password',
+                    style: TextStyle(
+                      color: ColorConstant.secondary,
+                      fontSize: DimenConstant.small,
+                    ),
+                  ),
+                ],
+              ),
             ),
             DimenConstant.separator,
-            SettingsTile(
-              icon: Icons.delete_outline_rounded,
-              name: 'Delete Account',
-              color: ColorConstant.errorColor,
+            CustomWidget(
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    backgroundColor: ColorConstant.backgroundColor,
+                    backgroundColor: ColorConstant.background,
                     surfaceTintColor: Colors.transparent,
                     title: Text(
                       'Delete account',
                       style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.smallText,
+                        color: ColorConstant.primary,
+                        fontSize: DimenConstant.small,
                       ),
                     ),
                     content: Text(
                       StringConstant.deleteAccount,
                       style: TextStyle(
-                        color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.miniText,
+                        color: ColorConstant.secondary,
+                        fontSize: DimenConstant.mini,
                       ),
                       textAlign: TextAlign.justify,
                     ),
@@ -112,8 +154,8 @@ class AccountSettingsScreen extends StatelessWidget {
                         child: Text(
                           'Cancel',
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.miniText,
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.mini,
                           ),
                         ),
                       ),
@@ -143,8 +185,8 @@ class AccountSettingsScreen extends StatelessWidget {
                         child: Text(
                           'Delete',
                           style: TextStyle(
-                            color: ColorConstant.errorColor,
-                            fontSize: DimenConstant.miniText,
+                            color: ColorConstant.error,
+                            fontSize: DimenConstant.mini,
                           ),
                         ),
                       ),
@@ -152,6 +194,23 @@ class AccountSettingsScreen extends StatelessWidget {
                   ),
                 );
               },
+              child: Row(
+                children: [
+                  DimenConstant.separator,
+                  Icon(
+                    Icons.delete_outline_rounded,
+                    color: ColorConstant.primary,
+                  ),
+                  DimenConstant.separator,
+                  Text(
+                    'Delete Account',
+                    style: TextStyle(
+                      color: ColorConstant.error,
+                      fontSize: DimenConstant.small,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

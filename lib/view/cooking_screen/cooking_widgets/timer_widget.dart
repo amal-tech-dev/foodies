@@ -29,7 +29,7 @@ class TimerWidget extends StatelessWidget {
                     color: Colors.transparent,
                     border: Border.symmetric(
                       horizontal: BorderSide(
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.secondary,
                         width: DimenConstant.borderWidth,
                       ),
                     ),
@@ -51,8 +51,8 @@ class TimerWidget extends StatelessWidget {
                         child: Text(
                           index.toString().padLeft(2, '0'),
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.smallText,
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.small,
                           ),
                         ),
                       ),
@@ -67,8 +67,8 @@ class TimerWidget extends StatelessWidget {
         Text(
           ':',
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.small,
           ),
         ),
         DimenConstant.separator,
@@ -85,7 +85,7 @@ class TimerWidget extends StatelessWidget {
                     color: Colors.transparent,
                     border: Border.symmetric(
                       horizontal: BorderSide(
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.secondary,
                         width: DimenConstant.borderWidth,
                       ),
                     ),
@@ -107,8 +107,8 @@ class TimerWidget extends StatelessWidget {
                         child: Text(
                           index.toString().padLeft(2, '0'),
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.smallText,
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.small,
                           ),
                         ),
                       ),
@@ -123,8 +123,8 @@ class TimerWidget extends StatelessWidget {
         Text(
           ':',
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.small,
           ),
         ),
         DimenConstant.separator,
@@ -141,7 +141,7 @@ class TimerWidget extends StatelessWidget {
                     color: Colors.transparent,
                     border: Border.symmetric(
                       horizontal: BorderSide(
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.secondary,
                         width: DimenConstant.borderWidth,
                       ),
                     ),
@@ -163,8 +163,8 @@ class TimerWidget extends StatelessWidget {
                         child: Text(
                           index.toString().padLeft(2, '0'),
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.smallText,
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.small,
                           ),
                         ),
                       ),

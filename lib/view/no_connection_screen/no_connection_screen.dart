@@ -39,8 +39,8 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
             Text(
               'No internet connection',
               style: TextStyle(
-                color: ColorConstant.primaryColor,
-                fontSize: DimenConstant.smallText,
+                color: ColorConstant.primary,
+                fontSize: DimenConstant.small,
               ),
             ),
             DimenConstant.separator,
@@ -50,7 +50,7 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
                 horizontal: DimenConstant.padding * 2,
               ),
               decoration: BoxDecoration(
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
                 borderRadius: BorderRadius.circular(
                   DimenConstant.borderRadius,
                 ),
@@ -92,7 +92,7 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
                                 DimenConstant.padding / 2,
                               ),
                               child: CircularProgressIndicator(
-                                color: ColorConstant.primaryColor,
+                                color: ColorConstant.primary,
                                 strokeCap: StrokeCap.round,
                                 strokeWidth: 2.5,
                               ),
@@ -100,14 +100,14 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
                           )
                         : Icon(
                             Icons.refresh_rounded,
-                            color: ColorConstant.primaryColor,
+                            color: ColorConstant.primary,
                           ),
                     DimenConstant.separator,
                     Text(
                       'Retry',
                       style: TextStyle(
-                        color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.miniText,
+                        color: ColorConstant.secondary,
+                        fontSize: DimenConstant.mini,
                       ),
                     ),
                   ],

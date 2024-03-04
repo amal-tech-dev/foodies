@@ -45,16 +45,16 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundColor,
+        backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
         leading: BackButton(
-          color: ColorConstant.primaryColor,
+          color: ColorConstant.primary,
         ),
         title: Text(
           widget.toAdd ? 'Add Recipe' : 'Edit your Recipe',
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.small,
           ),
         ),
       ),
@@ -91,8 +91,8 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
               effect: ExpandingDotsEffect(
                 dotHeight: 5,
                 dotWidth: 5,
-                activeDotColor: ColorConstant.secondaryColor,
-                dotColor: ColorConstant.primaryColor.withOpacity(0.5),
+                activeDotColor: ColorConstant.secondary,
+                dotColor: ColorConstant.primary.withOpacity(0.5),
               ),
             ),
           ],

@@ -14,7 +14,7 @@ class GuestTile extends StatelessWidget {
         horizontal: DimenConstant.padding * 2,
       ),
       decoration: BoxDecoration(
-        color: ColorConstant.tertiaryColor,
+        color: ColorConstant.tertiary,
         borderRadius: BorderRadius.circular(
           DimenConstant.borderRadius * 2,
         ),
@@ -31,8 +31,8 @@ class GuestTile extends StatelessWidget {
           Text(
             'Guest',
             style: TextStyle(
-              color: ColorConstant.primaryColor,
-              fontSize: DimenConstant.mediumText,
+              color: ColorConstant.primary,
+              fontSize: DimenConstant.medium,
             ),
           ),
         ],

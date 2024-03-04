@@ -31,7 +31,7 @@ class _SignupOptionsState extends State<SignupOptions> {
               horizontal: DimenConstant.padding * 1.5,
             ),
             decoration: BoxDecoration(
-              color: ColorConstant.tertiaryColor,
+              color: ColorConstant.tertiary,
               borderRadius: BorderRadius.circular(
                 DimenConstant.borderRadius,
               ),
@@ -42,16 +42,16 @@ class _SignupOptionsState extends State<SignupOptions> {
                 label: Text(
                   'Email',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
+                    color: ColorConstant.secondary,
                   ),
                 ),
                 border: InputBorder.none,
               ),
               style: TextStyle(
-                color: ColorConstant.primaryColor,
+                color: ColorConstant.primary,
               ),
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              cursorColor: ColorConstant.secondaryColor,
+              cursorColor: ColorConstant.secondary,
               cursorRadius: Radius.circular(
                 DimenConstant.cursorRadius,
               ),
@@ -74,7 +74,7 @@ class _SignupOptionsState extends State<SignupOptions> {
               horizontal: DimenConstant.padding * 1.5,
             ),
             decoration: BoxDecoration(
-              color: ColorConstant.tertiaryColor,
+              color: ColorConstant.tertiary,
               borderRadius: BorderRadius.circular(
                 DimenConstant.borderRadius,
               ),
@@ -86,7 +86,7 @@ class _SignupOptionsState extends State<SignupOptions> {
                 label: Text(
                   'Password',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
+                    color: ColorConstant.secondary,
                   ),
                 ),
                 border: InputBorder.none,
@@ -99,14 +99,14 @@ class _SignupOptionsState extends State<SignupOptions> {
                     isPasswordVisible
                         ? Icons.visibility_off_rounded
                         : Icons.visibility_rounded,
-                    color: ColorConstant.primaryColor,
+                    color: ColorConstant.primary,
                   ),
                 ),
               ),
               style: TextStyle(
-                color: ColorConstant.primaryColor,
+                color: ColorConstant.primary,
               ),
-              cursorColor: ColorConstant.secondaryColor,
+              cursorColor: ColorConstant.secondary,
               cursorRadius: Radius.circular(
                 DimenConstant.cursorRadius,
               ),
@@ -136,7 +136,7 @@ class _SignupOptionsState extends State<SignupOptions> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(
-                ColorConstant.secondaryColor,
+                ColorConstant.secondary,
               ),
             ),
             onPressed: () async {
@@ -165,7 +165,7 @@ class _SignupOptionsState extends State<SignupOptions> {
                   if (e.code == 'weak-password') {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        backgroundColor: ColorConstant.tertiaryColor,
+                        backgroundColor: ColorConstant.tertiary,
                         behavior: SnackBarBehavior.floating,
                         margin: EdgeInsets.all(
                           DimenConstant.padding,
@@ -173,8 +173,8 @@ class _SignupOptionsState extends State<SignupOptions> {
                         content: Text(
                           'The password provided is too weak.',
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.miniText,
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.mini,
                           ),
                         ),
                       ),
@@ -182,7 +182,7 @@ class _SignupOptionsState extends State<SignupOptions> {
                   } else if (e.code == 'email-already-in-use') {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        backgroundColor: ColorConstant.tertiaryColor,
+                        backgroundColor: ColorConstant.tertiary,
                         behavior: SnackBarBehavior.floating,
                         margin: EdgeInsets.all(
                           DimenConstant.padding,
@@ -190,8 +190,8 @@ class _SignupOptionsState extends State<SignupOptions> {
                         content: Text(
                           'The account already exists for that email.',
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.miniText,
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.mini,
                           ),
                         ),
                       ),
@@ -205,7 +205,7 @@ class _SignupOptionsState extends State<SignupOptions> {
             child: Text(
               'Sign Up',
               style: TextStyle(
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
             ),
           ),
@@ -215,7 +215,7 @@ class _SignupOptionsState extends State<SignupOptions> {
               height: 100,
               child: Center(
                 child: CircularProgressIndicator(
-                  color: ColorConstant.secondaryColor,
+                  color: ColorConstant.secondary,
                   strokeCap: StrokeCap.round,
                 ),
               ),

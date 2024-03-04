@@ -93,7 +93,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                       horizontal: DimenConstant.padding,
                     ),
                     decoration: BoxDecoration(
-                      color: ColorConstant.tertiaryColor,
+                      color: ColorConstant.tertiary,
                       borderRadius: BorderRadius.circular(
                         DimenConstant.borderRadius,
                       ),
@@ -104,17 +104,17 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         label: Text(
                           'Name',
                           style: TextStyle(
-                            color: ColorConstant.secondaryColor,
-                            fontSize: DimenConstant.miniText,
+                            color: ColorConstant.secondary,
+                            fontSize: DimenConstant.mini,
                           ),
                         ),
                         border: InputBorder.none,
                       ),
                       style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.miniText,
+                        color: ColorConstant.primary,
+                        fontSize: DimenConstant.mini,
                       ),
-                      cursorColor: ColorConstant.secondaryColor,
+                      cursorColor: ColorConstant.secondary,
                       cursorRadius: Radius.circular(
                         DimenConstant.cursorRadius,
                       ),
@@ -134,7 +134,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                       horizontal: DimenConstant.padding,
                     ),
                     decoration: BoxDecoration(
-                      color: ColorConstant.tertiaryColor,
+                      color: ColorConstant.tertiary,
                       borderRadius: BorderRadius.circular(
                         DimenConstant.borderRadius,
                       ),
@@ -147,17 +147,17 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         label: Text(
                           'Description',
                           style: TextStyle(
-                            color: ColorConstant.secondaryColor,
-                            fontSize: DimenConstant.miniText,
+                            color: ColorConstant.secondary,
+                            fontSize: DimenConstant.mini,
                           ),
                         ),
                         border: InputBorder.none,
                       ),
                       style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.miniText,
+                        color: ColorConstant.primary,
+                        fontSize: DimenConstant.mini,
                       ),
-                      cursorColor: ColorConstant.secondaryColor,
+                      cursorColor: ColorConstant.secondary,
                       cursorRadius: Radius.circular(
                         DimenConstant.cursorRadius,
                       ),
@@ -187,8 +187,8 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             ),
                             decoration: BoxDecoration(
                               color: isVeg
-                                  ? ColorConstant.secondaryColor
-                                  : ColorConstant.tertiaryColor,
+                                  ? ColorConstant.secondary
+                                  : ColorConstant.tertiary,
                               borderRadius: BorderRadius.circular(
                                 DimenConstant.borderRadius,
                               ),
@@ -198,9 +198,9 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                 'Vegetarian',
                                 style: TextStyle(
                                   color: isVeg
-                                      ? ColorConstant.tertiaryColor
-                                      : ColorConstant.secondaryColor,
-                                  fontSize: DimenConstant.miniText,
+                                      ? ColorConstant.tertiary
+                                      : ColorConstant.secondary,
+                                  fontSize: DimenConstant.mini,
                                 ),
                               ),
                             ),
@@ -222,8 +222,8 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                             ),
                             decoration: BoxDecoration(
                               color: !isVeg
-                                  ? ColorConstant.secondaryColor
-                                  : ColorConstant.tertiaryColor,
+                                  ? ColorConstant.secondary
+                                  : ColorConstant.tertiary,
                               borderRadius: BorderRadius.circular(
                                 DimenConstant.borderRadius,
                               ),
@@ -233,9 +233,9 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                 'Non-Vegetarian',
                                 style: TextStyle(
                                   color: !isVeg
-                                      ? ColorConstant.tertiaryColor
-                                      : ColorConstant.secondaryColor,
-                                  fontSize: DimenConstant.miniText,
+                                      ? ColorConstant.tertiary
+                                      : ColorConstant.secondary,
+                                  fontSize: DimenConstant.mini,
                                 ),
                               ),
                             ),
@@ -258,7 +258,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         horizontal: DimenConstant.padding,
                       ),
                       decoration: BoxDecoration(
-                        color: ColorConstant.tertiaryColor,
+                        color: ColorConstant.tertiary,
                         borderRadius: BorderRadius.circular(
                           DimenConstant.borderRadius,
                         ),
@@ -269,15 +269,15 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           Text(
                             'Cuisines',
                             style: TextStyle(
-                              color: ColorConstant.secondaryColor,
-                              fontSize: DimenConstant.miniText,
+                              color: ColorConstant.secondary,
+                              fontSize: DimenConstant.mini,
                             ),
                           ),
                           Icon(
                             isCuisinePressed
                                 ? Icons.keyboard_arrow_up_rounded
                                 : Icons.keyboard_arrow_down_rounded,
-                            color: ColorConstant.secondaryColor,
+                            color: ColorConstant.secondary,
                           ),
                         ],
                       ),
@@ -306,12 +306,12 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                   Text(
                                     cuisines[index],
                                     style: TextStyle(
-                                      color: ColorConstant.primaryColor,
-                                      fontSize: DimenConstant.miniText,
+                                      color: ColorConstant.primary,
+                                      fontSize: DimenConstant.mini,
                                     ),
                                   ),
                                   Radio(
-                                    activeColor: ColorConstant.secondaryColor,
+                                    activeColor: ColorConstant.secondary,
                                     value: index + 1,
                                     groupValue:
                                         cuisines.indexOf(selectedCuisine),
@@ -346,7 +346,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         horizontal: DimenConstant.padding,
                       ),
                       decoration: BoxDecoration(
-                        color: ColorConstant.tertiaryColor,
+                        color: ColorConstant.tertiary,
                         borderRadius: BorderRadius.circular(
                           DimenConstant.borderRadius,
                         ),
@@ -357,15 +357,15 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                           Text(
                             'Categories',
                             style: TextStyle(
-                              color: ColorConstant.secondaryColor,
-                              fontSize: DimenConstant.miniText,
+                              color: ColorConstant.secondary,
+                              fontSize: DimenConstant.mini,
                             ),
                           ),
                           Icon(
                             isCategoriesPressed
                                 ? Icons.keyboard_arrow_up_rounded
                                 : Icons.keyboard_arrow_down_rounded,
-                            color: ColorConstant.secondaryColor,
+                            color: ColorConstant.secondary,
                           ),
                         ],
                       ),
@@ -397,13 +397,13 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                   Text(
                                     categories[index],
                                     style: TextStyle(
-                                      color: ColorConstant.primaryColor,
-                                      fontSize: DimenConstant.miniText,
+                                      color: ColorConstant.primary,
+                                      fontSize: DimenConstant.mini,
                                     ),
                                   ),
                                   Checkbox(
-                                    activeColor: ColorConstant.secondaryColor,
-                                    checkColor: ColorConstant.tertiaryColor,
+                                    activeColor: ColorConstant.secondary,
+                                    checkColor: ColorConstant.tertiary,
                                     value: selectedCategories
                                             .contains(categories[index])
                                         ? true
@@ -432,7 +432,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                       horizontal: DimenConstant.padding,
                     ),
                     decoration: BoxDecoration(
-                      color: ColorConstant.tertiaryColor,
+                      color: ColorConstant.tertiary,
                       borderRadius: BorderRadius.circular(
                         DimenConstant.borderRadius,
                       ),
@@ -443,17 +443,17 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         label: Text(
                           'Cooking Time',
                           style: TextStyle(
-                            color: ColorConstant.secondaryColor,
-                            fontSize: DimenConstant.miniText,
+                            color: ColorConstant.secondary,
+                            fontSize: DimenConstant.mini,
                           ),
                         ),
                         border: InputBorder.none,
                       ),
                       style: TextStyle(
-                        color: ColorConstant.primaryColor,
-                        fontSize: DimenConstant.miniText,
+                        color: ColorConstant.primary,
+                        fontSize: DimenConstant.mini,
                       ),
-                      cursorColor: ColorConstant.secondaryColor,
+                      cursorColor: ColorConstant.secondary,
                       cursorRadius: Radius.circular(
                         DimenConstant.cursorRadius,
                       ),
@@ -475,23 +475,23 @@ class _RecipeDetailsState extends State<RecipeDetails> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                color: ColorConstant.primaryColor,
+                color: ColorConstant.primary,
                 onPressed: () =>
                     Provider.of<AddRecipeController>(context, listen: false)
                         .pageViewController
                         .previousPage(),
                 icon: Icon(
                   Icons.navigate_before_rounded,
-                  color: ColorConstant.tertiaryColor,
+                  color: ColorConstant.tertiary,
                 ),
                 style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(
-                    ColorConstant.secondaryColor,
+                    ColorConstant.secondary,
                   ),
                 ),
               ),
               IconButton(
-                color: ColorConstant.primaryColor,
+                color: ColorConstant.primary,
                 onPressed: () {
                   FocusScope.of(context).unfocus();
                   Provider.of<AddRecipeController>(context, listen: false)
@@ -527,11 +527,11 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                 },
                 icon: Icon(
                   Icons.navigate_next_rounded,
-                  color: ColorConstant.tertiaryColor,
+                  color: ColorConstant.tertiary,
                 ),
                 style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(
-                    ColorConstant.secondaryColor,
+                    ColorConstant.secondary,
                   ),
                 ),
               ),

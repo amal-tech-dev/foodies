@@ -26,8 +26,8 @@ class PreviewRecipe extends StatelessWidget {
               child: Text(
                 StringConstant.previewRecipe,
                 style: TextStyle(
-                  color: ColorConstant.secondaryColor,
-                  fontSize: DimenConstant.extraSmallText,
+                  color: ColorConstant.secondary,
+                  fontSize: DimenConstant.extraSmall,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -39,18 +39,18 @@ class PreviewRecipe extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-              color: ColorConstant.primaryColor,
+              color: ColorConstant.primary,
               onPressed: () =>
                   Provider.of<AddRecipeController>(context, listen: false)
                       .pageViewController
                       .nextPage(),
               icon: Icon(
                 Icons.navigate_next_rounded,
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
-                  ColorConstant.secondaryColor,
+                  ColorConstant.secondary,
                 ),
               ),
             ),

@@ -23,16 +23,16 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundColor,
+        backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
         leading: BackButton(
-          color: ColorConstant.primaryColor,
+          color: ColorConstant.primary,
         ),
         title: Text(
           'Account Settings',
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.small,
           ),
         ),
       ),
@@ -48,8 +48,8 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
               Text(
                 'Update Email',
                 style: TextStyle(
-                  color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.largeText,
+                  color: ColorConstant.primary,
+                  fontSize: DimenConstant.large,
                 ),
               ),
               DimenConstant.separator,
@@ -58,7 +58,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                   horizontal: DimenConstant.padding * 1.5,
                 ),
                 decoration: BoxDecoration(
-                  color: ColorConstant.tertiaryColor,
+                  color: ColorConstant.tertiary,
                   borderRadius: BorderRadius.circular(
                     DimenConstant.borderRadius,
                   ),
@@ -69,16 +69,16 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                     label: Text(
                       'Email',
                       style: TextStyle(
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.secondary,
                       ),
                     ),
                     border: InputBorder.none,
                   ),
                   style: TextStyle(
-                    color: ColorConstant.primaryColor,
+                    color: ColorConstant.primary,
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  cursorColor: ColorConstant.secondaryColor,
+                  cursorColor: ColorConstant.secondary,
                   cursorRadius: Radius.circular(
                     DimenConstant.cursorRadius,
                   ),
@@ -98,7 +98,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
               Visibility(
                 visible: loading,
                 child: CircularProgressIndicator(
-                  color: ColorConstant.secondaryColor,
+                  color: ColorConstant.secondary,
                   strokeCap: StrokeCap.round,
                 ),
               ),
@@ -106,7 +106,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(
-                    ColorConstant.secondaryColor,
+                    ColorConstant.secondary,
                   ),
                 ),
                 onPressed: () async {
@@ -120,7 +120,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                       );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        backgroundColor: ColorConstant.tertiaryColor,
+                        backgroundColor: ColorConstant.tertiary,
                         behavior: SnackBarBehavior.floating,
                         margin: EdgeInsets.all(
                           DimenConstant.padding,
@@ -128,8 +128,8 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                         content: Text(
                           StringConstant.emailUpdate,
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.miniText,
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.mini,
                           ),
                         ),
                       ),
@@ -142,7 +142,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                 child: Text(
                   'Update',
                   style: TextStyle(
-                    color: ColorConstant.tertiaryColor,
+                    color: ColorConstant.tertiary,
                   ),
                 ),
               ),

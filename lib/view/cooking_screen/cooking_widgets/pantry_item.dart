@@ -26,13 +26,12 @@ class PantryItem extends StatelessWidget {
             DimenConstant.padding,
           ),
           decoration: BoxDecoration(
-            color: ColorConstant.tertiaryColor,
+            color: ColorConstant.tertiary,
             borderRadius: BorderRadius.circular(
               DimenConstant.borderRadius,
             ),
             border: Border.all(
-              color:
-                  isChecked ? ColorConstant.secondaryColor : Colors.transparent,
+              color: isChecked ? ColorConstant.secondary : Colors.transparent,
               width: DimenConstant.borderWidth,
             ),
           ),
@@ -40,10 +39,9 @@ class PantryItem extends StatelessWidget {
             child: Text(
               item,
               style: TextStyle(
-                color: ColorConstant.primaryColor,
-                fontSize: isChecking
-                    ? DimenConstant.mediumText
-                    : DimenConstant.miniText,
+                color: ColorConstant.primary,
+                fontSize:
+                    isChecking ? DimenConstant.medium : DimenConstant.mini,
               ),
               textAlign: TextAlign.center,
             ),

@@ -11,12 +11,12 @@ class ShimmerRecipeTile extends StatelessWidget {
     return Shimmer(
       gradient: LinearGradient(
         colors: [
-          ColorConstant.shimmerPrimaryGradient,
-          ColorConstant.shimmerSecondaryGradient,
-          ColorConstant.shimmerTertiaryGradient,
-          ColorConstant.shimmerSecondaryGradient,
-          ColorConstant.shimmerPrimaryGradient,
-          ColorConstant.shimmerPrimaryGradient,
+          ColorConstant.shimmerPrimary,
+          ColorConstant.shimmerSecondary,
+          ColorConstant.shimmerTertiary,
+          ColorConstant.shimmerSecondary,
+          ColorConstant.shimmerPrimary,
+          ColorConstant.shimmerPrimary,
         ],
       ),
       child: Stack(
@@ -28,7 +28,7 @@ class ShimmerRecipeTile extends StatelessWidget {
             child: Container(
               height: 150,
               decoration: BoxDecoration(
-                color: ColorConstant.primaryColor,
+                color: ColorConstant.primary,
                 borderRadius: BorderRadius.circular(
                   DimenConstant.borderRadius * 2,
                 ),
@@ -39,7 +39,7 @@ class ShimmerRecipeTile extends StatelessWidget {
             left: 20,
             child: CircleAvatar(
               radius: 50,
-              backgroundColor: ColorConstant.primaryColor,
+              backgroundColor: ColorConstant.primary,
             ),
           ),
         ],

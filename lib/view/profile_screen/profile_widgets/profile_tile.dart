@@ -26,7 +26,7 @@ class ProfileTile extends StatelessWidget {
           horizontal: DimenConstant.padding * 2,
         ),
         decoration: BoxDecoration(
-          color: ColorConstant.tertiaryColor,
+          color: ColorConstant.tertiary,
           borderRadius: BorderRadius.circular(
             DimenConstant.borderRadius * 2,
           ),
@@ -34,9 +34,10 @@ class ProfileTile extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              radius: 50,backgroundImage:AssetImage(
-              ImageConstant.profile,
-            ) ,
+              radius: 50,
+              backgroundImage: AssetImage(
+                ImageConstant.profile,
+              ),
               foregroundImage: image != null
                   ? NetworkImage(
                       image!,
@@ -52,15 +53,15 @@ class ProfileTile extends StatelessWidget {
                 Text(
                   name,
                   style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.mediumText,
+                    color: ColorConstant.primary,
+                    fontSize: DimenConstant.medium,
                   ),
                 ),
                 Text(
                   '@${username}',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.extraSmallText,
+                    color: ColorConstant.secondary,
+                    fontSize: DimenConstant.extraSmall,
                   ),
                 ),
               ],

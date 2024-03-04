@@ -121,10 +121,10 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Crop ${field} image',
-            toolbarColor: ColorConstant.backgroundColor,
-            toolbarWidgetColor: ColorConstant.primaryColor,
-            backgroundColor: ColorConstant.tertiaryColor,
-            cropFrameColor: ColorConstant.primaryColor,
+            toolbarColor: ColorConstant.background,
+            toolbarWidgetColor: ColorConstant.primary,
+            backgroundColor: ColorConstant.tertiary,
+            cropFrameColor: ColorConstant.primary,
             cropFrameStrokeWidth: 3,
             lockAspectRatio: true,
             hideBottomControls: true,
@@ -148,16 +148,16 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundColor,
+        backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
         leading: BackButton(
-          color: ColorConstant.primaryColor,
+          color: ColorConstant.primary,
         ),
         title: Text(
           'Edit Account',
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.small,
           ),
         ),
       ),
@@ -172,7 +172,7 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
               children: [
                 InkWell(
                   onTap: () => showModalBottomSheet(
-                    backgroundColor: ColorConstant.backgroundColor,
+                    backgroundColor: ColorConstant.background,
                     showDragHandle: true,
                     context: context,
                     builder: (context) => PickImageBottomSheet(
@@ -216,7 +216,7 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                   children: [
                     InkWell(
                       onTap: () => showModalBottomSheet(
-                        backgroundColor: ColorConstant.backgroundColor,
+                        backgroundColor: ColorConstant.background,
                         showDragHandle: true,
                         context: context,
                         builder: (context) => PickImageBottomSheet(
@@ -258,7 +258,7 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                               horizontal: DimenConstant.padding,
                             ),
                             decoration: BoxDecoration(
-                              color: ColorConstant.tertiaryColor,
+                              color: ColorConstant.tertiary,
                               borderRadius: BorderRadius.circular(
                                 DimenConstant.borderRadius,
                               ),
@@ -269,17 +269,17 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                                 label: Text(
                                   'Display Name',
                                   style: TextStyle(
-                                    color: ColorConstant.secondaryColor,
-                                    fontSize: DimenConstant.miniText,
+                                    color: ColorConstant.secondary,
+                                    fontSize: DimenConstant.mini,
                                   ),
                                 ),
                                 border: InputBorder.none,
                               ),
                               style: TextStyle(
-                                color: ColorConstant.primaryColor,
-                                fontSize: DimenConstant.miniText,
+                                color: ColorConstant.primary,
+                                fontSize: DimenConstant.mini,
                               ),
-                              cursorColor: ColorConstant.secondaryColor,
+                              cursorColor: ColorConstant.secondary,
                               cursorRadius: Radius.circular(
                                 DimenConstant.cursorRadius,
                               ),
@@ -308,7 +308,7 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                               horizontal: DimenConstant.padding,
                             ),
                             decoration: BoxDecoration(
-                              color: ColorConstant.tertiaryColor,
+                              color: ColorConstant.tertiary,
                               borderRadius: BorderRadius.circular(
                                 DimenConstant.borderRadius,
                               ),
@@ -320,17 +320,17 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                                 label: Text(
                                   'Username',
                                   style: TextStyle(
-                                    color: ColorConstant.secondaryColor,
-                                    fontSize: DimenConstant.miniText,
+                                    color: ColorConstant.secondary,
+                                    fontSize: DimenConstant.mini,
                                   ),
                                 ),
                                 border: InputBorder.none,
                               ),
                               style: TextStyle(
-                                color: ColorConstant.primaryColor,
-                                fontSize: DimenConstant.miniText,
+                                color: ColorConstant.primary,
+                                fontSize: DimenConstant.mini,
                               ),
-                              cursorColor: ColorConstant.secondaryColor,
+                              cursorColor: ColorConstant.secondary,
                               cursorRadius: Radius.circular(
                                 DimenConstant.cursorRadius,
                               ),
@@ -366,7 +366,7 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                     horizontal: DimenConstant.padding,
                   ),
                   decoration: BoxDecoration(
-                    color: ColorConstant.tertiaryColor,
+                    color: ColorConstant.tertiary,
                     borderRadius: BorderRadius.circular(
                       DimenConstant.borderRadius,
                     ),
@@ -378,17 +378,17 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                       label: Text(
                         'Bio',
                         style: TextStyle(
-                          color: ColorConstant.secondaryColor,
-                          fontSize: DimenConstant.miniText,
+                          color: ColorConstant.secondary,
+                          fontSize: DimenConstant.mini,
                         ),
                       ),
                       border: InputBorder.none,
                     ),
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.miniText,
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.mini,
                     ),
-                    cursorColor: ColorConstant.secondaryColor,
+                    cursorColor: ColorConstant.secondary,
                     cursorRadius: Radius.circular(
                       DimenConstant.cursorRadius,
                     ),
@@ -410,7 +410,7 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondaryColor,
+                      ColorConstant.secondary,
                     ),
                   ),
                   onPressed: () async {
@@ -445,7 +445,7 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                     child: Text(
                       'Save',
                       style: TextStyle(
-                        color: ColorConstant.tertiaryColor,
+                        color: ColorConstant.tertiary,
                       ),
                     ),
                   ),

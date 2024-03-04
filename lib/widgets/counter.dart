@@ -5,14 +5,13 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
 class Counter extends StatelessWidget {
-  String collection, docId, field, title;
+  String collection, docId, field;
 
   Counter({
     super.key,
     required this.collection,
     required this.docId,
     required this.field,
-    required this.title,
   });
 
   @override
@@ -37,17 +36,17 @@ class Counter extends StatelessWidget {
             return AnimatedFlipCounter(
               value: count,
               textStyle: TextStyle(
-                color: ColorConstant.primaryColor,
-                fontSize: DimenConstant.extraSmallText,
+                color: ColorConstant.primary,
+                fontSize: DimenConstant.extraSmall,
               ),
             );
           },
         ),
         Text(
-          title,
+          field,
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.miniText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.mini,
           ),
         ),
       ],

@@ -52,23 +52,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundColor,
+        backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
         title: Row(
           children: [
             Text(
               StringConstant.appNamePartOne,
               style: TextStyle(
-                color: ColorConstant.primaryColor,
-                fontSize: DimenConstant.smallText,
+                color: ColorConstant.primary,
+                fontSize: DimenConstant.small,
                 fontFamily: FontConstant.font,
               ),
             ),
             Text(
               StringConstant.appNamePartTwo,
               style: TextStyle(
-                color: ColorConstant.secondaryColor,
-                fontSize: DimenConstant.smallText,
+                color: ColorConstant.secondary,
+                fontSize: DimenConstant.small,
                 fontFamily: FontConstant.font,
               ),
             ),
@@ -85,11 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: BottomNavigationBar(
           currentIndex: pageIndex,
-          selectedItemColor: ColorConstant.secondaryColor,
-          unselectedItemColor: ColorConstant.primaryColor,
-          selectedFontSize: DimenConstant.miniText,
-          unselectedFontSize: DimenConstant.miniText,
-          backgroundColor: ColorConstant.backgroundColor,
+          selectedItemColor: ColorConstant.secondary,
+          unselectedItemColor: ColorConstant.primary,
+          selectedFontSize: DimenConstant.mini,
+          unselectedFontSize: DimenConstant.mini,
+          backgroundColor: ColorConstant.background,
           type: BottomNavigationBarType.fixed,
           landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           onTap: (value) {

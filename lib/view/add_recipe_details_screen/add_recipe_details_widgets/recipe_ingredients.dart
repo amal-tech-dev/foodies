@@ -39,15 +39,15 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
         Text(
           'Ingredients',
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.small,
           ),
         ),
         Text(
           StringConstant.addIngredients,
           style: TextStyle(
-            color: ColorConstant.secondaryColor,
-            fontSize: DimenConstant.miniText,
+            color: ColorConstant.secondary,
+            fontSize: DimenConstant.mini,
           ),
           textAlign: TextAlign.center,
         ),
@@ -93,8 +93,8 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
             label: Text(
               'Add Ingredients',
               style: TextStyle(
-                color: ColorConstant.secondaryColor,
-                fontSize: DimenConstant.miniText,
+                color: ColorConstant.secondary,
+                fontSize: DimenConstant.mini,
               ),
             ),
             contentPadding: EdgeInsets.symmetric(
@@ -105,7 +105,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
                 DimenConstant.borderRadius,
               ),
               borderSide: BorderSide(
-                color: ColorConstant.primaryColor,
+                color: ColorConstant.primary,
                 width: DimenConstant.borderWidth,
               ),
             ),
@@ -114,7 +114,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
                 DimenConstant.borderRadius,
               ),
               borderSide: BorderSide(
-                color: ColorConstant.secondaryColor,
+                color: ColorConstant.secondary,
                 width: DimenConstant.borderWidth,
               ),
             ),
@@ -144,18 +144,18 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
                 child: Text(
                   isEditing ? 'Update' : 'Add',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.miniText,
+                    color: ColorConstant.secondary,
+                    fontSize: DimenConstant.mini,
                   ),
                 ),
               ),
             ),
           ),
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.miniText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.mini,
           ),
-          cursorColor: ColorConstant.secondaryColor,
+          cursorColor: ColorConstant.secondary,
           cursorRadius: Radius.circular(
             DimenConstant.cursorRadius,
           ),
@@ -176,7 +176,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              color: ColorConstant.primaryColor,
+              color: ColorConstant.primary,
               onPressed: () {
                 FocusScope.of(context).unfocus();
                 Provider.of<AddRecipeController>(context, listen: false).update(
@@ -226,16 +226,16 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
               },
               icon: Icon(
                 Icons.navigate_before_rounded,
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
-                  ColorConstant.secondaryColor,
+                  ColorConstant.secondary,
                 ),
               ),
             ),
             IconButton(
-              color: ColorConstant.primaryColor,
+              color: ColorConstant.primary,
               onPressed: () {
                 FocusScope.of(context).unfocus();
                 Provider.of<AddRecipeController>(context, listen: false).update(
@@ -285,11 +285,11 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
               },
               icon: Icon(
                 Icons.navigate_next_rounded,
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
-                  ColorConstant.secondaryColor,
+                  ColorConstant.secondary,
                 ),
               ),
             ),

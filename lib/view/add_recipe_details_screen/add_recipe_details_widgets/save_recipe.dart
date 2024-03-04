@@ -26,8 +26,8 @@ class SaveRecipe extends StatelessWidget {
               child: Text(
                 StringConstant.saveRecipe,
                 style: TextStyle(
-                  color: ColorConstant.secondaryColor,
-                  fontSize: DimenConstant.extraSmallText,
+                  color: ColorConstant.secondary,
+                  fontSize: DimenConstant.extraSmall,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -39,32 +39,32 @@ class SaveRecipe extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              color: ColorConstant.primaryColor,
+              color: ColorConstant.primary,
               onPressed: () =>
                   Provider.of<AddRecipeController>(context, listen: false)
                       .pageViewController
                       .previousPage(),
               icon: Icon(
                 Icons.navigate_before_rounded,
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
-                  ColorConstant.secondaryColor,
+                  ColorConstant.secondary,
                 ),
               ),
             ),
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
-                  ColorConstant.secondaryColor,
+                  ColorConstant.secondary,
                 ),
               ),
               onPressed: () {},
               child: Text(
                 'Share with ${StringConstant.appName}',
                 style: TextStyle(
-                  color: ColorConstant.tertiaryColor,
+                  color: ColorConstant.tertiary,
                 ),
               ),
             )

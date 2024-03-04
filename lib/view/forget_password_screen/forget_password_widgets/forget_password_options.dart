@@ -30,7 +30,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
               horizontal: DimenConstant.padding,
             ),
             decoration: BoxDecoration(
-              color: ColorConstant.tertiaryColor,
+              color: ColorConstant.tertiary,
               borderRadius: BorderRadius.circular(
                 DimenConstant.borderRadius,
               ),
@@ -41,16 +41,16 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                 label: Text(
                   'Email',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
+                    color: ColorConstant.secondary,
                   ),
                 ),
                 border: InputBorder.none,
               ),
               style: TextStyle(
-                color: ColorConstant.primaryColor,
+                color: ColorConstant.primary,
               ),
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              cursorColor: ColorConstant.secondaryColor,
+              cursorColor: ColorConstant.secondary,
               cursorRadius: Radius.circular(
                 DimenConstant.cursorRadius,
               ),
@@ -70,7 +70,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(
-                ColorConstant.secondaryColor,
+                ColorConstant.secondary,
               ),
             ),
             onPressed: () async {
@@ -80,7 +80,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                       email: emailController.text.trim());
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      backgroundColor: ColorConstant.tertiaryColor,
+                      backgroundColor: ColorConstant.tertiary,
                       behavior: SnackBarBehavior.floating,
                       duration: Duration(seconds: 5),
                       margin: EdgeInsets.all(
@@ -89,8 +89,8 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                       content: Text(
                         'Click on the link sent to your email to reset your password',
                         style: TextStyle(
-                          color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.miniText,
+                          color: ColorConstant.primary,
+                          fontSize: DimenConstant.mini,
                         ),
                       ),
                     ),
@@ -108,7 +108,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                 } on FirebaseAuthException catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      backgroundColor: ColorConstant.tertiaryColor,
+                      backgroundColor: ColorConstant.tertiary,
                       behavior: SnackBarBehavior.floating,
                       margin: EdgeInsets.all(
                         DimenConstant.padding,
@@ -116,8 +116,8 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                       content: Text(
                         'Unable to reset password',
                         style: TextStyle(
-                          color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.miniText,
+                          color: ColorConstant.primary,
+                          fontSize: DimenConstant.mini,
                         ),
                       ),
                     ),
@@ -128,7 +128,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
             child: Text(
               'Verify',
               style: TextStyle(
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
             ),
           ),

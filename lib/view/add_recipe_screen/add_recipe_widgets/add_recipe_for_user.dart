@@ -30,8 +30,8 @@ class AddRecipeForUser extends StatelessWidget {
               child: Text(
                 StringConstant.addRecipeUser,
                 style: TextStyle(
-                  color: ColorConstant.secondaryColor,
-                  fontSize: DimenConstant.extraSmallText,
+                  color: ColorConstant.secondary,
+                  fontSize: DimenConstant.extraSmall,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -43,7 +43,7 @@ class AddRecipeForUser extends StatelessWidget {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
-                  ColorConstant.secondaryColor,
+                  ColorConstant.secondary,
                 ),
               ),
               onPressed: () {
@@ -59,7 +59,7 @@ class AddRecipeForUser extends StatelessWidget {
               child: Text(
                 'Add Recipe',
                 style: TextStyle(
-                  color: ColorConstant.tertiaryColor,
+                  color: ColorConstant.tertiary,
                 ),
               ),
             ),

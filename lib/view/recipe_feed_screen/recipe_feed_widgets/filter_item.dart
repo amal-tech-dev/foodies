@@ -24,19 +24,15 @@ class FilterItem extends StatelessWidget {
           horizontal: DimenConstant.padding * 2,
         ),
         decoration: BoxDecoration(
-          color: isPressed
-              ? ColorConstant.secondaryColor
-              : ColorConstant.tertiaryColor,
+          color: isPressed ? ColorConstant.secondary : ColorConstant.tertiary,
           borderRadius: BorderRadius.circular(100),
         ),
         child: Center(
           child: Text(
             name,
             style: TextStyle(
-              color: isPressed
-                  ? ColorConstant.tertiaryColor
-                  : ColorConstant.primaryColor,
-              fontSize: DimenConstant.nanoText,
+              color: isPressed ? ColorConstant.tertiary : ColorConstant.primary,
+              fontSize: DimenConstant.nano,
             ),
             textAlign: TextAlign.center,
           ),

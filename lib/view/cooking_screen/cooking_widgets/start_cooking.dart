@@ -50,8 +50,8 @@ class _StartCookingState extends State<StartCooking> {
                             ? 'Light up the burner'
                             : 'Smells good',
                         style: TextStyle(
-                          color: ColorConstant.secondaryColor,
-                          fontSize: DimenConstant.mediumText,
+                          color: ColorConstant.secondary,
+                          fontSize: DimenConstant.medium,
                         ),
                       ),
                     ],
@@ -80,8 +80,8 @@ class _StartCookingState extends State<StartCooking> {
                 effect: ExpandingDotsEffect(
                   dotHeight: 5,
                   dotWidth: 5,
-                  activeDotColor: ColorConstant.secondaryColor,
-                  dotColor: ColorConstant.primaryColor.withOpacity(0.5),
+                  activeDotColor: ColorConstant.secondary,
+                  dotColor: ColorConstant.primary.withOpacity(0.5),
                 ),
               ),
             ),
@@ -92,7 +92,7 @@ class _StartCookingState extends State<StartCooking> {
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(
-                    ColorConstant.secondaryColor,
+                    ColorConstant.secondary,
                   ),
                 ),
                 onPressed: () {
@@ -102,8 +102,8 @@ class _StartCookingState extends State<StartCooking> {
                 child: Text(
                   'Start',
                   style: TextStyle(
-                    color: ColorConstant.tertiaryColor,
-                    fontSize: DimenConstant.miniText,
+                    color: ColorConstant.tertiary,
+                    fontSize: DimenConstant.mini,
                   ),
                 ),
               ),
@@ -115,7 +115,7 @@ class _StartCookingState extends State<StartCooking> {
                 IconButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondaryColor,
+                      ColorConstant.secondary,
                     ),
                   ),
                   onPressed: () {
@@ -130,7 +130,7 @@ class _StartCookingState extends State<StartCooking> {
                   },
                   icon: Icon(
                     Icons.keyboard_arrow_left_rounded,
-                    color: ColorConstant.tertiaryColor,
+                    color: ColorConstant.tertiary,
                   ),
                 ),
                 if (isTimerRunning || isAlertPlaying)
@@ -142,15 +142,15 @@ class _StartCookingState extends State<StartCooking> {
                           horizontal: DimenConstant.padding * 2,
                         ),
                         decoration: BoxDecoration(
-                          color: ColorConstant.primaryColor,
+                          color: ColorConstant.primary,
                           borderRadius: BorderRadius.circular(500),
                         ),
                         child: isTimerRunning
                             ? TimerCountdown(
                                 enableDescriptions: false,
                                 timeTextStyle: TextStyle(
-                                  color: ColorConstant.tertiaryColor,
-                                  fontSize: DimenConstant.miniText,
+                                  color: ColorConstant.tertiary,
+                                  fontSize: DimenConstant.mini,
                                 ),
                                 format: hr != 0
                                     ? CountDownTimerFormat.hoursMinutesSeconds
@@ -199,7 +199,7 @@ class _StartCookingState extends State<StartCooking> {
                       IconButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll(
-                            ColorConstant.errorColor,
+                            ColorConstant.error,
                           ),
                         ),
                         onPressed: () async {
@@ -213,7 +213,7 @@ class _StartCookingState extends State<StartCooking> {
                         },
                         icon: Icon(
                           Icons.stop_rounded,
-                          color: ColorConstant.primaryColor,
+                          color: ColorConstant.primary,
                         ),
                       ),
                     ],
@@ -224,7 +224,7 @@ class _StartCookingState extends State<StartCooking> {
                       ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll(
-                            ColorConstant.secondaryColor,
+                            ColorConstant.secondary,
                           ),
                         ),
                         onPressed: () {
@@ -236,14 +236,14 @@ class _StartCookingState extends State<StartCooking> {
                           children: [
                             Icon(
                               Icons.timer_outlined,
-                              color: ColorConstant.tertiaryColor,
+                              color: ColorConstant.tertiary,
                             ),
                             DimenConstant.separator,
                             Text(
                               isTimerPressed ? 'Start' : 'Timer',
                               style: TextStyle(
-                                color: ColorConstant.tertiaryColor,
-                                fontSize: DimenConstant.miniText,
+                                color: ColorConstant.tertiary,
+                                fontSize: DimenConstant.mini,
                               ),
                             ),
                           ],
@@ -254,7 +254,7 @@ class _StartCookingState extends State<StartCooking> {
                         child: IconButton(
                           style: ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(
-                              ColorConstant.errorColor,
+                              ColorConstant.error,
                             ),
                           ),
                           onPressed: () async {
@@ -263,7 +263,7 @@ class _StartCookingState extends State<StartCooking> {
                           },
                           icon: Icon(
                             Icons.close_rounded,
-                            color: ColorConstant.primaryColor,
+                            color: ColorConstant.primary,
                           ),
                         ),
                       ),
@@ -272,7 +272,7 @@ class _StartCookingState extends State<StartCooking> {
                 IconButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondaryColor,
+                      ColorConstant.secondary,
                     ),
                   ),
                   onPressed: cookingIndex == widget.steps.length - 1
@@ -287,7 +287,7 @@ class _StartCookingState extends State<StartCooking> {
                         },
                   icon: Icon(
                     Icons.keyboard_arrow_right_rounded,
-                    color: ColorConstant.tertiaryColor,
+                    color: ColorConstant.tertiary,
                   ),
                 ),
               ],

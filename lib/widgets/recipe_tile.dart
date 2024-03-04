@@ -31,12 +31,12 @@ class RecipeTile extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: recipe.veg!
                       ? [
-                          ColorConstant.vegPrimaryGradient,
-                          ColorConstant.vegSecondaryGradient,
+                          ColorConstant.vegPrimary,
+                          ColorConstant.vegSecondary,
                         ]
                       : [
-                          ColorConstant.nonvegPrimaryGradient,
-                          ColorConstant.nonvegSecondaryGradient,
+                          ColorConstant.nonvegPrimary,
+                          ColorConstant.nonvegSecondary,
                         ],
                 ),
                 borderRadius: BorderRadius.circular(
@@ -56,8 +56,8 @@ class RecipeTile extends StatelessWidget {
                         Text(
                           recipe.name!,
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.extraSmallText,
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.extraSmall,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -65,8 +65,8 @@ class RecipeTile extends StatelessWidget {
                         Text(
                           recipe.cuisine!,
                           style: TextStyle(
-                            color: ColorConstant.primaryColor,
-                            fontSize: DimenConstant.miniText,
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.mini,
                           ),
                           maxLines: 2,
                         ),
@@ -76,8 +76,8 @@ class RecipeTile extends StatelessWidget {
                   Text(
                     recipe.description!,
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.miniText,
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.mini,
                     ),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -87,8 +87,8 @@ class RecipeTile extends StatelessWidget {
                   Text(
                     recipe.categories!.join(' · '),
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.nanoText,
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.nano,
                     ),
                   ),
                   DimenConstant.separator,

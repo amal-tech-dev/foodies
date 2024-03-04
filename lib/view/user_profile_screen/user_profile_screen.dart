@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,6 +9,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/recipe_image_tile.dart';
+import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -97,10 +97,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Crop ${field} image',
-            toolbarColor: ColorConstant.backgroundColor,
-            toolbarWidgetColor: ColorConstant.primaryColor,
-            backgroundColor: ColorConstant.tertiaryColor,
-            cropFrameColor: ColorConstant.primaryColor,
+            toolbarColor: ColorConstant.background,
+            toolbarWidgetColor: ColorConstant.primary,
+            backgroundColor: ColorConstant.tertiary,
+            cropFrameColor: ColorConstant.primary,
             cropFrameStrokeWidth: 3,
             lockAspectRatio: true,
             hideBottomControls: true,
@@ -118,8 +118,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       key: refreshKey,
-      color: ColorConstant.secondaryColor,
-      backgroundColor: ColorConstant.backgroundColor,
+      color: ColorConstant.secondary,
+      backgroundColor: ColorConstant.background,
       onRefresh: () async => await getUserData(),
       child: Scaffold(
         body: CustomScrollView(
@@ -135,7 +135,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     onTap: () {
                       if (currentUser) {
                         showModalBottomSheet(
-                          backgroundColor: ColorConstant.backgroundColor,
+                          backgroundColor: ColorConstant.background,
                           showDragHandle: true,
                           context: context,
                           builder: (context) => PickImageBottomSheet(
@@ -180,23 +180,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      child: SafeArea(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            DimenConstant.separator,
-                            BackButton(
-                              color: ColorConstant.primaryColor,
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(
-                                  ColorConstant.backgroundColor
-                                      .withOpacity(0.1),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
                   ),
                   Positioned(
@@ -207,44 +190,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Column(
-                          children: [
-                            StreamBuilder(
-                              stream: firestore
-                                  .collection('users')
-                                  .doc(widget.uid)
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.active) {
-                                  Map<String, dynamic> data = snapshot.data!
-                                      .data() as Map<String, dynamic>;
-                                  List list = data['followers'];
-                                  followers = list.length as num;
-                                }
-                                return AnimatedFlipCounter(
-                                  value: followers,
-                                  textStyle: TextStyle(
-                                    color: ColorConstant.primaryColor,
-                                    fontSize: DimenConstant.extraSmallText,
-                                  ),
-                                );
-                              },
-                            ),
-                            Text(
-                              'Followers',
-                              style: TextStyle(
-                                color: ColorConstant.primaryColor,
-                                fontSize: DimenConstant.miniText,
-                              ),
-                            ),
-                          ],
+                        Counter(
+                          collection: 'users',
+                          docId: widget.uid,
+                          field: 'followers',
                         ),
                         InkWell(
                           onTap: () {
                             if (currentUser) {
                               showModalBottomSheet(
-                                backgroundColor: ColorConstant.backgroundColor,
+                                backgroundColor: ColorConstant.background,
                                 showDragHandle: true,
                                 context: context,
                                 builder: (context) => PickImageBottomSheet(
@@ -268,7 +223,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           },
                           child: CircleAvatar(
                             radius: MediaQuery.of(context).size.width * 0.15625,
-                            backgroundColor: ColorConstant.backgroundColor,
+                            backgroundColor: ColorConstant.background,
                             child: Padding(
                               padding: const EdgeInsets.all(3.5),
                               child: CircleAvatar(
@@ -288,38 +243,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             ),
                           ),
                         ),
-                        Column(
-                          children: [
-                            StreamBuilder(
-                              stream: firestore
-                                  .collection('users')
-                                  .doc(widget.uid)
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.active) {
-                                  Map<String, dynamic> data = snapshot.data!
-                                      .data() as Map<String, dynamic>;
-                                  List list = data['following'];
-                                  following = list.length as num;
-                                }
-                                return AnimatedFlipCounter(
-                                  value: following,
-                                  textStyle: TextStyle(
-                                    color: ColorConstant.primaryColor,
-                                    fontSize: DimenConstant.extraSmallText,
-                                  ),
-                                );
-                              },
-                            ),
-                            Text(
-                              'Following',
-                              style: TextStyle(
-                                color: ColorConstant.primaryColor,
-                                fontSize: DimenConstant.miniText,
-                              ),
-                            ),
-                          ],
+                        Counter(
+                          collection: 'users',
+                          docId: widget.uid,
+                          field: 'following',
                         ),
                       ],
                     ),
@@ -337,8 +264,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   Text(
                     userModel.name ?? '',
                     style: TextStyle(
-                      color: ColorConstant.primaryColor,
-                      fontSize: DimenConstant.largeText,
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.large,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -347,7 +274,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     visible: userModel.verified ?? false,
                     child: Icon(
                       Icons.verified_rounded,
-                      color: ColorConstant.secondaryColor,
+                      color: ColorConstant.secondary,
                     ),
                   ),
                 ],
@@ -358,8 +285,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 child: Text(
                   '@${userModel.username ?? ''}',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.smallText,
+                    color: ColorConstant.secondary,
+                    fontSize: DimenConstant.small,
                   ),
                 ),
               ),
@@ -372,8 +299,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
                         isFollowing
-                            ? ColorConstant.primaryColor
-                            : ColorConstant.secondaryColor,
+                            ? ColorConstant.primary
+                            : ColorConstant.secondary,
                       ),
                     ),
                     onPressed: () async {
@@ -407,8 +334,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         isFollowing ? 'Following' : 'Follow',
                         style: TextStyle(
                           color: isFollowing
-                              ? ColorConstant.tertiaryColor
-                              : ColorConstant.tertiaryColor,
+                              ? ColorConstant.tertiary
+                              : ColorConstant.tertiary,
                         ),
                       ),
                     ),
@@ -427,8 +354,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 child: Text(
                   'Bio',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.extraSmallText,
+                    color: ColorConstant.secondary,
+                    fontSize: DimenConstant.extraSmall,
                   ),
                 ),
               ),
@@ -441,8 +368,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 child: Text(
                   userModel.bio ?? '',
                   style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.extraSmallText,
+                    color: ColorConstant.primary,
+                    fontSize: DimenConstant.extraSmall,
                   ),
                   textAlign: TextAlign.justify,
                 ),
@@ -459,8 +386,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 child: Text(
                   'Recipes',
                   style: TextStyle(
-                    color: ColorConstant.secondaryColor,
-                    fontSize: DimenConstant.extraSmallText,
+                    color: ColorConstant.secondary,
+                    fontSize: DimenConstant.extraSmall,
                   ),
                 ),
               ),
@@ -474,8 +401,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       child: Text(
                         'No recipes yet.',
                         style: TextStyle(
-                          color: ColorConstant.primaryColor,
-                          fontSize: DimenConstant.extraSmallText,
+                          color: ColorConstant.primary,
+                          fontSize: DimenConstant.extraSmall,
                         ),
                         textAlign: TextAlign.justify,
                       ),

@@ -45,8 +45,8 @@ class OverviewScreen extends StatelessWidget {
                 child: Text(
                   'Skip',
                   style: TextStyle(
-                    color: ColorConstant.primaryColor,
-                    fontSize: DimenConstant.extraSmallText,
+                    color: ColorConstant.primary,
+                    fontSize: DimenConstant.extraSmall,
                   ),
                 ),
               ),

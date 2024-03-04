@@ -55,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstant.backgroundColor,
+      backgroundColor: ColorConstant.background,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -69,16 +69,16 @@ class _SplashScreenState extends State<SplashScreen> {
               Text(
                 StringConstant.appNamePartOne,
                 style: TextStyle(
-                  color: ColorConstant.primaryColor,
-                  fontSize: DimenConstant.extraLargeText,
+                  color: ColorConstant.primary,
+                  fontSize: DimenConstant.extraLarge,
                   fontFamily: FontConstant.font,
                 ),
               ),
               Text(
                 StringConstant.appNamePartTwo,
                 style: TextStyle(
-                  color: ColorConstant.secondaryColor,
-                  fontSize: DimenConstant.extraLargeText,
+                  color: ColorConstant.secondary,
+                  fontSize: DimenConstant.extraLarge,
                   fontFamily: FontConstant.font,
                 ),
               ),

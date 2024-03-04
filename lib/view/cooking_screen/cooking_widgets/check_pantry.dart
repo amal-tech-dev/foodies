@@ -32,8 +32,8 @@ class _CheckPantryState extends State<CheckPantry> {
           Text(
             StringConstant.cookingPantry,
             style: TextStyle(
-              color: ColorConstant.secondaryColor,
-              fontSize: DimenConstant.smallText,
+              color: ColorConstant.secondary,
+              fontSize: DimenConstant.small,
             ),
             textAlign: TextAlign.center,
           ),
@@ -54,7 +54,7 @@ class _CheckPantryState extends State<CheckPantry> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(
-                ColorConstant.secondaryColor,
+                ColorConstant.secondary,
               ),
             ),
             onPressed: checkingIndex < 0
@@ -80,7 +80,7 @@ class _CheckPantryState extends State<CheckPantry> {
                       ? 'Heat up the kitchen'
                       : 'Next',
               style: TextStyle(
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
             ),
           )

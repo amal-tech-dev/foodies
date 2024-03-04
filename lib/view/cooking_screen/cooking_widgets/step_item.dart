@@ -23,7 +23,7 @@ class StepItem extends StatelessWidget {
           DimenConstant.padding * 2,
         ),
         decoration: BoxDecoration(
-          color: ColorConstant.tertiaryColor,
+          color: ColorConstant.tertiary,
           borderRadius: BorderRadius.circular(
             DimenConstant.borderRadius * 2,
           ),
@@ -32,8 +32,8 @@ class StepItem extends StatelessWidget {
           child: Text(
             item,
             style: TextStyle(
-              color: ColorConstant.primaryColor,
-              fontSize: DimenConstant.smallText,
+              color: ColorConstant.primary,
+              fontSize: DimenConstant.small,
             ),
             textAlign: TextAlign.center,
           ),

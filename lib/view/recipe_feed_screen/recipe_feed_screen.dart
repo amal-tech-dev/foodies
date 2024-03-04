@@ -111,7 +111,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           cuisines: cuisines,
                           categories: categories,
                         ),
-                        backgroundColor: ColorConstant.backgroundColor,
+                        backgroundColor: ColorConstant.background,
                         showDragHandle: true,
                       );
                     },
@@ -119,7 +119,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                       children: [
                         Icon(
                           Icons.tune_rounded,
-                          color: ColorConstant.primaryColor,
+                          color: ColorConstant.primary,
                           size: 18,
                         ),
                         SizedBox(
@@ -128,8 +128,8 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                         Text(
                           'Filters',
                           style: TextStyle(
-                            color: ColorConstant.secondaryColor,
-                            fontSize: DimenConstant.miniText,
+                            color: ColorConstant.secondary,
+                            fontSize: DimenConstant.mini,
                           ),
                         ),
                       ],

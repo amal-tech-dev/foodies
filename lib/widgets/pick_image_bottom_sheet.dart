@@ -29,14 +29,14 @@ class PickImageBottomSheet extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.camera_alt_outlined,
-                    color: ColorConstant.primaryColor,
+                    color: ColorConstant.primary,
                     size: 30,
                   ),
                   Text(
                     'Camera',
                     style: TextStyle(
-                      color: ColorConstant.secondaryColor,
-                      fontSize: DimenConstant.extraSmallText,
+                      color: ColorConstant.secondary,
+                      fontSize: DimenConstant.extraSmall,
                     ),
                   ),
                 ],
@@ -51,14 +51,14 @@ class PickImageBottomSheet extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.image_outlined,
-                    color: ColorConstant.primaryColor,
+                    color: ColorConstant.primary,
                     size: 30,
                   ),
                   Text(
                     'Gallery',
                     style: TextStyle(
-                      color: ColorConstant.secondaryColor,
-                      fontSize: DimenConstant.extraSmallText,
+                      color: ColorConstant.secondary,
+                      fontSize: DimenConstant.extraSmall,
                     ),
                   ),
                 ],
@@ -73,14 +73,14 @@ class PickImageBottomSheet extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.delete_outline,
-                    color: ColorConstant.primaryColor,
+                    color: ColorConstant.primary,
                     size: 30,
                   ),
                   Text(
                     'Remove',
                     style: TextStyle(
-                      color: ColorConstant.secondaryColor,
-                      fontSize: DimenConstant.extraSmallText,
+                      color: ColorConstant.secondary,
+                      fontSize: DimenConstant.extraSmall,
                     ),
                   ),
                 ],

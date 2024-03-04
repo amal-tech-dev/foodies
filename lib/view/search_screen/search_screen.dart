@@ -34,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 horizontal: DimenConstant.padding * 1.5,
               ),
               decoration: BoxDecoration(
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
                 borderRadius: BorderRadius.circular(
                   DimenConstant.borderRadius,
                 ),
@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 decoration: InputDecoration(
                   hintText: 'Find recipes',
                   hintStyle: TextStyle(
-                    color: ColorConstant.primaryColor.withOpacity(0.5),
+                    color: ColorConstant.primary.withOpacity(0.5),
                   ),
                   border: InputBorder.none,
                   suffix: InkWell(
@@ -67,15 +67,15 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: Text(
                       'Search',
                       style: TextStyle(
-                        color: ColorConstant.secondaryColor,
+                        color: ColorConstant.secondary,
                       ),
                     ),
                   ),
                 ),
                 style: TextStyle(
-                  color: ColorConstant.primaryColor,
+                  color: ColorConstant.primary,
                 ),
-                cursorColor: ColorConstant.secondaryColor,
+                cursorColor: ColorConstant.secondary,
                 cursorRadius: Radius.circular(
                   DimenConstant.cursorRadius,
                 ),
@@ -109,8 +109,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Text(
                     StringConstant.search,
                     style: TextStyle(
-                      color: ColorConstant.secondaryColor,
-                      fontSize: DimenConstant.extraSmallText,
+                      color: ColorConstant.secondary,
+                      fontSize: DimenConstant.extraSmall,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -142,8 +142,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: Text(
                       StringConstant.noResults,
                       style: TextStyle(
-                        color: ColorConstant.secondaryColor,
-                        fontSize: DimenConstant.extraSmallText,
+                        color: ColorConstant.secondary,
+                        fontSize: DimenConstant.extraSmall,
                       ),
                       textAlign: TextAlign.center,
                     ),

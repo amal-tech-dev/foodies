@@ -38,8 +38,8 @@ class _RecipeImageState extends State<RecipeImage> {
         Text(
           'Almost there!',
           style: TextStyle(
-            color: ColorConstant.primaryColor,
-            fontSize: DimenConstant.smallText,
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.small,
           ),
         ),
         Padding(
@@ -48,8 +48,8 @@ class _RecipeImageState extends State<RecipeImage> {
           child: Text(
             StringConstant.addImage,
             style: TextStyle(
-              color: ColorConstant.secondaryColor,
-              fontSize: DimenConstant.miniText,
+              color: ColorConstant.secondary,
+              fontSize: DimenConstant.mini,
             ),
             textAlign: TextAlign.center,
           ),
@@ -71,7 +71,7 @@ class _RecipeImageState extends State<RecipeImage> {
           child: Center(
             child: InkWell(
               onTap: () => showModalBottomSheet(
-                backgroundColor: ColorConstant.backgroundColor,
+                backgroundColor: ColorConstant.background,
                 showDragHandle: true,
                 context: context,
                 builder: (context) => PickImageBottomSheet(
@@ -114,7 +114,7 @@ class _RecipeImageState extends State<RecipeImage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              color: ColorConstant.primaryColor,
+              color: ColorConstant.primary,
               onPressed: () {
                 FocusScope.of(context).unfocus();
                 Provider.of<AddRecipeController>(context, listen: false)
@@ -123,16 +123,16 @@ class _RecipeImageState extends State<RecipeImage> {
               },
               icon: Icon(
                 Icons.navigate_before_rounded,
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
-                  ColorConstant.secondaryColor,
+                  ColorConstant.secondary,
                 ),
               ),
             ),
             IconButton(
-              color: ColorConstant.primaryColor,
+              color: ColorConstant.primary,
               onPressed: () {
                 FocusScope.of(context).unfocus();
                 Provider.of<AddRecipeController>(context, listen: false)
@@ -141,11 +141,11 @@ class _RecipeImageState extends State<RecipeImage> {
               },
               icon: Icon(
                 Icons.navigate_next_rounded,
-                color: ColorConstant.tertiaryColor,
+                color: ColorConstant.tertiary,
               ),
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
-                  ColorConstant.secondaryColor,
+                  ColorConstant.secondary,
                 ),
               ),
             ),
