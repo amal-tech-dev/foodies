@@ -19,7 +19,7 @@ class RecipeSteps extends StatefulWidget {
 
 class _RecipeStepsState extends State<RecipeSteps> {
   List<String> steps = [];
-  bool isEditing = false;
+  bool editing = false;
   int editingIndex = -1;
   TextEditingController stepsController = TextEditingController();
   FocusNode focusNode = FocusNode();
@@ -57,17 +57,17 @@ class _RecipeStepsState extends State<RecipeSteps> {
             child: ListView.separated(
               itemBuilder: (context, index) => DismissibleListItem(
                 item: steps[index],
-                isEditing: editingIndex == index ? true : false,
+                editing: editingIndex == index ? true : false,
                 onItemPressed: () {
                   if (editingIndex == index) {
-                    isEditing = false;
+                    editing = false;
                     editingIndex = -1;
                     stepsController.clear();
                   }
                   setState(() {});
                 },
                 onEditPressed: () {
-                  isEditing = true;
+                  editing = true;
                   editingIndex = index;
                   stepsController = TextEditingController(
                     text: steps[index],
@@ -122,13 +122,13 @@ class _RecipeStepsState extends State<RecipeSteps> {
               splashColor: Colors.transparent,
               onTap: () {
                 if (stepsController.text.isNotEmpty) {
-                  if (isEditing) {
+                  if (editing) {
                     steps.removeAt(editingIndex);
                     steps.insert(
                       editingIndex,
                       stepsController.text.trim(),
                     );
-                    isEditing = false;
+                    editing = false;
                     editingIndex = -1;
                   } else {
                     steps.add(stepsController.text.trim());
@@ -142,7 +142,7 @@ class _RecipeStepsState extends State<RecipeSteps> {
                   horizontal: DimenConstant.padding,
                 ),
                 child: Text(
-                  isEditing ? 'Update' : 'Add',
+                  editing ? 'Update' : 'Add',
                   style: TextStyle(
                     color: ColorConstant.secondary,
                     fontSize: DimenConstant.mini,

@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: Provider.of<ConnectivityController>(context).isConnected
+      body: Provider.of<ConnectivityController>(context).connected
           ? screens[pageIndex]
           : NoConnectionScreen(),
       bottomNavigationBar: Theme(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class PantryItem extends StatelessWidget {
   String item;
@@ -21,20 +22,8 @@ class PantryItem extends StatelessWidget {
           horizontal:
               MediaQuery.of(context).size.width * (isChecking ? 0 : 0.1),
         ),
-        child: Container(
-          padding: EdgeInsets.all(
-            DimenConstant.padding,
-          ),
-          decoration: BoxDecoration(
-            color: ColorConstant.tertiary,
-            borderRadius: BorderRadius.circular(
-              DimenConstant.borderRadius,
-            ),
-            border: Border.all(
-              color: isChecked ? ColorConstant.secondary : Colors.transparent,
-              width: DimenConstant.borderWidth,
-            ),
-          ),
+        child: CustomContainer(
+          border: isChecked,
           child: Center(
             child: Text(
               item,

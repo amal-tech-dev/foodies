@@ -50,9 +50,7 @@ class AddRecipeForUser extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddRecipeDetailsScreen(
-                      toAdd: true,
-                    ),
+                    builder: (context) => AddRecipeDetailsScreen(),
                   ),
                 );
               },

@@ -8,6 +8,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 
@@ -22,7 +23,7 @@ class _LoginOptionsState extends State<LoginOptions> {
   FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  bool isEmailPressed = false, isPasswordVisible = false, isLoading = false;
+  bool emailPressed = false, passwordVisible = false, loading = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   FocusNode passwordFocusNode = FocusNode();
 
@@ -30,10 +31,13 @@ class _LoginOptionsState extends State<LoginOptions> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        InkWell(
-          splashColor: Colors.transparent,
-          onTap: () async {
-            isLoading = true;
+        CustomContainer(
+          paddingTop: DimenConstant.padding * 1.5,
+          paddingLeft: DimenConstant.padding * 1.5,
+          paddingRight: DimenConstant.padding * 1.5,
+          paddingBottom: DimenConstant.padding * 1.5,
+          onPressed: () async {
+            loading = true;
             setState(() {});
             try {
               await auth.signInAnonymously();
@@ -64,39 +68,32 @@ class _LoginOptionsState extends State<LoginOptions> {
               );
             }
           },
-          child: Container(
-            padding: EdgeInsets.all(
-              DimenConstant.padding * 1.5,
-            ),
-            decoration: BoxDecoration(
-              color: ColorConstant.tertiary,
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.person,
+                color: ColorConstant.primary,
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.person,
+              DimenConstant.separator,
+              Text(
+                'Continue as Guest',
+                style: TextStyle(
                   color: ColorConstant.primary,
+                  fontSize: DimenConstant.extraSmall,
                 ),
-                DimenConstant.separator,
-                Text(
-                  'Continue as Guest',
-                  style: TextStyle(
-                    color: ColorConstant.primary,
-                    fontSize: DimenConstant.extraSmall,
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
         DimenConstant.separator,
-        InkWell(
-          onTap: () async {
-            isLoading = true;
+        CustomContainer(
+          paddingTop: DimenConstant.padding * 1.5,
+          paddingLeft: DimenConstant.padding * 1.5,
+          paddingRight: DimenConstant.padding * 1.5,
+          paddingBottom: DimenConstant.padding * 1.5,
+          onPressed: () async {
+            loading = true;
             setState(() {});
             try {
               GoogleSignIn google = GoogleSignIn();
@@ -144,73 +141,54 @@ class _LoginOptionsState extends State<LoginOptions> {
               );
             }
           },
-          child: Container(
-            padding: EdgeInsets.all(
-              DimenConstant.padding * 1.5,
-            ),
-            decoration: BoxDecoration(
-              color: ColorConstant.tertiary,
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FaIcon(
+                FontAwesomeIcons.google,
+                color: ColorConstant.primary,
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FaIcon(
-                  FontAwesomeIcons.google,
+              DimenConstant.separator,
+              Text(
+                'Continue with Google',
+                style: TextStyle(
                   color: ColorConstant.primary,
+                  fontSize: DimenConstant.extraSmall,
                 ),
-                DimenConstant.separator,
-                Text(
-                  'Continue with Google',
-                  style: TextStyle(
-                    color: ColorConstant.primary,
-                    fontSize: DimenConstant.extraSmall,
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
         DimenConstant.separator,
-        InkWell(
-          splashColor: Colors.transparent,
-          onTap: () {
-            isEmailPressed = !isEmailPressed;
+        CustomContainer(
+          paddingTop: DimenConstant.padding * 1.5,
+          paddingLeft: DimenConstant.padding * 1.5,
+          paddingRight: DimenConstant.padding * 1.5,
+          paddingBottom: DimenConstant.padding * 1.5,
+          onPressed: () {
+            emailPressed = !emailPressed;
             setState(() {});
           },
-          child: Container(
-            padding: EdgeInsets.all(
-              DimenConstant.padding * 1.5,
-            ),
-            decoration: BoxDecoration(
-              color: ColorConstant.tertiary,
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.alternate_email_outlined,
+                color: ColorConstant.primary,
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.alternate_email_outlined,
+              DimenConstant.separator,
+              Text(
+                'Continue with Email',
+                style: TextStyle(
                   color: ColorConstant.primary,
+                  fontSize: DimenConstant.extraSmall,
                 ),
-                DimenConstant.separator,
-                Text(
-                  'Continue with Email',
-                  style: TextStyle(
-                    color: ColorConstant.primary,
-                    fontSize: DimenConstant.extraSmall,
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
         Visibility(
-          visible: isEmailPressed,
+          visible: emailPressed,
           child: Form(
             key: formKey,
             child: Column(
@@ -271,11 +249,11 @@ class _LoginOptionsState extends State<LoginOptions> {
                       border: InputBorder.none,
                       suffix: InkWell(
                         onTap: () {
-                          isPasswordVisible = !isPasswordVisible;
+                          passwordVisible = !passwordVisible;
                           setState(() {});
                         },
                         child: Icon(
-                          isPasswordVisible
+                          passwordVisible
                               ? Icons.visibility_off_rounded
                               : Icons.visibility_rounded,
                           color: ColorConstant.secondary,
@@ -293,7 +271,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                     inputFormatters: [
                       LengthLimitingTextInputFormatter(40),
                     ],
-                    obscureText: !isPasswordVisible,
+                    obscureText: !passwordVisible,
                     onTapOutside: (event) => FocusScope.of(context).unfocus(),
                     onFieldSubmitted: (value) {},
                     validator: (value) {
@@ -327,7 +305,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                       ),
                     ),
                     onPressed: () async {
-                      isLoading = true;
+                      loading = true;
                       setState(() {});
                       try {
                         await auth.signInWithEmailAndPassword(
@@ -375,12 +353,9 @@ class _LoginOptionsState extends State<LoginOptions> {
             ),
           ),
         ),
+        DimenConstant.separator,
         Visibility(
-          visible: isLoading,
-          child: DimenConstant.separator,
-        ),
-        Visibility(
-          visible: isLoading,
+          visible: loading,
           child: Center(
             child: CircularProgressIndicator(
               color: ColorConstant.secondary,

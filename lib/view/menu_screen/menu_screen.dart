@@ -17,15 +17,15 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  bool isEmpty = false;
+  bool empty = false;
 
   @override
   void initState() {
     Provider.of<LikesController>(context, listen: false).getMenuList();
     if (Provider.of<LikesController>(context, listen: false).recipes.isEmpty)
-      isEmpty = true;
+      empty = true;
     else
-      isEmpty = false;
+      empty = false;
     setState(() {});
     super.initState();
   }
@@ -33,7 +33,7 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isEmpty
+      body: empty
           ? Column(
               children: [
                 Lottie.asset(

@@ -7,6 +7,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:lottie/lottie.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  bool startSearching = true, isSearching = false, noResultsFound = false;
+  bool startSearching = true, searching = false, noResultsFound = false;
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
@@ -29,16 +30,11 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: DimenConstant.padding * 1.5,
-              ),
-              decoration: BoxDecoration(
-                color: ColorConstant.tertiary,
-                borderRadius: BorderRadius.circular(
-                  DimenConstant.borderRadius,
-                ),
-              ),
+            CustomContainer(
+              paddingTop: 0.0,
+              paddingLeft: DimenConstant.padding * 1.5,
+              paddingRight: DimenConstant.padding * 1.5,
+              paddingBottom: 0.0,
               child: TextField(
                 controller: searchController,
                 decoration: InputDecoration(
@@ -51,14 +47,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     onTap: () {
                       FocusScope.of(context).unfocus();
                       startSearching = false;
-                      isSearching = true;
+                      searching = true;
                       setState(() {});
                       Timer(
                         Duration(
                           seconds: 3,
                         ),
                         () {
-                          isSearching = false;
+                          searching = false;
                           noResultsFound = true;
                           setState(() {});
                         },
@@ -87,14 +83,14 @@ class _SearchScreenState extends State<SearchScreen> {
                 onEditingComplete: () {
                   FocusScope.of(context).unfocus();
                   startSearching = false;
-                  isSearching = true;
+                  searching = true;
                   setState(() {});
                   Timer(
                     Duration(
                       seconds: 3,
                     ),
                     () {
-                      isSearching = false;
+                      searching = false;
                       noResultsFound = true;
                       setState(() {});
                     },
@@ -116,7 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               )
-            else if (isSearching)
+            else if (searching)
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(
@@ -150,16 +146,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ],
               )
-            // else
-            //   Expanded(
-            //     child: ListView.builder(
-            //       itemBuilder: (context, index) => RecipeItem(
-            //         recipe: Recipes.list[index],
-            //         onPressed: () {},
-            //       ),
-            //       itemCount: Recipes.list.length,
-            //     ),
-            //   ),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class FilterItem extends StatelessWidget {
   String name;
@@ -16,26 +17,20 @@ class FilterItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: Colors.transparent,
-      onTap: onPressed,
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: DimenConstant.padding * 2,
-        ),
-        decoration: BoxDecoration(
-          color: isPressed ? ColorConstant.secondary : ColorConstant.tertiary,
-          borderRadius: BorderRadius.circular(100),
-        ),
-        child: Center(
-          child: Text(
-            name,
-            style: TextStyle(
-              color: isPressed ? ColorConstant.tertiary : ColorConstant.primary,
-              fontSize: DimenConstant.nano,
-            ),
-            textAlign: TextAlign.center,
+    return CustomContainer(
+      paddingLeft: DimenConstant.padding * 2.0,
+      paddingRight: DimenConstant.padding * 2.0,
+      borderRadius: 100.0,
+      backgroundColor: isPressed ? ColorConstant.secondary : null,
+      onPressed: onPressed,
+      child: Center(
+        child: Text(
+          name,
+          style: TextStyle(
+            color: isPressed ? ColorConstant.tertiary : ColorConstant.primary,
+            fontSize: DimenConstant.nano,
           ),
+          textAlign: TextAlign.center,
         ),
       ),
     );

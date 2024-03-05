@@ -9,7 +9,7 @@ import 'package:foodies/view/edit_user_details_screen/edit_user_details_screen.d
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/reset_password_screen/reset_password_screen.dart';
 import 'package:foodies/view/update_email_screen/update_email_screen.dart';
-import 'package:foodies/widgets/custom_widget.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class AccountSettingsScreen extends StatelessWidget {
   AccountSettingsScreen({super.key});
@@ -48,7 +48,7 @@ class AccountSettingsScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            CustomWidget(
+            CustomContainer(
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -74,7 +74,7 @@ class AccountSettingsScreen extends StatelessWidget {
               ),
             ),
             DimenConstant.separator,
-            CustomWidget(
+            CustomContainer(
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -100,7 +100,7 @@ class AccountSettingsScreen extends StatelessWidget {
               ),
             ),
             DimenConstant.separator,
-            CustomWidget(
+            CustomContainer(
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -126,7 +126,7 @@ class AccountSettingsScreen extends StatelessWidget {
               ),
             ),
             DimenConstant.separator,
-            CustomWidget(
+            CustomContainer(
               onPressed: () {
                 showDialog(
                   context: context,

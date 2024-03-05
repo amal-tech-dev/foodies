@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
-class CustomWidget extends StatelessWidget {
+class CustomContainer extends StatelessWidget {
   Widget child;
-  double? paddingTop, paddingLeft, paddingRight, paddingBottom;
-  double? borderRadius, borderWidth;
+  double? paddingTop, paddingLeft, paddingRight, paddingBottom, borderRadius;
   bool? border;
-  Color? backgroundColor, borderColor;
+  Color? backgroundColor;
   VoidCallback? onPressed;
-  CustomWidget({
+  CustomContainer({
     super.key,
     required this.child,
     this.paddingTop,
@@ -18,8 +17,6 @@ class CustomWidget extends StatelessWidget {
     this.paddingBottom,
     this.border,
     this.borderRadius,
-    this.borderWidth,
-    this.borderColor,
     this.backgroundColor,
     this.onPressed,
   });
@@ -42,8 +39,8 @@ class CustomWidget extends StatelessWidget {
           ),
           border: border ?? false
               ? Border.all(
-                  color: borderColor ?? ColorConstant.secondary,
-                  width: borderWidth ?? DimenConstant.borderWidth,
+                  color: ColorConstant.secondary,
+                  width: DimenConstant.borderWidth,
                 )
               : Border.all(
                   width: 0.0,

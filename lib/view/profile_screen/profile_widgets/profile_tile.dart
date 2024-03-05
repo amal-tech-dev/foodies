@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class ProfileTile extends StatelessWidget {
   String name, username;
@@ -18,56 +19,49 @@ class ProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: DimenConstant.padding * 3,
-          horizontal: DimenConstant.padding * 2,
-        ),
-        decoration: BoxDecoration(
-          color: ColorConstant.tertiary,
-          borderRadius: BorderRadius.circular(
-            DimenConstant.borderRadius * 2,
+    return CustomContainer(
+      paddingTop: DimenConstant.padding * 3.0,
+      paddingLeft: DimenConstant.padding * 2.0,
+      paddingRight: DimenConstant.padding * 2.0,
+      paddingBottom: DimenConstant.padding * 3.0,
+      borderRadius: DimenConstant.borderRadius * 2.0,
+      onPressed: onPressed,
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage(
+              ImageConstant.profile,
+            ),
+            foregroundImage: image != null
+                ? NetworkImage(
+                    image!,
+                  )
+                : AssetImage(
+                    ImageConstant.profile,
+                  ) as ImageProvider<Object>,
           ),
-        ),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage(
-                ImageConstant.profile,
+          DimenConstant.separator,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: TextStyle(
+                  color: ColorConstant.primary,
+                  fontSize: DimenConstant.medium,
+                ),
               ),
-              foregroundImage: image != null
-                  ? NetworkImage(
-                      image!,
-                    )
-                  : AssetImage(
-                      ImageConstant.profile,
-                    ) as ImageProvider<Object>,
-            ),
-            DimenConstant.separator,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    color: ColorConstant.primary,
-                    fontSize: DimenConstant.medium,
-                  ),
+              Text(
+                '@${username}',
+                style: TextStyle(
+                  color: ColorConstant.secondary,
+                  fontSize: DimenConstant.extraSmall,
                 ),
-                Text(
-                  '@${username}',
-                  style: TextStyle(
-                    color: ColorConstant.secondary,
-                    fontSize: DimenConstant.extraSmall,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

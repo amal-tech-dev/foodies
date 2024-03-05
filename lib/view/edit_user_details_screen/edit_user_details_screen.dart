@@ -10,6 +10,7 @@ import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,7 +37,7 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
   File? profile, cover;
   String? profileUrl, coverUrl;
   UserModel userModel = UserModel();
-  bool isLoading = false;
+  bool loading = false;
   List usernames = [];
   String myUid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -253,16 +254,9 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                     Expanded(
                       child: Column(
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: DimenConstant.padding,
-                            ),
-                            decoration: BoxDecoration(
-                              color: ColorConstant.tertiary,
-                              borderRadius: BorderRadius.circular(
-                                DimenConstant.borderRadius,
-                              ),
-                            ),
+                          CustomContainer(
+                            paddingTop: 0.0,
+                            paddingBottom: 0.0,
                             child: TextFormField(
                               controller: nameController,
                               decoration: InputDecoration(
@@ -303,16 +297,9 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                             ),
                           ),
                           DimenConstant.separator,
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: DimenConstant.padding,
-                            ),
-                            decoration: BoxDecoration(
-                              color: ColorConstant.tertiary,
-                              borderRadius: BorderRadius.circular(
-                                DimenConstant.borderRadius,
-                              ),
-                            ),
+                          CustomContainer(
+                            paddingTop: 0.0,
+                            paddingBottom: 0.0,
                             child: TextFormField(
                               controller: usernameController,
                               focusNode: usernameFocusNode,
@@ -361,16 +348,9 @@ class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
                   ],
                 ),
                 DimenConstant.separator,
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: DimenConstant.padding,
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstant.tertiary,
-                    borderRadius: BorderRadius.circular(
-                      DimenConstant.borderRadius,
-                    ),
-                  ),
+                CustomContainer(
+                  paddingTop: 0.0,
+                  paddingRight: 0.0,
                   child: TextFormField(
                     controller: bioController,
                     focusNode: bioFocusNode,

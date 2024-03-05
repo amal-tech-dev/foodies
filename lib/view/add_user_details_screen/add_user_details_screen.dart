@@ -11,6 +11,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -34,7 +35,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
   ImagePicker picker = ImagePicker();
   File? profile, cover;
   UserModel userModel = UserModel();
-  bool isLoading = false;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
         ),
         actions: [
           Visibility(
-            visible: isLoading,
+            visible: loading,
             child: SizedBox(
               height: 20,
               width: 20,
@@ -180,16 +181,9 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: DimenConstant.padding,
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstant.tertiary,
-                    borderRadius: BorderRadius.circular(
-                      DimenConstant.borderRadius,
-                    ),
-                  ),
+                CustomContainer(
+                  paddingTop: 0.0,
+                  paddingBottom: 0.0,
                   child: TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
@@ -226,16 +220,9 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: DimenConstant.padding,
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstant.tertiary,
-                    borderRadius: BorderRadius.circular(
-                      DimenConstant.borderRadius,
-                    ),
-                  ),
+                CustomContainer(
+                  paddingTop: 0.0,
+                  paddingBottom: 0.0,
                   child: TextFormField(
                     controller: usernameController,
                     focusNode: usernameFocusNode,
@@ -273,16 +260,9 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: DimenConstant.padding,
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstant.tertiary,
-                    borderRadius: BorderRadius.circular(
-                      DimenConstant.borderRadius,
-                    ),
-                  ),
+                CustomContainer(
+                  paddingTop: 0.0,
+                  paddingBottom: 0.0,
                   child: TextFormField(
                     controller: bioController,
                     focusNode: bioFocusNode,
@@ -333,7 +313,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      isLoading = true;
+                      loading = true;
                       setState(() {});
                       try {
                         User user = auth.currentUser!;

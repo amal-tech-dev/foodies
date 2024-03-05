@@ -6,6 +6,7 @@ import 'package:foodies/controller/text_input_format_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:provider/provider.dart';
 
 class RecipeDetails extends StatefulWidget {
@@ -21,9 +22,9 @@ class _RecipeDetailsState extends State<RecipeDetails> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   FocusNode descriptionFocusNode = FocusNode();
-  bool isCuisinePressed = false;
-  bool isCategoriesPressed = false;
-  bool isVeg = true;
+  bool cuisinePressed = false;
+  bool categoriesPressed = false;
+  bool veg = true;
   String selectedCuisine = '';
   List<String> selectedCategories = [], cuisines = [], categories = [];
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -42,7 +43,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
         text: Provider.of<AddRecipeController>(context, listen: false)
             .editedRecipe
             .time);
-    isVeg = Provider.of<AddRecipeController>(context, listen: false)
+    veg = Provider.of<AddRecipeController>(context, listen: false)
         .editedRecipe
         .veg!;
     selectedCuisine = Provider.of<AddRecipeController>(context, listen: false)
@@ -88,16 +89,9 @@ class _RecipeDetailsState extends State<RecipeDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: DimenConstant.padding,
-                    ),
-                    decoration: BoxDecoration(
-                      color: ColorConstant.tertiary,
-                      borderRadius: BorderRadius.circular(
-                        DimenConstant.borderRadius,
-                      ),
-                    ),
+                  CustomContainer(
+                    paddingTop: 0,
+                    paddingBottom: 0,
                     child: TextField(
                       controller: nameController,
                       decoration: InputDecoration(
@@ -129,16 +123,9 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     ),
                   ),
                   DimenConstant.separator,
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: DimenConstant.padding,
-                    ),
-                    decoration: BoxDecoration(
-                      color: ColorConstant.tertiary,
-                      borderRadius: BorderRadius.circular(
-                        DimenConstant.borderRadius,
-                      ),
-                    ),
+                  CustomContainer(
+                    paddingTop: 0,
+                    paddingBottom: 0,
                     child: TextField(
                       controller: descriptionController,
                       focusNode: descriptionFocusNode,
@@ -174,34 +161,22 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   Row(
                     children: [
                       Expanded(
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          onTap: () {
-                            isVeg = true;
+                        child: CustomContainer(
+                          paddingTop: DimenConstant.padding * 2,
+                          paddingBottom: DimenConstant.padding * 2,
+                          backgroundColor: veg ? ColorConstant.secondary : null,
+                          onPressed: () {
+                            veg = true;
                             setState(() {});
                           },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: DimenConstant.padding * 2,
-                              horizontal: DimenConstant.padding,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isVeg
-                                  ? ColorConstant.secondary
-                                  : ColorConstant.tertiary,
-                              borderRadius: BorderRadius.circular(
-                                DimenConstant.borderRadius,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Vegetarian',
-                                style: TextStyle(
-                                  color: isVeg
-                                      ? ColorConstant.tertiary
-                                      : ColorConstant.secondary,
-                                  fontSize: DimenConstant.mini,
-                                ),
+                          child: Center(
+                            child: Text(
+                              'Vegetarian',
+                              style: TextStyle(
+                                color: veg
+                                    ? ColorConstant.tertiary
+                                    : ColorConstant.secondary,
+                                fontSize: DimenConstant.mini,
                               ),
                             ),
                           ),
@@ -209,34 +184,22 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                       ),
                       DimenConstant.separator,
                       Expanded(
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          onTap: () {
-                            isVeg = false;
+                        child: CustomContainer(
+                          paddingTop: DimenConstant.padding * 2,
+                          paddingBottom: DimenConstant.padding * 2,
+                          backgroundColor: veg ? null : ColorConstant.secondary,
+                          onPressed: () {
+                            veg = false;
                             setState(() {});
                           },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: DimenConstant.padding * 2,
-                              horizontal: DimenConstant.padding,
-                            ),
-                            decoration: BoxDecoration(
-                              color: !isVeg
-                                  ? ColorConstant.secondary
-                                  : ColorConstant.tertiary,
-                              borderRadius: BorderRadius.circular(
-                                DimenConstant.borderRadius,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Non-Vegetarian',
-                                style: TextStyle(
-                                  color: !isVeg
-                                      ? ColorConstant.tertiary
-                                      : ColorConstant.secondary,
-                                  fontSize: DimenConstant.mini,
-                                ),
+                          child: Center(
+                            child: Text(
+                              'Non-Vegetarian',
+                              style: TextStyle(
+                                color: veg
+                                    ? ColorConstant.tertiary
+                                    : ColorConstant.secondary,
+                                fontSize: DimenConstant.mini,
                               ),
                             ),
                           ),
@@ -245,46 +208,35 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     ],
                   ),
                   DimenConstant.separator,
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      isCuisinePressed = !isCuisinePressed;
-                      isCategoriesPressed = false;
+                  CustomContainer(
+                    paddingTop: DimenConstant.padding * 2,
+                    paddingBottom: DimenConstant.padding * 2,
+                    onPressed: () {
+                      cuisinePressed = !cuisinePressed;
+                      categoriesPressed = false;
                       setState(() {});
                     },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: DimenConstant.padding * 2,
-                        horizontal: DimenConstant.padding,
-                      ),
-                      decoration: BoxDecoration(
-                        color: ColorConstant.tertiary,
-                        borderRadius: BorderRadius.circular(
-                          DimenConstant.borderRadius,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Cuisines',
-                            style: TextStyle(
-                              color: ColorConstant.secondary,
-                              fontSize: DimenConstant.mini,
-                            ),
-                          ),
-                          Icon(
-                            isCuisinePressed
-                                ? Icons.keyboard_arrow_up_rounded
-                                : Icons.keyboard_arrow_down_rounded,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Cuisines',
+                          style: TextStyle(
                             color: ColorConstant.secondary,
+                            fontSize: DimenConstant.mini,
                           ),
-                        ],
-                      ),
+                        ),
+                        Icon(
+                          cuisinePressed
+                              ? Icons.keyboard_arrow_up_rounded
+                              : Icons.keyboard_arrow_down_rounded,
+                          color: ColorConstant.secondary,
+                        ),
+                      ],
                     ),
                   ),
                   Visibility(
-                    visible: isCuisinePressed,
+                    visible: cuisinePressed,
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height / 3,
                       child: Expanded(
@@ -330,49 +282,38 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     ),
                   ),
                   Visibility(
-                    visible: !isCuisinePressed,
+                    visible: !cuisinePressed,
                     child: DimenConstant.separator,
                   ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      isCategoriesPressed = !isCategoriesPressed;
-                      isCuisinePressed = false;
+                  CustomContainer(
+                    paddingTop: DimenConstant.padding * 2,
+                    paddingBottom: DimenConstant.padding * 2,
+                    onPressed: () {
+                      categoriesPressed = !categoriesPressed;
+                      cuisinePressed = false;
                       setState(() {});
                     },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: DimenConstant.padding * 2,
-                        horizontal: DimenConstant.padding,
-                      ),
-                      decoration: BoxDecoration(
-                        color: ColorConstant.tertiary,
-                        borderRadius: BorderRadius.circular(
-                          DimenConstant.borderRadius,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Categories',
-                            style: TextStyle(
-                              color: ColorConstant.secondary,
-                              fontSize: DimenConstant.mini,
-                            ),
-                          ),
-                          Icon(
-                            isCategoriesPressed
-                                ? Icons.keyboard_arrow_up_rounded
-                                : Icons.keyboard_arrow_down_rounded,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Categories',
+                          style: TextStyle(
                             color: ColorConstant.secondary,
+                            fontSize: DimenConstant.mini,
                           ),
-                        ],
-                      ),
+                        ),
+                        Icon(
+                          categoriesPressed
+                              ? Icons.keyboard_arrow_up_rounded
+                              : Icons.keyboard_arrow_down_rounded,
+                          color: ColorConstant.secondary,
+                        ),
+                      ],
                     ),
                   ),
                   Visibility(
-                    visible: isCategoriesPressed,
+                    visible: categoriesPressed,
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height / 3,
                       child: Expanded(
@@ -427,16 +368,9 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     ),
                   ),
                   DimenConstant.separator,
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: DimenConstant.padding,
-                    ),
-                    decoration: BoxDecoration(
-                      color: ColorConstant.tertiary,
-                      borderRadius: BorderRadius.circular(
-                        DimenConstant.borderRadius,
-                      ),
-                    ),
+                  CustomContainer(
+                    paddingTop: 0.0,
+                    paddingBottom: 0.0,
                     child: TextField(
                       controller: timeController,
                       decoration: InputDecoration(
@@ -509,7 +443,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                               listen: false)
                           .editedRecipe
                           .chef,
-                      veg: isVeg,
+                      veg: veg,
                       categories: selectedCategories,
                       ingredients: Provider.of<AddRecipeController>(context,
                               listen: false)

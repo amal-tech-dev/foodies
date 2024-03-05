@@ -151,9 +151,6 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             child: DimenConstant.separator,
           ),
           SliverToBoxAdapter(
-            child: DimenConstant.separator,
-          ),
-          SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: DimenConstant.padding,

@@ -13,12 +13,10 @@ import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AddRecipeDetailsScreen extends StatefulWidget {
-  bool toAdd;
   RecipeModel? recipe;
 
   AddRecipeDetailsScreen({
     super.key,
-    required this.toAdd,
     this.recipe,
   });
 
@@ -51,7 +49,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
           color: ColorConstant.primary,
         ),
         title: Text(
-          widget.toAdd ? 'Add Recipe' : 'Edit your Recipe',
+          'Add Recipe',
           style: TextStyle(
             color: ColorConstant.primary,
             fontSize: DimenConstant.small,

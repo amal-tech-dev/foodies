@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class UpdateEmailScreen extends StatefulWidget {
   UpdateEmailScreen({super.key});
@@ -53,16 +54,11 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                 ),
               ),
               DimenConstant.separator,
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: DimenConstant.padding * 1.5,
-                ),
-                decoration: BoxDecoration(
-                  color: ColorConstant.tertiary,
-                  borderRadius: BorderRadius.circular(
-                    DimenConstant.borderRadius,
-                  ),
-                ),
+              CustomContainer(
+                paddingTop: 0.0,
+                paddingLeft: DimenConstant.padding * 1.5,
+                paddingRight: DimenConstant.padding * 1.5,
+                paddingBottom: 0.0,
                 child: TextFormField(
                   controller: emailController,
                   decoration: InputDecoration(

@@ -3,7 +3,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
 class TimerWidget extends StatelessWidget {
-  var onHourChanged, onMinuteChanged, onSecondChanged;
+  dynamic onHourChanged, onMinuteChanged, onSecondChanged;
 
   TimerWidget({
     super.key,

@@ -19,7 +19,7 @@ class RecipeIngredients extends StatefulWidget {
 
 class _RecipeIngredientsState extends State<RecipeIngredients> {
   List<String> ingredients = [];
-  bool isEditing = false;
+  bool editing = false;
   int editingIndex = -1;
   TextEditingController ingredientsController = TextEditingController();
   FocusNode focusNode = FocusNode();
@@ -57,17 +57,17 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
             child: ListView.separated(
               itemBuilder: (context, index) => DismissibleListItem(
                 item: ingredients[index],
-                isEditing: editingIndex == index ? true : false,
+                editing: editingIndex == index ? true : false,
                 onItemPressed: () {
                   if (editingIndex == index) {
-                    isEditing = false;
+                    editing = false;
                     editingIndex = -1;
                     ingredientsController.clear();
                   }
                   setState(() {});
                 },
                 onEditPressed: () {
-                  isEditing = true;
+                  editing = true;
                   editingIndex = index;
                   ingredientsController = TextEditingController(
                     text: ingredients[index],
@@ -122,13 +122,13 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
               splashColor: Colors.transparent,
               onTap: () {
                 if (ingredientsController.text.isNotEmpty) {
-                  if (isEditing) {
+                  if (editing) {
                     ingredients.removeAt(editingIndex);
                     ingredients.insert(
                       editingIndex,
                       ingredientsController.text.trim(),
                     );
-                    isEditing = false;
+                    editing = false;
                     editingIndex = -1;
                   } else {
                     ingredients.add(ingredientsController.text.trim());
@@ -142,7 +142,7 @@ class _RecipeIngredientsState extends State<RecipeIngredients> {
                   horizontal: DimenConstant.padding,
                 ),
                 child: Text(
-                  isEditing ? 'Update' : 'Add',
+                  editing ? 'Update' : 'Add',
                   style: TextStyle(
                     color: ColorConstant.secondary,
                     fontSize: DimenConstant.mini,

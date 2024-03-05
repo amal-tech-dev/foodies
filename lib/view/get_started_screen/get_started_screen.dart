@@ -42,7 +42,9 @@ class GetStartedScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: EdgeInsets.all(30),
+                padding: EdgeInsets.all(
+                  DimenConstant.padding * 3,
+                ),
                 child: Column(
                   children: [
                     Text(

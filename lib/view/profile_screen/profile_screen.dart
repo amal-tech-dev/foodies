@@ -11,7 +11,7 @@ import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/guest_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
 import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
-import 'package:foodies/widgets/custom_widget.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:hive/hive.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -111,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: CustomWidget(
+                  child: CustomContainer(
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -152,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: CustomWidget(
+                  child: CustomContainer(
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -191,8 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.symmetric(
                   horizontal: DimenConstant.padding,
                 ),
-                child: CustomWidget(
-                  onPressed: () {},
+                child: CustomContainer(
                   child: Row(
                     children: [
                       DimenConstant.separator,
@@ -221,7 +220,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.symmetric(
                   horizontal: DimenConstant.padding,
                 ),
-                child: CustomWidget(
+                child: CustomContainer(
                   onPressed: () {
                     showDialog(
                       context: context,

@@ -6,9 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class ForgetPasswordOptions extends StatefulWidget {
-  const ForgetPasswordOptions({super.key});
+  ForgetPasswordOptions({super.key});
 
   @override
   State<ForgetPasswordOptions> createState() => _ForgetPasswordOptionsState();
@@ -25,16 +26,9 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
       key: formKey,
       child: Column(
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: DimenConstant.padding,
-            ),
-            decoration: BoxDecoration(
-              color: ColorConstant.tertiary,
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
-              ),
-            ),
+          CustomContainer(
+            paddingTop: 0.0,
+            paddingBottom: 0.0,
             child: TextFormField(
               controller: emailController,
               decoration: InputDecoration(

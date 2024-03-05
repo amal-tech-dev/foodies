@@ -12,7 +12,7 @@ class AddRecipeScreen extends StatefulWidget {
 }
 
 class _AddRecipeScreenState extends State<AddRecipeScreen> {
-  bool isGuest = true;
+  bool guest = true;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
@@ -27,9 +27,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       (event) {
         if (event != null) {
           if (event.isAnonymous)
-            isGuest = true;
+            guest = true;
           else
-            isGuest = false;
+            guest = false;
           setState(() {});
         }
       },
@@ -43,7 +43,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         padding: const EdgeInsets.all(
           DimenConstant.padding,
         ),
-        child: isGuest ? AddRecipeForGuest() : AddRecipeForUser(),
+        child: guest ? AddRecipeForGuest() : AddRecipeForUser(),
       ),
     );
   }

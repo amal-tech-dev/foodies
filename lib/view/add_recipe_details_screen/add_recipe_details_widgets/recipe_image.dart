@@ -5,6 +5,7 @@ import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/generated/assets.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,7 +20,7 @@ class RecipeImage extends StatefulWidget {
 
 class _RecipeImageState extends State<RecipeImage> {
   List<String> examples = [];
-  String selectedImage = Assets.imagesFood;
+  String selectedImage = ImageConstant.food;
   ImagePicker picker = ImagePicker();
   File? image;
 

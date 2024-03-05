@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class SignupOptions extends StatefulWidget {
   SignupOptions({super.key});
@@ -17,7 +18,7 @@ class _SignupOptionsState extends State<SignupOptions> {
   TextEditingController passwordController = TextEditingController();
   FocusNode passwordFocusNode = FocusNode();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool isPasswordVisible = false, isLoading = false;
+  bool passwordVisible = false, loading = false;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
@@ -26,16 +27,11 @@ class _SignupOptionsState extends State<SignupOptions> {
       key: formKey,
       child: Column(
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: DimenConstant.padding * 1.5,
-            ),
-            decoration: BoxDecoration(
-              color: ColorConstant.tertiary,
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
-              ),
-            ),
+          CustomContainer(
+            paddingTop: 0.0,
+            paddingLeft: DimenConstant.padding * 1.5,
+            paddingRight: DimenConstant.padding * 1.5,
+            paddingBottom: 0.0,
             child: TextFormField(
               controller: emailController,
               decoration: InputDecoration(
@@ -69,16 +65,11 @@ class _SignupOptionsState extends State<SignupOptions> {
             ),
           ),
           DimenConstant.separator,
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: DimenConstant.padding * 1.5,
-            ),
-            decoration: BoxDecoration(
-              color: ColorConstant.tertiary,
-              borderRadius: BorderRadius.circular(
-                DimenConstant.borderRadius,
-              ),
-            ),
+          CustomContainer(
+            paddingTop: 0.0,
+            paddingLeft: DimenConstant.padding * 1.5,
+            paddingRight: DimenConstant.padding * 1.5,
+            paddingBottom: 0.0,
             child: TextFormField(
               controller: passwordController,
               focusNode: passwordFocusNode,
@@ -92,11 +83,11 @@ class _SignupOptionsState extends State<SignupOptions> {
                 border: InputBorder.none,
                 suffix: InkWell(
                   onTap: () {
-                    isPasswordVisible = !isPasswordVisible;
+                    passwordVisible = !passwordVisible;
                     setState(() {});
                   },
                   child: Icon(
-                    isPasswordVisible
+                    passwordVisible
                         ? Icons.visibility_off_rounded
                         : Icons.visibility_rounded,
                     color: ColorConstant.primary,
@@ -114,7 +105,7 @@ class _SignupOptionsState extends State<SignupOptions> {
               inputFormatters: [
                 LengthLimitingTextInputFormatter(40),
               ],
-              obscureText: !isPasswordVisible,
+              obscureText: !passwordVisible,
               onTapOutside: (event) => FocusScope.of(context).unfocus(),
               onFieldSubmitted: (value) => FocusScope.of(context).unfocus(),
               validator: (value) {
@@ -141,7 +132,7 @@ class _SignupOptionsState extends State<SignupOptions> {
             ),
             onPressed: () async {
               if (formKey.currentState!.validate()) {
-                isLoading = true;
+                loading = true;
                 setState(() {});
                 try {
                   UserCredential userCredential =
@@ -210,7 +201,7 @@ class _SignupOptionsState extends State<SignupOptions> {
             ),
           ),
           Visibility(
-            visible: isLoading,
+            visible: loading,
             child: SizedBox(
               height: 100,
               child: Center(

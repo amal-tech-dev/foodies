@@ -6,6 +6,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class NoConnectionScreen extends StatefulWidget {
 }
 
 class _NoConnectionScreenState extends State<NoConnectionScreen> {
-  bool isLoading = false;
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     ConnectivityController connectivityController =
@@ -44,74 +45,64 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
               ),
             ),
             DimenConstant.separator,
-            Container(
-              padding: EdgeInsets.symmetric(
-                vertical: DimenConstant.padding,
-                horizontal: DimenConstant.padding * 2,
-              ),
-              decoration: BoxDecoration(
-                color: ColorConstant.tertiary,
-                borderRadius: BorderRadius.circular(
-                  DimenConstant.borderRadius,
-                ),
-              ),
-              child: InkWell(
-                onTap: () {
-                  isLoading = true;
-                  setState(() {});
-                  Timer(
-                    Duration(
-                      seconds: 2,
-                    ),
-                    () {
-                      connectivityController.checkConnectivity();
-                      if (connectivityController.isConnected) {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ),
-                          (route) => false,
-                        );
-                      } else {
-                        isLoading = false;
-                        setState(() {});
-                      }
-                    },
-                  );
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    isLoading
-                        ? SizedBox(
-                            height: 24,
-                            width: 24,
-                            child: Padding(
-                              padding: const EdgeInsets.all(
-                                DimenConstant.padding / 2,
-                              ),
-                              child: CircularProgressIndicator(
-                                color: ColorConstant.primary,
-                                strokeCap: StrokeCap.round,
-                                strokeWidth: 2.5,
-                              ),
+            CustomContainer(
+              paddingLeft: DimenConstant.padding * 2.0,
+              paddingRight: DimenConstant.padding * 2.0,
+              onPressed: () {
+                loading = true;
+                setState(() {});
+                Timer(
+                  Duration(
+                    seconds: 2,
+                  ),
+                  () {
+                    connectivityController.checkConnectivity();
+                    if (connectivityController.connected) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                        (route) => false,
+                      );
+                    } else {
+                      loading = false;
+                      setState(() {});
+                    }
+                  },
+                );
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  loading
+                      ? SizedBox(
+                          height: 24,
+                          width: 24,
+                          child: Padding(
+                            padding: const EdgeInsets.all(
+                              DimenConstant.padding / 2,
                             ),
-                          )
-                        : Icon(
-                            Icons.refresh_rounded,
-                            color: ColorConstant.primary,
+                            child: CircularProgressIndicator(
+                              color: ColorConstant.primary,
+                              strokeCap: StrokeCap.round,
+                              strokeWidth: 2.5,
+                            ),
                           ),
-                    DimenConstant.separator,
-                    Text(
-                      'Retry',
-                      style: TextStyle(
-                        color: ColorConstant.secondary,
-                        fontSize: DimenConstant.mini,
-                      ),
+                        )
+                      : Icon(
+                          Icons.refresh_rounded,
+                          color: ColorConstant.primary,
+                        ),
+                  DimenConstant.separator,
+                  Text(
+                    'Retry',
+                    style: TextStyle(
+                      color: ColorConstant.secondary,
+                      fontSize: DimenConstant.mini,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

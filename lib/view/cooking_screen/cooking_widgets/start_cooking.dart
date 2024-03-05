@@ -9,6 +9,7 @@ import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/step_item.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/timer_widget.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -28,7 +29,7 @@ class StartCooking extends StatefulWidget {
 class _StartCookingState extends State<StartCooking> {
   PageController pageController = PageController();
   int cookingIndex = -1, hr = 0, min = 0, sec = 0;
-  bool isTimerPressed = false, isTimerRunning = false, isAlertPlaying = false;
+  bool timerPressed = false, timerRunning = false, alertPlaying = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -63,8 +64,8 @@ class _StartCookingState extends State<StartCooking> {
                       widget.steps.length,
                       (index) => StepItem(
                         item: widget.steps[index],
-                        isCooking: cookingIndex == index ? true : false,
-                        isCompleted: cookingIndex > index ? true : false,
+                        cooking: cookingIndex == index ? true : false,
+                        completed: cookingIndex > index ? true : false,
                       ),
                     ),
                   ),
@@ -133,19 +134,15 @@ class _StartCookingState extends State<StartCooking> {
                     color: ColorConstant.tertiary,
                   ),
                 ),
-                if (isTimerRunning || isAlertPlaying)
+                if (timerRunning || alertPlaying)
                   Row(
                     children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: DimenConstant.padding,
-                          horizontal: DimenConstant.padding * 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: ColorConstant.primary,
-                          borderRadius: BorderRadius.circular(500),
-                        ),
-                        child: isTimerRunning
+                      CustomContainer(
+                        paddingLeft: DimenConstant.padding * 2,
+                        paddingRight: DimenConstant.padding * 2,
+                        backgroundColor: ColorConstant.primary,
+                        borderRadius: 500.0,
+                        child: timerRunning
                             ? TimerCountdown(
                                 enableDescriptions: false,
                                 timeTextStyle: TextStyle(
@@ -165,8 +162,8 @@ class _StartCookingState extends State<StartCooking> {
                                   ),
                                 ),
                                 onEnd: () async {
-                                  isTimerRunning = false;
-                                  isAlertPlaying = true;
+                                  timerRunning = false;
+                                  alertPlaying = true;
                                   hr = 0;
                                   min = 0;
                                   sec = 0;
@@ -203,8 +200,8 @@ class _StartCookingState extends State<StartCooking> {
                           ),
                         ),
                         onPressed: () async {
-                          isTimerRunning = false;
-                          isAlertPlaying = false;
+                          timerRunning = false;
+                          alertPlaying = false;
                           hr = 0;
                           min = 0;
                           sec = 0;
@@ -228,8 +225,8 @@ class _StartCookingState extends State<StartCooking> {
                           ),
                         ),
                         onPressed: () {
-                          if (isTimerPressed) isTimerRunning = true;
-                          isTimerPressed = !isTimerPressed;
+                          if (timerPressed) timerRunning = true;
+                          timerPressed = !timerPressed;
                           setState(() {});
                         },
                         child: Row(
@@ -240,7 +237,7 @@ class _StartCookingState extends State<StartCooking> {
                             ),
                             DimenConstant.separator,
                             Text(
-                              isTimerPressed ? 'Start' : 'Timer',
+                              timerPressed ? 'Start' : 'Timer',
                               style: TextStyle(
                                 color: ColorConstant.tertiary,
                                 fontSize: DimenConstant.mini,
@@ -250,7 +247,7 @@ class _StartCookingState extends State<StartCooking> {
                         ),
                       ),
                       Visibility(
-                        visible: isTimerPressed,
+                        visible: timerPressed,
                         child: IconButton(
                           style: ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(
@@ -258,7 +255,7 @@ class _StartCookingState extends State<StartCooking> {
                             ),
                           ),
                           onPressed: () async {
-                            isTimerPressed = false;
+                            timerPressed = false;
                             setState(() {});
                           },
                           icon: Icon(
@@ -293,11 +290,11 @@ class _StartCookingState extends State<StartCooking> {
               ],
             ),
           Visibility(
-            visible: isTimerPressed,
+            visible: timerPressed,
             child: DimenConstant.separator,
           ),
           Visibility(
-            visible: isTimerPressed,
+            visible: timerPressed,
             child: TimerWidget(
               onHourChanged: (int value) {
                 hr = value;

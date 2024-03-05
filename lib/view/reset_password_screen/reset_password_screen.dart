@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   ResetPasswordScreen({super.key});
@@ -19,7 +20,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   FocusNode newPasswordFocusNode = FocusNode();
   FocusNode confirmPasswordFocusNode = FocusNode();
   FirebaseAuth auth = FirebaseAuth.instance;
-  bool passwordVisibility = false;
+  bool passwordVisible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,16 +49,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: DimenConstant.padding,
-                ),
-                decoration: BoxDecoration(
-                  color: ColorConstant.tertiary,
-                  borderRadius: BorderRadius.circular(
-                    DimenConstant.borderRadius,
-                  ),
-                ),
+              CustomContainer(
+                paddingTop: 0.0,
+                paddingBottom: 0.0,
                 child: TextFormField(
                   controller: currentPasswordController,
                   decoration: InputDecoration(
@@ -68,11 +62,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     border: InputBorder.none,
                     suffix: InkWell(
                       onTap: () {
-                        passwordVisibility = !passwordVisibility;
+                        passwordVisible = !passwordVisible;
                         setState(() {});
                       },
                       child: Icon(
-                        passwordVisibility
+                        passwordVisible
                             ? Icons.visibility_off_rounded
                             : Icons.visibility_rounded,
                         color: ColorConstant.primary,
@@ -90,7 +84,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(40),
                   ],
-                  obscureText: !passwordVisibility,
+                  obscureText: !passwordVisible,
                   onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   onFieldSubmitted: (value) =>
                       FocusScope.of(context).requestFocus(newPasswordFocusNode),
@@ -100,16 +94,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
               ),
               DimenConstant.separator,
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: DimenConstant.padding,
-                ),
-                decoration: BoxDecoration(
-                  color: ColorConstant.tertiary,
-                  borderRadius: BorderRadius.circular(
-                    DimenConstant.borderRadius,
-                  ),
-                ),
+              CustomContainer(
+                paddingTop: 0.0,
+                paddingBottom: 0.0,
                 child: TextFormField(
                   controller: newPasswordController,
                   focusNode: newPasswordFocusNode,
@@ -150,16 +137,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
               ),
               DimenConstant.separator,
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: DimenConstant.padding,
-                ),
-                decoration: BoxDecoration(
-                  color: ColorConstant.tertiary,
-                  borderRadius: BorderRadius.circular(
-                    DimenConstant.borderRadius,
-                  ),
-                ),
+              CustomContainer(
+                paddingTop: 0.0,
+                paddingBottom: 0.0,
                 child: TextFormField(
                   controller: currentPasswordController,
                   focusNode: confirmPasswordFocusNode,
