@@ -1,7 +1,8 @@
 class StringConstant {
   static const String appName = 'Foodies';
-  static const String appNamePartOne = 'Food';
-  static const String appNamePartTwo = 'ies';
+  static const String appNamePrefix = 'Food';
+  static const String appNameSuffix = 'ies';
+  static const String font = 'Bauhaus';
   static const String welcomeTitle = 'Welcome to ${StringConstant.appName}';
   static const String welcomeSubtitle =
       'Welcome, fellow food enthusiasts! Get ready to embark on a delectable journey of flavors and culinary delights.';
@@ -27,8 +28,8 @@ class StringConstant {
   static const String search =
       'Search Recipes by Name, Cuisines, Categories or Users';
   static const String noResults = 'No results found, check your spelling';
-  static const String emptyMenu =
-      'Your Menu is empty. Add your favourites Recipes to Kitchen for easy access.';
+  static const String noFavourites =
+      'You have no favourites, add your favourites recipes here for easy access.';
   static const String logoutAlert = 'Do you want to logout?';
   static const String logoutAlertGuest =
       'You are loggedin as guest. Data will be deleted after logging out. ${StringConstant.logoutAlert}';

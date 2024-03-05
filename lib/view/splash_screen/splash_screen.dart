@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/utils/font_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
@@ -67,19 +66,19 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                StringConstant.appNamePartOne,
+                StringConstant.appNamePrefix,
                 style: TextStyle(
                   color: ColorConstant.primary,
                   fontSize: DimenConstant.extraLarge,
-                  fontFamily: FontConstant.font,
+                  fontFamily: StringConstant.font,
                 ),
               ),
               Text(
-                StringConstant.appNamePartTwo,
+                StringConstant.appNameSuffix,
                 style: TextStyle(
                   color: ColorConstant.secondary,
                   fontSize: DimenConstant.extraLarge,
-                  fontFamily: FontConstant.font,
+                  fontFamily: StringConstant.font,
                 ),
               ),
             ],

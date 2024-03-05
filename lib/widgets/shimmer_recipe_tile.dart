@@ -25,12 +25,17 @@ class ShimmerRecipeTile extends StatelessWidget {
             padding: const EdgeInsets.only(
               top: 50,
             ),
-            child: Container(
-              height: 150,
-              decoration: BoxDecoration(
-                color: ColorConstant.primary,
-                borderRadius: BorderRadius.circular(
-                  DimenConstant.borderRadius * 2,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                bottom: 25,
+              ),
+              child: Container(
+                height: 150,
+                decoration: BoxDecoration(
+                  color: ColorConstant.primary,
+                  borderRadius: BorderRadius.circular(
+                    DimenConstant.borderRadius * 2,
+                  ),
                 ),
               ),
             ),

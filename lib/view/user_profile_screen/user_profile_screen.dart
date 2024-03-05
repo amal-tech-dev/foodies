@@ -8,6 +8,7 @@ import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/recipe_image_tile.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
@@ -26,7 +27,7 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-  UserModel userModel = UserModel();
+  UserModel user = UserModel();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
@@ -49,13 +50,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   getUserData() async {
     DocumentReference reference = firestore.collection('users').doc(widget.uid);
     DocumentSnapshot snapshot = await reference.get();
-    userModel = UserModel.fromJson(snapshot.data() as Map<String, dynamic>);
+    user = UserModel.fromJson(snapshot.data() as Map<String, dynamic>);
     if (myUid == widget.uid) currentUser = true;
-    profile = userModel.profile ?? ImageConstant.profile;
-    cover = userModel.cover ?? ImageConstant.cover;
-    followers = userModel.followers!.length;
-    following = userModel.following!.length;
-    if (userModel.followers!.contains(myUid))
+    profile = user.profile ?? ImageConstant.profile;
+    cover = user.cover ?? ImageConstant.cover;
+    followers = user.followers!.length;
+    following = user.following!.length;
+    if (user.followers!.contains(myUid))
       isFollowing = true;
     else
       isFollowing = false;
@@ -131,6 +132,33 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     height: MediaQuery.of(context).size.width * 0.71875,
                     width: MediaQuery.of(context).size.width,
                   ),
+                  Container(
+                    height: MediaQuery.of(context).size.width * 0.5625,
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: DimenConstant.padding / 2,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(
+                          DimenConstant.borderRadius * 4,
+                        ),
+                        bottomRight: Radius.circular(
+                          DimenConstant.borderRadius * 4,
+                        ),
+                      ),
+                      image: DecorationImage(
+                        image: user.cover != null
+                            ? NetworkImage(
+                                cover,
+                              ) as ImageProvider<Object>
+                            : AssetImage(
+                                cover,
+                              ),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
                   InkWell(
                     onTap: () {
                       if (currentUser) {
@@ -148,7 +176,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               Navigator.pop(context);
                             },
                             onDeletePressed: () {
-                              deleteImage('cover', userModel.cover!);
+                              deleteImage('cover', user.cover!);
                               Navigator.pop(context);
                             },
                           ),
@@ -157,6 +185,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.width * 0.5625,
+                      width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.symmetric(
                         horizontal: DimenConstant.padding / 2,
                       ),
@@ -169,16 +198,27 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             DimenConstant.borderRadius * 4,
                           ),
                         ),
-                        image: DecorationImage(
-                          image: userModel.cover != null
-                              ? NetworkImage(
-                                  cover,
-                                ) as ImageProvider<Object>
-                              : AssetImage(
-                                  cover,
-                                ),
-                          fit: BoxFit.fill,
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            ColorConstant.tertiary.withOpacity(0.3),
+                            ColorConstant.tertiary.withOpacity(0.25),
+                            ColorConstant.tertiary.withOpacity(0.2),
+                            ColorConstant.tertiary.withOpacity(0.1),
+                            ColorConstant.tertiary.withOpacity(0.0),
+                          ],
                         ),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SafeArea(
+                            child: BackButton(
+                              color: ColorConstant.primary,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -214,7 +254,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     Navigator.pop(context);
                                   },
                                   onDeletePressed: () {
-                                    deleteImage('profile', userModel.profile!);
+                                    deleteImage('profile', user.profile!);
                                     Navigator.pop(context);
                                   },
                                 ),
@@ -232,7 +272,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 backgroundImage: AssetImage(
                                   ImageConstant.profile,
                                 ),
-                                foregroundImage: userModel.profile != null
+                                foregroundImage: user.profile != null
                                     ? NetworkImage(
                                         profile,
                                       ) as ImageProvider<Object>
@@ -261,17 +301,40 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    userModel.name ?? '',
-                    style: TextStyle(
-                      color: ColorConstant.primary,
-                      fontSize: DimenConstant.large,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  user.name != 'Foodies'
+                      ? Text(
+                          user.name ?? '',
+                          style: TextStyle(
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.large,
+                          ),
+                          textAlign: TextAlign.center,
+                        )
+                      : Row(
+                          children: [
+                            Text(
+                              StringConstant.appNamePrefix,
+                              style: TextStyle(
+                                color: ColorConstant.primary,
+                                fontSize: DimenConstant.large,
+                                fontFamily: StringConstant.font,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              StringConstant.appNameSuffix,
+                              style: TextStyle(
+                                color: ColorConstant.secondary,
+                                fontSize: DimenConstant.large,
+                                fontFamily: StringConstant.font,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                   DimenConstant.separator,
                   Visibility(
-                    visible: userModel.verified ?? false,
+                    visible: user.verified ?? false,
                     child: Icon(
                       Icons.verified_rounded,
                       color: ColorConstant.secondary,
@@ -283,17 +346,18 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             SliverToBoxAdapter(
               child: Center(
                 child: Text(
-                  '@${userModel.username ?? ''}',
+                  '@${user.username ?? ''}',
                   style: TextStyle(
                     color: ColorConstant.secondary,
                     fontSize: DimenConstant.small,
+                    fontFamily: StringConstant.font,
                   ),
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Visibility(
-                visible: !currentUser,
+            SliverVisibility(
+              visible: !currentUser,
+              sliver: SliverToBoxAdapter(
                 child: Center(
                   child: ElevatedButton(
                     style: ButtonStyle(
@@ -308,7 +372,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           firestore.collection('users').doc(widget.uid);
                       DocumentReference followingReference =
                           firestore.collection('users').doc(myUid);
-                      if (userModel.followers!.contains(myUid)) {
+                      if (user.followers!.contains(myUid)) {
                         await followingReference.update({
                           'following': FieldValue.arrayRemove([myUid])
                         });
@@ -366,7 +430,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   horizontal: DimenConstant.padding,
                 ),
                 child: Text(
-                  userModel.bio ?? '',
+                  user.bio ?? '',
                   style: TextStyle(
                     color: ColorConstant.primary,
                     fontSize: DimenConstant.extraSmall,
@@ -392,7 +456,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ),
               ),
             ),
-            (userModel.recipes ?? []).isEmpty
+            (user.recipes ?? []).isEmpty
                 ? SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -415,10 +479,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       mainAxisSpacing: DimenConstant.padding,
                     ),
                     itemBuilder: (context, index) => RecipeImageTile(
-                      id: userModel.recipes![index],
+                      id: user.recipes![index],
                     ),
-                    itemCount: userModel.recipes!.length,
+                    itemCount: user.recipes!.length,
                   ),
+            SliverToBoxAdapter(
+              child: DimenConstant.separator,
+            ),
           ],
         ),
       ),

@@ -9,14 +9,14 @@ import 'package:foodies/widgets/recipe_tile.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-class MenuScreen extends StatefulWidget {
-  MenuScreen({super.key});
+class BookmarksScreen extends StatefulWidget {
+  BookmarksScreen({super.key});
 
   @override
-  State<MenuScreen> createState() => _MenuScreenState();
+  State<BookmarksScreen> createState() => _BookmarksScreenState();
 }
 
-class _MenuScreenState extends State<MenuScreen> {
+class _BookmarksScreenState extends State<BookmarksScreen> {
   bool empty = false;
 
   @override
@@ -47,7 +47,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     horizontal: 40,
                   ),
                   child: Text(
-                    StringConstant.emptyMenu,
+                    StringConstant.noFavourites,
                     style: TextStyle(
                       color: ColorConstant.secondary,
                       fontSize: DimenConstant.extraSmall,

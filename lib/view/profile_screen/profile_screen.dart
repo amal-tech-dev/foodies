@@ -104,9 +104,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SliverToBoxAdapter(
               child: DimenConstant.separator,
             ),
-            SliverToBoxAdapter(
-              child: Visibility(
-                visible: !guest,
+            SliverVisibility(
+              visible: !guest,
+              sliver: SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
@@ -139,15 +139,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Visibility(
-                visible: !guest,
+            SliverVisibility(
+              visible: !guest,
+              sliver: SliverToBoxAdapter(
                 child: DimenConstant.separator,
               ),
             ),
-            SliverToBoxAdapter(
-              child: Visibility(
-                visible: !guest,
+            SliverVisibility(
+              visible: !guest,
+              sliver: SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
@@ -180,9 +180,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Visibility(
-                visible: !guest,
+            SliverVisibility(
+              visible: !guest,
+              sliver: SliverToBoxAdapter(
                 child: DimenConstant.separator,
               ),
             ),

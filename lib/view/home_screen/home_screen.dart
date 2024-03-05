@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/utils/font_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_screen/add_recipe_screen.dart';
-import 'package:foodies/view/menu_screen/menu_screen.dart';
+import 'package:foodies/view/bookmarks_screen/bookmarks_screen.dart';
 import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
@@ -26,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     RecipeFeedScreen(),
     SearchScreen(),
     AddRecipeScreen(),
-    MenuScreen(),
+    BookmarksScreen(),
     ProfileScreen(),
   ];
 
@@ -57,19 +56,19 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Row(
           children: [
             Text(
-              StringConstant.appNamePartOne,
+              StringConstant.appNamePrefix,
               style: TextStyle(
                 color: ColorConstant.primary,
                 fontSize: DimenConstant.small,
-                fontFamily: FontConstant.font,
+                fontFamily: StringConstant.font,
               ),
             ),
             Text(
-              StringConstant.appNamePartTwo,
+              StringConstant.appNameSuffix,
               style: TextStyle(
                 color: ColorConstant.secondary,
                 fontSize: DimenConstant.small,
-                fontFamily: FontConstant.font,
+                fontFamily: StringConstant.font,
               ),
             ),
           ],
@@ -115,9 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Add',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.restaurant_menu_rounded),
-              icon: Icon(Icons.restaurant_menu_outlined),
-              label: 'Menu',
+              activeIcon: Icon(Icons.bookmarks_rounded),
+              icon: Icon(Icons.bookmarks_outlined),
+              label: 'Favourites',
             ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.person_rounded),

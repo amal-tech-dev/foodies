@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
+import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
 import 'package:foodies/widgets/counter.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class RecipeViewScreen extends StatefulWidget {
   String id;
@@ -23,7 +27,8 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   RecipeModel recipe = RecipeModel();
-  String username = '';
+  String name = '', profile = '';
+  bool verified = false;
 
   @override
   void initState() {
@@ -37,17 +42,19 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
         firestore.collection('recipes').doc(widget.id);
     DocumentSnapshot snapshot = await reference.get();
     recipe = RecipeModel.fromJson(snapshot.data() as Map<String, dynamic>);
-    getUsername();
+    getChef();
     setState(() {});
   }
 
-  // get username of chef
-  getUsername() async {
+  // get profile of chef
+  getChef() async {
     DocumentReference reference =
         firestore.collection('users').doc(recipe.chef);
     DocumentSnapshot snapshot = await reference.get();
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    username = data['username'];
+    name = data['name'] ?? '';
+    profile = data['profile'] ?? '';
+    verified = data['verified'] ?? false;
     setState(() {});
   }
 
@@ -144,6 +151,85 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     field: 'shared',
                   ),
                 ],
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: DimenConstant.separator,
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: DimenConstant.padding,
+              ),
+              child: CustomContainer(
+                paddingLeft: DimenConstant.padding * 2.0,
+                paddingRight: DimenConstant.padding * 2.0,
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserProfileScreen(
+                      uid: recipe.chef!,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundImage: AssetImage(
+                        ImageConstant.profile,
+                      ),
+                      foregroundImage: profile == ''
+                          ? AssetImage(
+                              ImageConstant.profile,
+                            )
+                          : NetworkImage(
+                              profile,
+                            ) as ImageProvider<Object>,
+                    ),
+                    DimenConstant.separator,
+                    name != 'Foodies'
+                        ? Text(
+                            name,
+                            style: TextStyle(
+                              color: ColorConstant.primary,
+                              fontSize: DimenConstant.small,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        : Row(
+                            children: [
+                              Text(
+                                StringConstant.appNamePrefix,
+                                style: TextStyle(
+                                  color: ColorConstant.primary,
+                                  fontSize: DimenConstant.small,
+                                  fontFamily: StringConstant.font,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                StringConstant.appNameSuffix,
+                                style: TextStyle(
+                                  color: ColorConstant.secondary,
+                                  fontSize: DimenConstant.small,
+                                  fontFamily: StringConstant.font,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                    DimenConstant.separator,
+                    Visibility(
+                      visible: verified,
+                      child: Icon(
+                        Icons.verified_rounded,
+                        color: ColorConstant.secondary,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -308,7 +394,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             itemCount: recipe.steps?.length ?? 0,
           ),
           SliverToBoxAdapter(
-            child: DimenConstant.separator,
+            child: SizedBox(
+              height: 100,
+            ),
           ),
         ],
       ),
