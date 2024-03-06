@@ -330,7 +330,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                         }
                         userModel.followers = [];
                         userModel.following = [];
-                        userModel.menu = [];
+                        userModel.favourites = [];
                         userModel.recipes = [];
                         userModel.verified = false;
                         await firestore

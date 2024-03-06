@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:shimmer/shimmer.dart';
@@ -25,19 +26,41 @@ class ShimmerRecipeTile extends StatelessWidget {
             padding: const EdgeInsets.only(
               top: 50,
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                bottom: 25,
-              ),
-              child: Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  color: ColorConstant.primary,
-                  borderRadius: BorderRadius.circular(
-                    DimenConstant.borderRadius * 2,
+            child: Column(
+              children: [
+                Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: ColorConstant.primary,
+                    borderRadius: BorderRadius.circular(
+                      DimenConstant.borderRadius * 2,
+                    ),
                   ),
                 ),
-              ),
+                DimenConstant.separator,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(
+                      Icons.favorite_rounded,
+                      color: ColorConstant.primary,
+                    ),
+                    Icon(
+                      Icons.visibility_rounded,
+                      color: ColorConstant.primary,
+                    ),
+                    FaIcon(
+                      FontAwesomeIcons.share,
+                      color: ColorConstant.primary,
+                      size: 18,
+                    ),
+                    Icon(
+                      Icons.bookmark_rounded,
+                    ),
+                  ],
+                ),
+                DimenConstant.separator,
+              ],
             ),
           ),
           Positioned(

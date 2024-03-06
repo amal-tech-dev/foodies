@@ -9,14 +9,14 @@ import 'package:foodies/widgets/recipe_tile.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-class BookmarksScreen extends StatefulWidget {
-  BookmarksScreen({super.key});
+class FavouritesScreen extends StatefulWidget {
+  FavouritesScreen({super.key});
 
   @override
-  State<BookmarksScreen> createState() => _BookmarksScreenState();
+  State<FavouritesScreen> createState() => _FavouritesScreenState();
 }
 
-class _BookmarksScreenState extends State<BookmarksScreen> {
+class _FavouritesScreenState extends State<FavouritesScreen> {
   bool empty = false;
 
   @override
@@ -65,8 +65,11 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                   ),
                   child: ListView.separated(
                     itemBuilder: (context, index) => RecipeTile(
+                      id: '',
                       recipe: value.recipes[index],
-                      onPressed: () => Navigator.push(
+                      like: true,
+                      favourite: true,
+                      onRecipePressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => RecipeViewScreen(
@@ -74,6 +77,10 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                           ),
                         ),
                       ),
+                      onLikePressed: () {},
+                      onViewPressed: () {},
+                      onSharePressed: () {},
+                      onFavouritePressed: () {},
                     ),
                     separatorBuilder: (context, index) =>
                         DimenConstant.separator,

@@ -4,7 +4,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_screen/add_recipe_screen.dart';
-import 'package:foodies/view/bookmarks_screen/bookmarks_screen.dart';
+import 'package:foodies/view/favourites_screen/favourites_screen.dart';
 import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     RecipeFeedScreen(),
     SearchScreen(),
     AddRecipeScreen(),
-    BookmarksScreen(),
+    FavouritesScreen(),
     ProfileScreen(),
   ];
 

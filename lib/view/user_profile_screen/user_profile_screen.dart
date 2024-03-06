@@ -234,6 +234,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           collection: 'users',
                           docId: widget.uid,
                           field: 'followers',
+                          header: 'Followers',
                         ),
                         InkWell(
                           onTap: () {
@@ -287,6 +288,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           collection: 'users',
                           docId: widget.uid,
                           field: 'following',
+                          header: 'Following',
                         ),
                       ],
                     ),

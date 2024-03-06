@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class SharedController with ChangeNotifier {
+class SharedController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   // update recipes shared

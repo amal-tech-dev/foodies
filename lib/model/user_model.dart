@@ -5,7 +5,7 @@ class UserModel {
   String? profile;
   String? cover;
   bool? verified;
-  List<String>? menu;
+  List<String>? favourites;
   List<String>? recipes;
   List<String>? followers;
   List<String>? following;
@@ -17,7 +17,7 @@ class UserModel {
     this.profile,
     this.cover,
     this.verified,
-    this.menu,
+    this.favourites,
     this.recipes,
     this.followers,
     this.following,
@@ -30,9 +30,9 @@ class UserModel {
         profile: json["profile"],
         cover: json["cover"],
         verified: json["verified"],
-        menu: json["menu"] == null
+        favourites: json["favourites"] == null
             ? []
-            : List<String>.from(json["menu"]!.map((x) => x)),
+            : List<String>.from(json["favourites"]!.map((x) => x)),
         recipes: json["recipes"] == null
             ? []
             : List<String>.from(json["recipes"]!.map((x) => x)),
@@ -51,7 +51,9 @@ class UserModel {
         "profile": profile,
         "cover": cover,
         "verified": verified,
-        "menu": menu == null ? [] : List<dynamic>.from(menu!.map((x) => x)),
+        "favourites": favourites == null
+            ? []
+            : List<dynamic>.from(favourites!.map((x) => x)),
         "recipes":
             recipes == null ? [] : List<dynamic>.from(recipes!.map((x) => x)),
         "followers": followers == null
