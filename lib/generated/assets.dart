@@ -3,11 +3,14 @@ class Assets {
   Assets._();
 
   static const String audioTimerAlert = 'assets/audio/timer_alert.mp3';
-  static const String fontsBauhausBold = 'assets/fonts/bauhaus_bold.ttf';
-  static const String fontsBauhausBoldItalic =
-      'assets/fonts/bauhaus_bold_italic.ttf';
-  static const String fontsBauhausItalic = 'assets/fonts/bauhaus_italic.ttf';
-  static const String fontsBauhausRegular = 'assets/fonts/bauhaus_regular.ttf';
+  static const String bauhausBauhausBold =
+      'assets/fonts/bauhaus/bauhaus_bold.ttf';
+  static const String bauhausBauhausBoldItalic =
+      'assets/fonts/bauhaus/bauhaus_bold_italic.ttf';
+  static const String bauhausBauhausItalic =
+      'assets/fonts/bauhaus/bauhaus_italic.ttf';
+  static const String bauhausBauhausRegular =
+      'assets/fonts/bauhaus/bauhaus_regular.ttf';
   static const String imagesAddRecipe = 'assets/images/add_recipe.png';
   static const String imagesChef = 'assets/images/chef.png';
   static const String imagesCover = 'assets/images/cover.png';

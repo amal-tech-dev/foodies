@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/filter_controller.dart';
-import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_bottom_sheet.dart';
@@ -24,33 +23,54 @@ class RecipeFeedScreen extends StatefulWidget {
 class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   User user = FirebaseAuth.instance.currentUser!;
-  Map<String, RecipeModel> recipes = {};
-  List<String> likes = [], favourites = [];
-  List<String> diet = [], cuisines = [], categories = [];
+  List<String> favourites = [],
+      recipes = [],
+      diet = [],
+      cuisines = [],
+      categories = [];
+  bool loading = false;
 
   @override
   void initState() {
-    getDiet();
-    getCuisines();
-    getCategories();
-    setState(() {});
+    fetchData();
     super.initState();
+  }
+
+  fetchData() async {
+    loading = true;
+    setState(() {});
+    await getRecipes();
+    await getDiet();
+    await getCuisines();
+    await getCategories();
+    loading = false;
+    setState(() {});
+  }
+
+  // get recipe uids from firestore
+  getRecipes() async {
+    CollectionReference reference = firestore.collection('recipes');
+    QuerySnapshot snapshot = await reference.get();
+    for (QueryDocumentSnapshot doc in snapshot.docs) recipes.add(doc.id);
+    setState(() {});
   }
 
   // get diet from firestore
   getDiet() async {
     DocumentSnapshot snapshot =
         await firestore.collection('database').doc('diet').get();
-    final data = snapshot.data() as Map<String, dynamic>;
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     diet = List<String>.from(data['diet']);
+    setState(() {});
   }
 
   // get cuisine from firestore
   getCuisines() async {
     DocumentSnapshot snapshot =
         await firestore.collection('database').doc('cuisines').get();
-    final data = snapshot.data() as Map<String, dynamic>;
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     cuisines = List<String>.from(data['cuisines']);
+    setState(() {});
   }
 
   // get categories from firestore
@@ -59,10 +79,12 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
         await firestore.collection('database').doc('categories').get();
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     categories = List<String>.from(data['categories']);
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    User user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -143,73 +165,66 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
             ),
             DimenConstant.separator,
             Expanded(
-              child: StreamBuilder(
-                stream: firestore.collection('recipes').snapshots(),
-                builder: (context, snapshot) {
-                  bool like = false, favourites = false;
-                  if (snapshot.connectionState == ConnectionState.waiting ||
-                      snapshot.data == null) {
-                    return ListView.builder(
-                      itemBuilder: (context, index) => ShimmerRecipeTile(),
-                    );
-                  }
-                  if (snapshot.connectionState == ConnectionState.active &&
-                      snapshot.data != null) {
-                    for (QueryDocumentSnapshot<Map<String, dynamic>> doc
-                        in snapshot.data!.docs) {
-                      RecipeModel recipe = RecipeModel.fromJson(doc.data());
-                      recipes[doc.id] = recipe;
-                      if (recipe.likes!.contains(user.uid))
-                        like = true;
-                      else
-                        like = false;
-                    }
-                  }
-                  return ListView.builder(
-                    itemBuilder: (context, index) => RecipeTile(
-                      id: recipes.keys.toList()[index],
-                      recipe: recipes.values.toList()[index],
-                      like: like,
-                      favourite: favourites,
-                      onRecipePressed: () async {
-                        DocumentReference reference = firestore
-                            .collection('recipes')
-                            .doc(recipes.keys.toList()[index]);
-                        await reference
-                            .update({'views': FieldValue.increment(1)});
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RecipeViewScreen(
-                              id: recipes.keys.toList()[index],
-                            ),
+              child: RefreshIndicator(
+                color: ColorConstant.secondary,
+                backgroundColor: ColorConstant.background,
+                onRefresh: () => fetchData(),
+                child: ListView.builder(
+                  itemBuilder: (context, index) => loading
+                      ? ShimmerRecipeTile()
+                      : RecipeTile(
+                          id: recipes[index],
+                          like: recipes.contains(user.uid) ? true : false,
+                          favourite: favourites.contains(
+                            recipes[index],
                           ),
-                        );
-                      },
-                      onLikePressed: () async {
-                        DocumentReference reference = firestore
-                            .collection('recipes')
-                            .doc(recipes.keys.toList()[index]);
-                        DocumentSnapshot snapshot = await reference.get();
-                        Map<String, dynamic> data =
-                            snapshot.data() as Map<String, dynamic>;
-                        List temp = data['likes'];
-                        if (temp.contains(user.uid))
-                          await reference.update({
-                            'likes': FieldValue.arrayRemove([user.uid])
-                          });
-                        else
-                          await reference.update({
-                            'likes': FieldValue.arrayUnion([user.uid])
-                          });
-                      },
-                      onViewPressed: () {},
-                      onSharePressed: () {},
-                      onFavouritePressed: () {},
-                    ),
-                    itemCount: recipes.length,
-                  );
-                },
+                          onRecipePressed: () async {
+                            DocumentReference reference = firestore
+                                .collection('recipes')
+                                .doc(recipes[index]);
+                            await reference
+                                .update({'views': FieldValue.increment(1)});
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RecipeViewScreen(
+                                  id: recipes[index],
+                                ),
+                              ),
+                            );
+                            fetchData();
+                            setState(() {});
+                          },
+                          onLikePressed: () async {
+                            DocumentReference reference = firestore
+                                .collection('recipes')
+                                .doc(recipes[index]);
+                            DocumentSnapshot snapshot = await reference.get();
+                            Map<String, dynamic> data =
+                                snapshot.data() as Map<String, dynamic>;
+                            List temp = data['likes'];
+                            if (temp.contains(user.uid))
+                              await reference.update({
+                                'likes': FieldValue.arrayRemove([user.uid])
+                              });
+                            else
+                              await reference.update({
+                                'likes': FieldValue.arrayUnion([user.uid])
+                              });
+                            fetchData();
+                            setState(() {});
+                          },
+                          onViewPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => Container(),
+                            );
+                          },
+                          onSharePressed: () {},
+                          onFavouritePressed: () {},
+                        ),
+                  itemCount: loading ? 100 : recipes.length,
+                ),
               ),
             ),
           ],

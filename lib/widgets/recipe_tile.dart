@@ -7,9 +7,8 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/widgets/counter.dart';
 
-class RecipeTile extends StatelessWidget {
+class RecipeTile extends StatefulWidget {
   String id;
-  RecipeModel recipe;
   bool like, favourite;
   VoidCallback onRecipePressed;
   VoidCallback onLikePressed, onViewPressed, onSharePressed, onFavouritePressed;
@@ -17,7 +16,6 @@ class RecipeTile extends StatelessWidget {
   RecipeTile({
     super.key,
     required this.id,
-    required this.recipe,
     required this.like,
     required this.favourite,
     required this.onRecipePressed,
@@ -28,11 +26,49 @@ class RecipeTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    User user = FirebaseAuth.instance.currentUser!;
-    bool like = false, favourite = false;
+  State<RecipeTile> createState() => _RecipeTileState();
+}
 
+class _RecipeTileState extends State<RecipeTile> {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  User user = FirebaseAuth.instance.currentUser!;
+  List<String> favourites = [];
+  RecipeModel recipe = RecipeModel();
+
+  @override
+  void initState() {
+    print('object');
+    fetchData();
+    super.initState();
+  }
+
+  fetchData() async {
+    await getRecipe();
+    await getFavourites();
+    setState(() {});
+  }
+
+  // get recipe from firestore
+  getRecipe() async {
+    DocumentReference reference =
+        firestore.collection('recipes').doc(widget.id);
+    DocumentSnapshot snapshot = await reference.get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    recipe = RecipeModel.fromJson(data);
+    setState(() {});
+  }
+
+  // get favourites from firestore
+  getFavourites() async {
+    DocumentSnapshot snapshot =
+        await firestore.collection('users').doc(user.uid).get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    favourites = List<String>.from(data['favourites']);
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       children: [
         Padding(
@@ -42,7 +78,7 @@ class RecipeTile extends StatelessWidget {
           child: Column(
             children: [
               InkWell(
-                onTap: onRecipePressed,
+                onTap: widget.onRecipePressed,
                 child: Container(
                   padding: EdgeInsets.all(
                     DimenConstant.padding,
@@ -74,7 +110,7 @@ class RecipeTile extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              recipe.name!,
+                              recipe.name ?? '',
                               style: TextStyle(
                                 color: ColorConstant.primary,
                                 fontSize: DimenConstant.extraSmall,
@@ -83,7 +119,7 @@ class RecipeTile extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
-                              recipe.cuisine!,
+                              recipe.cuisine ?? '',
                               style: TextStyle(
                                 color: ColorConstant.primary,
                                 fontSize: DimenConstant.mini,
@@ -94,7 +130,7 @@ class RecipeTile extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        recipe.description!,
+                        recipe.description ?? '',
                         style: TextStyle(
                           color: ColorConstant.primary,
                           fontSize: DimenConstant.mini,
@@ -105,7 +141,7 @@ class RecipeTile extends StatelessWidget {
                       ),
                       DimenConstant.separator,
                       Text(
-                        recipe.categories!.join(' · '),
+                        (recipe.categories ?? []).join(' · '),
                         style: TextStyle(
                           color: ColorConstant.primary,
                           fontSize: DimenConstant.nano,
@@ -121,14 +157,14 @@ class RecipeTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   InkWell(
-                    onTap: onLikePressed,
+                    onTap: widget.onLikePressed,
                     child: Row(
                       children: [
                         Icon(
-                          like
+                          widget.like
                               ? Icons.favorite_rounded
                               : Icons.favorite_border_rounded,
-                          color: like
+                          color: widget.like
                               ? ColorConstant.error
                               : ColorConstant.primary,
                         ),
@@ -136,15 +172,13 @@ class RecipeTile extends StatelessWidget {
                           width: DimenConstant.padding / 2,
                         ),
                         Counter(
-                          collection: 'recipes',
-                          docId: id,
-                          field: 'likes',
+                          count: recipe.likes?.length ?? 0,
                         ),
                       ],
                     ),
                   ),
                   InkWell(
-                    onTap: onViewPressed,
+                    onTap: widget.onViewPressed,
                     child: Row(
                       children: [
                         Icon(
@@ -155,15 +189,13 @@ class RecipeTile extends StatelessWidget {
                           width: DimenConstant.padding / 2,
                         ),
                         Counter(
-                          collection: 'recipes',
-                          docId: id,
-                          field: 'views',
+                          count: recipe.views ?? 0,
                         ),
                       ],
                     ),
                   ),
                   InkWell(
-                    onTap: onSharePressed,
+                    onTap: widget.onSharePressed,
                     child: Row(
                       children: [
                         FaIcon(
@@ -175,20 +207,18 @@ class RecipeTile extends StatelessWidget {
                           width: DimenConstant.padding / 2,
                         ),
                         Counter(
-                          collection: 'recipes',
-                          docId: id,
-                          field: 'shared',
+                          count: recipe.shared ?? 0,
                         ),
                       ],
                     ),
                   ),
                   InkWell(
-                    onTap: onFavouritePressed,
+                    onTap: widget.onFavouritePressed,
                     child: Icon(
-                      favourite
+                      widget.favourite
                           ? Icons.bookmark_rounded
                           : Icons.bookmark_border_rounded,
-                      color: favourite
+                      color: widget.favourite
                           ? ColorConstant.secondary
                           : ColorConstant.primary,
                     ),
@@ -202,7 +232,7 @@ class RecipeTile extends StatelessWidget {
         Positioned(
           left: 20,
           child: InkWell(
-            onTap: onRecipePressed,
+            onTap: widget.onRecipePressed,
             child: CircleAvatar(
               radius: 50,
               foregroundImage: NetworkImage(

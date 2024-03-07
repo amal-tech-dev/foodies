@@ -136,21 +136,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Counter(
-                    collection: 'recipes',
-                    docId: widget.id,
-                    field: 'likes',
+                    count: recipe.likes?.length ?? 0,
                     header: 'Likes',
                   ),
                   Counter(
-                    collection: 'recipes',
-                    docId: widget.id,
-                    field: 'views',
+                    count: recipe.views ?? 0,
                     header: 'Views',
                   ),
                   Counter(
-                    collection: 'recipes',
-                    docId: widget.id,
-                    field: 'shared',
+                    count: recipe.shared ?? 0,
                     header: 'Shared',
                   ),
                 ],
@@ -192,7 +186,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                             ) as ImageProvider<Object>,
                     ),
                     DimenConstant.separator,
-                    name != 'Foodies'
+                    name != StringConstant.appName
                         ? Text(
                             name,
                             style: TextStyle(

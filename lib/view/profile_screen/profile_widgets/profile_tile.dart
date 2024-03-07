@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/widgets/custom_container.dart';
 
 class ProfileTile extends StatelessWidget {
@@ -45,18 +46,39 @@ class ProfileTile extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: TextStyle(
-                  color: ColorConstant.primary,
-                  fontSize: DimenConstant.medium,
-                ),
-              ),
+              name != StringConstant.appName
+                  ? Text(
+                      name,
+                      style: TextStyle(
+                        color: ColorConstant.primary,
+                        fontSize: DimenConstant.medium,
+                      ),
+                    )
+                  : Row(
+                      children: [
+                        Text(
+                          StringConstant.appNamePrefix,
+                          style: TextStyle(
+                              color: ColorConstant.primary,
+                              fontSize: DimenConstant.medium,
+                              fontFamily: StringConstant.font),
+                        ),
+                        Text(
+                          StringConstant.appNameSuffix,
+                          style: TextStyle(
+                            color: ColorConstant.secondary,
+                            fontSize: DimenConstant.medium,
+                            fontFamily: StringConstant.font,
+                          ),
+                        ),
+                      ],
+                    ),
               Text(
                 '@${username}',
                 style: TextStyle(
                   color: ColorConstant.secondary,
                   fontSize: DimenConstant.extraSmall,
+                  fontFamily: StringConstant.font,
                 ),
               ),
             ],

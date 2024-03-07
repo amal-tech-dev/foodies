@@ -6,14 +6,12 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
 class Counter extends StatefulWidget {
-  String collection, docId, field;
+  int count;
   String? header;
 
   Counter({
     super.key,
-    required this.collection,
-    required this.docId,
-    required this.field,
+    required this.count,
     this.header,
   });
 
@@ -28,34 +26,32 @@ class _CounterState extends State<Counter> {
 
   @override
   void initState() {
-    getData();
+    formatCount(widget.count);
     super.initState();
   }
 
-  // get required data from field
-  getData() async {
-    DocumentReference reference =
-        firestore.collection(widget.collection).doc(widget.docId);
-    DocumentSnapshot snapshot = await reference.get();
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    int temp = 0;
-    if (data[widget.field] is int)
-      temp = data[widget.field];
-    else if (data[widget.field] is List<dynamic>)
-      temp = data[widget.field].length;
-    else
-      temp = 0;
-    if (temp < 1000) {
-      count = temp;
+  @override
+  void didUpdateWidget(Counter oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.count != widget.count) {
+      formatCount(widget.count);
+      setState(() {});
+    }
+  }
+
+  // format count with respect to length
+  formatCount(int value) async {
+    if (value < 1000) {
+      count = value;
       suffix = '';
-    } else if (temp < 1000000) {
-      count = temp ~/ 1000;
+    } else if (value < 1000000) {
+      count = value ~/ 1000;
       suffix = 'k';
-    } else if (temp < 1000000000) {
-      count = temp ~/ 1000000;
+    } else if (value < 1000000000) {
+      count = value ~/ 1000000;
       suffix = 'M';
     } else {
-      count = temp ~/ 1000000000;
+      count = value ~/ 1000000000;
       suffix = 'B';
     }
     setState(() {});
@@ -68,7 +64,7 @@ class _CounterState extends State<Counter> {
         Row(
           children: [
             AnimatedFlipCounter(
-              value: count.toInt(),
+              value: count,
               textStyle: TextStyle(
                 color: ColorConstant.primary,
                 fontSize: widget.header != null

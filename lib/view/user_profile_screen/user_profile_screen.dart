@@ -32,7 +32,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
   bool currentUser = false, isFollowing = false;
-  num followers = 0, following = 0;
   String profile = ImageConstant.profile, cover = ImageConstant.cover;
   String myUid = FirebaseAuth.instance.currentUser!.uid;
   ImagePicker picker = ImagePicker();
@@ -54,8 +53,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     if (myUid == widget.uid) currentUser = true;
     profile = user.profile ?? ImageConstant.profile;
     cover = user.cover ?? ImageConstant.cover;
-    followers = user.followers!.length;
-    following = user.following!.length;
     if (user.followers!.contains(myUid))
       isFollowing = true;
     else
@@ -231,9 +228,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Counter(
-                          collection: 'users',
-                          docId: widget.uid,
-                          field: 'followers',
+                          count: user.followers?.length ?? 0,
                           header: 'Followers',
                         ),
                         InkWell(
@@ -285,9 +280,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           ),
                         ),
                         Counter(
-                          collection: 'users',
-                          docId: widget.uid,
-                          field: 'following',
+                          count: user.following?.length ?? 0,
                           header: 'Following',
                         ),
                       ],
@@ -303,7 +296,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  user.name != 'Foodies'
+                  user.name != StringConstant.appName
                       ? Text(
                           user.name ?? '',
                           style: TextStyle(
