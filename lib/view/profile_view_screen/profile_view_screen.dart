@@ -15,18 +15,18 @@ import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UserProfileScreen extends StatefulWidget {
+class ProfileViewScreen extends StatefulWidget {
   String uid;
-  UserProfileScreen({
+  ProfileViewScreen({
     super.key,
     required this.uid,
   });
 
   @override
-  State<UserProfileScreen> createState() => _UserProfileScreenState();
+  State<ProfileViewScreen> createState() => _ProfileViewScreenState();
 }
 
-class _UserProfileScreenState extends State<UserProfileScreen> {
+class _ProfileViewScreenState extends State<ProfileViewScreen> {
   UserModel user = UserModel();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -327,7 +327,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             ),
                           ],
                         ),
-                  DimenConstant.separator,
+                  SizedBox(
+                    width: 5,
+                  ),
                   Visibility(
                     visible: user.verified ?? false,
                     child: Icon(

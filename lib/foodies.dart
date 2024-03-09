@@ -3,6 +3,7 @@ import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/controller/likes_controller.dart';
+import 'package:foodies/controller/recipe_tile_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/view/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ class Foodies extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => LikesController()),
         ChangeNotifierProvider(create: (context) => FilterController()),
+        ChangeNotifierProvider(create: (context) => RecipeTileController()),
         ChangeNotifierProvider(create: (context) => AddRecipeController()),
         ChangeNotifierProvider(create: (context) => ConnectivityController()),
       ],

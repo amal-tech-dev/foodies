@@ -10,7 +10,7 @@ import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/guest_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
-import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
+import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:hive/hive.dart';
 
@@ -89,11 +89,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: ProfileTile(
                         name: userModel?.name ?? '',
                         username: userModel?.username ?? '',
+                        verified: userModel?.verified ?? false,
                         image: userModel?.profile,
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => UserProfileScreen(
+                            builder: (context) => ProfileViewScreen(
                               uid: auth.currentUser!.uid,
                             ),
                           ),
@@ -163,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         DimenConstant.separator,
                         Icon(
-                          Icons.fastfood_rounded,
+                          Icons.fastfood_outlined,
                           color: ColorConstant.primary,
                         ),
                         DimenConstant.separator,

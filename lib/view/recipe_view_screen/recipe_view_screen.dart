@@ -7,8 +7,8 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
+import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
-import 'package:foodies/view/user_profile_screen/user_profile_screen.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/custom_container.dart';
 
@@ -165,7 +165,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => UserProfileScreen(
+                    builder: (context) => ProfileViewScreen(
                       uid: recipe.chef!,
                     ),
                   ),
@@ -217,12 +217,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               ),
                             ],
                           ),
-                    DimenConstant.separator,
+                    SizedBox(
+                      width: DimenConstant.padding / 2.0,
+                    ),
                     Visibility(
                       visible: verified,
                       child: Icon(
                         Icons.verified_rounded,
                         color: ColorConstant.secondary,
+                        size: 20,
                       ),
                     )
                   ],

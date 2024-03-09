@@ -56,4 +56,7 @@ class StringConstant {
       'Chef, your dish is at risk of overcooking or spoiling. It\'s time to take action and ensure the perfect meal. Check on it now!';
   static const String emailUpdate =
       'An email has send to your new email. Click on the link to update email.';
+  static const String viewsDialogPrefix = 'More than';
+  static const String viewsDialogSuffix =
+      'Foodies have chosen this recipe. Hope you like it too!';
 }

@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/filter_controller.dart';
+import 'package:foodies/controller/recipe_tile_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_bottom_sheet.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_item.dart';
-import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
 import 'package:foodies/widgets/recipe_tile.dart';
 import 'package:foodies/widgets/shimmer_recipe_tile.dart';
 import 'package:provider/provider.dart';
@@ -22,12 +21,7 @@ class RecipeFeedScreen extends StatefulWidget {
 
 class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  User user = FirebaseAuth.instance.currentUser!;
-  List<String> favourites = [],
-      recipes = [],
-      diet = [],
-      cuisines = [],
-      categories = [];
+  List<String> diet = [], cuisines = [], categories = [];
   bool loading = false;
 
   @override
@@ -36,22 +30,13 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
     super.initState();
   }
 
+  // fetch data
   fetchData() async {
-    loading = true;
-    setState(() {});
-    await getRecipes();
+    Provider.of<RecipeTileController>(context, listen: false).getRecipes();
+    Provider.of<RecipeTileController>(context, listen: false).getFavourites();
     await getDiet();
     await getCuisines();
     await getCategories();
-    loading = false;
-    setState(() {});
-  }
-
-  // get recipe uids from firestore
-  getRecipes() async {
-    CollectionReference reference = firestore.collection('recipes');
-    QuerySnapshot snapshot = await reference.get();
-    for (QueryDocumentSnapshot doc in snapshot.docs) recipes.add(doc.id);
     setState(() {});
   }
 
@@ -84,7 +69,11 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    User user = FirebaseAuth.instance.currentUser!;
+    RecipeTileController listeningController =
+        Provider.of<RecipeTileController>(context);
+    RecipeTileController nonListeningController =
+        Provider.of<RecipeTileController>(context, listen: false);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -173,57 +162,17 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                   itemBuilder: (context, index) => loading
                       ? ShimmerRecipeTile()
                       : RecipeTile(
-                          id: recipes[index],
-                          like: recipes.contains(user.uid) ? true : false,
-                          favourite: favourites.contains(
-                            recipes[index],
-                          ),
-                          onRecipePressed: () async {
-                            DocumentReference reference = firestore
-                                .collection('recipes')
-                                .doc(recipes[index]);
-                            await reference
-                                .update({'views': FieldValue.increment(1)});
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RecipeViewScreen(
-                                  id: recipes[index],
-                                ),
-                              ),
-                            );
-                            fetchData();
-                            setState(() {});
-                          },
-                          onLikePressed: () async {
-                            DocumentReference reference = firestore
-                                .collection('recipes')
-                                .doc(recipes[index]);
-                            DocumentSnapshot snapshot = await reference.get();
-                            Map<String, dynamic> data =
-                                snapshot.data() as Map<String, dynamic>;
-                            List temp = data['likes'];
-                            if (temp.contains(user.uid))
-                              await reference.update({
-                                'likes': FieldValue.arrayRemove([user.uid])
-                              });
-                            else
-                              await reference.update({
-                                'likes': FieldValue.arrayUnion([user.uid])
-                              });
-                            fetchData();
-                            setState(() {});
-                          },
-                          onViewPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => Container(),
-                            );
-                          },
-                          onSharePressed: () {},
-                          onFavouritePressed: () {},
+                          id: listeningController.recipes.keys.toList()[index],
+                          recipe: listeningController.recipes.values
+                              .toList()[index],
+                          like: nonListeningController.recipes.values
+                              .toList()[index]
+                              .likes!
+                              .contains(nonListeningController.recipes.keys
+                                  .toList()[index]),
+                          favourite: true,
                         ),
-                  itemCount: loading ? 100 : recipes.length,
+                  itemCount: loading ? 100 : listeningController.recipes.length,
                 ),
               ),
             ),

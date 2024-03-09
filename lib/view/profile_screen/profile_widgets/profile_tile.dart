@@ -8,12 +8,14 @@ import 'package:foodies/widgets/custom_container.dart';
 class ProfileTile extends StatelessWidget {
   String name, username;
   String? image;
+  bool verified = false;
   VoidCallback onPressed;
 
   ProfileTile({
     super.key,
     required this.name,
     required this.username,
+    required this.verified,
     required this.image,
     required this.onPressed,
   });
@@ -46,33 +48,47 @@ class ProfileTile extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              name != StringConstant.appName
-                  ? Text(
-                      name,
-                      style: TextStyle(
-                        color: ColorConstant.primary,
-                        fontSize: DimenConstant.medium,
-                      ),
-                    )
-                  : Row(
-                      children: [
-                        Text(
-                          StringConstant.appNamePrefix,
+              Row(
+                children: [
+                  name != StringConstant.appName
+                      ? Text(
+                          name,
                           style: TextStyle(
-                              color: ColorConstant.primary,
-                              fontSize: DimenConstant.medium,
-                              fontFamily: StringConstant.font),
-                        ),
-                        Text(
-                          StringConstant.appNameSuffix,
-                          style: TextStyle(
-                            color: ColorConstant.secondary,
+                            color: ColorConstant.primary,
                             fontSize: DimenConstant.medium,
-                            fontFamily: StringConstant.font,
                           ),
+                        )
+                      : Row(
+                          children: [
+                            Text(
+                              StringConstant.appNamePrefix,
+                              style: TextStyle(
+                                  color: ColorConstant.primary,
+                                  fontSize: DimenConstant.medium,
+                                  fontFamily: StringConstant.font),
+                            ),
+                            Text(
+                              StringConstant.appNameSuffix,
+                              style: TextStyle(
+                                color: ColorConstant.secondary,
+                                fontSize: DimenConstant.medium,
+                                fontFamily: StringConstant.font,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Visibility(
+                    visible: verified,
+                    child: Icon(
+                      Icons.verified_rounded,
+                      color: ColorConstant.secondary,
                     ),
+                  ),
+                ],
+              ),
               Text(
                 '@${username}',
                 style: TextStyle(
