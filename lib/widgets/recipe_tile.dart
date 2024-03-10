@@ -12,14 +12,10 @@ import 'package:provider/provider.dart';
 class RecipeTile extends StatelessWidget {
   String id;
   RecipeModel recipe;
-  bool like, favourite;
-
   RecipeTile({
     super.key,
     required this.id,
     required this.recipe,
-    required this.like,
-    required this.favourite,
   });
 
   @override
@@ -32,164 +28,166 @@ class RecipeTile extends StatelessWidget {
 
     return Stack(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 50,
-          ),
-          child: Column(
-            children: [
-              InkWell(
-                onTap: () => nonListeningController.updateViews(context, id),
-                child: Container(
-                  padding: EdgeInsets.all(
-                    DimenConstant.padding,
-                  ),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: recipe.veg!
-                          ? [
-                              ColorConstant.vegPrimary,
-                              ColorConstant.vegSecondary,
-                            ]
-                          : [
-                              ColorConstant.nonvegPrimary,
-                              ColorConstant.nonvegSecondary,
-                            ],
-                    ),
-                    borderRadius: BorderRadius.circular(
-                      DimenConstant.borderRadius * 2,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 120,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              recipe.name ?? '',
-                              style: TextStyle(
-                                color: ColorConstant.primary,
-                                fontSize: DimenConstant.extraSmall,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              recipe.cuisine ?? '',
-                              style: TextStyle(
-                                color: ColorConstant.primary,
-                                fontSize: DimenConstant.mini,
-                              ),
-                              maxLines: 2,
-                            ),
+        Column(
+          children: [
+            SizedBox(
+              height: DimenConstant.padding * 5,
+            ),
+            InkWell(
+              onTap: () => nonListeningController.updateViews(context, id),
+              child: Container(
+                padding: EdgeInsets.all(
+                  DimenConstant.padding,
+                ),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: recipe.veg!
+                        ? [
+                            ColorConstant.vegPrimary,
+                            ColorConstant.vegSecondary,
+                          ]
+                        : [
+                            ColorConstant.nonvegPrimary,
+                            ColorConstant.nonvegSecondary,
                           ],
-                        ),
+                  ),
+                  borderRadius: BorderRadius.circular(
+                    DimenConstant.borderRadius * 2,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 120,
                       ),
-                      Text(
-                        recipe.description ?? '',
-                        style: TextStyle(
-                          color: ColorConstant.primary,
-                          fontSize: DimenConstant.mini,
-                        ),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.justify,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            recipe.name ?? '',
+                            style: TextStyle(
+                              color: ColorConstant.primary,
+                              fontSize: DimenConstant.extraSmall,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            recipe.cuisine ?? '',
+                            style: TextStyle(
+                              color: ColorConstant.primary,
+                              fontSize: DimenConstant.mini,
+                            ),
+                            maxLines: 2,
+                          ),
+                        ],
                       ),
-                      DimenConstant.separator,
-                      Text(
-                        (recipe.categories ?? []).join(' · '),
-                        style: TextStyle(
-                          color: ColorConstant.primary,
-                          fontSize: DimenConstant.nano,
-                        ),
+                    ),
+                    Text(
+                      recipe.description ?? '',
+                      style: TextStyle(
+                        color: ColorConstant.primary,
+                        fontSize: DimenConstant.mini,
                       ),
-                      DimenConstant.separator,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.justify,
+                    ),
+                    DimenConstant.separator,
+                    Text(
+                      (recipe.categories ?? []).join(' · '),
+                      style: TextStyle(
+                        color: ColorConstant.primary,
+                        fontSize: DimenConstant.nano,
+                      ),
+                    ),
+                    DimenConstant.separator,
+                  ],
+                ),
+              ),
+            ),
+            DimenConstant.separator,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                  onTap: () => nonListeningController.updateLikes(id),
+                  child: Row(
+                    children: [
+                      Icon(
+                        listeningController.recipes[id]?.likes
+                                    ?.contains(user.uid) ??
+                                false
+                            ? Icons.favorite_rounded
+                            : Icons.favorite_border_rounded,
+                        color: listeningController.recipes[id]?.likes
+                                    ?.contains(user.uid) ??
+                                false
+                            ? ColorConstant.error
+                            : ColorConstant.primary,
+                      ),
+                      SizedBox(
+                        width: DimenConstant.padding / 2,
+                      ),
+                      Counter(
+                        count: recipe.likes?.length ?? 0,
+                      ),
                     ],
                   ),
                 ),
-              ),
-              DimenConstant.separator,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    onTap: () => nonListeningController.updateLikes(id),
-                    child: Row(
-                      children: [
-                        Icon(
-                          like
-                              ? Icons.favorite_rounded
-                              : Icons.favorite_border_rounded,
-                          color: like
-                              ? ColorConstant.error
-                              : ColorConstant.primary,
-                        ),
-                        SizedBox(
-                          width: DimenConstant.padding / 2,
-                        ),
-                        Counter(
-                          count: recipe.likes?.length ?? 0,
-                        ),
-                      ],
-                    ),
+                InkWell(
+                  onTap: () => nonListeningController.showViews(
+                      context, id, recipe.views!),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.visibility_rounded,
+                        color: ColorConstant.primary,
+                      ),
+                      SizedBox(
+                        width: DimenConstant.padding / 2,
+                      ),
+                      Counter(
+                        count: recipe.views ?? 0,
+                      ),
+                    ],
                   ),
-                  InkWell(
-                    onTap: () => nonListeningController.showViews(
-                        context, id, recipe.views!),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.visibility_rounded,
-                          color: ColorConstant.primary,
-                        ),
-                        SizedBox(
-                          width: DimenConstant.padding / 2,
-                        ),
-                        Counter(
-                          count: recipe.views ?? 0,
-                        ),
-                      ],
-                    ),
+                ),
+                InkWell(
+                  onTap: () => nonListeningController.updateShared(id),
+                  child: Row(
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.share,
+                        color: ColorConstant.primary,
+                        size: 18,
+                      ),
+                      SizedBox(
+                        width: DimenConstant.padding / 2,
+                      ),
+                      Counter(
+                        count: recipe.shared ?? 0,
+                      ),
+                    ],
                   ),
-                  InkWell(
-                    onTap: () => nonListeningController.updateShared(id),
-                    child: Row(
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.share,
-                          color: ColorConstant.primary,
-                          size: 18,
-                        ),
-                        SizedBox(
-                          width: DimenConstant.padding / 2,
-                        ),
-                        Counter(
-                          count: recipe.shared ?? 0,
-                        ),
-                      ],
-                    ),
+                ),
+                InkWell(
+                  onTap: () => nonListeningController.updateFavourites(id),
+                  child: Icon(
+                    listeningController.favourites.contains(id)
+                        ? Icons.bookmark_rounded
+                        : Icons.bookmark_border_rounded,
+                    color: listeningController.favourites.contains(id)
+                        ? ColorConstant.secondary
+                        : ColorConstant.primary,
                   ),
-                  InkWell(
-                    onTap: () => nonListeningController.updateFavourites(id),
-                    child: Icon(
-                      favourite
-                          ? Icons.bookmark_rounded
-                          : Icons.bookmark_border_rounded,
-                      color: favourite
-                          ? ColorConstant.secondary
-                          : ColorConstant.primary,
-                    ),
-                  ),
-                ],
-              ),
-              DimenConstant.separator,
-            ],
-          ),
+                ),
+              ],
+            ),
+            DimenConstant.separator,
+          ],
         ),
         Positioned(
           left: 20,

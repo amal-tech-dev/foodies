@@ -71,8 +71,6 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
   Widget build(BuildContext context) {
     RecipeTileController listeningController =
         Provider.of<RecipeTileController>(context);
-    RecipeTileController nonListeningController =
-        Provider.of<RecipeTileController>(context, listen: false);
 
     return Scaffold(
       body: Padding(
@@ -165,12 +163,6 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           id: listeningController.recipes.keys.toList()[index],
                           recipe: listeningController.recipes.values
                               .toList()[index],
-                          like: nonListeningController.recipes.values
-                              .toList()[index]
-                              .likes!
-                              .contains(nonListeningController.recipes.keys
-                                  .toList()[index]),
-                          favourite: true,
                         ),
                   itemCount: loading ? 100 : listeningController.recipes.length,
                 ),

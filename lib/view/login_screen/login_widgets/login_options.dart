@@ -41,7 +41,7 @@ class _LoginOptionsState extends State<LoginOptions> {
             setState(() {});
             try {
               await auth.signInAnonymously();
-              await Hive.openBox<String>('menuBox');
+              await Hive.openBox<String>('favouritesBox');
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(

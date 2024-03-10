@@ -34,7 +34,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
   FocusNode bioFocusNode = FocusNode();
   ImagePicker picker = ImagePicker();
   File? profile, cover;
-  UserModel userModel = UserModel();
+  UserModel model = UserModel();
   bool loading = false;
 
   @override
@@ -317,26 +317,26 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       setState(() {});
                       try {
                         User user = auth.currentUser!;
-                        userModel.username =
+                        model.username =
                             usernameController.text.trim().toLowerCase();
-                        userModel.name = nameController.text.trim();
-                        userModel.bio = bioController.text.trim();
+                        model.name = nameController.text.trim();
+                        model.bio = bioController.text.trim();
                         if (profile != null) {
-                          userModel.profile =
+                          model.profile =
                               await uploadImage(profile!, 'profiles');
                         }
                         if (cover != null) {
-                          userModel.cover = await uploadImage(cover!, 'covers');
+                          model.cover = await uploadImage(cover!, 'covers');
                         }
-                        userModel.followers = [];
-                        userModel.following = [];
-                        userModel.favourites = [];
-                        userModel.recipes = [];
-                        userModel.verified = false;
+                        model.followers = [];
+                        model.following = [];
+                        model.favourites = [];
+                        model.recipes = [];
+                        model.verified = false;
                         await firestore
                             .collection('users')
                             .doc(user.uid)
-                            .set(userModel.toJson());
+                            .set(model.toJson());
                         await user.sendEmailVerification();
                         Navigator.pushAndRemoveUntil(
                           context,

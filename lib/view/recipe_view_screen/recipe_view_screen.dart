@@ -394,6 +394,20 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             itemCount: recipe.steps?.length ?? 0,
           ),
           SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: DimenConstant.padding,
+              ),
+              child: Text(
+                'Rating',
+                style: TextStyle(
+                  color: ColorConstant.secondary,
+                  fontSize: DimenConstant.small,
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
             child: SizedBox(
               height: 100,
             ),

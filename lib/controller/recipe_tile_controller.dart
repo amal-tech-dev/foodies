@@ -11,7 +11,7 @@ import 'package:share_plus/share_plus.dart';
 class RecipeTileController with ChangeNotifier {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   Map<String, RecipeModel> recipes = {};
-  List<String> favourites = [];
+  List favourites = [];
   User user = FirebaseAuth.instance.currentUser!;
 
   // get recipes
@@ -29,7 +29,7 @@ class RecipeTileController with ChangeNotifier {
     DocumentReference reference = firestore.collection('users').doc(user.uid);
     DocumentSnapshot snapshot = await reference.get();
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    favourites = data['favourites'] as List<String>;
+    favourites = data['favourites'];
     notifyListeners();
   }
 
@@ -52,10 +52,7 @@ class RecipeTileController with ChangeNotifier {
   // update likes in firestore
   updateLikes(String docId) async {
     DocumentReference reference = firestore.collection('recipes').doc(docId);
-    DocumentSnapshot snapshot = await reference.get();
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    List<String> temp = data['likes'] as List<String>;
-    if (temp.contains(user.uid))
+    if (recipes[docId]?.likes?.contains(user.uid) ?? false)
       await reference.update({
         'likes': FieldValue.arrayRemove([user.uid])
       });
@@ -124,10 +121,7 @@ class RecipeTileController with ChangeNotifier {
   // update favourites of current user firestore
   updateFavourites(String docId) async {
     DocumentReference reference = firestore.collection('users').doc(user.uid);
-    DocumentSnapshot snapshot = await reference.get();
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    List<String> temp = data['favourites'] as List<String>;
-    if (temp.contains(docId))
+    if (favourites.contains(docId))
       await reference.update({
         'favourites': FieldValue.arrayRemove([docId])
       });
@@ -137,5 +131,10 @@ class RecipeTileController with ChangeNotifier {
       });
     getFavourites();
     notifyListeners();
+  }
+
+  // get rating list and return average
+  int getRating(String docId) {
+    return 5;
   }
 }

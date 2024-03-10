@@ -19,6 +19,7 @@ class Assets {
   static const String imagesLogin = 'assets/images/login.png';
   static const String imagesOverview = 'assets/images/overview.png';
   static const String imagesProfile = 'assets/images/profile.png';
+  static const String imagesRatingStar = 'assets/images/rating_star.png';
   static const String imagesSignup = 'assets/images/signup.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
   static const String lottieAudioPlaying = 'assets/lottie/audio_playing.json';
