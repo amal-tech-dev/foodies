@@ -31,7 +31,8 @@ class RecipeTileController with ChangeNotifier {
   // get user favourites
   getFavourites() async {
     if (user.isAnonymous) {
-      if (box.isOpen) favourites = box.values.toList();
+      if (!box.isOpen) box = await Hive.openBox('favouriteBox');
+      favourites = box.values.toList();
     } else {
       DocumentReference reference = firestore.collection('users').doc(user.uid);
       DocumentSnapshot snapshot = await reference.get();
@@ -129,14 +130,13 @@ class RecipeTileController with ChangeNotifier {
   // update favourites of current user firestore
   updateFavourites(String docId) async {
     if (user.isAnonymous) {
-      if (box.isOpen) {
-        if (favourites.contains(docId)) {
-          int index = favourites.indexOf(docId);
-          int key = box.keyAt(index);
-          await box.deleteAt(key);
-        } else {
-          await box.add(docId);
-        }
+      if (!box.isOpen) box = await Hive.openBox('favouritesBox');
+      if (favourites.contains(docId)) {
+        int index = favourites.indexOf(docId);
+        int key = box.keyAt(index);
+        await box.deleteAt(key);
+      } else {
+        await box.add(docId);
       }
     } else {
       DocumentReference reference = firestore.collection('users').doc(user.uid);
