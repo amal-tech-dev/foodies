@@ -6,13 +6,17 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_screen.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:share_plus/share_plus.dart';
 
 class RecipeTileController with ChangeNotifier {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   Map<String, RecipeModel> recipes = {};
   List favourites = [];
   User user = FirebaseAuth.instance.currentUser!;
+  Box<String> box = Hive.box<String>('favouriteBox');
 
   // get recipes
   getRecipes() async {
@@ -26,10 +30,14 @@ class RecipeTileController with ChangeNotifier {
 
   // get user favourites
   getFavourites() async {
-    DocumentReference reference = firestore.collection('users').doc(user.uid);
-    DocumentSnapshot snapshot = await reference.get();
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    favourites = data['favourites'];
+    if (user.isAnonymous) {
+      if (box.isOpen) favourites = box.values.toList();
+    } else {
+      DocumentReference reference = firestore.collection('users').doc(user.uid);
+      DocumentSnapshot snapshot = await reference.get();
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      favourites = data['favourites'];
+    }
     notifyListeners();
   }
 
@@ -120,21 +128,28 @@ class RecipeTileController with ChangeNotifier {
 
   // update favourites of current user firestore
   updateFavourites(String docId) async {
-    DocumentReference reference = firestore.collection('users').doc(user.uid);
-    if (favourites.contains(docId))
-      await reference.update({
-        'favourites': FieldValue.arrayRemove([docId])
-      });
-    else
-      await reference.update({
-        'favourites': FieldValue.arrayUnion([docId])
-      });
+    if (user.isAnonymous) {
+      if (box.isOpen) {
+        if (favourites.contains(docId)) {
+          int index = favourites.indexOf(docId);
+          int key = box.keyAt(index);
+          await box.deleteAt(key);
+        } else {
+          await box.add(docId);
+        }
+      }
+    } else {
+      DocumentReference reference = firestore.collection('users').doc(user.uid);
+      if (favourites.contains(docId))
+        await reference.update({
+          'favourites': FieldValue.arrayRemove([docId])
+        });
+      else
+        await reference.update({
+          'favourites': FieldValue.arrayUnion([docId])
+        });
+    }
     getFavourites();
     notifyListeners();
-  }
-
-  // get rating list and return average
-  int getRating(String docId) {
-    return 5;
   }
 }
