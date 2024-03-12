@@ -46,7 +46,7 @@ class _CounterState extends State<Counter> {
       suffix = '';
     } else if (value < 1000000) {
       count = value ~/ 1000;
-      suffix = 'k';
+      suffix = 'K';
     } else if (value < 1000000000) {
       count = value ~/ 1000000;
       suffix = 'M';
@@ -62,6 +62,7 @@ class _CounterState extends State<Counter> {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AnimatedFlipCounter(
               value: count,

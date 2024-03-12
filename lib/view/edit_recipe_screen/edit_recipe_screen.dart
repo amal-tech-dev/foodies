@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class EditRecipeDetailsScreen extends StatelessWidget {
-  EditRecipeDetailsScreen({super.key});
+class EditRecipeScreen extends StatelessWidget {
+  EditRecipeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

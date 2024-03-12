@@ -7,6 +7,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
+import 'package:foodies/view/edit_recipe_screen/edit_recipe_screen.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
 import 'package:foodies/widgets/counter.dart';
@@ -24,15 +25,21 @@ class RecipeViewScreen extends StatefulWidget {
 }
 
 class _RecipeViewScreenState extends State<RecipeViewScreen> {
-  FirebaseAuth auth = FirebaseAuth.instance;
+  User user = FirebaseAuth.instance.currentUser!;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   RecipeModel recipe = RecipeModel();
   String name = '', profile = '';
-  bool verified = false;
+  bool verified = false, expanded = false;
+  ScrollController controller = ScrollController();
 
   @override
   void initState() {
     getData();
+    controller.addListener(() {
+      setState(() {
+        expanded = controller.hasClients && controller.offset > 0;
+      });
+    });
     super.initState();
   }
 
@@ -62,16 +69,14 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        controller: controller,
         slivers: [
           SliverAppBar(
             backgroundColor: ColorConstant.background,
             surfaceTintColor: Colors.transparent,
-            floating: true,
-            expandedHeight:
-                MediaQuery.of(context).size.width - (kToolbarHeight - 20),
+            expandedHeight: 400,
             collapsedHeight: kToolbarHeight,
             pinned: true,
-            centerTitle: true,
             leading: Padding(
               padding: const EdgeInsets.all(
                 DimenConstant.padding * 2 / 3,
@@ -80,161 +85,214 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 color: ColorConstant.primary,
               ),
             ),
-            flexibleSpace: FlexibleSpaceBar(
-              background: Stack(
-                children: [
-                  Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          recipe.image ?? '',
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          ColorConstant.tertiary.withOpacity(0.3),
-                          ColorConstant.tertiary.withOpacity(0.2),
-                          ColorConstant.tertiary.withOpacity(0.1),
-                          ColorConstant.tertiary.withOpacity(0.1),
-                          ColorConstant.tertiary.withOpacity(0.2),
-                          ColorConstant.tertiary.withOpacity(0.3),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              title: Text(
-                recipe.name ?? '',
-                style: TextStyle(
-                  color: ColorConstant.primary,
-                  fontSize: DimenConstant.extraSmall,
-                ),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: DimenConstant.separator,
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: DimenConstant.padding,
+            title: AnimatedOpacity(
+              opacity: expanded ? 1.0 : 0.0,
+              duration: Duration(
+                milliseconds: 250,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Counter(
-                    count: recipe.likes?.length ?? 0,
-                    header: 'Likes',
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage(
+                      ImageConstant.food,
+                    ),
+                    foregroundImage: recipe.image != null
+                        ? NetworkImage(recipe.image!) as ImageProvider<Object>
+                        : AssetImage(
+                            ImageConstant.food,
+                          ),
                   ),
-                  Counter(
-                    count: recipe.views ?? 0,
-                    header: 'Views',
-                  ),
-                  Counter(
-                    count: recipe.shared ?? 0,
-                    header: 'Shared',
+                  DimenConstant.separator,
+                  Expanded(
+                    child: Text(
+                      recipe.name ?? '',
+                      style: TextStyle(
+                        color: ColorConstant.primary,
+                        fontSize: DimenConstant.extraSmall,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: DimenConstant.separator,
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: DimenConstant.padding,
-              ),
-              child: CustomContainer(
-                paddingLeft: DimenConstant.padding * 2.0,
-                paddingRight: DimenConstant.padding * 2.0,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfileViewScreen(
-                      uid: recipe.chef!,
+            actions: [
+              Visibility(
+                visible: recipe.chef == user.uid,
+                child: IconButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditRecipeScreen(),
                     ),
                   ),
+                  icon: Icon(
+                    Icons.edit_rounded,
+                    color: ColorConstant.primary,
+                    size: 22,
+                  ),
                 ),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundImage: AssetImage(
-                        ImageConstant.profile,
-                      ),
-                      foregroundImage: profile == ''
-                          ? AssetImage(
-                              ImageConstant.profile,
-                            )
-                          : NetworkImage(
-                              profile,
-                            ) as ImageProvider<Object>,
+              ),
+              Visibility(
+                visible: recipe.chef == user.uid,
+                child: IconButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditRecipeScreen(),
                     ),
-                    DimenConstant.separator,
-                    name != StringConstant.appName
-                        ? Text(
-                            name,
-                            style: TextStyle(
-                              color: ColorConstant.primary,
-                              fontSize: DimenConstant.small,
+                  ),
+                  icon: Icon(
+                    Icons.delete_rounded,
+                    color: ColorConstant.primary,
+                    size: 22,
+                  ),
+                ),
+              ),
+              DimenConstant.separator,
+            ],
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                color: ColorConstant.background,
+                padding: EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: SafeArea(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: kToolbarHeight,
+                      ),
+                      CircleAvatar(
+                        radius: 70,
+                        backgroundImage: AssetImage(
+                          ImageConstant.food,
+                        ),
+                        foregroundImage: recipe.image != null
+                            ? NetworkImage(recipe.image!)
+                                as ImageProvider<Object>
+                            : AssetImage(
+                                ImageConstant.food,
+                              ),
+                      ),
+                      DimenConstant.separator,
+                      Text(
+                        recipe.name ?? '',
+                        style: TextStyle(
+                          color: ColorConstant.primary,
+                          fontSize: DimenConstant.medium,
+                        ),
+                      ),
+                      DimenConstant.separator,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomContainer(
+                              child: Counter(
+                                count: recipe.likes?.length ?? 0,
+                                header: 'Likes',
+                              ),
                             ),
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        : Row(
-                            children: [
-                              Text(
-                                StringConstant.appNamePrefix,
-                                style: TextStyle(
-                                  color: ColorConstant.primary,
-                                  fontSize: DimenConstant.small,
-                                  fontFamily: StringConstant.font,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(
-                                StringConstant.appNameSuffix,
-                                style: TextStyle(
-                                  color: ColorConstant.secondary,
-                                  fontSize: DimenConstant.small,
-                                  fontFamily: StringConstant.font,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
                           ),
-                    SizedBox(
-                      width: DimenConstant.padding / 2.0,
-                    ),
-                    Visibility(
-                      visible: verified,
-                      child: Icon(
-                        Icons.verified_rounded,
-                        color: ColorConstant.secondary,
-                        size: 20,
+                          DimenConstant.separator,
+                          Expanded(
+                            child: CustomContainer(
+                              child: Counter(
+                                count: recipe.views ?? 0,
+                                header: 'Views',
+                              ),
+                            ),
+                          ),
+                          DimenConstant.separator,
+                          Expanded(
+                            child: CustomContainer(
+                              child: Counter(
+                                count: recipe.shared ?? 0,
+                                header: 'Shared',
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
+                      DimenConstant.separator,
+                      CustomContainer(
+                        paddingLeft: DimenConstant.padding * 2.0,
+                        paddingRight: DimenConstant.padding * 2.0,
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfileViewScreen(
+                              uid: recipe.chef!,
+                            ),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundImage: AssetImage(
+                                ImageConstant.profile,
+                              ),
+                              foregroundImage: profile == ''
+                                  ? AssetImage(
+                                      ImageConstant.profile,
+                                    )
+                                  : NetworkImage(
+                                      profile,
+                                    ) as ImageProvider<Object>,
+                            ),
+                            DimenConstant.separator,
+                            name != StringConstant.appName
+                                ? Text(
+                                    name,
+                                    style: TextStyle(
+                                      color: ColorConstant.primary,
+                                      fontSize: DimenConstant.small,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+                                : Row(
+                                    children: [
+                                      Text(
+                                        StringConstant.appNamePrefix,
+                                        style: TextStyle(
+                                          color: ColorConstant.primary,
+                                          fontSize: DimenConstant.small,
+                                          fontFamily: StringConstant.font,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        StringConstant.appNameSuffix,
+                                        style: TextStyle(
+                                          color: ColorConstant.secondary,
+                                          fontSize: DimenConstant.small,
+                                          fontFamily: StringConstant.font,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                            SizedBox(
+                              width: DimenConstant.padding / 2.0,
+                            ),
+                            Visibility(
+                              visible: verified,
+                              child: Icon(
+                                Icons.verified_rounded,
+                                color: ColorConstant.secondary,
+                                size: 20,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: DimenConstant.separator,
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -394,20 +452,6 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             itemCount: recipe.steps?.length ?? 0,
           ),
           SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: DimenConstant.padding,
-              ),
-              child: Text(
-                'Rating',
-                style: TextStyle(
-                  color: ColorConstant.secondary,
-                  fontSize: DimenConstant.small,
-                ),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
             child: SizedBox(
               height: 100,
             ),
@@ -416,6 +460,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: ColorConstant.secondary,
+        isExtended: !expanded,
+        extendedIconLabelSpacing: DimenConstant.padding,
+        extendedPadding: EdgeInsets.symmetric(
+          horizontal: DimenConstant.padding * 1.6,
+        ),
+        icon: Icon(
+          Icons.fastfood_rounded,
+          color: ColorConstant.tertiary,
+        ),
         label: Text(
           'Start Cooking',
           style: TextStyle(

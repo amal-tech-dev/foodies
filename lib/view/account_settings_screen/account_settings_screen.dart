@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/edit_user_details_screen/edit_user_details_screen.dart';
+import 'package:foodies/view/edit_user_screen/edit_user_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/reset_password_screen/reset_password_screen.dart';
 import 'package:foodies/view/update_email_screen/update_email_screen.dart';
@@ -52,7 +52,7 @@ class AccountSettingsScreen extends StatelessWidget {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EditUserDetailsScreen(),
+                  builder: (context) => EditUserScreen(),
                 ),
               ),
               child: Row(

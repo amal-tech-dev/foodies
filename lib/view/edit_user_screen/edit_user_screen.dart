@@ -15,14 +15,14 @@ import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-class EditUserDetailsScreen extends StatefulWidget {
-  EditUserDetailsScreen({super.key});
+class EditUserScreen extends StatefulWidget {
+  EditUserScreen({super.key});
 
   @override
-  State<EditUserDetailsScreen> createState() => _EditUserDetailsScreenState();
+  State<EditUserScreen> createState() => _EditUserScreenState();
 }
 
-class _EditUserDetailsScreenState extends State<EditUserDetailsScreen> {
+class _EditUserScreenState extends State<EditUserScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;

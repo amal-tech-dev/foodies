@@ -199,9 +199,9 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            ColorConstant.tertiary.withOpacity(0.3),
-                            ColorConstant.tertiary.withOpacity(0.25),
                             ColorConstant.tertiary.withOpacity(0.2),
+                            ColorConstant.tertiary.withOpacity(0.2),
+                            ColorConstant.tertiary.withOpacity(0.1),
                             ColorConstant.tertiary.withOpacity(0.1),
                             ColorConstant.tertiary.withOpacity(0.0),
                           ],
@@ -259,24 +259,16 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                           },
                           child: CircleAvatar(
                             radius: MediaQuery.of(context).size.width * 0.15625,
-                            backgroundColor: ColorConstant.background,
-                            child: Padding(
-                              padding: const EdgeInsets.all(3.5),
-                              child: CircleAvatar(
-                                radius:
-                                    MediaQuery.of(context).size.width * 0.15625,
-                                backgroundImage: AssetImage(
-                                  ImageConstant.profile,
-                                ),
-                                foregroundImage: user.profile != null
-                                    ? NetworkImage(
-                                        profile,
-                                      ) as ImageProvider<Object>
-                                    : AssetImage(
-                                        profile,
-                                      ),
-                              ),
+                            backgroundImage: AssetImage(
+                              ImageConstant.profile,
                             ),
+                            foregroundImage: user.profile != null
+                                ? NetworkImage(
+                                    profile,
+                                  ) as ImageProvider<Object>
+                                : AssetImage(
+                                    profile,
+                                  ),
                           ),
                         ),
                         Counter(

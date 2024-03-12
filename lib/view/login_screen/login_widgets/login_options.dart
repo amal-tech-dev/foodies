@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
@@ -41,7 +42,7 @@ class _LoginOptionsState extends State<LoginOptions> {
             setState(() {});
             try {
               await auth.signInAnonymously();
-              await Hive.openBox<String>('favouritesBox');
+              await Hive.openBox<String>(StringConstant.box);
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(

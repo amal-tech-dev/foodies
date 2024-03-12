@@ -16,7 +16,7 @@ class RecipeTileController with ChangeNotifier {
   Map<String, RecipeModel> recipes = {};
   List favourites = [];
   User user = FirebaseAuth.instance.currentUser!;
-  Box<String> box = Hive.box<String>('favouriteBox');
+  late Box box;
 
   // get recipes
   getRecipes() async {
@@ -31,7 +31,10 @@ class RecipeTileController with ChangeNotifier {
   // get user favourites
   getFavourites() async {
     if (user.isAnonymous) {
-      if (!box.isOpen) box = await Hive.openBox('favouriteBox');
+      if (await Hive.boxExists(StringConstant.box))
+        box = await Hive.box(StringConstant.box);
+      else
+        box = await Hive.openBox<String>(StringConstant.box);
       favourites = box.values.toList();
     } else {
       DocumentReference reference = firestore.collection('users').doc(user.uid);
@@ -130,7 +133,10 @@ class RecipeTileController with ChangeNotifier {
   // update favourites of current user firestore
   updateFavourites(String docId) async {
     if (user.isAnonymous) {
-      if (!box.isOpen) box = await Hive.openBox('favouritesBox');
+      if (await Hive.boxExists(StringConstant.box))
+        box = await Hive.box(StringConstant.box);
+      else
+        box = await Hive.openBox<String>(StringConstant.box);
       if (favourites.contains(docId)) {
         int index = favourites.indexOf(docId);
         int key = box.keyAt(index);
