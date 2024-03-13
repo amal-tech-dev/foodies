@@ -17,7 +17,6 @@ class RecipeDetails extends StatefulWidget {
 }
 
 class _RecipeDetailsState extends State<RecipeDetails> {
-  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -81,7 +80,6 @@ class _RecipeDetailsState extends State<RecipeDetails> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: globalKey,
       child: Column(
         children: [
           Expanded(

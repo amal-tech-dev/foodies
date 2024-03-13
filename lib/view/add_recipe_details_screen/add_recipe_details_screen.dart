@@ -3,12 +3,10 @@ import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/preview_recipe.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/recipe_details.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/recipe_image.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/recipe_ingredients.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/recipe_steps.dart';
-import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/save_recipe.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -25,6 +23,9 @@ class AddRecipeDetailsScreen extends StatefulWidget {
 }
 
 class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
+  PageController controller = PageController();
+  int index = 0;
+  RecipeModel model = RecipeModel();
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -40,6 +41,13 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> pages = [
+      RecipeDetails(),
+      RecipeIngredients(),
+      RecipeSteps(),
+      RecipeImage(),
+    ];
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -55,6 +63,22 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
             fontSize: DimenConstant.small,
           ),
         ),
+        actions: [
+          Visibility(
+            visible: index == pages.length - 1,
+            child: TextButton(
+              onPressed: () {},
+              child: Text(
+                'Save',
+                style: TextStyle(
+                  color: ColorConstant.secondary,
+                  fontSize: DimenConstant.extraSmall,
+                ),
+              ),
+            ),
+          ),
+          DimenConstant.separator,
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(
@@ -64,34 +88,76 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
           children: [
             Expanded(
               child: PageView(
-                controller:
-                    Provider.of<AddRecipeController>(context, listen: false)
-                        .pageViewController
-                        .controller,
+                controller: controller,
                 physics: NeverScrollableScrollPhysics(),
-                children: [
-                  PreviewRecipe(),
-                  RecipeDetails(),
-                  RecipeIngredients(),
-                  RecipeSteps(),
-                  RecipeImage(),
-                  SaveRecipe(),
-                ],
+                children: pages,
               ),
             ),
             DimenConstant.separator,
-            SmoothPageIndicator(
-              controller:
-                  Provider.of<AddRecipeController>(context, listen: false)
-                      .pageViewController
-                      .controller,
-              count: 6,
-              effect: ExpandingDotsEffect(
-                dotHeight: 5,
-                dotWidth: 5,
-                activeDotColor: ColorConstant.secondary,
-                dotColor: ColorConstant.primary.withOpacity(0.5),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Opacity(
+                  opacity: index != 0 ? 1.0 : 0.0,
+                  child: IconButton(
+                    color: ColorConstant.primary,
+                    onPressed: () {
+                      if (index != 0) {
+                        controller.previousPage(
+                          duration: Duration(milliseconds: 200),
+                          curve: Curves.bounceInOut,
+                        );
+                        if (index > 0) index--;
+                        setState(() {});
+                      }
+                    },
+                    icon: Icon(
+                      Icons.navigate_before_rounded,
+                      color: ColorConstant.tertiary,
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        ColorConstant.secondary,
+                      ),
+                    ),
+                  ),
+                ),
+                SmoothPageIndicator(
+                  controller: controller,
+                  count: pages.length,
+                  effect: ExpandingDotsEffect(
+                    dotHeight: 5,
+                    dotWidth: 5,
+                    activeDotColor: ColorConstant.secondary,
+                    dotColor: ColorConstant.primary.withOpacity(0.5),
+                  ),
+                ),
+                Opacity(
+                  opacity: index != pages.length - 1 ? 1.0 : 0.0,
+                  child: IconButton(
+                    color: ColorConstant.primary,
+                    onPressed: () {
+                      if (index != pages.length - 1) {
+                        controller.nextPage(
+                          duration: Duration(milliseconds: 200),
+                          curve: Curves.bounceInOut,
+                        );
+                        if (index < pages.length - 1) index++;
+                        setState(() {});
+                      }
+                    },
+                    icon: Icon(
+                      Icons.navigate_next_rounded,
+                      color: ColorConstant.tertiary,
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        ColorConstant.secondary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
