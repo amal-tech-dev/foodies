@@ -1,7 +1,7 @@
 class RecipeModel {
   String? name;
   String? cuisine;
-  String? description;
+  String? about;
   String? time;
   String? chef;
   String? image;
@@ -16,7 +16,7 @@ class RecipeModel {
   RecipeModel({
     this.name,
     this.cuisine,
-    this.description,
+    this.about,
     this.time,
     this.chef,
     this.image,
@@ -32,7 +32,7 @@ class RecipeModel {
   factory RecipeModel.fromJson(Map<String, dynamic> json) => RecipeModel(
         name: json["name"],
         cuisine: json["cuisine"],
-        description: json["description"],
+        about: json["about"],
         time: json["time"],
         chef: json["chef"],
         image: json["image"],
@@ -56,7 +56,7 @@ class RecipeModel {
   Map<String, dynamic> toJson() => {
         "name": name,
         "cuisine": cuisine,
-        "description": description,
+        "about": about,
         "time": time,
         "chef": chef,
         "image": image,

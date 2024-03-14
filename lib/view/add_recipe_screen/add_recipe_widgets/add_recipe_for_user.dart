@@ -46,14 +46,12 @@ class AddRecipeForUser extends StatelessWidget {
                   ColorConstant.secondary,
                 ),
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddRecipeDetailsScreen(),
-                  ),
-                );
-              },
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddRecipeDetailsScreen(),
+                ),
+              ),
               child: Text(
                 'Add Recipe',
                 style: TextStyle(

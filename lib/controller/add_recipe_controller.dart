@@ -17,7 +17,7 @@ class AddRecipeController with ChangeNotifier {
     editedRecipe = RecipeModel(
       name: '',
       cuisine: '',
-      description: '',
+      about: '',
       time: '',
       image: '',
       chef: '',

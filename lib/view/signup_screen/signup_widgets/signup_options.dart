@@ -28,10 +28,6 @@ class _SignupOptionsState extends State<SignupOptions> {
       child: Column(
         children: [
           CustomContainer(
-            paddingTop: 0.0,
-            paddingLeft: DimenConstant.padding * 1.5,
-            paddingRight: DimenConstant.padding * 1.5,
-            paddingBottom: 0.0,
             child: TextFormField(
               controller: emailController,
               decoration: InputDecoration(
@@ -66,10 +62,6 @@ class _SignupOptionsState extends State<SignupOptions> {
           ),
           DimenConstant.separator,
           CustomContainer(
-            paddingTop: 0.0,
-            paddingLeft: DimenConstant.padding * 1.5,
-            paddingRight: DimenConstant.padding * 1.5,
-            paddingBottom: 0.0,
             child: TextFormField(
               controller: passwordController,
               focusNode: passwordFocusNode,

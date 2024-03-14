@@ -86,7 +86,7 @@ class RecipeTile extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      recipe.description ?? '',
+                      recipe.about ?? '',
                       style: TextStyle(
                         color: ColorConstant.primary,
                         fontSize: DimenConstant.mini,

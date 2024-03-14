@@ -252,105 +252,88 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     ),
                     DimenConstant.separator,
                     Expanded(
-                      child: Column(
-                        children: [
-                          CustomContainer(
-                            paddingTop: 0.0,
-                            paddingBottom: 0.0,
-                            child: TextFormField(
-                              controller: nameController,
-                              decoration: InputDecoration(
-                                label: Text(
-                                  'Display Name',
-                                  style: TextStyle(
-                                    color: ColorConstant.secondary,
-                                    fontSize: DimenConstant.mini,
-                                  ),
-                                ),
-                                border: InputBorder.none,
-                              ),
+                      child: CustomContainer(
+                        child: TextFormField(
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            label: Text(
+                              'Display Name',
                               style: TextStyle(
-                                color: ColorConstant.primary,
+                                color: ColorConstant.secondary,
                                 fontSize: DimenConstant.mini,
                               ),
-                              cursorColor: ColorConstant.secondary,
-                              cursorRadius: Radius.circular(
-                                DimenConstant.cursorRadius,
-                              ),
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(40),
-                                TextInputFormatController(),
-                              ],
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              textCapitalization: TextCapitalization.words,
-                              onTapOutside: (event) =>
-                                  FocusScope.of(context).unfocus(),
-                              onFieldSubmitted: (value) =>
-                                  FocusScope.of(context)
-                                      .requestFocus(usernameFocusNode),
-                              validator: (value) {
-                                if (value!.isEmpty)
-                                  return 'Name must not be empty';
-                                return null;
-                              },
                             ),
+                            border: InputBorder.none,
                           ),
-                          DimenConstant.separator,
-                          CustomContainer(
-                            paddingTop: 0.0,
-                            paddingBottom: 0.0,
-                            child: TextFormField(
-                              controller: usernameController,
-                              focusNode: usernameFocusNode,
-                              decoration: InputDecoration(
-                                label: Text(
-                                  'Username',
-                                  style: TextStyle(
-                                    color: ColorConstant.secondary,
-                                    fontSize: DimenConstant.mini,
-                                  ),
-                                ),
-                                border: InputBorder.none,
-                              ),
-                              style: TextStyle(
-                                color: ColorConstant.primary,
-                                fontSize: DimenConstant.mini,
-                              ),
-                              cursorColor: ColorConstant.secondary,
-                              cursorRadius: Radius.circular(
-                                DimenConstant.cursorRadius,
-                              ),
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(15),
-                              ],
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              onTapOutside: (event) =>
-                                  FocusScope.of(context).unfocus(),
-                              onFieldSubmitted: (value) =>
-                                  FocusScope.of(context)
-                                      .requestFocus(bioFocusNode),
-                              validator: (value) {
-                                if (value!.isEmpty)
-                                  return 'Enter a valid username';
-                                if (!checkUsername(value))
-                                  return 'Only alphabets, numbers and charecters ( . _ ) are allowed';
-                                if (checkUsernameAvailable(value))
-                                  return 'The username is not available';
-                                return null;
-                              },
-                            ),
+                          style: TextStyle(
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.mini,
                           ),
-                        ],
+                          cursorColor: ColorConstant.secondary,
+                          cursorRadius: Radius.circular(
+                            DimenConstant.cursorRadius,
+                          ),
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(40),
+                            TextInputFormatController(),
+                          ],
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          textCapitalization: TextCapitalization.words,
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
+                          onFieldSubmitted: (value) => FocusScope.of(context)
+                              .requestFocus(usernameFocusNode),
+                          validator: (value) {
+                            if (value!.isEmpty) return 'Name must not be empty';
+                            return null;
+                          },
+                        ),
                       ),
                     ),
                   ],
                 ),
                 DimenConstant.separator,
                 CustomContainer(
-                  paddingTop: 0.0,
-                  paddingRight: 0.0,
+                  child: TextFormField(
+                    controller: usernameController,
+                    focusNode: usernameFocusNode,
+                    decoration: InputDecoration(
+                      label: Text(
+                        'Username',
+                        style: TextStyle(
+                          color: ColorConstant.secondary,
+                          fontSize: DimenConstant.mini,
+                        ),
+                      ),
+                      border: InputBorder.none,
+                    ),
+                    style: TextStyle(
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.mini,
+                    ),
+                    cursorColor: ColorConstant.secondary,
+                    cursorRadius: Radius.circular(
+                      DimenConstant.cursorRadius,
+                    ),
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(15),
+                    ],
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                    onFieldSubmitted: (value) =>
+                        FocusScope.of(context).requestFocus(bioFocusNode),
+                    validator: (value) {
+                      if (value!.isEmpty) return 'Enter a valid username';
+                      if (!checkUsername(value))
+                        return 'Only alphabets, numbers and charecters ( . _ ) are allowed';
+                      if (checkUsernameAvailable(value))
+                        return 'The username is not available';
+                      return null;
+                    },
+                  ),
+                ),
+                DimenConstant.separator,
+                CustomContainer(
                   child: TextFormField(
                     controller: bioController,
                     focusNode: bioFocusNode,

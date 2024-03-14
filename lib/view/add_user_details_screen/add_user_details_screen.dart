@@ -182,8 +182,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 ),
                 DimenConstant.separator,
                 CustomContainer(
-                  paddingTop: 0.0,
-                  paddingBottom: 0.0,
                   child: TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
@@ -221,8 +219,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 ),
                 DimenConstant.separator,
                 CustomContainer(
-                  paddingTop: 0.0,
-                  paddingBottom: 0.0,
                   child: TextFormField(
                     controller: usernameController,
                     focusNode: usernameFocusNode,
@@ -261,8 +257,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 ),
                 DimenConstant.separator,
                 CustomContainer(
-                  paddingTop: 0.0,
-                  paddingBottom: 0.0,
                   child: TextFormField(
                     controller: bioController,
                     focusNode: bioFocusNode,

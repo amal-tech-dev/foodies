@@ -300,7 +300,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 horizontal: DimenConstant.padding,
               ),
               child: Text(
-                recipe.description ?? '',
+                recipe.about ?? '',
                 style: TextStyle(
                   color: ColorConstant.primary,
                   fontSize: DimenConstant.extraSmall,

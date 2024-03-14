@@ -50,8 +50,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomContainer(
-                paddingTop: 0.0,
-                paddingBottom: 0.0,
                 child: TextFormField(
                   controller: currentPasswordController,
                   decoration: InputDecoration(
@@ -95,8 +93,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ),
               DimenConstant.separator,
               CustomContainer(
-                paddingTop: 0.0,
-                paddingBottom: 0.0,
                 child: TextFormField(
                   controller: newPasswordController,
                   focusNode: newPasswordFocusNode,
@@ -138,8 +134,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ),
               DimenConstant.separator,
               CustomContainer(
-                paddingTop: 0.0,
-                paddingBottom: 0.0,
                 child: TextFormField(
                   controller: currentPasswordController,
                   focusNode: confirmPasswordFocusNode,

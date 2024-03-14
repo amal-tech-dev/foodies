@@ -27,8 +27,6 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
       child: Column(
         children: [
           CustomContainer(
-            paddingTop: 0.0,
-            paddingBottom: 0.0,
             child: TextFormField(
               controller: emailController,
               decoration: InputDecoration(
