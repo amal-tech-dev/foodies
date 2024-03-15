@@ -9,7 +9,7 @@ import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/step_item.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/timer_widget.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/foodies_container.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -137,7 +137,7 @@ class _StartCookingState extends State<StartCooking> {
                 if (timerRunning || alertPlaying)
                   Row(
                     children: [
-                      CustomContainer(
+                      FoodiesContainer(
                         paddingLeft: DimenConstant.padding * 2,
                         paddingRight: DimenConstant.padding * 2,
                         backgroundColor: ColorConstant.primary,

@@ -9,7 +9,8 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/foodies_container.dart';
+import 'package:foodies/widgets/foodies_text_field.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 
@@ -32,7 +33,7 @@ class _LoginOptionsState extends State<LoginOptions> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomContainer(
+        FoodiesContainer(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
           paddingRight: DimenConstant.padding * 1.5,
@@ -88,7 +89,7 @@ class _LoginOptionsState extends State<LoginOptions> {
           ),
         ),
         DimenConstant.separator,
-        CustomContainer(
+        FoodiesContainer(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
           paddingRight: DimenConstant.padding * 1.5,
@@ -161,7 +162,7 @@ class _LoginOptionsState extends State<LoginOptions> {
           ),
         ),
         DimenConstant.separator,
-        CustomContainer(
+        FoodiesContainer(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
           paddingRight: DimenConstant.padding * 1.5,
@@ -200,30 +201,12 @@ class _LoginOptionsState extends State<LoginOptions> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: TextFormField(
+                  child: FoodiesTextField.singleLineForm(
+                    context: context,
+                    label: 'Email',
                     controller: emailController,
-                    decoration: InputDecoration(
-                      label: Text(
-                        'Email',
-                        style: TextStyle(
-                          color: ColorConstant.secondary,
-                        ),
-                      ),
-                      border: InputBorder.none,
-                    ),
-                    style: TextStyle(
-                      color: ColorConstant.primary,
-                    ),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    cursorColor: ColorConstant.secondary,
-                    cursorRadius: Radius.circular(
-                      DimenConstant.cursorRadius,
-                    ),
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(40),
-                    ],
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    onFieldSubmitted: (value) =>
+                    limit: 40,
+                    onSubmit: (value) =>
                         FocusScope.of(context).requestFocus(passwordFocusNode),
                     validator: (value) {
                       if (value!.isEmpty) return 'Please enter your email';
@@ -237,48 +220,56 @@ class _LoginOptionsState extends State<LoginOptions> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: TextFormField(
-                    controller: passwordController,
-                    focusNode: passwordFocusNode,
-                    decoration: InputDecoration(
-                      label: Text(
-                        'Password',
-                        style: TextStyle(
-                          color: ColorConstant.secondary,
+                  child: FoodiesContainer(
+                    child: TextFormField(
+                      controller: passwordController,
+                      focusNode: passwordFocusNode,
+                      decoration: InputDecoration(
+                        label: Text(
+                          'Password',
+                          style: TextStyle(
+                            color: ColorConstant.secondary,
+                          ),
+                        ),
+                        errorStyle: TextStyle(
+                          color: ColorConstant.error,
+                          fontSize: DimenConstant.nano,
+                          fontFamily: StringConstant.font,
+                        ),
+                        contentPadding: EdgeInsets.all(0),
+                        border: InputBorder.none,
+                        suffix: InkWell(
+                          onTap: () {
+                            passwordVisible = !passwordVisible;
+                            setState(() {});
+                          },
+                          child: Icon(
+                            passwordVisible
+                                ? Icons.visibility_off_rounded
+                                : Icons.visibility_rounded,
+                            color: ColorConstant.secondary,
+                          ),
                         ),
                       ),
-                      border: InputBorder.none,
-                      suffix: InkWell(
-                        onTap: () {
-                          passwordVisible = !passwordVisible;
-                          setState(() {});
-                        },
-                        child: Icon(
-                          passwordVisible
-                              ? Icons.visibility_off_rounded
-                              : Icons.visibility_rounded,
-                          color: ColorConstant.secondary,
-                        ),
+                      style: TextStyle(
+                        color: ColorConstant.primary,
                       ),
+                      cursorColor: ColorConstant.secondary,
+                      cursorRadius: Radius.circular(
+                        DimenConstant.cursorRadius,
+                      ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(40),
+                      ],
+                      obscureText: !passwordVisible,
+                      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                      onFieldSubmitted: (value) {},
+                      validator: (value) {
+                        if (value!.length < 8) return 'Enter a valid password';
+                        return null;
+                      },
                     ),
-                    style: TextStyle(
-                      color: ColorConstant.primary,
-                    ),
-                    cursorColor: ColorConstant.secondary,
-                    cursorRadius: Radius.circular(
-                      DimenConstant.cursorRadius,
-                    ),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(40),
-                    ],
-                    obscureText: !passwordVisible,
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    onFieldSubmitted: (value) {},
-                    validator: (value) {
-                      if (value!.length < 8) return 'Enter a valid password';
-                      return null;
-                    },
                   ),
                 ),
                 DimenConstant.separator,

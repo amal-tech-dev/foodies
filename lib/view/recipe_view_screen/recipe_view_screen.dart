@@ -11,7 +11,7 @@ import 'package:foodies/view/edit_recipe_screen/edit_recipe_screen.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
 import 'package:foodies/widgets/counter.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/foodies_container.dart';
 
 class RecipeViewScreen extends StatefulWidget {
   String id;
@@ -188,7 +188,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       Row(
                         children: [
                           Expanded(
-                            child: CustomContainer(
+                            child: FoodiesContainer(
                               child: Counter(
                                 count: recipe.likes?.length ?? 0,
                                 header: 'Likes',
@@ -197,7 +197,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           ),
                           DimenConstant.separator,
                           Expanded(
-                            child: CustomContainer(
+                            child: FoodiesContainer(
                               child: Counter(
                                 count: recipe.views ?? 0,
                                 header: 'Views',
@@ -206,7 +206,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           ),
                           DimenConstant.separator,
                           Expanded(
-                            child: CustomContainer(
+                            child: FoodiesContainer(
                               child: Counter(
                                 count: recipe.shared ?? 0,
                                 header: 'Shared',
@@ -216,7 +216,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         ],
                       ),
                       DimenConstant.separator,
-                      CustomContainer(
+                      FoodiesContainer(
                         paddingLeft: DimenConstant.padding * 2.0,
                         paddingRight: DimenConstant.padding * 2.0,
                         onPressed: () => Navigator.push(

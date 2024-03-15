@@ -4,13 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:foodies/controller/text_input_format_controller.dart';
 import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/foodies_text_field.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -252,122 +250,51 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     ),
                     DimenConstant.separator,
                     Expanded(
-                      child: CustomContainer(
-                        child: TextFormField(
-                          controller: nameController,
-                          decoration: InputDecoration(
-                            label: Text(
-                              'Display Name',
-                              style: TextStyle(
-                                color: ColorConstant.secondary,
-                                fontSize: DimenConstant.mini,
-                              ),
-                            ),
-                            border: InputBorder.none,
-                          ),
-                          style: TextStyle(
-                            color: ColorConstant.primary,
-                            fontSize: DimenConstant.mini,
-                          ),
-                          cursorColor: ColorConstant.secondary,
-                          cursorRadius: Radius.circular(
-                            DimenConstant.cursorRadius,
-                          ),
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(40),
-                            TextInputFormatController(),
-                          ],
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          textCapitalization: TextCapitalization.words,
-                          onTapOutside: (event) =>
-                              FocusScope.of(context).unfocus(),
-                          onFieldSubmitted: (value) => FocusScope.of(context)
-                              .requestFocus(usernameFocusNode),
-                          validator: (value) {
-                            if (value!.isEmpty) return 'Name must not be empty';
-                            return null;
-                          },
-                        ),
+                      child: FoodiesTextField.singleLineForm(
+                        context: context,
+                        label: 'Display Name',
+                        controller: nameController,
+                        limit: 40,
+                        onSubmit: (value) => FocusScope.of(context)
+                            .requestFocus(usernameFocusNode),
+                        validator: (value) {
+                          if (value!.isEmpty) return 'Name must not be empty';
+                          return null;
+                        },
                       ),
                     ),
                   ],
                 ),
                 DimenConstant.separator,
-                CustomContainer(
-                  child: TextFormField(
-                    controller: usernameController,
-                    focusNode: usernameFocusNode,
-                    decoration: InputDecoration(
-                      label: Text(
-                        'Username',
-                        style: TextStyle(
-                          color: ColorConstant.secondary,
-                          fontSize: DimenConstant.mini,
-                        ),
-                      ),
-                      border: InputBorder.none,
-                    ),
-                    style: TextStyle(
-                      color: ColorConstant.primary,
-                      fontSize: DimenConstant.mini,
-                    ),
-                    cursorColor: ColorConstant.secondary,
-                    cursorRadius: Radius.circular(
-                      DimenConstant.cursorRadius,
-                    ),
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(15),
-                    ],
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    onFieldSubmitted: (value) =>
-                        FocusScope.of(context).requestFocus(bioFocusNode),
-                    validator: (value) {
-                      if (value!.isEmpty) return 'Enter a valid username';
-                      if (!checkUsername(value))
-                        return 'Only alphabets, numbers and charecters ( . _ ) are allowed';
-                      if (checkUsernameAvailable(value))
-                        return 'The username is not available';
-                      return null;
-                    },
-                  ),
+                FoodiesTextField.singleLineForm(
+                  context: context,
+                  label: 'Username',
+                  controller: usernameController,
+                  focusNode: usernameFocusNode,
+                  limit: 15,
+                  onSubmit: (value) =>
+                      FocusScope.of(context).requestFocus(bioFocusNode),
+                  validator: (value) {
+                    if (value!.isEmpty) return 'Enter a valid username';
+                    if (!checkUsername(value))
+                      return 'Only alphabets, numbers and charecters ( . _ ) are allowed';
+                    if (checkUsernameAvailable(value))
+                      return 'The username is not available';
+                    return null;
+                  },
                 ),
                 DimenConstant.separator,
-                CustomContainer(
-                  child: TextFormField(
-                    controller: bioController,
-                    focusNode: bioFocusNode,
-                    decoration: InputDecoration(
-                      label: Text(
-                        'Bio',
-                        style: TextStyle(
-                          color: ColorConstant.secondary,
-                          fontSize: DimenConstant.mini,
-                        ),
-                      ),
-                      border: InputBorder.none,
-                    ),
-                    style: TextStyle(
-                      color: ColorConstant.primary,
-                      fontSize: DimenConstant.mini,
-                    ),
-                    cursorColor: ColorConstant.secondary,
-                    cursorRadius: Radius.circular(
-                      DimenConstant.cursorRadius,
-                    ),
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(200),
-                      TextInputFormatController(),
-                    ],
-                    textCapitalization: TextCapitalization.sentences,
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    onFieldSubmitted: (value) =>
-                        FocusScope.of(context).unfocus(),
-                    validator: (value) {
-                      if (value!.isEmpty) return 'Your bio is empty';
-                      return null;
-                    },
-                  ),
+                FoodiesTextField.multiLineForm(
+                  context: context,
+                  label: 'Bio',
+                  controller: bioController,
+                  focusNode: bioFocusNode,
+                  lines: 5,
+                  limit: 200,
+                  validator: (value) {
+                    if (value!.isEmpty) return 'Your bio is empty';
+                    return null;
+                  },
                 ),
                 DimenConstant.separator,
                 ElevatedButton(

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
-class CustomContainer extends StatelessWidget {
+class FoodiesContainer extends StatelessWidget {
   Widget child;
   double? paddingTop, paddingLeft, paddingRight, paddingBottom, borderRadius;
   bool? border;
   Color? backgroundColor;
   VoidCallback? onPressed;
-  CustomContainer({
+  FoodiesContainer({
     super.key,
     required this.child,
     this.paddingTop,

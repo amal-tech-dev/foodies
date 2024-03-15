@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/foodies_text_field.dart';
 
 class ForgetPasswordOptions extends StatefulWidget {
   ForgetPasswordOptions({super.key});
@@ -26,37 +25,17 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
       key: formKey,
       child: Column(
         children: [
-          CustomContainer(
-            child: TextFormField(
-              controller: emailController,
-              decoration: InputDecoration(
-                label: Text(
-                  'Email',
-                  style: TextStyle(
-                    color: ColorConstant.secondary,
-                  ),
-                ),
-                border: InputBorder.none,
-              ),
-              style: TextStyle(
-                color: ColorConstant.primary,
-              ),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              cursorColor: ColorConstant.secondary,
-              cursorRadius: Radius.circular(
-                DimenConstant.cursorRadius,
-              ),
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(40),
-              ],
-              onTapOutside: (event) => FocusScope.of(context).unfocus(),
-              onFieldSubmitted: (value) => FocusScope.of(context).unfocus(),
-              validator: (value) {
-                if (value!.isEmpty) return 'Please enter your email';
-                if (!checkEmail(value)) return 'Please enter a valid email';
-                return null;
-              },
-            ),
+          FoodiesTextField.singleLineForm(
+            context: context,
+            label: 'Email',
+            controller: emailController,
+            limit: 40,
+            onSubmit: (value) => FocusScope.of(context).unfocus(),
+            validator: (value) {
+              if (value!.isEmpty) return 'Please enter your email';
+              if (!checkEmail(value)) return 'Please enter a valid email';
+              return null;
+            },
           ),
           DimenConstant.separator,
           ElevatedButton(

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/widgets/foodies_container.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   ResetPasswordScreen({super.key});
@@ -49,7 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomContainer(
+              FoodiesContainer(
                 child: TextFormField(
                   controller: currentPasswordController,
                   decoration: InputDecoration(
@@ -57,6 +58,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     labelStyle: TextStyle(
                       color: ColorConstant.secondary,
                     ),
+                    errorStyle: TextStyle(
+                      color: ColorConstant.error,
+                      fontSize: DimenConstant.nano,
+                      fontFamily: StringConstant.font,
+                    ),
+                    contentPadding: EdgeInsets.all(0),
                     border: InputBorder.none,
                     suffix: InkWell(
                       onTap: () {
@@ -92,7 +99,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
               ),
               DimenConstant.separator,
-              CustomContainer(
+              FoodiesContainer(
                 child: TextFormField(
                   controller: newPasswordController,
                   focusNode: newPasswordFocusNode,
@@ -133,7 +140,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
               ),
               DimenConstant.separator,
-              CustomContainer(
+              FoodiesContainer(
                 child: TextFormField(
                   controller: currentPasswordController,
                   focusNode: confirmPasswordFocusNode,

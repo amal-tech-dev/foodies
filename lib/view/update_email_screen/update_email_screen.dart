@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/foodies_text_field.dart';
 
 class UpdateEmailScreen extends StatefulWidget {
   UpdateEmailScreen({super.key});
@@ -54,37 +53,17 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                 ),
               ),
               DimenConstant.separator,
-              CustomContainer(
-                child: TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    label: Text(
-                      'Email',
-                      style: TextStyle(
-                        color: ColorConstant.secondary,
-                      ),
-                    ),
-                    border: InputBorder.none,
-                  ),
-                  style: TextStyle(
-                    color: ColorConstant.primary,
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  cursorColor: ColorConstant.secondary,
-                  cursorRadius: Radius.circular(
-                    DimenConstant.cursorRadius,
-                  ),
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(40),
-                  ],
-                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                  onFieldSubmitted: (value) => FocusScope.of(context).unfocus(),
-                  validator: (value) {
-                    if (value!.isEmpty) return 'Please enter your email';
-                    if (!checkEmail(value)) return 'Please enter a valid email';
-                    return null;
-                  },
-                ),
+              FoodiesTextField.singleLineForm(
+                context: context,
+                label: 'Email',
+                controller: emailController,
+                limit: 40,
+                onSubmit: (value) => FocusScope.of(context).unfocus(),
+                validator: (value) {
+                  if (value!.isEmpty) return 'Please enter your email';
+                  if (!checkEmail(value)) return 'Please enter a valid email';
+                  return null;
+                },
               ),
               DimenConstant.separator,
               Visibility(

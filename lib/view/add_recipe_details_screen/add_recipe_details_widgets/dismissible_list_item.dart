@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/foodies_container.dart';
 
 class DismissibleListItem extends StatelessWidget {
   String item;
@@ -27,7 +27,7 @@ class DismissibleListItem extends StatelessWidget {
         extentRatio: 0.32,
         motion: ScrollMotion(),
         children: [
-          CustomContainer(
+          FoodiesContainer(
             backgroundColor: ColorConstant.error,
             onPressed: onDeletePressed,
             child: Icon(
@@ -36,7 +36,7 @@ class DismissibleListItem extends StatelessWidget {
             ),
           ),
           DimenConstant.separator,
-          CustomContainer(
+          FoodiesContainer(
             onPressed: onEditPressed,
             child: Icon(
               Icons.edit_rounded,
@@ -51,7 +51,7 @@ class DismissibleListItem extends StatelessWidget {
         motion: ScrollMotion(),
         children: [
           DimenConstant.separator,
-          CustomContainer(
+          FoodiesContainer(
             onPressed: onEditPressed,
             child: Icon(
               Icons.edit_rounded,
@@ -59,7 +59,7 @@ class DismissibleListItem extends StatelessWidget {
             ),
           ),
           DimenConstant.separator,
-          CustomContainer(
+          FoodiesContainer(
             backgroundColor: ColorConstant.error,
             onPressed: onDeletePressed,
             child: Icon(
@@ -69,7 +69,7 @@ class DismissibleListItem extends StatelessWidget {
           ),
         ],
       ),
-      child: CustomContainer(
+      child: FoodiesContainer(
         paddingTop: DimenConstant.padding * 1.5,
         paddingBottom: DimenConstant.padding * 1.5,
         border: editing,

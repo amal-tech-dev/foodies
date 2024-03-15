@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/foodies_container.dart';
+import 'package:foodies/widgets/foodies_text_field.dart';
 
 class SignupOptions extends StatefulWidget {
   SignupOptions({super.key});
@@ -27,41 +29,21 @@ class _SignupOptionsState extends State<SignupOptions> {
       key: formKey,
       child: Column(
         children: [
-          CustomContainer(
-            child: TextFormField(
-              controller: emailController,
-              decoration: InputDecoration(
-                label: Text(
-                  'Email',
-                  style: TextStyle(
-                    color: ColorConstant.secondary,
-                  ),
-                ),
-                border: InputBorder.none,
-              ),
-              style: TextStyle(
-                color: ColorConstant.primary,
-              ),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              cursorColor: ColorConstant.secondary,
-              cursorRadius: Radius.circular(
-                DimenConstant.cursorRadius,
-              ),
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(40),
-              ],
-              onTapOutside: (event) => FocusScope.of(context).unfocus(),
-              onFieldSubmitted: (value) =>
-                  FocusScope.of(context).requestFocus(passwordFocusNode),
-              validator: (value) {
-                if (value!.isEmpty) return 'Please enter your email';
-                if (!checkEmail(value)) return 'Please enter a valid email';
-                return null;
-              },
-            ),
+          FoodiesTextField.singleLineForm(
+            context: context,
+            label: 'Email',
+            controller: emailController,
+            limit: 40,
+            onSubmit: (value) =>
+                FocusScope.of(context).requestFocus(passwordFocusNode),
+            validator: (value) {
+              if (value!.isEmpty) return 'Please enter your email';
+              if (!checkEmail(value)) return 'Please enter a valid email';
+              return null;
+            },
           ),
           DimenConstant.separator,
-          CustomContainer(
+          FoodiesContainer(
             child: TextFormField(
               controller: passwordController,
               focusNode: passwordFocusNode,
@@ -72,6 +54,12 @@ class _SignupOptionsState extends State<SignupOptions> {
                     color: ColorConstant.secondary,
                   ),
                 ),
+                errorStyle: TextStyle(
+                  color: ColorConstant.error,
+                  fontSize: DimenConstant.nano,
+                  fontFamily: StringConstant.font,
+                ),
+                contentPadding: EdgeInsets.all(0),
                 border: InputBorder.none,
                 suffix: InkWell(
                   onTap: () {

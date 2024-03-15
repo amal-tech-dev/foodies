@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:foodies/controller/text_input_format_controller.dart';
+import 'package:foodies/controller/input_format_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/foodies_container.dart';
 import 'package:lottie/lottie.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -30,11 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
         child: Column(
           children: [
-            CustomContainer(
-              paddingTop: 0.0,
-              paddingLeft: DimenConstant.padding * 1.5,
-              paddingRight: DimenConstant.padding * 1.5,
-              paddingBottom: 0.0,
+            FoodiesContainer(
               child: TextField(
                 controller: searchController,
                 decoration: InputDecoration(
@@ -42,6 +38,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   hintStyle: TextStyle(
                     color: ColorConstant.primary.withOpacity(0.5),
                   ),
+                  errorStyle: TextStyle(
+                    color: ColorConstant.error,
+                    fontSize: DimenConstant.nano,
+                    fontFamily: StringConstant.font,
+                  ),
+                  contentPadding: EdgeInsets.all(0),
                   border: InputBorder.none,
                   suffix: InkWell(
                     onTap: () {
@@ -77,7 +79,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(40),
-                  TextInputFormatController(),
+                  InputFormatController(),
                 ],
                 onTapOutside: (event) => FocusScope.of(context).unfocus(),
                 onEditingComplete: () {
