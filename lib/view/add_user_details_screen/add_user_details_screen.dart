@@ -9,7 +9,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
-import 'package:foodies/widgets/foodies_text_field.dart';
+import 'package:foodies/widgets/madroid.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -179,60 +179,56 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                FoodiesTextField.singleLineForm(
-                  context: context,
-                  label: 'Display Name',
-                  controller: nameController,
-                  limit: 40,
-                  onSubmit: (value) =>
-                      FocusScope.of(context).requestFocus(usernameFocusNode),
-                  validator: (value) {
-                    if (value!.isEmpty) return 'Name must not be empty';
-                    return null;
-                  },
-                ),
-                DimenConstant.separator,
-                FoodiesTextField.singleLineForm(
-                  context: context,
-                  label: 'Username',
-                  controller: usernameController,
-                  focusNode: usernameFocusNode,
-                  limit: 15,
-                  onSubmit: (value) =>
-                      FocusScope.of(context).requestFocus(bioFocusNode),
-                  validator: (value) {
-                    if (value!.isEmpty) return 'Enter a valid username';
-                    if (!checkUsername(value))
-                      return 'Only alphabets, numbers and charecters ( . _ ) are allowed';
-                    return null;
-                  },
-                ),
-                DimenConstant.separator,
-                FoodiesTextField.multiLineForm(
-                  context: context,
-                  label: 'Bio',
-                  controller: bioController,
-                  focusNode: bioFocusNode,
-                  lines: 5,
-                  limit: 200,
-                  validator: (value) {
-                    if (value!.isEmpty) return 'Your bio is empty';
-                    return null;
-                  },
-                ),
-                DimenConstant.separator,
-                ElevatedButton(
-                  style: ButtonStyle(
-                    fixedSize: MaterialStatePropertyAll(
-                      Size(
-                        MediaQuery.of(context).size.width,
-                        45,
-                      ),
-                    ),
-                    backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondary,
-                    ),
+                Madroid.container(
+                  child: Madroid.singleLineTextFormField(
+                    context: context,
+                    label: 'Display Name',
+                    controller: nameController,
+                    limit: 40,
+                    onSubmit: (value) =>
+                        FocusScope.of(context).requestFocus(usernameFocusNode),
+                    validator: (value) {
+                      if (value!.isEmpty) return 'Name must not be empty';
+                      return null;
+                    },
                   ),
+                ),
+                DimenConstant.separator,
+                Madroid.container(
+                  child: Madroid.singleLineTextFormField(
+                    context: context,
+                    label: 'Username',
+                    controller: usernameController,
+                    focusNode: usernameFocusNode,
+                    limit: 15,
+                    onSubmit: (value) =>
+                        FocusScope.of(context).requestFocus(bioFocusNode),
+                    validator: (value) {
+                      if (value!.isEmpty) return 'Enter a valid username';
+                      if (!checkUsername(value))
+                        return 'Only alphabets, numbers and charecters ( . _ ) are allowed';
+                      return null;
+                    },
+                  ),
+                ),
+                DimenConstant.separator,
+                Madroid.container(
+                  child: Madroid.multiLineTextFormField(
+                    context: context,
+                    label: 'Bio',
+                    controller: bioController,
+                    focusNode: bioFocusNode,
+                    lines: 5,
+                    limit: 200,
+                    validator: (value) {
+                      if (value!.isEmpty) return 'Your bio is empty';
+                      return null;
+                    },
+                  ),
+                ),
+                DimenConstant.separator,
+                Madroid.textButton(
+                  text: 'Create Account',
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
                       loading = true;
@@ -273,12 +269,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       }
                     }
                   },
-                  child: Text(
-                    'Create Account',
-                    style: TextStyle(
-                      color: ColorConstant.tertiary,
-                    ),
-                  ),
                 ),
               ],
             ),

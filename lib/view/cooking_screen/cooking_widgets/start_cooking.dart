@@ -9,7 +9,7 @@ import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/step_item.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/timer_widget.dart';
-import 'package:foodies/widgets/foodies_container.dart';
+import 'package:foodies/widgets/madroid.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -90,35 +90,20 @@ class _StartCookingState extends State<StartCooking> {
           DimenConstant.separator,
           if (cookingIndex == -1)
             Center(
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(
-                    ColorConstant.secondary,
-                  ),
-                ),
+              child: Madroid.textButton(
+                text: 'Start',
                 onPressed: () {
                   cookingIndex++;
                   setState(() {});
                 },
-                child: Text(
-                  'Start',
-                  style: TextStyle(
-                    color: ColorConstant.tertiary,
-                    fontSize: DimenConstant.mini,
-                  ),
-                ),
               ),
             )
           else
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondary,
-                    ),
-                  ),
+                Madroid.iconButton(
+                  icon: Icons.keyboard_arrow_left_rounded,
                   onPressed: () {
                     if (cookingIndex > 0) {
                       pageController.previousPage(
@@ -129,15 +114,11 @@ class _StartCookingState extends State<StartCooking> {
                       setState(() {});
                     }
                   },
-                  icon: Icon(
-                    Icons.keyboard_arrow_left_rounded,
-                    color: ColorConstant.tertiary,
-                  ),
                 ),
                 if (timerRunning || alertPlaying)
                   Row(
                     children: [
-                      FoodiesContainer(
+                      Madroid.container(
                         paddingLeft: DimenConstant.padding * 2,
                         paddingRight: DimenConstant.padding * 2,
                         backgroundColor: ColorConstant.primary,
@@ -193,12 +174,10 @@ class _StartCookingState extends State<StartCooking> {
                                 fit: BoxFit.fill,
                               ),
                       ),
-                      IconButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                            ColorConstant.error,
-                          ),
-                        ),
+                      Madroid.iconButton(
+                        icon: Icons.stop_rounded,
+                        iconColor: ColorConstant.primary,
+                        background: ColorConstant.error,
                         onPressed: () async {
                           timerRunning = false;
                           alertPlaying = false;
@@ -208,22 +187,13 @@ class _StartCookingState extends State<StartCooking> {
                           setState(() {});
                           await Alarm.stop(1);
                         },
-                        icon: Icon(
-                          Icons.stop_rounded,
-                          color: ColorConstant.primary,
-                        ),
                       ),
                     ],
                   )
                 else
                   Row(
                     children: [
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                            ColorConstant.secondary,
-                          ),
-                        ),
+                      Madroid.button(
                         onPressed: () {
                           if (timerPressed) timerRunning = true;
                           timerPressed = !timerPressed;
@@ -248,30 +218,20 @@ class _StartCookingState extends State<StartCooking> {
                       ),
                       Visibility(
                         visible: timerPressed,
-                        child: IconButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              ColorConstant.error,
-                            ),
-                          ),
+                        child: Madroid.iconButton(
+                          icon: Icons.close_rounded,
+                          iconColor: ColorConstant.primary,
+                          background: ColorConstant.error,
                           onPressed: () async {
                             timerPressed = false;
                             setState(() {});
                           },
-                          icon: Icon(
-                            Icons.close_rounded,
-                            color: ColorConstant.primary,
-                          ),
                         ),
                       ),
                     ],
                   ),
-                IconButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondary,
-                    ),
-                  ),
+                Madroid.iconButton(
+                  icon: Icons.keyboard_arrow_right_rounded,
                   onPressed: cookingIndex == widget.steps.length - 1
                       ? widget.onPressed
                       : () {
@@ -282,10 +242,6 @@ class _StartCookingState extends State<StartCooking> {
                           cookingIndex++;
                           setState(() {});
                         },
-                  icon: Icon(
-                    Icons.keyboard_arrow_right_rounded,
-                    color: ColorConstant.tertiary,
-                  ),
                 ),
               ],
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/madroid.dart';
 
 class AddRecipeDetailsScreen extends StatefulWidget {
   AddRecipeDetailsScreen({super.key});
@@ -21,9 +22,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        leading: BackButton(
-          color: ColorConstant.primary,
-        ),
+        leading: Madroid.backButton(),
         title: Text(
           'Add Recipe',
           style: TextStyle(

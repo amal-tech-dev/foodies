@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
-import 'package:foodies/widgets/foodies_text_field.dart';
+import 'package:foodies/widgets/madroid.dart';
 
 class ForgetPasswordOptions extends StatefulWidget {
   ForgetPasswordOptions({super.key});
@@ -25,25 +25,23 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
       key: formKey,
       child: Column(
         children: [
-          FoodiesTextField.singleLineForm(
-            context: context,
-            label: 'Email',
-            controller: emailController,
-            limit: 40,
-            onSubmit: (value) => FocusScope.of(context).unfocus(),
-            validator: (value) {
-              if (value!.isEmpty) return 'Please enter your email';
-              if (!checkEmail(value)) return 'Please enter a valid email';
-              return null;
-            },
+          Madroid.container(
+            child: Madroid.singleLineTextFormField(
+              context: context,
+              label: 'Email',
+              controller: emailController,
+              limit: 40,
+              onSubmit: (value) => FocusScope.of(context).unfocus(),
+              validator: (value) {
+                if (value!.isEmpty) return 'Please enter your email';
+                if (!checkEmail(value)) return 'Please enter a valid email';
+                return null;
+              },
+            ),
           ),
           DimenConstant.separator,
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(
-                ColorConstant.secondary,
-              ),
-            ),
+          Madroid.textButton(
+            text: 'Verify',
             onPressed: () async {
               if (formKey.currentState!.validate()) {
                 try {
@@ -96,12 +94,6 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                 }
               }
             },
-            child: Text(
-              'Verify',
-              style: TextStyle(
-                color: ColorConstant.tertiary,
-              ),
-            ),
           ),
         ],
       ),

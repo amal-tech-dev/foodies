@@ -3,6 +3,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/pantry_item.dart';
+import 'package:foodies/widgets/madroid.dart';
 
 class CheckPantry extends StatefulWidget {
   List ingredients;
@@ -51,12 +52,12 @@ class _CheckPantryState extends State<CheckPantry> {
             ),
           ),
           DimenConstant.separator,
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(
-                ColorConstant.secondary,
-              ),
-            ),
+          Madroid.textButton(
+            text: checkingIndex == -1
+                ? 'Start'
+                : checkingIndex == widget.ingredients.length
+                    ? 'Heat up the kitchen'
+                    : 'Next',
             onPressed: checkingIndex < 0
                 ? () {
                     checkingIndex++;
@@ -73,17 +74,7 @@ class _CheckPantryState extends State<CheckPantry> {
                         checkingIndex++;
                         setState(() {});
                       },
-            child: Text(
-              checkingIndex == -1
-                  ? 'Start'
-                  : checkingIndex == widget.ingredients.length
-                      ? 'Heat up the kitchen'
-                      : 'Next',
-              style: TextStyle(
-                color: ColorConstant.tertiary,
-              ),
-            ),
-          )
+          ),
         ],
       ),
     );

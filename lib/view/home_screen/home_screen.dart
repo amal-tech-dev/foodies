@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_screen/add_recipe_screen.dart';
 import 'package:foodies/view/favourites_screen/favourites_screen.dart';
 import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
 import 'package:foodies/view/search_screen/search_screen.dart';
+import 'package:foodies/widgets/madroid.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -53,25 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        title: Row(
-          children: [
-            Text(
-              StringConstant.appNamePrefix,
-              style: TextStyle(
-                color: ColorConstant.primary,
-                fontSize: DimenConstant.small,
-                fontFamily: StringConstant.font,
-              ),
-            ),
-            Text(
-              StringConstant.appNameSuffix,
-              style: TextStyle(
-                color: ColorConstant.secondary,
-                fontSize: DimenConstant.small,
-                fontFamily: StringConstant.font,
-              ),
-            ),
-          ],
+        title: Madroid.appName(
+          size: DimenConstant.small,
         ),
       ),
       body: Provider.of<ConnectivityController>(context).connected

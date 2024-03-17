@@ -9,7 +9,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/profile_screen/profile_widgets/recipe_image_tile.dart';
+import 'package:foodies/view/profile_view_screen/profile_view_widgets/recipe_image_tile.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_cropper/image_cropper.dart';

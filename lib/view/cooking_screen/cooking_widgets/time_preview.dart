@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/madroid.dart';
 
 class TimePreview extends StatelessWidget {
   String time;
@@ -32,20 +33,9 @@ class TimePreview extends StatelessWidget {
             ),
           ),
           DimenConstant.separator,
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(
-                ColorConstant.secondary,
-              ),
-            ),
+          Madroid.textButton(
+            text: 'Next',
             onPressed: onPressed,
-            child: Text(
-              'Next',
-              style: TextStyle(
-                color: ColorConstant.tertiary,
-                fontSize: DimenConstant.extraSmall,
-              ),
-            ),
           ),
         ],
       ),

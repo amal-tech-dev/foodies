@@ -9,7 +9,8 @@ import 'package:foodies/view/edit_user_screen/edit_user_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/reset_password_screen/reset_password_screen.dart';
 import 'package:foodies/view/update_email_screen/update_email_screen.dart';
-import 'package:foodies/widgets/foodies_container.dart';
+import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/settings_tile.dart';
 
 class AccountSettingsScreen extends StatelessWidget {
   AccountSettingsScreen({super.key});
@@ -31,9 +32,7 @@ class AccountSettingsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        leading: BackButton(
-          color: ColorConstant.primary,
-        ),
+        leading: Madroid.backButton(),
         title: Text(
           'Account Settings',
           style: TextStyle(
@@ -48,85 +47,43 @@ class AccountSettingsScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            FoodiesContainer(
+            SettingsTile(
+              icon: Icons.info_outline_rounded,
+              header: 'Personal Info',
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => EditUserScreen(),
                 ),
               ),
-              child: Row(
-                children: [
-                  DimenConstant.separator,
-                  Icon(
-                    Icons.info_outline_rounded,
-                    color: ColorConstant.primary,
-                  ),
-                  DimenConstant.separator,
-                  Text(
-                    'Personal Info',
-                    style: TextStyle(
-                      color: ColorConstant.secondary,
-                      fontSize: DimenConstant.small,
-                    ),
-                  ),
-                ],
-              ),
             ),
             DimenConstant.separator,
-            FoodiesContainer(
+            SettingsTile(
+              icon: Icons.email_outlined,
+              header: 'Update Email',
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => UpdateEmailScreen(),
                 ),
               ),
-              child: Row(
-                children: [
-                  DimenConstant.separator,
-                  Icon(
-                    Icons.email_outlined,
-                    color: ColorConstant.primary,
-                  ),
-                  DimenConstant.separator,
-                  Text(
-                    'Update Email',
-                    style: TextStyle(
-                      color: ColorConstant.secondary,
-                      fontSize: DimenConstant.small,
-                    ),
-                  ),
-                ],
-              ),
             ),
             DimenConstant.separator,
-            FoodiesContainer(
+            SettingsTile(
+              icon: Icons.password_rounded,
+              header: 'Reset Password',
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ResetPasswordScreen(),
                 ),
               ),
-              child: Row(
-                children: [
-                  DimenConstant.separator,
-                  Icon(
-                    Icons.password_rounded,
-                    color: ColorConstant.primary,
-                  ),
-                  DimenConstant.separator,
-                  Text(
-                    'Reset Password',
-                    style: TextStyle(
-                      color: ColorConstant.secondary,
-                      fontSize: DimenConstant.small,
-                    ),
-                  ),
-                ],
-              ),
             ),
             DimenConstant.separator,
-            FoodiesContainer(
+            SettingsTile(
+              icon: Icons.delete_outline_rounded,
+              header: 'Delete Account',
+              color: ColorConstant.error,
               onPressed: () {
                 showDialog(
                   context: context,
@@ -194,23 +151,6 @@ class AccountSettingsScreen extends StatelessWidget {
                   ),
                 );
               },
-              child: Row(
-                children: [
-                  DimenConstant.separator,
-                  Icon(
-                    Icons.delete_outline_rounded,
-                    color: ColorConstant.primary,
-                  ),
-                  DimenConstant.separator,
-                  Text(
-                    'Delete Account',
-                    style: TextStyle(
-                      color: ColorConstant.error,
-                      fontSize: DimenConstant.small,
-                    ),
-                  ),
-                ],
-              ),
             ),
           ],
         ),
