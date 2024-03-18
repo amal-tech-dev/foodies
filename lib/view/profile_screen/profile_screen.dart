@@ -11,7 +11,7 @@ import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/guest_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
-import 'package:foodies/widgets/foodies_container.dart';
+import 'package:foodies/widgets/settings_tile.dart';
 import 'package:hive/hive.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -70,21 +70,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
+            SliverToBoxAdapter(
+              child: DimenConstant.separator,
+            ),
             guest
                 ? SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.all(
-                        DimenConstant.padding,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: DimenConstant.padding,
                       ),
                       child: GuestTile(),
                     ),
                   )
                 : SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: DimenConstant.padding,
-                        left: DimenConstant.padding,
-                        right: DimenConstant.padding,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: DimenConstant.padding,
                       ),
                       child: ProfileTile(
                         name: userModel?.name ?? '',
@@ -112,29 +113,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: FoodiesContainer(
+                  child: SettingsTile(
+                    icon: Icons.account_circle_outlined,
+                    header: 'Account',
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => AccountSettingsScreen(),
                       ),
-                    ),
-                    child: Row(
-                      children: [
-                        DimenConstant.separator,
-                        Icon(
-                          Icons.account_circle_outlined,
-                          color: ColorConstant.primary,
-                        ),
-                        DimenConstant.separator,
-                        Text(
-                          'Account',
-                          style: TextStyle(
-                            color: ColorConstant.secondary,
-                            fontSize: DimenConstant.small,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ),
@@ -153,29 +139,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: FoodiesContainer(
+                  child: SettingsTile(
+                    icon: Icons.fastfood_outlined,
+                    header: 'My RecipesMy Recipes',
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => MyRecipesScreen(),
                       ),
-                    ),
-                    child: Row(
-                      children: [
-                        DimenConstant.separator,
-                        Icon(
-                          Icons.fastfood_outlined,
-                          color: ColorConstant.primary,
-                        ),
-                        DimenConstant.separator,
-                        Text(
-                          'My Recipes',
-                          style: TextStyle(
-                            color: ColorConstant.secondary,
-                            fontSize: DimenConstant.small,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ),
@@ -192,24 +163,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.symmetric(
                   horizontal: DimenConstant.padding,
                 ),
-                child: FoodiesContainer(
-                  child: Row(
-                    children: [
-                      DimenConstant.separator,
-                      Icon(
-                        Icons.timer_outlined,
-                        color: ColorConstant.primary,
-                      ),
-                      DimenConstant.separator,
-                      Text(
-                        'Timer',
-                        style: TextStyle(
-                          color: ColorConstant.secondary,
-                          fontSize: DimenConstant.small,
-                        ),
-                      ),
-                    ],
-                  ),
+                child: SettingsTile(
+                  icon: Icons.timer_outlined,
+                  header: 'Timer',
+                  onPressed: () {},
                 ),
               ),
             ),
@@ -221,7 +178,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.symmetric(
                   horizontal: DimenConstant.padding,
                 ),
-                child: FoodiesContainer(
+                child: SettingsTile(
+                  icon: Icons.logout_rounded,
+                  header: 'Logout',
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -303,23 +262,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     );
                   },
-                  child: Row(
-                    children: [
-                      DimenConstant.separator,
-                      Icon(
-                        Icons.logout_rounded,
-                        color: ColorConstant.primary,
-                      ),
-                      DimenConstant.separator,
-                      Text(
-                        'Logout',
-                        style: TextStyle(
-                          color: ColorConstant.secondary,
-                          fontSize: DimenConstant.small,
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
               ),
             ),

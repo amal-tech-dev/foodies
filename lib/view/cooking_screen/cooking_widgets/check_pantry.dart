@@ -3,7 +3,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/pantry_item.dart';
-import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 
 class CheckPantry extends StatefulWidget {
   List ingredients;
@@ -52,7 +52,7 @@ class _CheckPantryState extends State<CheckPantry> {
             ),
           ),
           DimenConstant.separator,
-          Madroid.textButton(
+          FoodiesWidget.text(
             text: checkingIndex == -1
                 ? 'Start'
                 : checkingIndex == widget.ingredients.length

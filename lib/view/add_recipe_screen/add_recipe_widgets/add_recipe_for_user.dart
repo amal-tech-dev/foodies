@@ -4,7 +4,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_screen.dart';
-import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 
 class AddRecipeForUser extends StatelessWidget {
   AddRecipeForUser({super.key});
@@ -41,7 +41,7 @@ class AddRecipeForUser extends StatelessWidget {
         ),
         Column(
           children: [
-            Madroid.textButton(
+            FoodiesWidget.text(
               text: 'Add Recipe',
               onPressed: () => Navigator.push(
                 context,

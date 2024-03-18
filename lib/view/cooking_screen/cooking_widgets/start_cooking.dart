@@ -9,7 +9,7 @@ import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/step_item.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/timer_widget.dart';
-import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -90,7 +90,7 @@ class _StartCookingState extends State<StartCooking> {
           DimenConstant.separator,
           if (cookingIndex == -1)
             Center(
-              child: Madroid.textButton(
+              child: FoodiesWidget.text(
                 text: 'Start',
                 onPressed: () {
                   cookingIndex++;
@@ -102,7 +102,7 @@ class _StartCookingState extends State<StartCooking> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Madroid.iconButton(
+                FoodiesWidget.icon(
                   icon: Icons.keyboard_arrow_left_rounded,
                   onPressed: () {
                     if (cookingIndex > 0) {
@@ -118,7 +118,7 @@ class _StartCookingState extends State<StartCooking> {
                 if (timerRunning || alertPlaying)
                   Row(
                     children: [
-                      Madroid.container(
+                      FoodiesWidget.container(
                         paddingLeft: DimenConstant.padding * 2,
                         paddingRight: DimenConstant.padding * 2,
                         backgroundColor: ColorConstant.primary,
@@ -174,7 +174,7 @@ class _StartCookingState extends State<StartCooking> {
                                 fit: BoxFit.fill,
                               ),
                       ),
-                      Madroid.iconButton(
+                      FoodiesWidget.icon(
                         icon: Icons.stop_rounded,
                         iconColor: ColorConstant.primary,
                         background: ColorConstant.error,
@@ -193,7 +193,7 @@ class _StartCookingState extends State<StartCooking> {
                 else
                   Row(
                     children: [
-                      Madroid.button(
+                      FoodiesWidget.button(
                         onPressed: () {
                           if (timerPressed) timerRunning = true;
                           timerPressed = !timerPressed;
@@ -218,7 +218,7 @@ class _StartCookingState extends State<StartCooking> {
                       ),
                       Visibility(
                         visible: timerPressed,
-                        child: Madroid.iconButton(
+                        child: FoodiesWidget.icon(
                           icon: Icons.close_rounded,
                           iconColor: ColorConstant.primary,
                           background: ColorConstant.error,
@@ -230,7 +230,7 @@ class _StartCookingState extends State<StartCooking> {
                       ),
                     ],
                   ),
-                Madroid.iconButton(
+                FoodiesWidget.icon(
                   icon: Icons.keyboard_arrow_right_rounded,
                   onPressed: cookingIndex == widget.steps.length - 1
                       ? widget.onPressed

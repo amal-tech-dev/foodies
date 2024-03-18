@@ -11,7 +11,7 @@ import 'package:foodies/view/edit_recipe_screen/edit_recipe_screen.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
 import 'package:foodies/widgets/counter.dart';
-import 'package:foodies/widgets/foodies_container.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 
 class RecipeViewScreen extends StatefulWidget {
   String id;
@@ -81,9 +81,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               padding: const EdgeInsets.all(
                 DimenConstant.padding * 2 / 3,
               ),
-              child: BackButton(
-                color: ColorConstant.primary,
-              ),
+              child: FoodiesWidget.back(),
             ),
             title: AnimatedOpacity(
               opacity: expanded ? 1.0 : 0.0,
@@ -120,33 +118,25 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             actions: [
               Visibility(
                 visible: recipe.chef == user.uid,
-                child: IconButton(
+                child: FoodiesWidget.icon(
+                  icon: Icons.edit_rounded,
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => EditRecipeScreen(),
                     ),
-                  ),
-                  icon: Icon(
-                    Icons.edit_rounded,
-                    color: ColorConstant.primary,
-                    size: 22,
                   ),
                 ),
               ),
               Visibility(
                 visible: recipe.chef == user.uid,
-                child: IconButton(
+                child: FoodiesWidget.icon(
+                  icon: Icons.delete_rounded,
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => EditRecipeScreen(),
                     ),
-                  ),
-                  icon: Icon(
-                    Icons.delete_rounded,
-                    color: ColorConstant.primary,
-                    size: 22,
                   ),
                 ),
               ),
@@ -188,7 +178,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       Row(
                         children: [
                           Expanded(
-                            child: FoodiesContainer(
+                            child: FoodiesWidget.container(
                               child: Counter(
                                 count: recipe.likes?.length ?? 0,
                                 header: 'Likes',
@@ -197,7 +187,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           ),
                           DimenConstant.separator,
                           Expanded(
-                            child: FoodiesContainer(
+                            child: FoodiesWidget.container(
                               child: Counter(
                                 count: recipe.views ?? 0,
                                 header: 'Views',
@@ -206,7 +196,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           ),
                           DimenConstant.separator,
                           Expanded(
-                            child: FoodiesContainer(
+                            child: FoodiesWidget.container(
                               child: Counter(
                                 count: recipe.shared ?? 0,
                                 header: 'Shared',
@@ -216,7 +206,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         ],
                       ),
                       DimenConstant.separator,
-                      FoodiesContainer(
+                      FoodiesWidget.container(
                         paddingLeft: DimenConstant.padding * 2.0,
                         paddingRight: DimenConstant.padding * 2.0,
                         onPressed: () => Navigator.push(
@@ -252,27 +242,8 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   )
-                                : Row(
-                                    children: [
-                                      Text(
-                                        StringConstant.appNamePrefix,
-                                        style: TextStyle(
-                                          color: ColorConstant.primary,
-                                          fontSize: DimenConstant.small,
-                                          fontFamily: StringConstant.font,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text(
-                                        StringConstant.appNameSuffix,
-                                        style: TextStyle(
-                                          color: ColorConstant.secondary,
-                                          fontSize: DimenConstant.small,
-                                          fontFamily: StringConstant.font,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
+                                : FoodiesWidget.appName(
+                                    size: DimenConstant.small,
                                   ),
                             SizedBox(
                               width: DimenConstant.padding / 2.0,

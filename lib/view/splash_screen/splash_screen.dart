@@ -7,10 +7,10 @@ import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
-import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
+import 'package:foodies/widgets/app_name.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -62,26 +62,8 @@ class _SplashScreenState extends State<SplashScreen> {
             ImageConstant.logo,
             height: MediaQuery.of(context).size.width / 3,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                StringConstant.appNamePrefix,
-                style: TextStyle(
-                  color: ColorConstant.primary,
-                  fontSize: DimenConstant.extraLarge,
-                  fontFamily: StringConstant.font,
-                ),
-              ),
-              Text(
-                StringConstant.appNameSuffix,
-                style: TextStyle(
-                  color: ColorConstant.secondary,
-                  fontSize: DimenConstant.extraLarge,
-                  fontFamily: StringConstant.font,
-                ),
-              ),
-            ],
+          AppName(
+            size: DimenConstant.extraLarge,
           ),
         ],
       ),

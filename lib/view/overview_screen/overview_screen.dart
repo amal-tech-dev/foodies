@@ -9,6 +9,7 @@ import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/overview_screen/overview_widgets/carousel_item.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OverviewScreen extends StatelessWidget {
@@ -26,30 +27,25 @@ class OverviewScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top,
-              ),
-              child: TextButton(
-                onPressed: () async {
-                  SharedPreferences preferences =
-                      await SharedPreferences.getInstance();
-                  preferences.setBool('newLogin', false);
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
-                      (route) => false);
-                },
-                child: Text(
-                  'Skip',
-                  style: TextStyle(
-                    color: ColorConstant.primary,
-                    fontSize: DimenConstant.extraSmall,
-                  ),
-                ),
-              ),
+            SizedBox(
+              height: kToolbarHeight,
+            ),
+            FoodiesWidget.text(
+              text: 'Skip',
+              textColor: ColorConstant.primary,
+              textSize: DimenConstant.extraSmall,
+              background: Colors.transparent,
+              onPressed: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                preferences.setBool('newLogin', false);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    ),
+                    (route) => false);
+              },
             ),
             SizedBox(
               height: 50,

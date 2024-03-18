@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
@@ -9,8 +8,7 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
-import 'package:foodies/widgets/foodies_container.dart';
-import 'package:foodies/widgets/foodies_text_field.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 
@@ -33,7 +31,7 @@ class _LoginOptionsState extends State<LoginOptions> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FoodiesContainer(
+        FoodiesWidget.container(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
           paddingRight: DimenConstant.padding * 1.5,
@@ -89,7 +87,7 @@ class _LoginOptionsState extends State<LoginOptions> {
           ),
         ),
         DimenConstant.separator,
-        FoodiesContainer(
+        FoodiesWidget.container(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
           paddingRight: DimenConstant.padding * 1.5,
@@ -162,7 +160,7 @@ class _LoginOptionsState extends State<LoginOptions> {
           ),
         ),
         DimenConstant.separator,
-        FoodiesContainer(
+        FoodiesWidget.container(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
           paddingRight: DimenConstant.padding * 1.5,
@@ -201,7 +199,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: FoodiesTextField.singleLineForm(
+                  child: FoodiesWidget.singleLineForm(
                     context: context,
                     label: 'Email',
                     controller: emailController,
@@ -220,51 +218,16 @@ class _LoginOptionsState extends State<LoginOptions> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: FoodiesContainer(
-                    child: TextFormField(
+                  child: FoodiesWidget.container(
+                    child: FoodiesWidget.password(
+                      context: context,
                       controller: passwordController,
                       focusNode: passwordFocusNode,
-                      decoration: InputDecoration(
-                        label: Text(
-                          'Password',
-                          style: TextStyle(
-                            color: ColorConstant.secondary,
-                          ),
-                        ),
-                        errorStyle: TextStyle(
-                          color: ColorConstant.error,
-                          fontSize: DimenConstant.nano,
-                          fontFamily: StringConstant.font,
-                        ),
-                        contentPadding: EdgeInsets.all(0),
-                        border: InputBorder.none,
-                        suffix: InkWell(
-                          onTap: () {
-                            passwordVisible = !passwordVisible;
-                            setState(() {});
-                          },
-                          child: Icon(
-                            passwordVisible
-                                ? Icons.visibility_off_rounded
-                                : Icons.visibility_rounded,
-                            color: ColorConstant.secondary,
-                          ),
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: ColorConstant.primary,
-                      ),
-                      cursorColor: ColorConstant.secondary,
-                      cursorRadius: Radius.circular(
-                        DimenConstant.cursorRadius,
-                      ),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(40),
-                      ],
-                      obscureText: !passwordVisible,
-                      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                      onFieldSubmitted: (value) {},
+                      obscure: passwordVisible,
+                      onObscureChange: () {
+                        passwordVisible = !passwordVisible;
+                        setState(() {});
+                      },
                       validator: (value) {
                         if (value!.length < 8) return 'Enter a valid password';
                         return null;
@@ -290,12 +253,8 @@ class _LoginOptionsState extends State<LoginOptions> {
                 ),
                 DimenConstant.separator,
                 Center(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        ColorConstant.secondary,
-                      ),
-                    ),
+                  child: FoodiesWidget.text(
+                    text: 'Sign In',
                     onPressed: () async {
                       loading = true;
                       setState(() {});
@@ -333,12 +292,6 @@ class _LoginOptionsState extends State<LoginOptions> {
                         }
                       }
                     },
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                        color: ColorConstant.tertiary,
-                      ),
-                    ),
                   ),
                 ),
               ],

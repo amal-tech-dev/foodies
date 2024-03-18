@@ -7,7 +7,7 @@ import 'package:foodies/view/cooking_screen/cooking_widgets/cooking_preview.dart
 import 'package:foodies/view/cooking_screen/cooking_widgets/serve_recipe.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/start_cooking.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/time_preview.dart';
-import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 
 class CookingScreen extends StatefulWidget {
   RecipeModel recipe;
@@ -63,7 +63,7 @@ class _CookingScreenState extends State<CookingScreen> {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        leading: Madroid.backButton(),
+        leading: FoodiesWidget.back(),
         title: Text(
           titles[index],
           style: TextStyle(

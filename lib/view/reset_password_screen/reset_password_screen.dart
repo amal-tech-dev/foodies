@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/widgets/foodies_container.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   ResetPasswordScreen({super.key});
@@ -29,9 +27,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        leading: BackButton(
-          color: ColorConstant.primary,
-        ),
+        leading: FoodiesWidget.back(),
         title: Text(
           'Reset Password',
           style: TextStyle(
@@ -50,79 +46,29 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FoodiesContainer(
-                child: TextFormField(
+              FoodiesWidget.container(
+                child: FoodiesWidget.password(
+                  context: context,
                   controller: currentPasswordController,
-                  decoration: InputDecoration(
-                    labelText: 'Current Password',
-                    labelStyle: TextStyle(
-                      color: ColorConstant.secondary,
-                    ),
-                    errorStyle: TextStyle(
-                      color: ColorConstant.error,
-                      fontSize: DimenConstant.nano,
-                      fontFamily: StringConstant.font,
-                    ),
-                    contentPadding: EdgeInsets.all(0),
-                    border: InputBorder.none,
-                    suffix: InkWell(
-                      onTap: () {
-                        passwordVisible = !passwordVisible;
-                        setState(() {});
-                      },
-                      child: Icon(
-                        passwordVisible
-                            ? Icons.visibility_off_rounded
-                            : Icons.visibility_rounded,
-                        color: ColorConstant.primary,
-                      ),
-                    ),
-                  ),
-                  style: TextStyle(
-                    color: ColorConstant.primary,
-                  ),
-                  cursorColor: ColorConstant.secondary,
-                  cursorRadius: Radius.circular(
-                    DimenConstant.cursorRadius,
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(40),
-                  ],
-                  obscureText: !passwordVisible,
-                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                  onFieldSubmitted: (value) =>
-                      FocusScope.of(context).requestFocus(newPasswordFocusNode),
+                  obscure: passwordVisible,
+                  onObscureChange: () {
+                    passwordVisible = !passwordVisible;
+                    setState(() {});
+                  },
                   validator: (value) {
                     return null;
                   },
                 ),
               ),
               DimenConstant.separator,
-              FoodiesContainer(
-                child: TextFormField(
+              FoodiesWidget.container(
+                child: FoodiesWidget.singleLineForm(
+                  context: context,
+                  label: 'New Password',
                   controller: newPasswordController,
                   focusNode: newPasswordFocusNode,
-                  decoration: InputDecoration(
-                    labelText: 'New Password',
-                    labelStyle: TextStyle(
-                      color: ColorConstant.secondary,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                  style: TextStyle(
-                    color: ColorConstant.primary,
-                  ),
-                  cursorColor: ColorConstant.secondary,
-                  cursorRadius: Radius.circular(
-                    DimenConstant.cursorRadius,
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(40),
-                  ],
-                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                  onFieldSubmitted: (value) => FocusScope.of(context)
+                  limit: 40,
+                  onSubmit: (value) => FocusScope.of(context)
                       .requestFocus(confirmPasswordFocusNode),
                   validator: (value) {
                     if (value!.length < 8)
@@ -140,31 +86,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
               ),
               DimenConstant.separator,
-              FoodiesContainer(
-                child: TextFormField(
+              FoodiesWidget.container(
+                child: FoodiesWidget.password(
+                  context: context,
                   controller: currentPasswordController,
                   focusNode: confirmPasswordFocusNode,
-                  decoration: InputDecoration(
-                    labelText: 'Confirm Password',
-                    labelStyle: TextStyle(
-                      color: ColorConstant.secondary,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                  style: TextStyle(
-                    color: ColorConstant.primary,
-                  ),
-                  cursorColor: ColorConstant.secondary,
-                  cursorRadius: Radius.circular(
-                    DimenConstant.cursorRadius,
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(40),
-                  ],
-                  obscureText: true,
-                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                  onFieldSubmitted: (value) => FocusScope.of(context).unfocus(),
+                  obscure: passwordVisible,
+                  onObscureChange: () {
+                    passwordVisible = !passwordVisible;
+                    setState(() {});
+                  },
                   validator: (value) {
                     if (value != newPasswordController.text.trim())
                       return 'Passwords doesn\'t match';
@@ -174,12 +105,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ),
               DimenConstant.separator,
               Center(
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondary,
-                    ),
-                  ),
+                child: FoodiesWidget.text(
+                  text: 'Reset',
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
                       await auth.confirmPasswordReset(
@@ -189,12 +116,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       Navigator.pop(context);
                     }
                   },
-                  child: Text(
-                    'Reset',
-                    style: TextStyle(
-                      color: ColorConstant.tertiary,
-                    ),
-                  ),
                 ),
               ),
             ],

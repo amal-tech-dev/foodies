@@ -4,7 +4,7 @@ class StringConstant {
   static const String appNameSuffix = 'ies';
   static const String font = 'Bauhaus';
   static const String box = 'favourites';
-  static const String welcomeTitle = 'Welcome to ${StringConstant.appName}';
+  static const String welcomeTitle = 'Welcome to';
   static const String welcomeSubtitle =
       'Welcome, fellow food enthusiasts! Get ready to embark on a delectable journey of flavors and culinary delights.';
   static const String carouselTitle1 = 'Find Recipes';

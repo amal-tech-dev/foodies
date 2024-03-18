@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/widgets/foodies_container.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 
 class CarouselItem extends StatelessWidget {
   String title, subtitle;
@@ -13,7 +13,7 @@ class CarouselItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FoodiesContainer(
+    return FoodiesWidget.container(
       borderRadius: DimenConstant.borderRadius * 2.0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

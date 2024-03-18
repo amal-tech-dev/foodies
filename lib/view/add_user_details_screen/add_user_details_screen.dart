@@ -9,7 +9,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
-import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -179,8 +179,8 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                Madroid.container(
-                  child: Madroid.singleLineTextFormField(
+                FoodiesWidget.container(
+                  child: FoodiesWidget.singleLineForm(
                     context: context,
                     label: 'Display Name',
                     controller: nameController,
@@ -194,8 +194,8 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                Madroid.container(
-                  child: Madroid.singleLineTextFormField(
+                FoodiesWidget.container(
+                  child: FoodiesWidget.singleLineForm(
                     context: context,
                     label: 'Username',
                     controller: usernameController,
@@ -212,8 +212,8 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                Madroid.container(
-                  child: Madroid.multiLineTextFormField(
+                FoodiesWidget.container(
+                  child: FoodiesWidget.multiLineForm(
                     context: context,
                     label: 'Bio',
                     controller: bioController,
@@ -227,7 +227,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                Madroid.textButton(
+                FoodiesWidget.text(
                   text: 'Create Account',
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {

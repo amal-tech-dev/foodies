@@ -9,7 +9,7 @@ import 'package:foodies/view/edit_user_screen/edit_user_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/reset_password_screen/reset_password_screen.dart';
 import 'package:foodies/view/update_email_screen/update_email_screen.dart';
-import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 import 'package:foodies/widgets/settings_tile.dart';
 
 class AccountSettingsScreen extends StatelessWidget {
@@ -32,7 +32,7 @@ class AccountSettingsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        leading: Madroid.backButton(),
+        leading: FoodiesWidget.back(),
         title: Text(
           'Account Settings',
           style: TextStyle(

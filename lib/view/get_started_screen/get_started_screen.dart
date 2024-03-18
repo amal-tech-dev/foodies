@@ -4,6 +4,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/overview_screen/overview_screen.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 
 class GetStartedScreen extends StatelessWidget {
   GetStartedScreen({super.key});
@@ -56,7 +57,10 @@ class GetStartedScreen extends StatelessWidget {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    DimenConstant.separator,
+                    FoodiesWidget.appName(
+                      size: DimenConstant.large,
+                      bold: true,
+                    ),
                     Text(
                       StringConstant.welcomeSubtitle,
                       style: TextStyle(

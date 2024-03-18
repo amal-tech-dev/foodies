@@ -8,7 +8,7 @@ import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
-import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -149,7 +149,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        leading: Madroid.backButton(),
+        leading: FoodiesWidget.back(),
         title: Text(
           'Edit Account',
           style: TextStyle(
@@ -248,8 +248,8 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     ),
                     DimenConstant.separator,
                     Expanded(
-                      child: Madroid.container(
-                        child: Madroid.singleLineTextFormField(
+                      child: FoodiesWidget.container(
+                        child: FoodiesWidget.singleLineForm(
                           context: context,
                           label: 'Display Name',
                           controller: nameController,
@@ -266,8 +266,8 @@ class _EditUserScreenState extends State<EditUserScreen> {
                   ],
                 ),
                 DimenConstant.separator,
-                Madroid.container(
-                  child: Madroid.singleLineTextFormField(
+                FoodiesWidget.container(
+                  child: FoodiesWidget.singleLineForm(
                     context: context,
                     label: 'Username',
                     controller: usernameController,
@@ -286,8 +286,8 @@ class _EditUserScreenState extends State<EditUserScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                Madroid.container(
-                  child: Madroid.multiLineTextFormField(
+                FoodiesWidget.container(
+                  child: FoodiesWidget.multiLineForm(
                     context: context,
                     label: 'Bio',
                     controller: bioController,
@@ -301,7 +301,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                Madroid.textButton(
+                FoodiesWidget.text(
                   text: 'Save',
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {

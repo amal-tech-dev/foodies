@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 
 class StepItem extends StatelessWidget {
   String item;
@@ -19,7 +19,7 @@ class StepItem extends StatelessWidget {
       padding: const EdgeInsets.all(
         DimenConstant.padding,
       ),
-      child: Madroid.container(
+      child: FoodiesWidget.container(
         paddingTop: DimenConstant.padding * 2,
         paddingLeft: DimenConstant.padding * 2,
         paddingRight: DimenConstant.padding * 2,

@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:foodies/controller/input_format_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/widgets/foodies_container.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 import 'package:lottie/lottie.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -30,59 +29,13 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
         child: Column(
           children: [
-            FoodiesContainer(
-              child: TextField(
+            FoodiesWidget.container(
+              child: FoodiesWidget.search(
+                context: context,
+                hint: 'Find recipes',
                 controller: searchController,
-                decoration: InputDecoration(
-                  hintText: 'Find recipes',
-                  hintStyle: TextStyle(
-                    color: ColorConstant.primary.withOpacity(0.5),
-                  ),
-                  errorStyle: TextStyle(
-                    color: ColorConstant.error,
-                    fontSize: DimenConstant.nano,
-                    fontFamily: StringConstant.font,
-                  ),
-                  contentPadding: EdgeInsets.all(0),
-                  border: InputBorder.none,
-                  suffix: InkWell(
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      startSearching = false;
-                      searching = true;
-                      setState(() {});
-                      Timer(
-                        Duration(
-                          seconds: 3,
-                        ),
-                        () {
-                          searching = false;
-                          noResultsFound = true;
-                          setState(() {});
-                        },
-                      );
-                    },
-                    child: Text(
-                      'Search',
-                      style: TextStyle(
-                        color: ColorConstant.secondary,
-                      ),
-                    ),
-                  ),
-                ),
-                style: TextStyle(
-                  color: ColorConstant.primary,
-                ),
-                cursorColor: ColorConstant.secondary,
-                cursorRadius: Radius.circular(
-                  DimenConstant.cursorRadius,
-                ),
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(40),
-                  InputFormatController(),
-                ],
-                onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                onEditingComplete: () {
+                limit: 40,
+                onSearchPressed: () {
                   FocusScope.of(context).unfocus();
                   startSearching = false;
                   searching = true;

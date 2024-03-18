@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/widgets/foodies_text_field.dart';
+import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_text_field.dart';
 
 class UpdateEmailScreen extends StatefulWidget {
   UpdateEmailScreen({super.key});
@@ -25,9 +26,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        leading: BackButton(
-          color: ColorConstant.primary,
-        ),
+        leading: CustomButton.back(),
         title: Text(
           'Account Settings',
           style: TextStyle(
@@ -53,7 +52,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                 ),
               ),
               DimenConstant.separator,
-              FoodiesTextField.singleLineForm(
+              CustomTextField.singleLineForm(
                 context: context,
                 label: 'Email',
                 controller: emailController,
@@ -74,12 +73,8 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                 ),
               ),
               DimenConstant.separator,
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(
-                    ColorConstant.secondary,
-                  ),
-                ),
+              CustomButton.text(
+                text: 'Update',
                 onPressed: () async {
                   loading = true;
                   setState(() {});
@@ -110,12 +105,6 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                   loading = true;
                   setState(() {});
                 },
-                child: Text(
-                  'Update',
-                  style: TextStyle(
-                    color: ColorConstant.tertiary,
-                  ),
-                ),
               ),
             ],
           ),

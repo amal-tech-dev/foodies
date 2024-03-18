@@ -3,7 +3,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
-import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 
 class ServeRecipe extends StatelessWidget {
   String name, image;
@@ -47,7 +47,7 @@ class ServeRecipe extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-            Madroid.textButton(
+            FoodiesWidget.text(
               text: 'Finish',
               onPressed: () => Navigator.pushAndRemoveUntil(
                 context,

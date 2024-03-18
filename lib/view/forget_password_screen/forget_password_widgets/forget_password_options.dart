@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
-import 'package:foodies/widgets/madroid.dart';
+import 'package:foodies/widgets/foodies_widget.dart';
 
 class ForgetPasswordOptions extends StatefulWidget {
   ForgetPasswordOptions({super.key});
@@ -25,8 +25,8 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
       key: formKey,
       child: Column(
         children: [
-          Madroid.container(
-            child: Madroid.singleLineTextFormField(
+          FoodiesWidget.container(
+            child: FoodiesWidget.singleLineForm(
               context: context,
               label: 'Email',
               controller: emailController,
@@ -40,7 +40,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
             ),
           ),
           DimenConstant.separator,
-          Madroid.textButton(
+          FoodiesWidget.text(
             text: 'Verify',
             onPressed: () async {
               if (formKey.currentState!.validate()) {

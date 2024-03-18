@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dart';
-import 'package:foodies/widgets/foodies_container.dart';
-import 'package:foodies/widgets/foodies_text_field.dart';
+import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_text_field.dart';
 
 class SignupOptions extends StatefulWidget {
   SignupOptions({super.key});
@@ -29,7 +28,7 @@ class _SignupOptionsState extends State<SignupOptions> {
       key: formKey,
       child: Column(
         children: [
-          FoodiesTextField.singleLineForm(
+          CustomTextField.singleLineForm(
             context: context,
             label: 'Email',
             controller: emailController,
@@ -43,51 +42,16 @@ class _SignupOptionsState extends State<SignupOptions> {
             },
           ),
           DimenConstant.separator,
-          FoodiesContainer(
-            child: TextFormField(
+          CustomContainer(
+            child: CustomTextField.password(
+              context: context,
               controller: passwordController,
               focusNode: passwordFocusNode,
-              decoration: InputDecoration(
-                label: Text(
-                  'Password',
-                  style: TextStyle(
-                    color: ColorConstant.secondary,
-                  ),
-                ),
-                errorStyle: TextStyle(
-                  color: ColorConstant.error,
-                  fontSize: DimenConstant.nano,
-                  fontFamily: StringConstant.font,
-                ),
-                contentPadding: EdgeInsets.all(0),
-                border: InputBorder.none,
-                suffix: InkWell(
-                  onTap: () {
-                    passwordVisible = !passwordVisible;
-                    setState(() {});
-                  },
-                  child: Icon(
-                    passwordVisible
-                        ? Icons.visibility_off_rounded
-                        : Icons.visibility_rounded,
-                    color: ColorConstant.primary,
-                  ),
-                ),
-              ),
-              style: TextStyle(
-                color: ColorConstant.primary,
-              ),
-              cursorColor: ColorConstant.secondary,
-              cursorRadius: Radius.circular(
-                DimenConstant.cursorRadius,
-              ),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(40),
-              ],
-              obscureText: !passwordVisible,
-              onTapOutside: (event) => FocusScope.of(context).unfocus(),
-              onFieldSubmitted: (value) => FocusScope.of(context).unfocus(),
+              obscure: passwordVisible,
+              onObscureChange: () {
+                passwordVisible = !passwordVisible;
+                setState(() {});
+              },
               validator: (value) {
                 if (value!.length < 8)
                   return 'Password must be at least 8 characters long';
@@ -104,12 +68,8 @@ class _SignupOptionsState extends State<SignupOptions> {
             ),
           ),
           DimenConstant.separator,
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(
-                ColorConstant.secondary,
-              ),
-            ),
+          CustomButton.text(
+            text: 'Sign Up',
             onPressed: () async {
               if (formKey.currentState!.validate()) {
                 loading = true;
@@ -173,12 +133,6 @@ class _SignupOptionsState extends State<SignupOptions> {
                 }
               }
             },
-            child: Text(
-              'Sign Up',
-              style: TextStyle(
-                color: ColorConstant.tertiary,
-              ),
-            ),
           ),
           Visibility(
             visible: loading,
