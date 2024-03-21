@@ -6,7 +6,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +45,7 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
               ),
             ),
             DimenConstant.separator,
-            FoodiesWidget.container(
+            CustomContainer(
               paddingLeft: DimenConstant.padding * 2.0,
               paddingRight: DimenConstant.padding * 2.0,
               onPressed: () {

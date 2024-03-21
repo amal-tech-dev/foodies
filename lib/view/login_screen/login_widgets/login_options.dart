@@ -8,7 +8,9 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dart';
 import 'package:foodies/view/forget_password_screen/forget_password_screen.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 
@@ -31,7 +33,7 @@ class _LoginOptionsState extends State<LoginOptions> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FoodiesWidget.container(
+        CustomContainer(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
           paddingRight: DimenConstant.padding * 1.5,
@@ -69,25 +71,27 @@ class _LoginOptionsState extends State<LoginOptions> {
             }
           },
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.person,
                 color: ColorConstant.primary,
               ),
-              DimenConstant.separator,
-              Text(
-                'Continue as Guest',
-                style: TextStyle(
-                  color: ColorConstant.primary,
-                  fontSize: DimenConstant.extraSmall,
+              Expanded(
+                child: Center(
+                  child: Text(
+                    'Continue as Guest',
+                    style: TextStyle(
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.extraSmall,
+                    ),
+                  ),
                 ),
               )
             ],
           ),
         ),
         DimenConstant.separator,
-        FoodiesWidget.container(
+        CustomContainer(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
           paddingRight: DimenConstant.padding * 1.5,
@@ -142,25 +146,27 @@ class _LoginOptionsState extends State<LoginOptions> {
             }
           },
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               FaIcon(
                 FontAwesomeIcons.google,
                 color: ColorConstant.primary,
               ),
-              DimenConstant.separator,
-              Text(
-                'Continue with Google',
-                style: TextStyle(
-                  color: ColorConstant.primary,
-                  fontSize: DimenConstant.extraSmall,
+              Expanded(
+                child: Center(
+                  child: Text(
+                    'Continue with Google',
+                    style: TextStyle(
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.extraSmall,
+                    ),
+                  ),
                 ),
               )
             ],
           ),
         ),
         DimenConstant.separator,
-        FoodiesWidget.container(
+        CustomContainer(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
           paddingRight: DimenConstant.padding * 1.5,
@@ -170,18 +176,20 @@ class _LoginOptionsState extends State<LoginOptions> {
             setState(() {});
           },
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.alternate_email_outlined,
                 color: ColorConstant.primary,
               ),
-              DimenConstant.separator,
-              Text(
-                'Continue with Email',
-                style: TextStyle(
-                  color: ColorConstant.primary,
-                  fontSize: DimenConstant.extraSmall,
+              Expanded(
+                child: Center(
+                  child: Text(
+                    'Continue with Email',
+                    style: TextStyle(
+                      color: ColorConstant.primary,
+                      fontSize: DimenConstant.extraSmall,
+                    ),
+                  ),
                 ),
               )
             ],
@@ -199,7 +207,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: FoodiesWidget.singleLineForm(
+                  child: CustomTextField.singleLineForm(
                     context: context,
                     label: 'Email',
                     controller: emailController,
@@ -218,8 +226,8 @@ class _LoginOptionsState extends State<LoginOptions> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
                   ),
-                  child: FoodiesWidget.container(
-                    child: FoodiesWidget.password(
+                  child: CustomContainer(
+                    child: CustomTextField.password(
                       context: context,
                       controller: passwordController,
                       focusNode: passwordFocusNode,
@@ -253,7 +261,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                 ),
                 DimenConstant.separator,
                 Center(
-                  child: FoodiesWidget.text(
+                  child: CustomButton.text(
                     text: 'Sign In',
                     onPressed: () async {
                       loading = true;

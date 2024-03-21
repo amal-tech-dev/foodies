@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class StepItem extends StatelessWidget {
   String item;
@@ -19,12 +19,12 @@ class StepItem extends StatelessWidget {
       padding: const EdgeInsets.all(
         DimenConstant.padding,
       ),
-      child: FoodiesWidget.container(
+      child: CustomContainer(
         paddingTop: DimenConstant.padding * 2,
         paddingLeft: DimenConstant.padding * 2,
         paddingRight: DimenConstant.padding * 2,
         paddingBottom: DimenConstant.padding * 2,
-        borderRadius: DimenConstant.borderRadius * 2,
+        borderRadius: DimenConstant.borderRadiusLarge,
         child: Center(
           child: Text(
             item,

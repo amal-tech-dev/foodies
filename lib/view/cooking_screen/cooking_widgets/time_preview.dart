@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_button.dart';
 
 class TimePreview extends StatelessWidget {
   String time;
@@ -33,7 +33,7 @@ class TimePreview extends StatelessWidget {
             ),
           ),
           DimenConstant.separator,
-          FoodiesWidget.text(
+          CustomButton.text(
             text: 'Next',
             onPressed: onPressed,
           ),

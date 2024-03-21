@@ -9,7 +9,9 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/view/get_started_screen/get_started_screen.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -117,7 +119,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     height: 200,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                        DimenConstant.borderRadius,
+                        DimenConstant.borderRadiusSmall,
                       ),
                       image: DecorationImage(
                         image: cover == null
@@ -179,8 +181,8 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                FoodiesWidget.container(
-                  child: FoodiesWidget.singleLineForm(
+                CustomContainer(
+                  child: CustomTextField.singleLineForm(
                     context: context,
                     label: 'Display Name',
                     controller: nameController,
@@ -194,8 +196,8 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                FoodiesWidget.container(
-                  child: FoodiesWidget.singleLineForm(
+                CustomContainer(
+                  child: CustomTextField.singleLineForm(
                     context: context,
                     label: 'Username',
                     controller: usernameController,
@@ -212,8 +214,8 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                FoodiesWidget.container(
-                  child: FoodiesWidget.multiLineForm(
+                CustomContainer(
+                  child: CustomTextField.multiLineForm(
                     context: context,
                     label: 'Bio',
                     controller: bioController,
@@ -227,7 +229,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   ),
                 ),
                 DimenConstant.separator,
-                FoodiesWidget.text(
+                CustomButton.text(
                   text: 'Create Account',
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {

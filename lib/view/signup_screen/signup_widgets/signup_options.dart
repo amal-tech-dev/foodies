@@ -153,7 +153,7 @@ class _SignupOptionsState extends State<SignupOptions> {
 
   // simple email validation using a regular expression
   bool checkEmail(String email) {
-    final emailRegex =
+    final RegExp emailRegex =
         RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', caseSensitive: false);
     return emailRegex.hasMatch(email);
   }

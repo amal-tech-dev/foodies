@@ -33,7 +33,7 @@ class ShimmerRecipeTile extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: ColorConstant.primary,
                     borderRadius: BorderRadius.circular(
-                      DimenConstant.borderRadius * 2,
+                      DimenConstant.borderRadiusSmall * 2,
                     ),
                   ),
                 ),

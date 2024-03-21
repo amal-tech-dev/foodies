@@ -52,7 +52,7 @@ class RecipeTile extends StatelessWidget {
                           ],
                   ),
                   borderRadius: BorderRadius.circular(
-                    DimenConstant.borderRadius * 2,
+                    DimenConstant.borderRadiusSmall * 2,
                   ),
                 ),
                 child: Column(

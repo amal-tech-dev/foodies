@@ -22,6 +22,7 @@ class SettingsTile extends StatelessWidget {
     return CustomContainer(
       paddingLeft: DimenConstant.padding * 2,
       paddingRight: DimenConstant.padding * 2,
+      onPressed: onPressed,
       child: Row(
         children: [
           Icon(

@@ -138,10 +138,10 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(
-                          DimenConstant.borderRadius * 4,
+                          DimenConstant.borderRadiusSmall * 4,
                         ),
                         bottomRight: Radius.circular(
-                          DimenConstant.borderRadius * 4,
+                          DimenConstant.borderRadiusSmall * 4,
                         ),
                       ),
                       image: DecorationImage(
@@ -189,10 +189,10 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(
-                            DimenConstant.borderRadius * 4,
+                            DimenConstant.borderRadiusSmall * 4,
                           ),
                           bottomRight: Radius.circular(
-                            DimenConstant.borderRadius * 4,
+                            DimenConstant.borderRadiusSmall * 4,
                           ),
                         ),
                         gradient: LinearGradient(

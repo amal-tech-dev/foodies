@@ -10,8 +10,10 @@ import 'package:foodies/view/cooking_screen/cooking_screen.dart';
 import 'package:foodies/view/edit_recipe_screen/edit_recipe_screen.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
+import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/counter.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class RecipeViewScreen extends StatefulWidget {
   String id;
@@ -81,7 +83,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               padding: const EdgeInsets.all(
                 DimenConstant.padding * 2 / 3,
               ),
-              child: FoodiesWidget.back(),
+              child: CustomButton.back(),
             ),
             title: AnimatedOpacity(
               opacity: expanded ? 1.0 : 0.0,
@@ -118,7 +120,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             actions: [
               Visibility(
                 visible: recipe.chef == user.uid,
-                child: FoodiesWidget.icon(
+                child: CustomButton.icon(
                   icon: Icons.edit_rounded,
                   onPressed: () => Navigator.push(
                     context,
@@ -130,7 +132,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               ),
               Visibility(
                 visible: recipe.chef == user.uid,
-                child: FoodiesWidget.icon(
+                child: CustomButton.icon(
                   icon: Icons.delete_rounded,
                   onPressed: () => Navigator.push(
                     context,
@@ -178,7 +180,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       Row(
                         children: [
                           Expanded(
-                            child: FoodiesWidget.container(
+                            child: CustomContainer(
                               child: Counter(
                                 count: recipe.likes?.length ?? 0,
                                 header: 'Likes',
@@ -187,7 +189,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           ),
                           DimenConstant.separator,
                           Expanded(
-                            child: FoodiesWidget.container(
+                            child: CustomContainer(
                               child: Counter(
                                 count: recipe.views ?? 0,
                                 header: 'Views',
@@ -196,7 +198,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           ),
                           DimenConstant.separator,
                           Expanded(
-                            child: FoodiesWidget.container(
+                            child: CustomContainer(
                               child: Counter(
                                 count: recipe.shared ?? 0,
                                 header: 'Shared',
@@ -206,7 +208,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         ],
                       ),
                       DimenConstant.separator,
-                      FoodiesWidget.container(
+                      CustomContainer(
                         paddingLeft: DimenConstant.padding * 2.0,
                         paddingRight: DimenConstant.padding * 2.0,
                         onPressed: () => Navigator.push(
@@ -242,7 +244,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   )
-                                : FoodiesWidget.appName(
+                                : AppName(
                                     size: DimenConstant.small,
                                   ),
                             SizedBox(

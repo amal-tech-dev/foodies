@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class AddRecipeDetailsScreen extends StatefulWidget {
   AddRecipeDetailsScreen({super.key});
@@ -11,10 +13,10 @@ class AddRecipeDetailsScreen extends StatefulWidget {
 }
 
 class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  RecipeModel recipe = RecipeModel();
+  PageController pageController = PageController();
   TextEditingController nameController = TextEditingController();
   TextEditingController aboutController = TextEditingController();
-  FocusNode aboutFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +24,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        leading: FoodiesWidget.back(),
+        leading: CustomButton.back(),
         title: Text(
           'Add Recipe',
           style: TextStyle(
@@ -31,10 +33,17 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
           ),
         ),
       ),
-      body: Form(
-        key: formKey,
-        child: CustomScrollView(
-          slivers: [],
+      body: PageView(
+        controller: pageController,
+        physics: NeverScrollableScrollPhysics(),
+        onPageChanged: (value) {},
+        children: List.generate(
+          5,
+          (index) => CustomContainer(
+            child: Column(
+              children: [],
+            ),
+          ),
         ),
       ),
     );

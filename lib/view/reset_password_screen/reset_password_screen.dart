@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_text_field.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   ResetPasswordScreen({super.key});
@@ -27,7 +29,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        leading: FoodiesWidget.back(),
+        leading: CustomButton.back(),
         title: Text(
           'Reset Password',
           style: TextStyle(
@@ -46,8 +48,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FoodiesWidget.container(
-                child: FoodiesWidget.password(
+              CustomContainer(
+                child: CustomTextField.password(
                   context: context,
                   controller: currentPasswordController,
                   obscure: passwordVisible,
@@ -61,8 +63,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
               ),
               DimenConstant.separator,
-              FoodiesWidget.container(
-                child: FoodiesWidget.singleLineForm(
+              CustomContainer(
+                child: CustomTextField.singleLineForm(
                   context: context,
                   label: 'New Password',
                   controller: newPasswordController,
@@ -86,8 +88,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
               ),
               DimenConstant.separator,
-              FoodiesWidget.container(
-                child: FoodiesWidget.password(
+              CustomContainer(
+                child: CustomTextField.password(
                   context: context,
                   controller: currentPasswordController,
                   focusNode: confirmPasswordFocusNode,
@@ -105,7 +107,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ),
               DimenConstant.separator,
               Center(
-                child: FoodiesWidget.text(
+                child: CustomButton.text(
                   text: 'Reset',
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {

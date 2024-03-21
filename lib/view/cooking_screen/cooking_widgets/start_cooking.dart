@@ -9,7 +9,8 @@ import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/step_item.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/timer_widget.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -90,7 +91,7 @@ class _StartCookingState extends State<StartCooking> {
           DimenConstant.separator,
           if (cookingIndex == -1)
             Center(
-              child: FoodiesWidget.text(
+              child: CustomButton.text(
                 text: 'Start',
                 onPressed: () {
                   cookingIndex++;
@@ -102,7 +103,7 @@ class _StartCookingState extends State<StartCooking> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                FoodiesWidget.icon(
+                CustomButton.icon(
                   icon: Icons.keyboard_arrow_left_rounded,
                   onPressed: () {
                     if (cookingIndex > 0) {
@@ -118,7 +119,7 @@ class _StartCookingState extends State<StartCooking> {
                 if (timerRunning || alertPlaying)
                   Row(
                     children: [
-                      FoodiesWidget.container(
+                      CustomContainer(
                         paddingLeft: DimenConstant.padding * 2,
                         paddingRight: DimenConstant.padding * 2,
                         backgroundColor: ColorConstant.primary,
@@ -174,7 +175,7 @@ class _StartCookingState extends State<StartCooking> {
                                 fit: BoxFit.fill,
                               ),
                       ),
-                      FoodiesWidget.icon(
+                      CustomButton.icon(
                         icon: Icons.stop_rounded,
                         iconColor: ColorConstant.primary,
                         background: ColorConstant.error,
@@ -193,7 +194,7 @@ class _StartCookingState extends State<StartCooking> {
                 else
                   Row(
                     children: [
-                      FoodiesWidget.button(
+                      CustomButton.elevated(
                         onPressed: () {
                           if (timerPressed) timerRunning = true;
                           timerPressed = !timerPressed;
@@ -218,7 +219,7 @@ class _StartCookingState extends State<StartCooking> {
                       ),
                       Visibility(
                         visible: timerPressed,
-                        child: FoodiesWidget.icon(
+                        child: CustomButton.icon(
                           icon: Icons.close_rounded,
                           iconColor: ColorConstant.primary,
                           background: ColorConstant.error,
@@ -230,7 +231,7 @@ class _StartCookingState extends State<StartCooking> {
                       ),
                     ],
                   ),
-                FoodiesWidget.icon(
+                CustomButton.icon(
                   icon: Icons.keyboard_arrow_right_rounded,
                   onPressed: cookingIndex == widget.steps.length - 1
                       ? widget.onPressed

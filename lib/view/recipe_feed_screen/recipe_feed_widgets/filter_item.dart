@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_container.dart';
 
 class FilterItem extends StatelessWidget {
   String name;
@@ -17,7 +17,7 @@ class FilterItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FoodiesWidget.container(
+    return CustomContainer(
       paddingLeft: DimenConstant.padding * 2.0,
       paddingRight: DimenConstant.padding * 2.0,
       borderRadius: 100.0,

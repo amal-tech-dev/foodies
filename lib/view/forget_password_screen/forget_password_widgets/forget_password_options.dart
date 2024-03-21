@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_text_field.dart';
 
 class ForgetPasswordOptions extends StatefulWidget {
   ForgetPasswordOptions({super.key});
@@ -25,8 +27,8 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
       key: formKey,
       child: Column(
         children: [
-          FoodiesWidget.container(
-            child: FoodiesWidget.singleLineForm(
+          CustomContainer(
+            child: CustomTextField.singleLineForm(
               context: context,
               label: 'Email',
               controller: emailController,
@@ -40,7 +42,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
             ),
           ),
           DimenConstant.separator,
-          FoodiesWidget.text(
+          CustomButton.text(
             text: 'Verify',
             onPressed: () async {
               if (formKey.currentState!.validate()) {

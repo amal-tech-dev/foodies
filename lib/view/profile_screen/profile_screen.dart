@@ -141,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   child: SettingsTile(
                     icon: Icons.fastfood_outlined,
-                    header: 'My RecipesMy Recipes',
+                    header: 'My Recipes',
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -181,6 +181,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: SettingsTile(
                   icon: Icons.logout_rounded,
                   header: 'Logout',
+                  color: ColorConstant.error,
                   onPressed: () {
                     showDialog(
                       context: context,

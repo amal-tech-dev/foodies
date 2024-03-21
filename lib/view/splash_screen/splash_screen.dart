@@ -34,19 +34,17 @@ class _SplashScreenState extends State<SplashScreen> {
       Duration(
         seconds: 3,
       ),
-      () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                Provider.of<ConnectivityController>(context).connected
-                    ? user != null
-                        ? HomeScreen()
-                        : LoginScreen()
-                    : NoConnectionScreen(),
-          ),
-        );
-      },
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              Provider.of<ConnectivityController>(context).connected
+                  ? user != null
+                      ? HomeScreen()
+                      : LoginScreen()
+                  : NoConnectionScreen(),
+        ),
+      ),
     );
     super.initState();
   }
@@ -55,17 +53,20 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstant.background,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            ImageConstant.logo,
-            height: MediaQuery.of(context).size.width / 3,
-          ),
-          AppName(
-            size: DimenConstant.extraLarge,
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(
+              ImageConstant.logo,
+              height: MediaQuery.of(context).size.width / 3,
+            ),
+            DimenConstant.separator,
+            AppName(
+              size: DimenConstant.extraLarge,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class DimenConstant {
   static const double padding = 10.0;
-  static const double borderRadius = 8.0;
+  static const double borderRadiusSmall = 10.0;
+  static const double borderRadiusLarge = 20.0;
   static const double borderWidth = 2.0;
   static const double cursorRadius = 10.0;
   static const double extraLarge = 60.0;

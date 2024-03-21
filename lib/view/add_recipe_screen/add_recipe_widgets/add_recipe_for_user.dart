@@ -4,7 +4,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_screen.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/custom_button.dart';
 
 class AddRecipeForUser extends StatelessWidget {
   AddRecipeForUser({super.key});
@@ -41,7 +41,7 @@ class AddRecipeForUser extends StatelessWidget {
         ),
         Column(
           children: [
-            FoodiesWidget.text(
+            CustomButton.text(
               text: 'Add Recipe',
               onPressed: () => Navigator.push(
                 context,

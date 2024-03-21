@@ -3,7 +3,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
 class CustomButton {
-  static Widget button({
+  static Widget elevated({
     required VoidCallback onPressed,
     required Widget child,
     Color? background,
@@ -12,6 +12,11 @@ class CustomButton {
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(
           background ?? ColorConstant.secondary,
+        ),
+        padding: MaterialStatePropertyAll(
+          EdgeInsets.symmetric(
+            horizontal: DimenConstant.padding * 2,
+          ),
         ),
       ),
       onPressed: onPressed,
@@ -30,6 +35,11 @@ class CustomButton {
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(
           background ?? ColorConstant.secondary,
+        ),
+        padding: MaterialStatePropertyAll(
+          EdgeInsets.symmetric(
+            horizontal: DimenConstant.padding * 2,
+          ),
         ),
       ),
       onPressed: onPressed,

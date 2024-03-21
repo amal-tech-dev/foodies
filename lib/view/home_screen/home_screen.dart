@@ -8,7 +8,7 @@ import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
 import 'package:foodies/view/search_screen/search_screen.dart';
-import 'package:foodies/widgets/foodies_widget.dart';
+import 'package:foodies/widgets/app_name.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: ColorConstant.background,
         surfaceTintColor: Colors.transparent,
-        title: FoodiesWidget.appName(
+        title: AppName(
           size: DimenConstant.small,
         ),
       ),
