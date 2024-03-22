@@ -60,4 +60,10 @@ class StringConstant {
   static const String viewsDialogPrefix = 'More than';
   static const String viewsDialogSuffix =
       'Foodies have chosen this recipe. Hope you like it too!';
+  static const String addRecipeName =
+      'Let\'s start with the name of your recipe.';
+  static const String addRecipeAbout =
+      'Now say something about your recipe that create cravings for fellow foodies.';
+  static const String addRecipeDiet =
+      'Ah! I am a Vegetarian. Is this recipe suits my diet?';
 }

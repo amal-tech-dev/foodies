@@ -6,6 +6,7 @@ import 'package:foodies/view/add_user_details_screen/add_user_details_screen.dar
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
+import 'package:foodies/widgets/loading.dart';
 
 class SignupOptions extends StatefulWidget {
   SignupOptions({super.key});
@@ -139,9 +140,10 @@ class _SignupOptionsState extends State<SignupOptions> {
             child: SizedBox(
               height: 100,
               child: Center(
-                child: CircularProgressIndicator(
-                  color: ColorConstant.secondary,
-                  strokeCap: StrokeCap.round,
+                child: Loading(
+                  visible: loading,
+                  size: 50,
+                  width: 3,
                 ),
               ),
             ),

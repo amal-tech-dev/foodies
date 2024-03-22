@@ -12,6 +12,7 @@ import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
+import 'package:foodies/widgets/loading.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -51,17 +52,10 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
           ),
         ),
         actions: [
-          Visibility(
+          Loading(
             visible: loading,
-            child: SizedBox(
-              height: 20,
-              width: 20,
-              child: CircularProgressIndicator(
-                color: ColorConstant.secondary,
-                strokeWidth: 2.5,
-                strokeCap: StrokeCap.round,
-              ),
-            ),
+            size: 20,
+            width: 2.5,
           ),
           SizedBox(
             width: 20,

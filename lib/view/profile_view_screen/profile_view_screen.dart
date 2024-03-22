@@ -10,6 +10,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_widgets/recipe_image_tile.dart';
+import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -297,27 +298,8 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                           ),
                           textAlign: TextAlign.center,
                         )
-                      : Row(
-                          children: [
-                            Text(
-                              StringConstant.appNamePrefix,
-                              style: TextStyle(
-                                color: ColorConstant.primary,
-                                fontSize: DimenConstant.large,
-                                fontFamily: StringConstant.font,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              StringConstant.appNameSuffix,
-                              style: TextStyle(
-                                color: ColorConstant.secondary,
-                                fontSize: DimenConstant.large,
-                                fontFamily: StringConstant.font,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                      : AppName(
+                          size: DimenConstant.large,
                         ),
                   SizedBox(
                     width: 5,

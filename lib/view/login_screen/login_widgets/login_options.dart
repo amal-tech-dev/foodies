@@ -11,6 +11,7 @@ import 'package:foodies/view/get_started_screen/get_started_screen.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
+import 'package:foodies/widgets/loading.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 
@@ -307,15 +308,11 @@ class _LoginOptionsState extends State<LoginOptions> {
           ),
         ),
         DimenConstant.separator,
-        Visibility(
+        Loading(
           visible: loading,
-          child: Center(
-            child: CircularProgressIndicator(
-              color: ColorConstant.secondary,
-              strokeCap: StrokeCap.round,
-            ),
-          ),
-        )
+          size: 50,
+          width: 3,
+        ),
       ],
     );
   }

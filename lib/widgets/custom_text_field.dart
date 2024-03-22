@@ -11,38 +11,41 @@ class CustomTextField {
     required String label,
     required TextEditingController controller,
     required int limit,
+    bool? visible,
     FocusNode? focusNode,
-  }) {
-    return TextField(
-      controller: controller,
-      focusNode: focusNode,
-      decoration: InputDecoration(
-        label: Text(
-          label,
+  }) =>
+      Visibility(
+        visible: visible ?? true,
+        child: TextField(
+          controller: controller,
+          focusNode: focusNode,
+          decoration: InputDecoration(
+            label: Text(
+              label,
+              style: TextStyle(
+                color: ColorConstant.secondary,
+                fontSize: DimenConstant.mini,
+              ),
+            ),
+            contentPadding: EdgeInsets.all(0),
+            border: InputBorder.none,
+          ),
           style: TextStyle(
-            color: ColorConstant.secondary,
+            color: ColorConstant.primary,
             fontSize: DimenConstant.mini,
           ),
+          cursorColor: ColorConstant.secondary,
+          cursorRadius: Radius.circular(
+            DimenConstant.cursorRadius,
+          ),
+          textCapitalization: TextCapitalization.words,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(limit),
+            InputFormatController(),
+          ],
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
         ),
-        contentPadding: EdgeInsets.all(0),
-        border: InputBorder.none,
-      ),
-      style: TextStyle(
-        color: ColorConstant.primary,
-        fontSize: DimenConstant.mini,
-      ),
-      cursorColor: ColorConstant.secondary,
-      cursorRadius: Radius.circular(
-        DimenConstant.cursorRadius,
-      ),
-      textCapitalization: TextCapitalization.words,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(limit),
-        InputFormatController(),
-      ],
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-    );
-  }
+      );
 
   static Widget multiLine({
     required BuildContext context,
@@ -50,40 +53,43 @@ class CustomTextField {
     required TextEditingController controller,
     required int lines,
     required int limit,
+    bool? visible,
     FocusNode? focusNode,
-  }) {
-    return TextField(
-      controller: controller,
-      focusNode: focusNode,
-      decoration: InputDecoration(
-        label: Text(
-          label,
+  }) =>
+      Visibility(
+        visible: visible ?? true,
+        child: TextField(
+          controller: controller,
+          focusNode: focusNode,
+          decoration: InputDecoration(
+            label: Text(
+              label,
+              style: TextStyle(
+                color: ColorConstant.secondary,
+                fontSize: DimenConstant.mini,
+              ),
+            ),
+            contentPadding: EdgeInsets.all(0),
+            alignLabelWithHint: true,
+            border: InputBorder.none,
+          ),
           style: TextStyle(
-            color: ColorConstant.secondary,
+            color: ColorConstant.primary,
             fontSize: DimenConstant.mini,
           ),
+          cursorColor: ColorConstant.secondary,
+          cursorRadius: Radius.circular(
+            DimenConstant.cursorRadius,
+          ),
+          maxLines: lines,
+          textCapitalization: TextCapitalization.words,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(limit),
+            InputFormatController(),
+          ],
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
         ),
-        contentPadding: EdgeInsets.all(0),
-        alignLabelWithHint: true,
-        border: InputBorder.none,
-      ),
-      style: TextStyle(
-        color: ColorConstant.primary,
-        fontSize: DimenConstant.mini,
-      ),
-      cursorColor: ColorConstant.secondary,
-      cursorRadius: Radius.circular(
-        DimenConstant.cursorRadius,
-      ),
-      maxLines: lines,
-      textCapitalization: TextCapitalization.words,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(limit),
-        InputFormatController(),
-      ],
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-    );
-  }
+      );
 
   static Widget singleLineForm({
     required BuildContext context,
@@ -92,46 +98,49 @@ class CustomTextField {
     required int limit,
     required void Function(String) onSubmit,
     required String? Function(String?) validator,
+    bool? visible,
     FocusNode? focusNode,
-  }) {
-    return TextFormField(
-      controller: controller,
-      focusNode: focusNode,
-      decoration: InputDecoration(
-        label: Text(
-          label,
+  }) =>
+      Visibility(
+        visible: visible ?? true,
+        child: TextFormField(
+          controller: controller,
+          focusNode: focusNode,
+          decoration: InputDecoration(
+            label: Text(
+              label,
+              style: TextStyle(
+                color: ColorConstant.secondary,
+                fontSize: DimenConstant.mini,
+              ),
+            ),
+            errorStyle: TextStyle(
+              color: ColorConstant.error,
+              fontSize: DimenConstant.nano,
+              fontFamily: StringConstant.font,
+            ),
+            contentPadding: EdgeInsets.all(0),
+            border: InputBorder.none,
+          ),
           style: TextStyle(
-            color: ColorConstant.secondary,
+            color: ColorConstant.primary,
             fontSize: DimenConstant.mini,
           ),
+          cursorColor: ColorConstant.secondary,
+          cursorRadius: Radius.circular(
+            DimenConstant.cursorRadius,
+          ),
+          textCapitalization: TextCapitalization.words,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(limit),
+            InputFormatController(),
+          ],
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          onFieldSubmitted: onSubmit,
+          validator: validator,
         ),
-        errorStyle: TextStyle(
-          color: ColorConstant.error,
-          fontSize: DimenConstant.nano,
-          fontFamily: StringConstant.font,
-        ),
-        contentPadding: EdgeInsets.all(0),
-        border: InputBorder.none,
-      ),
-      style: TextStyle(
-        color: ColorConstant.primary,
-        fontSize: DimenConstant.mini,
-      ),
-      cursorColor: ColorConstant.secondary,
-      cursorRadius: Radius.circular(
-        DimenConstant.cursorRadius,
-      ),
-      textCapitalization: TextCapitalization.words,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(limit),
-        InputFormatController(),
-      ],
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-      onFieldSubmitted: onSubmit,
-      validator: validator,
-    );
-  }
+      );
 
   static Widget multiLineForm({
     required BuildContext context,
@@ -140,47 +149,50 @@ class CustomTextField {
     required int lines,
     required int limit,
     required String? Function(String?) validator,
+    bool? visible,
     FocusNode? focusNode,
-  }) {
-    return TextFormField(
-      controller: controller,
-      focusNode: focusNode,
-      decoration: InputDecoration(
-        label: Text(
-          label,
+  }) =>
+      Visibility(
+        visible: visible ?? true,
+        child: TextFormField(
+          controller: controller,
+          focusNode: focusNode,
+          decoration: InputDecoration(
+            label: Text(
+              label,
+              style: TextStyle(
+                color: ColorConstant.secondary,
+                fontSize: DimenConstant.mini,
+              ),
+            ),
+            errorStyle: TextStyle(
+              color: ColorConstant.error,
+              fontSize: DimenConstant.nano,
+              fontFamily: StringConstant.font,
+            ),
+            contentPadding: EdgeInsets.all(0),
+            alignLabelWithHint: true,
+            border: InputBorder.none,
+          ),
           style: TextStyle(
-            color: ColorConstant.secondary,
+            color: ColorConstant.primary,
             fontSize: DimenConstant.mini,
           ),
+          cursorColor: ColorConstant.secondary,
+          cursorRadius: Radius.circular(
+            DimenConstant.cursorRadius,
+          ),
+          maxLines: lines,
+          textCapitalization: TextCapitalization.words,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(limit),
+            InputFormatController(),
+          ],
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          validator: validator,
         ),
-        errorStyle: TextStyle(
-          color: ColorConstant.error,
-          fontSize: DimenConstant.nano,
-          fontFamily: StringConstant.font,
-        ),
-        contentPadding: EdgeInsets.all(0),
-        alignLabelWithHint: true,
-        border: InputBorder.none,
-      ),
-      style: TextStyle(
-        color: ColorConstant.primary,
-        fontSize: DimenConstant.mini,
-      ),
-      cursorColor: ColorConstant.secondary,
-      cursorRadius: Radius.circular(
-        DimenConstant.cursorRadius,
-      ),
-      maxLines: lines,
-      textCapitalization: TextCapitalization.words,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(limit),
-        InputFormatController(),
-      ],
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-      validator: validator,
-    );
-  }
+      );
 
   static Widget password({
     required BuildContext context,
@@ -188,52 +200,57 @@ class CustomTextField {
     required bool obscure,
     required VoidCallback onObscureChange,
     required String? Function(String?) validator,
+    bool? visible,
     FocusNode? focusNode,
-  }) {
-    return TextFormField(
-      controller: controller,
-      focusNode: focusNode,
-      decoration: InputDecoration(
-        label: Text(
-          'Password',
+  }) =>
+      Visibility(
+        visible: visible ?? true,
+        child: TextFormField(
+          controller: controller,
+          focusNode: focusNode,
+          decoration: InputDecoration(
+            label: Text(
+              'Password',
+              style: TextStyle(
+                color: ColorConstant.secondary,
+                fontSize: DimenConstant.mini,
+              ),
+            ),
+            errorStyle: TextStyle(
+              color: ColorConstant.error,
+              fontSize: DimenConstant.nano,
+              fontFamily: StringConstant.font,
+            ),
+            suffix: InkWell(
+              onTap: onObscureChange,
+              child: Icon(
+                obscure
+                    ? Icons.visibility_off_rounded
+                    : Icons.visibility_rounded,
+                color: ColorConstant.secondary,
+              ),
+            ),
+            contentPadding: EdgeInsets.all(0),
+            border: InputBorder.none,
+          ),
           style: TextStyle(
-            color: ColorConstant.secondary,
+            color: ColorConstant.primary,
             fontSize: DimenConstant.mini,
+            fontFamily: StringConstant.font,
           ),
-        ),
-        errorStyle: TextStyle(
-          color: ColorConstant.error,
-          fontSize: DimenConstant.nano,
-          fontFamily: StringConstant.font,
-        ),
-        suffix: InkWell(
-          onTap: onObscureChange,
-          child: Icon(
-            obscure ? Icons.visibility_off_rounded : Icons.visibility_rounded,
-            color: ColorConstant.secondary,
+          cursorColor: ColorConstant.secondary,
+          cursorRadius: Radius.circular(
+            DimenConstant.cursorRadius,
           ),
+          obscureText: obscure,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(20),
+          ],
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          validator: validator,
         ),
-        contentPadding: EdgeInsets.all(0),
-        border: InputBorder.none,
-      ),
-      style: TextStyle(
-        color: ColorConstant.primary,
-        fontSize: DimenConstant.mini,
-        fontFamily: StringConstant.font,
-      ),
-      cursorColor: ColorConstant.secondary,
-      cursorRadius: Radius.circular(
-        DimenConstant.cursorRadius,
-      ),
-      obscureText: obscure,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(20),
-      ],
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-      validator: validator,
-    );
-  }
+      );
 
   static Widget search({
     required BuildContext context,
@@ -241,43 +258,46 @@ class CustomTextField {
     required TextEditingController controller,
     required int limit,
     required VoidCallback onSearchPressed,
+    bool? visible,
     FocusNode? focusNode,
-  }) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: TextStyle(
-          color: ColorConstant.primary.withOpacity(0.5),
-          fontSize: DimenConstant.mini,
-        ),
-        contentPadding: EdgeInsets.all(0),
-        border: InputBorder.none,
-        suffix: InkWell(
-          onTap: onSearchPressed,
-          child: Text(
-            'Search',
-            style: TextStyle(
-              color: ColorConstant.secondary,
+  }) =>
+      Visibility(
+        visible: visible ?? true,
+        child: TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: TextStyle(
+              color: ColorConstant.primary.withOpacity(0.5),
               fontSize: DimenConstant.mini,
             ),
+            contentPadding: EdgeInsets.all(0),
+            border: InputBorder.none,
+            suffix: InkWell(
+              onTap: onSearchPressed,
+              child: Text(
+                'Search',
+                style: TextStyle(
+                  color: ColorConstant.secondary,
+                  fontSize: DimenConstant.mini,
+                ),
+              ),
+            ),
           ),
+          style: TextStyle(
+            color: ColorConstant.primary,
+            fontSize: DimenConstant.mini,
+          ),
+          cursorColor: ColorConstant.secondary,
+          cursorRadius: Radius.circular(
+            DimenConstant.cursorRadius,
+          ),
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(limit),
+            InputFormatController(),
+          ],
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          onEditingComplete: onSearchPressed,
         ),
-      ),
-      style: TextStyle(
-        color: ColorConstant.primary,
-        fontSize: DimenConstant.mini,
-      ),
-      cursorColor: ColorConstant.secondary,
-      cursorRadius: Radius.circular(
-        DimenConstant.cursorRadius,
-      ),
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(limit),
-        InputFormatController(),
-      ],
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-      onEditingComplete: onSearchPressed,
-    );
-  }
+      );
 }

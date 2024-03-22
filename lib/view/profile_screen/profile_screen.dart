@@ -25,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   bool guest = false;
-  UserModel? userModel;
+  UserModel? user;
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (event != null) {
           if (event.isAnonymous) {
             guest = true;
-            userModel = null;
+            user = null;
             setState(() {});
           } else {
             guest = false;
@@ -57,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         firestore.collection('users').doc(auth.currentUser!.uid);
     DocumentSnapshot snapshot = await reference.get();
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    userModel = UserModel.fromJson(data);
+    user = UserModel.fromJson(data);
     setState(() {});
   }
 
@@ -73,25 +73,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SliverToBoxAdapter(
               child: DimenConstant.separator,
             ),
-            guest
-                ? SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: DimenConstant.padding,
-                      ),
-                      child: GuestTile(),
-                    ),
-                  )
-                : SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: DimenConstant.padding,
-                      ),
-                      child: ProfileTile(
-                        name: userModel?.name ?? '',
-                        username: userModel?.username ?? '',
-                        verified: userModel?.verified ?? false,
-                        image: userModel?.profile,
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: guest
+                    ? GuestTile()
+                    : ProfileTile(
+                        name: user?.name ?? '',
+                        username: user?.username ?? '',
+                        verified: user?.verified ?? false,
+                        image: user?.profile,
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -101,26 +94,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                       ),
-                    ),
-                  ),
+              ),
+            ),
             SliverToBoxAdapter(
               child: DimenConstant.separator,
             ),
-            SliverVisibility(
-              visible: !guest,
-              sliver: SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: DimenConstant.padding,
-                  ),
-                  child: SettingsTile(
-                    icon: Icons.account_circle_outlined,
-                    header: 'Account',
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AccountSettingsScreen(),
-                      ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: SettingsTile(
+                  visible: !guest,
+                  icon: Icons.account_circle_outlined,
+                  header: 'Account',
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AccountSettingsScreen(),
                     ),
                   ),
                 ),
@@ -132,21 +123,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: DimenConstant.separator,
               ),
             ),
-            SliverVisibility(
-              visible: !guest,
-              sliver: SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: DimenConstant.padding,
-                  ),
-                  child: SettingsTile(
-                    icon: Icons.fastfood_outlined,
-                    header: 'My Recipes',
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyRecipesScreen(),
-                      ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: SettingsTile(
+                  visible: !guest,
+                  icon: Icons.fastfood_outlined,
+                  header: 'My Recipes',
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyRecipesScreen(),
                     ),
                   ),
                 ),

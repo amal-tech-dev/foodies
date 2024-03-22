@@ -7,6 +7,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/loading.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -76,19 +77,10 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   loading
-                      ? SizedBox(
-                          height: 24,
-                          width: 24,
-                          child: Padding(
-                            padding: const EdgeInsets.all(
-                              DimenConstant.padding / 2,
-                            ),
-                            child: CircularProgressIndicator(
-                              color: ColorConstant.primary,
-                              strokeCap: StrokeCap.round,
-                              strokeWidth: 2.5,
-                            ),
-                          ),
+                      ? Loading(
+                          visible: loading,
+                          size: 20,
+                          width: 2.5,
                         )
                       : Icon(
                           Icons.refresh_rounded,

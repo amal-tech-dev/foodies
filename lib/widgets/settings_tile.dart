@@ -8,18 +8,21 @@ class SettingsTile extends StatelessWidget {
   IconData icon;
   String header;
   VoidCallback onPressed;
+  bool? visible;
   Color? color;
   SettingsTile({
     super.key,
     required this.icon,
     required this.header,
     required this.onPressed,
+    this.visible,
     this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
+      visible: visible,
       paddingLeft: DimenConstant.padding * 2,
       paddingRight: DimenConstant.padding * 2,
       onPressed: onPressed,

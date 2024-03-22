@@ -5,6 +5,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
+import 'package:foodies/widgets/loading.dart';
 
 class UpdateEmailScreen extends StatefulWidget {
   UpdateEmailScreen({super.key});
@@ -65,12 +66,10 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                 },
               ),
               DimenConstant.separator,
-              Visibility(
+              Loading(
                 visible: loading,
-                child: CircularProgressIndicator(
-                  color: ColorConstant.secondary,
-                  strokeCap: StrokeCap.round,
-                ),
+                size: 50,
+                width: 3,
               ),
               DimenConstant.separator,
               CustomButton.text(
