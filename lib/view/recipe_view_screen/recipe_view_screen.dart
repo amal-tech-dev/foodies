@@ -118,27 +118,23 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               ),
             ),
             actions: [
-              Visibility(
+              CustomButton.icon(
                 visible: recipe.chef == user.uid,
-                child: CustomButton.icon(
-                  icon: Icons.edit_rounded,
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditRecipeScreen(),
-                    ),
+                icon: Icons.edit_rounded,
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditRecipeScreen(),
                   ),
                 ),
               ),
-              Visibility(
+              CustomButton.icon(
                 visible: recipe.chef == user.uid,
-                child: CustomButton.icon(
-                  icon: Icons.delete_rounded,
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditRecipeScreen(),
-                    ),
+                icon: Icons.delete_rounded,
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditRecipeScreen(),
                   ),
                 ),
               ),

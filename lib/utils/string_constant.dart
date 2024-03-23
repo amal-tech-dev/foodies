@@ -66,4 +66,8 @@ class StringConstant {
       'Now say something about your recipe that create cravings for fellow foodies.';
   static const String addRecipeDiet =
       'Ah! I am a Vegetarian. Is this recipe suits my diet?';
+  static const String addRecipeTime =
+      'Oh! It\'s getting late. How long will it take to cook?';
+  static const String addRecipeCuisine =
+      'Ok tell me now which Cuisine does it belong?';
 }

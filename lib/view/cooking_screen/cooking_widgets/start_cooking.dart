@@ -217,17 +217,15 @@ class _StartCookingState extends State<StartCooking> {
                           ],
                         ),
                       ),
-                      Visibility(
+                      CustomButton.icon(
                         visible: timerPressed,
-                        child: CustomButton.icon(
-                          icon: Icons.close_rounded,
-                          iconColor: ColorConstant.primary,
-                          background: ColorConstant.error,
-                          onPressed: () async {
-                            timerPressed = false;
-                            setState(() {});
-                          },
-                        ),
+                        icon: Icons.close_rounded,
+                        iconColor: ColorConstant.primary,
+                        background: ColorConstant.error,
+                        onPressed: () async {
+                          timerPressed = false;
+                          setState(() {});
+                        },
                       ),
                     ],
                   ),
