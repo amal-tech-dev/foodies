@@ -69,5 +69,10 @@ class StringConstant {
   static const String addRecipeTime =
       'Oh! It\'s getting late. How long will it take to cook?';
   static const String addRecipeCuisine =
-      'Ok tell me now which Cuisine does it belong?';
+      'Ok tell me now, Which Cuisine does it belong?';
+  static const String addRecipeCategories =
+      'I am starving already. Is it Main Course or Starters? Desert or Beverage?';
+  static const String addRecipeIngredients =
+      'All set. Let me check my pantry. What all do I need to cook this?';
+  static const String addRecipeSteps = '';
 }

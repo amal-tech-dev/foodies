@@ -4,12 +4,12 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/widgets/custom_container.dart';
 
-class DismissibleListItem extends StatelessWidget {
+class SlidableItem extends StatelessWidget {
   String item;
   bool editing;
   VoidCallback onItemPressed, onEditPressed, onDeletePressed;
 
-  DismissibleListItem({
+  SlidableItem({
     super.key,
     required this.item,
     required this.editing,
@@ -37,6 +37,7 @@ class DismissibleListItem extends StatelessWidget {
           ),
           DimenConstant.separator,
           CustomContainer(
+            backgroundColor: ColorConstant.primary,
             onPressed: onEditPressed,
             child: Icon(
               Icons.edit_rounded,
@@ -52,6 +53,7 @@ class DismissibleListItem extends StatelessWidget {
         children: [
           DimenConstant.separator,
           CustomContainer(
+            backgroundColor: ColorConstant.primary,
             onPressed: onEditPressed,
             child: Icon(
               Icons.edit_rounded,
@@ -70,6 +72,7 @@ class DismissibleListItem extends StatelessWidget {
         ],
       ),
       child: CustomContainer(
+        width: double.infinity,
         paddingTop: DimenConstant.padding * 1.5,
         paddingBottom: DimenConstant.padding * 1.5,
         border: editing,
