@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flexible_scrollbar/flexible_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
@@ -6,9 +7,9 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/page_item.dart';
-import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/slidable_item.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_scrollbar.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 
 class AddRecipeDetailsScreen extends StatefulWidget {
@@ -27,6 +28,8 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   TextEditingController timeController = TextEditingController();
   TextEditingController ingredientController = TextEditingController();
   TextEditingController stepController = TextEditingController();
+  ScrollController cuisineScrollController = ScrollController();
+  ScrollController categoriesScrollController = ScrollController();
   bool buttonVisibility = false;
   List cuisines = [], categories = [], selectedCategories = [];
   String? selectedCuisine;
@@ -79,13 +82,13 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: ColorConstant.background,
+        backgroundColor: ColorConstant.backgroundDark,
         surfaceTintColor: Colors.transparent,
         leading: CustomButton.back(),
         title: Text(
           'Add Recipe',
           style: TextStyle(
-            color: ColorConstant.primary,
+            color: ColorConstant.primaryDark,
             fontSize: DimenConstant.small,
           ),
         ),
@@ -211,7 +214,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       child: Text(
                         'Vegetarian',
                         style: TextStyle(
-                          color: ColorConstant.primary,
+                          color: ColorConstant.primaryDark,
                           fontSize: DimenConstant.small,
                         ),
                       ),
@@ -246,7 +249,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       child: Text(
                         'Non-Vegetarian',
                         style: TextStyle(
-                          color: ColorConstant.primary,
+                          color: ColorConstant.primaryDark,
                           fontSize: DimenConstant.small,
                         ),
                       ),
@@ -304,38 +307,57 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   child: CustomContainer(
                     onPressed: () => showDialog(
                       context: context,
-                      builder: (context) => CustomContainer(
-                        child: ListView.builder(
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () {
-                              selectedCuisine = cuisines[index];
-                              buttonVisibility = true;
-                              setState(() {});
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  cuisines[index],
-                                  style: TextStyle(
-                                    color: ColorConstant.primary,
-                                    fontSize: DimenConstant.extraSmall,
-                                  ),
-                                ),
-                                Radio(
-                                  value: index,
-                                  groupValue: selectedCuisine,
-                                  activeColor: ColorConstant.secondary,
-                                  onChanged: (value) {
+                      builder: (context) => Dialog(
+                        surfaceTintColor: Colors.transparent,
+                        child: SizedBox(
+                          height: 500,
+                          child: FlexibleScrollbar(
+                            controller: cuisineScrollController,
+                            alwaysVisible: true,
+                            scrollLabelOffset: 0,
+                            scrollLabelBuilder: (info) => CustomScrollbar(),
+                            child: CustomContainer(
+                              paddingLeft: DimenConstant.padding * 2,
+                              border: true,
+                              child: ListView.builder(
+                                controller: cuisineScrollController,
+                                itemBuilder: (context, index) => InkWell(
+                                  onTap: () {
                                     selectedCuisine = cuisines[index];
                                     buttonVisibility = true;
                                     setState(() {});
                                   },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          cuisines[index],
+                                          style: TextStyle(
+                                            color: ColorConstant.primaryDark,
+                                            fontSize: DimenConstant.extraSmall,
+                                          ),
+                                          maxLines: 2,
+                                        ),
+                                      ),
+                                      Radio(
+                                        value: index,
+                                        groupValue: selectedCuisine,
+                                        activeColor:
+                                            ColorConstant.secondaryDark,
+                                        onChanged: (value) {
+                                          selectedCuisine = cuisines[index];
+                                          buttonVisibility = true;
+                                          setState(() {});
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
+                                itemCount: cuisines.length,
+                              ),
                             ),
                           ),
-                          itemCount: cuisines.length,
                         ),
                       ),
                     ),
@@ -345,13 +367,13 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         Text(
                           selectedCuisine ?? 'Cuisines',
                           style: TextStyle(
-                            color: ColorConstant.primary,
+                            color: ColorConstant.primaryDark,
                             fontSize: DimenConstant.small,
                           ),
                         ),
                         Icon(
                           Icons.arrow_drop_down_rounded,
-                          color: ColorConstant.secondary,
+                          color: ColorConstant.secondaryDark,
                           size: 35,
                         ),
                       ],
@@ -385,154 +407,154 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 ),
               ],
             ),
-            PageItem(
-              header: StringConstant.addRecipeCategories,
-              image: ImageConstant.chef,
-              children: [
-                SliverToBoxAdapter(
-                  child: CustomContainer(
-                    height: 200,
-                    paddingTop: 0,
-                    paddingRight: 0,
-                    paddingBottom: 0,
-                    child: ListView.builder(
-                      itemBuilder: (context, index) => InkWell(
-                        onTap: () {
-                          selectedCategories.contains(categories[index])
-                              ? selectedCategories.remove(categories[index])
-                              : selectedCategories.add(categories[index]);
-                          buttonVisibility =
-                              selectedCategories.isEmpty ? false : true;
-                          setState(() {});
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              categories[index],
-                              style: TextStyle(
-                                color: ColorConstant.primary,
-                                fontSize: DimenConstant.extraSmall,
-                              ),
-                            ),
-                            Checkbox(
-                              value: selectedCategories
-                                  .contains(categories[index]),
-                              activeColor: ColorConstant.secondary,
-                              checkColor: ColorConstant.tertiary,
-                              onChanged: (value) {
-                                value ?? false
-                                    ? selectedCategories.add(categories[index])
-                                    : selectedCategories
-                                        .remove(categories[index]);
-                                buttonVisibility =
-                                    selectedCategories.isEmpty ? false : true;
-                                setState(() {});
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                      itemCount: categories.length,
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: DimenConstant.separator,
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.padding * 10,
-                    ),
-                    child: CustomButton.text(
-                      visible: buttonVisibility,
-                      text: 'Next',
-                      onPressed: () {
-                        recipe.categories = [...selectedCategories];
-                        buttonVisibility = false;
-                        setState(() {});
-                        pageController.nextPage(
-                          duration: Duration(
-                            milliseconds: 500,
-                          ),
-                          curve: Curves.bounceInOut,
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            PageItem(
-              header: StringConstant.addRecipeIngredients,
-              image: ImageConstant.chef,
-              children: [
-                SliverList.separated(
-                  itemBuilder: (context, index) => SlidableItem(
-                    item: ingredients[index],
-                    editing: false,
-                    onItemPressed: () {},
-                    onEditPressed: () {},
-                    onDeletePressed: () {},
-                  ),
-                  separatorBuilder: (context, index) => DimenConstant.separator,
-                  itemCount: ingredients.length,
-                ),
-                SliverToBoxAdapter(
-                  child: DimenConstant.separator,
-                ),
-                SliverToBoxAdapter(
-                  child: CustomContainer(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextField.singleLine(
-                            context: context,
-                            label: 'Add Ingredient',
-                            controller: ingredientController,
-                            limit: 20,
-                          ),
-                        ),
-                        DimenConstant.separator,
-                        CustomButton.icon(
-                          visible: ingredientController.text.isNotEmpty,
-                          icon: Icons.add_rounded,
-                          iconColor: ColorConstant.secondary,
-                          background: Colors.transparent,
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: DimenConstant.separator,
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.padding * 10,
-                    ),
-                    child: CustomButton.text(
-                      visible: !buttonVisibility,
-                      text: 'Next',
-                      onPressed: () {
-                        recipe.categories = [...selectedCategories];
-                        buttonVisibility = false;
-                        setState(() {});
-                        pageController.nextPage(
-                          duration: Duration(
-                            milliseconds: 500,
-                          ),
-                          curve: Curves.bounceInOut,
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // PageItem(
+            //   header: StringConstant.addRecipeCategories,
+            //   image: ImageConstant.chef,
+            //   children: [
+            //     SliverToBoxAdapter(
+            //       child: CustomContainer(
+            //         height: 200,
+            //         paddingTop: 0,
+            //         paddingRight: 0,
+            //         paddingBottom: 0,
+            //         child: ListView.builder(
+            //           itemBuilder: (context, index) => InkWell(
+            //             onTap: () {
+            //               selectedCategories.contains(categories[index])
+            //                   ? selectedCategories.remove(categories[index])
+            //                   : selectedCategories.add(categories[index]);
+            //               buttonVisibility =
+            //                   selectedCategories.isEmpty ? false : true;
+            //               setState(() {});
+            //             },
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Text(
+            //                   categories[index],
+            //                   style: TextStyle(
+            //                     color: ColorConstant.primary,
+            //                     fontSize: DimenConstant.extraSmall,
+            //                   ),
+            //                 ),
+            //                 Checkbox(
+            //                   value: selectedCategories
+            //                       .contains(categories[index]),
+            //                   activeColor: ColorConstant.secondary,
+            //                   checkColor: ColorConstant.tertiary,
+            //                   onChanged: (value) {
+            //                     value ?? false
+            //                         ? selectedCategories.add(categories[index])
+            //                         : selectedCategories
+            //                             .remove(categories[index]);
+            //                     buttonVisibility =
+            //                         selectedCategories.isEmpty ? false : true;
+            //                     setState(() {});
+            //                   },
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //           itemCount: categories.length,
+            //         ),
+            //       ),
+            //     ),
+            //     SliverToBoxAdapter(
+            //       child: DimenConstant.separator,
+            //     ),
+            //     SliverToBoxAdapter(
+            //       child: Padding(
+            //         padding: const EdgeInsets.symmetric(
+            //           horizontal: DimenConstant.padding * 10,
+            //         ),
+            //         child: CustomButton.text(
+            //           visible: buttonVisibility,
+            //           text: 'Next',
+            //           onPressed: () {
+            //             recipe.categories = [...selectedCategories];
+            //             buttonVisibility = false;
+            //             setState(() {});
+            //             pageController.nextPage(
+            //               duration: Duration(
+            //                 milliseconds: 500,
+            //               ),
+            //               curve: Curves.bounceInOut,
+            //             );
+            //           },
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // PageItem(
+            //   header: StringConstant.addRecipeIngredients,
+            //   image: ImageConstant.chef,
+            //   children: [
+            //     SliverList.separated(
+            //       itemBuilder: (context, index) => SlidableItem(
+            //         item: ingredients[index],
+            //         editing: false,
+            //         onItemPressed: () {},
+            //         onEditPressed: () {},
+            //         onDeletePressed: () {},
+            //       ),
+            //       separatorBuilder: (context, index) => DimenConstant.separator,
+            //       itemCount: ingredients.length,
+            //     ),
+            //     SliverToBoxAdapter(
+            //       child: DimenConstant.separator,
+            //     ),
+            //     SliverToBoxAdapter(
+            //       child: CustomContainer(
+            //         child: Row(
+            //           children: [
+            //             Expanded(
+            //               child: CustomTextField.singleLine(
+            //                 context: context,
+            //                 label: 'Add Ingredient',
+            //                 controller: ingredientController,
+            //                 limit: 20,
+            //               ),
+            //             ),
+            //             DimenConstant.separator,
+            //             CustomButton.icon(
+            //               visible: ingredientController.text.isNotEmpty,
+            //               icon: Icons.add_rounded,
+            //               iconColor: ColorConstant.secondary,
+            //               background: Colors.transparent,
+            //               onPressed: () {},
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     SliverToBoxAdapter(
+            //       child: DimenConstant.separator,
+            //     ),
+            //     SliverToBoxAdapter(
+            //       child: Padding(
+            //         padding: const EdgeInsets.symmetric(
+            //           horizontal: DimenConstant.padding * 10,
+            //         ),
+            //         child: CustomButton.text(
+            //           visible: !buttonVisibility,
+            //           text: 'Next',
+            //           onPressed: () {
+            //             recipe.categories = [...selectedCategories];
+            //             buttonVisibility = false;
+            //             setState(() {});
+            //             pageController.nextPage(
+            //               duration: Duration(
+            //                 milliseconds: 500,
+            //               ),
+            //               curve: Curves.bounceInOut,
+            //             );
+            //           },
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

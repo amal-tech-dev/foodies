@@ -31,7 +31,7 @@ class CookingPreview extends StatelessWidget {
             Text(
               name,
               style: TextStyle(
-                color: ColorConstant.primary,
+                color: ColorConstant.primaryDark,
                 fontSize: DimenConstant.large,
               ),
               textAlign: TextAlign.center,
@@ -39,7 +39,7 @@ class CookingPreview extends StatelessWidget {
             Text(
               StringConstant.cookingPreparation,
               style: TextStyle(
-                color: ColorConstant.secondary,
+                color: ColorConstant.secondaryDark,
                 fontSize: DimenConstant.small,
               ),
               textAlign: TextAlign.center,
@@ -50,14 +50,14 @@ class CookingPreview extends StatelessWidget {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
-                  ColorConstant.secondary,
+                  ColorConstant.secondaryDark,
                 ),
               ),
               onPressed: onPressed,
               child: Text(
                 'Check the Pantry',
                 style: TextStyle(
-                  color: ColorConstant.tertiary,
+                  color: ColorConstant.tertiaryDark,
                 ),
               ),
             )

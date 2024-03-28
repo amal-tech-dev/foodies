@@ -55,7 +55,7 @@ class ProfileTile extends StatelessWidget {
                       ? Text(
                           name,
                           style: TextStyle(
-                            color: ColorConstant.primary,
+                            color: ColorConstant.primaryDark,
                             fontSize: DimenConstant.medium,
                           ),
                         )
@@ -69,7 +69,7 @@ class ProfileTile extends StatelessWidget {
                     visible: verified,
                     child: Icon(
                       Icons.verified_rounded,
-                      color: ColorConstant.secondary,
+                      color: ColorConstant.secondaryDark,
                     ),
                   ),
                 ],
@@ -77,7 +77,7 @@ class ProfileTile extends StatelessWidget {
               Text(
                 '@${username}',
                 style: TextStyle(
-                  color: ColorConstant.secondary,
+                  color: ColorConstant.secondaryDark,
                   fontSize: DimenConstant.extraSmall,
                   fontFamily: StringConstant.font,
                 ),

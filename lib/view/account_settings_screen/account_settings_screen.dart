@@ -30,13 +30,13 @@ class AccountSettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.background,
+        backgroundColor: ColorConstant.backgroundDark,
         surfaceTintColor: Colors.transparent,
         leading: CustomButton.back(),
         title: Text(
           'Account Settings',
           style: TextStyle(
-            color: ColorConstant.primary,
+            color: ColorConstant.primaryDark,
             fontSize: DimenConstant.small,
           ),
         ),
@@ -88,19 +88,19 @@ class AccountSettingsScreen extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    backgroundColor: ColorConstant.background,
+                    backgroundColor: ColorConstant.backgroundDark,
                     surfaceTintColor: Colors.transparent,
                     title: Text(
                       'Delete account',
                       style: TextStyle(
-                        color: ColorConstant.primary,
+                        color: ColorConstant.primaryDark,
                         fontSize: DimenConstant.small,
                       ),
                     ),
                     content: Text(
                       StringConstant.deleteAccount,
                       style: TextStyle(
-                        color: ColorConstant.secondary,
+                        color: ColorConstant.secondaryDark,
                         fontSize: DimenConstant.mini,
                       ),
                       textAlign: TextAlign.justify,
@@ -111,7 +111,7 @@ class AccountSettingsScreen extends StatelessWidget {
                         child: Text(
                           'Cancel',
                           style: TextStyle(
-                            color: ColorConstant.primary,
+                            color: ColorConstant.primaryDark,
                             fontSize: DimenConstant.mini,
                           ),
                         ),

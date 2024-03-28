@@ -32,7 +32,7 @@ class OverviewScreen extends StatelessWidget {
             ),
             CustomButton.text(
               text: 'Skip',
-              textColor: ColorConstant.primary,
+              textColor: ColorConstant.primaryDark,
               textSize: DimenConstant.extraSmall,
               background: Colors.transparent,
               onPressed: () async {

@@ -67,7 +67,7 @@ class _CounterState extends State<Counter> {
             AnimatedFlipCounter(
               value: count,
               textStyle: TextStyle(
-                color: ColorConstant.primary,
+                color: ColorConstant.primaryDark,
                 fontSize: widget.header != null
                     ? DimenConstant.extraSmall
                     : DimenConstant.mini,
@@ -76,7 +76,7 @@ class _CounterState extends State<Counter> {
             Text(
               suffix,
               style: TextStyle(
-                color: ColorConstant.primary,
+                color: ColorConstant.primaryDark,
                 fontSize: widget.header != null
                     ? DimenConstant.extraSmall
                     : DimenConstant.mini,
@@ -89,7 +89,7 @@ class _CounterState extends State<Counter> {
           child: Text(
             widget.header ?? '',
             style: TextStyle(
-              color: ColorConstant.primary,
+              color: ColorConstant.primaryDark,
               fontSize: DimenConstant.mini,
             ),
           ),

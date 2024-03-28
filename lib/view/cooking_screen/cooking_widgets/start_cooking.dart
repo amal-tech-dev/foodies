@@ -1,4 +1,5 @@
 import 'package:alarm/alarm.dart';
+import 'package:alarm/model/alarm_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:foodies/utils/audio_constant.dart';
@@ -52,7 +53,7 @@ class _StartCookingState extends State<StartCooking> {
                             ? 'Light up the burner'
                             : 'Smells good',
                         style: TextStyle(
-                          color: ColorConstant.secondary,
+                          color: ColorConstant.secondaryDark,
                           fontSize: DimenConstant.medium,
                         ),
                       ),
@@ -82,8 +83,8 @@ class _StartCookingState extends State<StartCooking> {
                 effect: ExpandingDotsEffect(
                   dotHeight: 5,
                   dotWidth: 5,
-                  activeDotColor: ColorConstant.secondary,
-                  dotColor: ColorConstant.primary.withOpacity(0.5),
+                  activeDotColor: ColorConstant.secondaryDark,
+                  dotColor: ColorConstant.primaryDark.withOpacity(0.5),
                 ),
               ),
             ),
@@ -122,13 +123,13 @@ class _StartCookingState extends State<StartCooking> {
                       CustomContainer(
                         paddingLeft: DimenConstant.padding * 2,
                         paddingRight: DimenConstant.padding * 2,
-                        backgroundColor: ColorConstant.primary,
+                        backgroundColor: ColorConstant.primaryDark,
                         borderRadius: 500.0,
                         child: timerRunning
                             ? TimerCountdown(
                                 enableDescriptions: false,
                                 timeTextStyle: TextStyle(
-                                  color: ColorConstant.tertiary,
+                                  color: ColorConstant.tertiaryDark,
                                   fontSize: DimenConstant.mini,
                                 ),
                                 format: hr != 0
@@ -177,7 +178,7 @@ class _StartCookingState extends State<StartCooking> {
                       ),
                       CustomButton.icon(
                         icon: Icons.stop_rounded,
-                        iconColor: ColorConstant.primary,
+                        iconColor: ColorConstant.primaryDark,
                         background: ColorConstant.error,
                         onPressed: () async {
                           timerRunning = false;
@@ -204,13 +205,13 @@ class _StartCookingState extends State<StartCooking> {
                           children: [
                             Icon(
                               Icons.timer_outlined,
-                              color: ColorConstant.tertiary,
+                              color: ColorConstant.tertiaryDark,
                             ),
                             DimenConstant.separator,
                             Text(
                               timerPressed ? 'Start' : 'Timer',
                               style: TextStyle(
-                                color: ColorConstant.tertiary,
+                                color: ColorConstant.tertiaryDark,
                                 fontSize: DimenConstant.mini,
                               ),
                             ),
@@ -220,7 +221,7 @@ class _StartCookingState extends State<StartCooking> {
                       CustomButton.icon(
                         visible: timerPressed,
                         icon: Icons.close_rounded,
-                        iconColor: ColorConstant.primary,
+                        iconColor: ColorConstant.primaryDark,
                         background: ColorConstant.error,
                         onPressed: () async {
                           timerPressed = false;

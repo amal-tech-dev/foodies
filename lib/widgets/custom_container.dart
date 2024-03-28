@@ -44,14 +44,14 @@ class CustomContainer extends StatelessWidget {
             bottom: paddingBottom ?? DimenConstant.padding,
           ),
           decoration: BoxDecoration(
-            color: backgroundColor ?? ColorConstant.tertiary,
+            color: backgroundColor ?? ColorConstant.tertiaryDark,
             gradient: gradient,
             borderRadius: BorderRadius.circular(
               borderRadius ?? DimenConstant.borderRadiusSmall,
             ),
             border: border ?? false
                 ? Border.all(
-                    color: ColorConstant.secondary,
+                    color: ColorConstant.secondaryDark,
                     width: DimenConstant.borderWidth,
                   )
                 : Border.all(

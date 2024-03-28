@@ -22,13 +22,17 @@ class Foodies extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: ColorConstant.background,
+          appBarTheme: AppBarTheme(
+            color: ColorConstant.backgroundDark,
+            surfaceTintColor: Colors.transparent,
+          ),
+          scaffoldBackgroundColor: ColorConstant.backgroundDark,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           textSelectionTheme: TextSelectionThemeData(
-            cursorColor: ColorConstant.secondary,
-            selectionColor: ColorConstant.secondary.withOpacity(0.5),
-            selectionHandleColor: ColorConstant.secondary,
+            cursorColor: ColorConstant.secondaryDark,
+            selectionColor: ColorConstant.secondaryDark.withOpacity(0.5),
+            selectionHandleColor: ColorConstant.secondaryDark,
           ),
         ),
         home: SplashScreen(),

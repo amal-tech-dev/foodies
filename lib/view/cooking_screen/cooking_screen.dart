@@ -61,13 +61,13 @@ class _CookingScreenState extends State<CookingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.background,
+        backgroundColor: ColorConstant.backgroundDark,
         surfaceTintColor: Colors.transparent,
         leading: CustomButton.back(),
         title: Text(
           titles[index],
           style: TextStyle(
-            color: ColorConstant.primary,
+            color: ColorConstant.primaryDark,
             fontSize: DimenConstant.small,
           ),
         ),

@@ -14,7 +14,7 @@ class CustomButton {
         child: ElevatedButton(
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(
-              background ?? ColorConstant.secondary,
+              background ?? ColorConstant.secondaryDark,
             ),
             padding: MaterialStatePropertyAll(
               EdgeInsets.symmetric(
@@ -40,7 +40,7 @@ class CustomButton {
         child: TextButton(
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(
-              background ?? ColorConstant.secondary,
+              background ?? ColorConstant.secondaryDark,
             ),
             padding: MaterialStatePropertyAll(
               EdgeInsets.symmetric(
@@ -52,7 +52,7 @@ class CustomButton {
           child: Text(
             text,
             style: TextStyle(
-              color: textColor ?? ColorConstant.tertiary,
+              color: textColor ?? ColorConstant.tertiaryDark,
               fontSize: textSize ?? DimenConstant.mini,
             ),
           ),
@@ -71,13 +71,13 @@ class CustomButton {
         child: IconButton(
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(
-              background ?? ColorConstant.secondary,
+              background ?? ColorConstant.secondaryDark,
             ),
           ),
           onPressed: onPressed,
           icon: Icon(
             icon,
-            color: iconColor ?? ColorConstant.tertiary,
+            color: iconColor ?? ColorConstant.tertiaryDark,
           ),
         ),
       );
@@ -87,7 +87,7 @@ class CustomButton {
     Color? background,
   }) =>
       BackButton(
-        color: iconColor ?? ColorConstant.primary,
+        color: iconColor ?? ColorConstant.primaryDark,
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll(
             background ?? Colors.transparent,

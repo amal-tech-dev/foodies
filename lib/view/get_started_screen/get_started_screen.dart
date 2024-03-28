@@ -29,13 +29,13 @@ class GetStartedScreen extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                ColorConstant.background.withOpacity(0.0),
-                ColorConstant.background.withOpacity(0.0),
-                ColorConstant.background.withOpacity(0.0),
-                ColorConstant.background.withOpacity(0.3),
-                ColorConstant.background.withOpacity(0.5),
-                ColorConstant.background.withOpacity(0.7),
-                ColorConstant.background.withOpacity(0.8),
+                ColorConstant.backgroundDark.withOpacity(0.0),
+                ColorConstant.backgroundDark.withOpacity(0.0),
+                ColorConstant.backgroundDark.withOpacity(0.0),
+                ColorConstant.backgroundDark.withOpacity(0.3),
+                ColorConstant.backgroundDark.withOpacity(0.5),
+                ColorConstant.backgroundDark.withOpacity(0.7),
+                ColorConstant.backgroundDark.withOpacity(0.8),
               ],
             ),
           ),
@@ -51,7 +51,7 @@ class GetStartedScreen extends StatelessWidget {
                     Text(
                       StringConstant.welcomeTitle,
                       style: TextStyle(
-                        color: ColorConstant.secondary,
+                        color: ColorConstant.secondaryDark,
                         fontSize: DimenConstant.large,
                         fontWeight: FontWeight.bold,
                       ),
@@ -64,7 +64,7 @@ class GetStartedScreen extends StatelessWidget {
                     Text(
                       StringConstant.welcomeSubtitle,
                       style: TextStyle(
-                        color: ColorConstant.primary,
+                        color: ColorConstant.primaryDark,
                         fontSize: DimenConstant.extraSmall,
                         fontWeight: FontWeight.bold,
                       ),
@@ -88,7 +88,7 @@ class GetStartedScreen extends StatelessWidget {
                       height: 50,
                       width: 250,
                       decoration: BoxDecoration(
-                        color: ColorConstant.secondary,
+                        color: ColorConstant.secondaryDark,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(100),
                           bottomLeft: Radius.circular(100),
@@ -98,7 +98,7 @@ class GetStartedScreen extends StatelessWidget {
                         child: Text(
                           'Get Started',
                           style: TextStyle(
-                            color: ColorConstant.tertiary,
+                            color: ColorConstant.tertiaryDark,
                             fontSize: DimenConstant.small,
                             fontWeight: FontWeight.bold,
                           ),

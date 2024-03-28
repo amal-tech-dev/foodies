@@ -122,10 +122,10 @@ class _EditUserScreenState extends State<EditUserScreen> {
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Crop ${field} image',
-            toolbarColor: ColorConstant.background,
-            toolbarWidgetColor: ColorConstant.primary,
-            backgroundColor: ColorConstant.tertiary,
-            cropFrameColor: ColorConstant.primary,
+            toolbarColor: ColorConstant.backgroundDark,
+            toolbarWidgetColor: ColorConstant.primaryDark,
+            backgroundColor: ColorConstant.tertiaryDark,
+            cropFrameColor: ColorConstant.primaryDark,
             cropFrameStrokeWidth: 3,
             lockAspectRatio: true,
             hideBottomControls: true,
@@ -149,13 +149,13 @@ class _EditUserScreenState extends State<EditUserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.background,
+        backgroundColor: ColorConstant.backgroundDark,
         surfaceTintColor: Colors.transparent,
         leading: CustomButton.back(),
         title: Text(
           'Edit Account',
           style: TextStyle(
-            color: ColorConstant.primary,
+            color: ColorConstant.primaryDark,
             fontSize: DimenConstant.small,
           ),
         ),
@@ -171,7 +171,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
               children: [
                 InkWell(
                   onTap: () => showModalBottomSheet(
-                    backgroundColor: ColorConstant.background,
+                    backgroundColor: ColorConstant.backgroundDark,
                     showDragHandle: true,
                     context: context,
                     builder: (context) => PickImageBottomSheet(
@@ -215,7 +215,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                   children: [
                     InkWell(
                       onTap: () => showModalBottomSheet(
-                        backgroundColor: ColorConstant.background,
+                        backgroundColor: ColorConstant.backgroundDark,
                         showDragHandle: true,
                         context: context,
                         builder: (context) => PickImageBottomSheet(

@@ -29,13 +29,13 @@ class PickImageBottomSheet extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.camera_alt_outlined,
-                    color: ColorConstant.primary,
+                    color: ColorConstant.primaryDark,
                     size: 30,
                   ),
                   Text(
                     'Camera',
                     style: TextStyle(
-                      color: ColorConstant.secondary,
+                      color: ColorConstant.secondaryDark,
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
@@ -51,13 +51,13 @@ class PickImageBottomSheet extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.image_outlined,
-                    color: ColorConstant.primary,
+                    color: ColorConstant.primaryDark,
                     size: 30,
                   ),
                   Text(
                     'Gallery',
                     style: TextStyle(
-                      color: ColorConstant.secondary,
+                      color: ColorConstant.secondaryDark,
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
@@ -73,13 +73,13 @@ class PickImageBottomSheet extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.delete_outline,
-                    color: ColorConstant.primary,
+                    color: ColorConstant.primaryDark,
                     size: 30,
                   ),
                   Text(
                     'Remove',
                     style: TextStyle(
-                      color: ColorConstant.secondary,
+                      color: ColorConstant.secondaryDark,
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),

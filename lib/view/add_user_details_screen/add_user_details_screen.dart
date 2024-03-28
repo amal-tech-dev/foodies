@@ -42,12 +42,12 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.background,
+        backgroundColor: ColorConstant.backgroundDark,
         surfaceTintColor: Colors.transparent,
         title: Text(
           'Complete your profile',
           style: TextStyle(
-            color: ColorConstant.primary,
+            color: ColorConstant.primaryDark,
             fontSize: DimenConstant.small,
           ),
         ),
@@ -75,14 +75,14 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 Text(
                   'Select a cover image',
                   style: TextStyle(
-                    color: ColorConstant.secondary,
+                    color: ColorConstant.secondaryDark,
                     fontSize: DimenConstant.extraSmall,
                   ),
                 ),
                 DimenConstant.separator,
                 InkWell(
                   onTap: () => showModalBottomSheet(
-                    backgroundColor: ColorConstant.background,
+                    backgroundColor: ColorConstant.backgroundDark,
                     showDragHandle: true,
                     context: context,
                     builder: (context) => PickImageBottomSheet(
@@ -128,7 +128,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 Text(
                   'Select your profile picture',
                   style: TextStyle(
-                    color: ColorConstant.secondary,
+                    color: ColorConstant.secondaryDark,
                     fontSize: DimenConstant.extraSmall,
                   ),
                 ),
@@ -136,7 +136,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 Center(
                   child: InkWell(
                     onTap: () => showModalBottomSheet(
-                      backgroundColor: ColorConstant.background,
+                      backgroundColor: ColorConstant.backgroundDark,
                       showDragHandle: true,
                       context: context,
                       builder: (context) => PickImageBottomSheet(

@@ -28,7 +28,7 @@ class PantryItem extends StatelessWidget {
             child: Text(
               item,
               style: TextStyle(
-                color: ColorConstant.primary,
+                color: ColorConstant.primaryDark,
                 fontSize:
                     isChecking ? DimenConstant.medium : DimenConstant.mini,
               ),

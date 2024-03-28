@@ -96,10 +96,10 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Crop ${field} image',
-            toolbarColor: ColorConstant.background,
-            toolbarWidgetColor: ColorConstant.primary,
-            backgroundColor: ColorConstant.tertiary,
-            cropFrameColor: ColorConstant.primary,
+            toolbarColor: ColorConstant.backgroundDark,
+            toolbarWidgetColor: ColorConstant.primaryDark,
+            backgroundColor: ColorConstant.tertiaryDark,
+            cropFrameColor: ColorConstant.primaryDark,
             cropFrameStrokeWidth: 3,
             lockAspectRatio: true,
             hideBottomControls: true,
@@ -117,8 +117,8 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       key: refreshKey,
-      color: ColorConstant.secondary,
-      backgroundColor: ColorConstant.background,
+      color: ColorConstant.secondaryDark,
+      backgroundColor: ColorConstant.backgroundDark,
       onRefresh: () async => await getUserData(),
       child: Scaffold(
         body: CustomScrollView(
@@ -161,7 +161,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                     onTap: () {
                       if (currentUser) {
                         showModalBottomSheet(
-                          backgroundColor: ColorConstant.background,
+                          backgroundColor: ColorConstant.backgroundDark,
                           showDragHandle: true,
                           context: context,
                           builder: (context) => PickImageBottomSheet(
@@ -200,11 +200,11 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            ColorConstant.tertiary.withOpacity(0.2),
-                            ColorConstant.tertiary.withOpacity(0.2),
-                            ColorConstant.tertiary.withOpacity(0.1),
-                            ColorConstant.tertiary.withOpacity(0.1),
-                            ColorConstant.tertiary.withOpacity(0.0),
+                            ColorConstant.tertiaryDark.withOpacity(0.2),
+                            ColorConstant.tertiaryDark.withOpacity(0.2),
+                            ColorConstant.tertiaryDark.withOpacity(0.1),
+                            ColorConstant.tertiaryDark.withOpacity(0.1),
+                            ColorConstant.tertiaryDark.withOpacity(0.0),
                           ],
                         ),
                       ),
@@ -213,7 +213,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                         children: [
                           SafeArea(
                             child: BackButton(
-                              color: ColorConstant.primary,
+                              color: ColorConstant.primaryDark,
                             ),
                           ),
                         ],
@@ -236,7 +236,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                           onTap: () {
                             if (currentUser) {
                               showModalBottomSheet(
-                                backgroundColor: ColorConstant.background,
+                                backgroundColor: ColorConstant.backgroundDark,
                                 showDragHandle: true,
                                 context: context,
                                 builder: (context) => PickImageBottomSheet(
@@ -293,7 +293,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                       ? Text(
                           user.name ?? '',
                           style: TextStyle(
-                            color: ColorConstant.primary,
+                            color: ColorConstant.primaryDark,
                             fontSize: DimenConstant.large,
                           ),
                           textAlign: TextAlign.center,
@@ -308,7 +308,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                     visible: user.verified ?? false,
                     child: Icon(
                       Icons.verified_rounded,
-                      color: ColorConstant.secondary,
+                      color: ColorConstant.secondaryDark,
                     ),
                   ),
                 ],
@@ -319,7 +319,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                 child: Text(
                   '@${user.username ?? ''}',
                   style: TextStyle(
-                    color: ColorConstant.secondary,
+                    color: ColorConstant.secondaryDark,
                     fontSize: DimenConstant.small,
                     fontFamily: StringConstant.font,
                   ),
@@ -334,8 +334,8 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
                         isFollowing
-                            ? ColorConstant.primary
-                            : ColorConstant.secondary,
+                            ? ColorConstant.primaryDark
+                            : ColorConstant.secondaryDark,
                       ),
                     ),
                     onPressed: () async {
@@ -369,8 +369,8 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                         isFollowing ? 'Following' : 'Follow',
                         style: TextStyle(
                           color: isFollowing
-                              ? ColorConstant.tertiary
-                              : ColorConstant.tertiary,
+                              ? ColorConstant.tertiaryDark
+                              : ColorConstant.tertiaryDark,
                         ),
                       ),
                     ),
@@ -389,7 +389,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                 child: Text(
                   'Bio',
                   style: TextStyle(
-                    color: ColorConstant.secondary,
+                    color: ColorConstant.secondaryDark,
                     fontSize: DimenConstant.extraSmall,
                   ),
                 ),
@@ -403,7 +403,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                 child: Text(
                   user.bio ?? '',
                   style: TextStyle(
-                    color: ColorConstant.primary,
+                    color: ColorConstant.primaryDark,
                     fontSize: DimenConstant.extraSmall,
                   ),
                   textAlign: TextAlign.justify,
@@ -421,7 +421,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                 child: Text(
                   'Recipes',
                   style: TextStyle(
-                    color: ColorConstant.secondary,
+                    color: ColorConstant.secondaryDark,
                     fontSize: DimenConstant.extraSmall,
                   ),
                 ),
@@ -436,7 +436,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                       child: Text(
                         'No recipes yet.',
                         style: TextStyle(
-                          color: ColorConstant.primary,
+                          color: ColorConstant.primaryDark,
                           fontSize: DimenConstant.extraSmall,
                         ),
                         textAlign: TextAlign.justify,

@@ -123,7 +123,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           cuisines: cuisines,
                           categories: categories,
                         ),
-                        backgroundColor: ColorConstant.background,
+                        backgroundColor: ColorConstant.backgroundDark,
                         showDragHandle: true,
                       );
                     },
@@ -131,7 +131,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                       children: [
                         Icon(
                           Icons.tune_rounded,
-                          color: ColorConstant.primary,
+                          color: ColorConstant.primaryDark,
                           size: 18,
                         ),
                         SizedBox(
@@ -140,7 +140,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                         Text(
                           'Filters',
                           style: TextStyle(
-                            color: ColorConstant.secondary,
+                            color: ColorConstant.secondaryDark,
                             fontSize: DimenConstant.mini,
                           ),
                         ),
@@ -153,8 +153,8 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
             DimenConstant.separator,
             Expanded(
               child: RefreshIndicator(
-                color: ColorConstant.secondary,
-                backgroundColor: ColorConstant.background,
+                color: ColorConstant.secondaryDark,
+                backgroundColor: ColorConstant.backgroundDark,
                 onRefresh: () => fetchData(),
                 child: ListView.builder(
                   itemBuilder: (context, index) => loading

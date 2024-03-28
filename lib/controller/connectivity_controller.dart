@@ -6,8 +6,10 @@ class ConnectivityController with ChangeNotifier {
 
   // check internet connectivity
   checkConnectivity() async {
-    ConnectivityResult connectivity = await Connectivity().checkConnectivity();
-    if (connectivity == ConnectivityResult.none)
+    List<ConnectivityResult> connectivity =
+        await Connectivity().checkConnectivity();
+    if (connectivity.contains(ConnectivityResult.mobile) ||
+        connectivity.contains(ConnectivityResult.wifi))
       connected = false;
     else
       connected = true;

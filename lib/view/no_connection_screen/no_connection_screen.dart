@@ -41,7 +41,7 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
             Text(
               'No internet connection',
               style: TextStyle(
-                color: ColorConstant.primary,
+                color: ColorConstant.primaryDark,
                 fontSize: DimenConstant.small,
               ),
             ),
@@ -84,13 +84,13 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
                         )
                       : Icon(
                           Icons.refresh_rounded,
-                          color: ColorConstant.primary,
+                          color: ColorConstant.primaryDark,
                         ),
                   DimenConstant.separator,
                   Text(
                     'Retry',
                     style: TextStyle(
-                      color: ColorConstant.secondary,
+                      color: ColorConstant.secondaryDark,
                       fontSize: DimenConstant.mini,
                     ),
                   ),

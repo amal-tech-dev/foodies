@@ -31,7 +31,7 @@ class ShimmerRecipeTile extends StatelessWidget {
                 Container(
                   height: 150,
                   decoration: BoxDecoration(
-                    color: ColorConstant.primary,
+                    color: ColorConstant.primaryDark,
                     borderRadius: BorderRadius.circular(
                       DimenConstant.borderRadiusLarge,
                     ),
@@ -43,15 +43,15 @@ class ShimmerRecipeTile extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.favorite_rounded,
-                      color: ColorConstant.primary,
+                      color: ColorConstant.primaryDark,
                     ),
                     Icon(
                       Icons.visibility_rounded,
-                      color: ColorConstant.primary,
+                      color: ColorConstant.primaryDark,
                     ),
                     FaIcon(
                       FontAwesomeIcons.share,
-                      color: ColorConstant.primary,
+                      color: ColorConstant.primaryDark,
                       size: 18,
                     ),
                     Icon(
@@ -67,7 +67,7 @@ class ShimmerRecipeTile extends StatelessWidget {
             left: 20,
             child: CircleAvatar(
               radius: 50,
-              backgroundColor: ColorConstant.primary,
+              backgroundColor: ColorConstant.primaryDark,
             ),
           ),
         ],

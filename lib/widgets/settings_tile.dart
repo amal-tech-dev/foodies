@@ -30,13 +30,13 @@ class SettingsTile extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: ColorConstant.primary,
+            color: ColorConstant.primaryDark,
           ),
           DimenConstant.separator,
           Text(
             header,
             style: TextStyle(
-              color: color ?? ColorConstant.secondary,
+              color: color ?? ColorConstant.secondaryDark,
               fontSize: DimenConstant.small,
             ),
           ),

@@ -31,7 +31,7 @@ class AddRecipeForUser extends StatelessWidget {
               child: Text(
                 StringConstant.addRecipeUser,
                 style: TextStyle(
-                  color: ColorConstant.secondary,
+                  color: ColorConstant.secondaryDark,
                   fontSize: DimenConstant.extraSmall,
                 ),
                 textAlign: TextAlign.center,
