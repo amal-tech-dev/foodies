@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flexible_scrollbar/flexible_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
@@ -9,7 +8,6 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/page_item.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
-import 'package:foodies/widgets/custom_scrollbar.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 
 class AddRecipeDetailsScreen extends StatefulWidget {
@@ -34,6 +32,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   List cuisines = [], categories = [], selectedCategories = [];
   String? selectedCuisine;
   List<String> ingredients = [], steps = [];
+  int radioValue = -1;
 
   @override
   void initState() {
@@ -311,51 +310,59 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         surfaceTintColor: Colors.transparent,
                         child: SizedBox(
                           height: 500,
-                          child: FlexibleScrollbar(
-                            controller: cuisineScrollController,
-                            alwaysVisible: true,
-                            scrollLabelOffset: 0,
-                            scrollLabelBuilder: (info) => CustomScrollbar(),
-                            child: CustomContainer(
-                              paddingLeft: DimenConstant.padding * 2,
-                              border: true,
-                              child: ListView.builder(
-                                controller: cuisineScrollController,
-                                itemBuilder: (context, index) => InkWell(
-                                  onTap: () {
-                                    selectedCuisine = cuisines[index];
-                                    buttonVisibility = true;
-                                    setState(() {});
-                                  },
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          cuisines[index],
-                                          style: TextStyle(
-                                            color: ColorConstant.primaryDark,
-                                            fontSize: DimenConstant.extraSmall,
+                          child: CustomContainer(
+                            paddingLeft: DimenConstant.padding * 2,
+                            border: true,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: ListView.builder(
+                                    controller: cuisineScrollController,
+                                    itemBuilder: (context, index) => InkWell(
+                                      onTap: () {
+                                        selectedCuisine = cuisines[index];
+                                        radioValue = index;
+                                        buttonVisibility = true;
+                                        setState(() {});
+                                      },
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              cuisines[index],
+                                              style: TextStyle(
+                                                color:
+                                                    ColorConstant.primaryDark,
+                                                fontSize:
+                                                    DimenConstant.extraSmall,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
-                                          maxLines: 2,
-                                        ),
+                                          Radio(
+                                            value: index,
+                                            groupValue: radioValue,
+                                            activeColor:
+                                                ColorConstant.secondaryDark,
+                                            onChanged: (value) {
+                                              selectedCuisine = cuisines[index];
+                                              radioValue = index;
+                                              buttonVisibility = true;
+                                              setState(() {});
+                                            },
+                                          ),
+                                        ],
                                       ),
-                                      Radio(
-                                        value: index,
-                                        groupValue: selectedCuisine,
-                                        activeColor:
-                                            ColorConstant.secondaryDark,
-                                        onChanged: (value) {
-                                          selectedCuisine = cuisines[index];
-                                          buttonVisibility = true;
-                                          setState(() {});
-                                        },
-                                      ),
-                                    ],
+                                    ),
+                                    itemCount: cuisines.length,
                                   ),
                                 ),
-                                itemCount: cuisines.length,
-                              ),
+                                CustomButton.text(
+                                  text: 'Done',
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -368,7 +375,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                           selectedCuisine ?? 'Cuisines',
                           style: TextStyle(
                             color: ColorConstant.primaryDark,
-                            fontSize: DimenConstant.small,
+                            fontSize: DimenConstant.extraSmall,
                           ),
                         ),
                         Icon(
@@ -407,85 +414,148 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 ),
               ],
             ),
-            // PageItem(
-            //   header: StringConstant.addRecipeCategories,
-            //   image: ImageConstant.chef,
-            //   children: [
-            //     SliverToBoxAdapter(
-            //       child: CustomContainer(
-            //         height: 200,
-            //         paddingTop: 0,
-            //         paddingRight: 0,
-            //         paddingBottom: 0,
-            //         child: ListView.builder(
-            //           itemBuilder: (context, index) => InkWell(
-            //             onTap: () {
-            //               selectedCategories.contains(categories[index])
-            //                   ? selectedCategories.remove(categories[index])
-            //                   : selectedCategories.add(categories[index]);
-            //               buttonVisibility =
-            //                   selectedCategories.isEmpty ? false : true;
-            //               setState(() {});
-            //             },
-            //             child: Row(
-            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //               children: [
-            //                 Text(
-            //                   categories[index],
-            //                   style: TextStyle(
-            //                     color: ColorConstant.primary,
-            //                     fontSize: DimenConstant.extraSmall,
-            //                   ),
-            //                 ),
-            //                 Checkbox(
-            //                   value: selectedCategories
-            //                       .contains(categories[index]),
-            //                   activeColor: ColorConstant.secondary,
-            //                   checkColor: ColorConstant.tertiary,
-            //                   onChanged: (value) {
-            //                     value ?? false
-            //                         ? selectedCategories.add(categories[index])
-            //                         : selectedCategories
-            //                             .remove(categories[index]);
-            //                     buttonVisibility =
-            //                         selectedCategories.isEmpty ? false : true;
-            //                     setState(() {});
-            //                   },
-            //                 )
-            //               ],
-            //             ),
-            //           ),
-            //           itemCount: categories.length,
-            //         ),
-            //       ),
-            //     ),
-            //     SliverToBoxAdapter(
-            //       child: DimenConstant.separator,
-            //     ),
-            //     SliverToBoxAdapter(
-            //       child: Padding(
-            //         padding: const EdgeInsets.symmetric(
-            //           horizontal: DimenConstant.padding * 10,
-            //         ),
-            //         child: CustomButton.text(
-            //           visible: buttonVisibility,
-            //           text: 'Next',
-            //           onPressed: () {
-            //             recipe.categories = [...selectedCategories];
-            //             buttonVisibility = false;
-            //             setState(() {});
-            //             pageController.nextPage(
-            //               duration: Duration(
-            //                 milliseconds: 500,
-            //               ),
-            //               curve: Curves.bounceInOut,
-            //             );
-            //           },
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
+            PageItem(
+              header: StringConstant.addRecipeCategories,
+              image: ImageConstant.chef,
+              children: [
+                SliverToBoxAdapter(
+                  child: CustomContainer(
+                    onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                        surfaceTintColor: Colors.transparent,
+                        child: SizedBox(
+                          height: 500,
+                          child: CustomContainer(
+                            paddingLeft: DimenConstant.padding * 2,
+                            border: true,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemBuilder: (context, index) => InkWell(
+                                      onTap: () {
+                                        selectedCategories
+                                                .contains(categories[index])
+                                            ? selectedCategories
+                                                .remove(categories[index])
+                                            : selectedCategories
+                                                .add(categories[index]);
+                                        buttonVisibility =
+                                            selectedCategories.isEmpty
+                                                ? false
+                                                : true;
+                                        setState(() {});
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            categories[index],
+                                            style: TextStyle(
+                                              color: ColorConstant.primaryDark,
+                                              fontSize:
+                                                  DimenConstant.extraSmall,
+                                            ),
+                                          ),
+                                          Checkbox(
+                                            value: selectedCategories
+                                                .contains(categories[index]),
+                                            activeColor:
+                                                ColorConstant.secondaryDark,
+                                            checkColor:
+                                                ColorConstant.tertiaryDark,
+                                            onChanged: (value) {
+                                              value ?? false
+                                                  ? selectedCategories
+                                                      .add(categories[index])
+                                                  : selectedCategories.remove(
+                                                      categories[index]);
+                                              buttonVisibility =
+                                                  selectedCategories.isEmpty
+                                                      ? false
+                                                      : true;
+                                              setState(() {});
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    itemCount: categories.length,
+                                  ),
+                                ),
+                                CustomButton.text(
+                                  text: 'Done',
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Categories',
+                              style: TextStyle(
+                                color: ColorConstant.primaryDark,
+                                fontSize: DimenConstant.extraSmall,
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_drop_down_rounded,
+                              color: ColorConstant.secondaryDark,
+                              size: 35,
+                            ),
+                          ],
+                        ),
+                        Visibility(
+                          visible: selectedCategories.isNotEmpty,
+                          child: Text(
+                            selectedCategories.join(' | '),
+                            style: TextStyle(
+                              color: ColorConstant.secondaryDark,
+                              fontSize: DimenConstant.mini,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: DimenConstant.separator,
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: DimenConstant.padding * 10,
+                    ),
+                    child: CustomButton.text(
+                      visible: buttonVisibility,
+                      text: 'Next',
+                      onPressed: () {
+                        recipe.categories = [...selectedCategories];
+                        buttonVisibility = false;
+                        setState(() {});
+                        pageController.nextPage(
+                          duration: Duration(
+                            milliseconds: 500,
+                          ),
+                          curve: Curves.bounceInOut,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
             // PageItem(
             //   header: StringConstant.addRecipeIngredients,
             //   image: ImageConstant.chef,

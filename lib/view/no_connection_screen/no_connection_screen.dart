@@ -79,8 +79,10 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
                   loading
                       ? Loading(
                           visible: loading,
-                          size: 20,
+                          size: 24,
                           width: 2.5,
+                          padding: 4,
+                          color: ColorConstant.primaryDark,
                         )
                       : Icon(
                           Icons.refresh_rounded,

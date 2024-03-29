@@ -8,11 +8,10 @@ class ConnectivityController with ChangeNotifier {
   checkConnectivity() async {
     List<ConnectivityResult> connectivity =
         await Connectivity().checkConnectivity();
-    if (connectivity.contains(ConnectivityResult.mobile) ||
-        connectivity.contains(ConnectivityResult.wifi))
-      connected = false;
-    else
-      connected = true;
+    connected = connectivity.contains(ConnectivityResult.mobile) ||
+            connectivity.contains(ConnectivityResult.wifi)
+        ? true
+        : false;
     notifyListeners();
   }
 }
