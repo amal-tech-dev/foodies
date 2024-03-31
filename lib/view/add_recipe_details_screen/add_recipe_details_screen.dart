@@ -32,6 +32,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   List cuisines = [], categories = [], selectedCategories = [];
   String? selectedCuisine;
   List<String> ingredients = [], steps = [];
+  List<bool> checkValues = [];
   int radioValue = -1;
 
   @override
@@ -67,6 +68,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
     DocumentSnapshot snapshot = await reference.get();
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     categories = data['categories'];
+    checkValues = List.generate(categories.length, (index) => false);
     setState(() {});
   }
 
@@ -304,84 +306,79 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
-                    onPressed: () => showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                        surfaceTintColor: Colors.transparent,
-                        child: SizedBox(
-                          height: 500,
-                          child: CustomContainer(
-                            paddingLeft: DimenConstant.padding * 2,
-                            border: true,
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: ListView.builder(
-                                    controller: cuisineScrollController,
-                                    itemBuilder: (context, index) => InkWell(
-                                      onTap: () {
+                    paddingTop: 0,
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                    paddingBottom: 0,
+                    child: ExpansionTile(
+                      title: Text(
+                        'Cuisines',
+                        style: TextStyle(
+                          color: ColorConstant.primaryDark,
+                          fontSize: DimenConstant.extraSmall,
+                        ),
+                      ),
+                      subtitle: selectedCuisine == null
+                          ? null
+                          : Text(
+                              selectedCuisine ?? '',
+                              style: TextStyle(
+                                color: ColorConstant.secondaryDark,
+                                fontSize: DimenConstant.mini,
+                              ),
+                            ),
+                      iconColor: ColorConstant.secondaryDark,
+                      collapsedIconColor: ColorConstant.secondaryDark,
+                      collapsedShape: InputBorder.none,
+                      shape: InputBorder.none,
+                      childrenPadding: EdgeInsets.only(
+                        left: DimenConstant.padding * 2,
+                        right: DimenConstant.padding,
+                      ),
+                      children: [
+                        CustomContainer(
+                          paddingTop: 0,
+                          paddingLeft: 0,
+                          paddingRight: 0,
+                          paddingBottom: 0,
+                          height: 200,
+                          child: Expanded(
+                            child: ListView.builder(
+                              itemBuilder: (context, index) => InkWell(
+                                onTap: () {
+                                  selectedCuisine = cuisines[index];
+                                  radioValue = index;
+                                  buttonVisibility = true;
+                                  setState(() {});
+                                },
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        cuisines[index],
+                                        style: TextStyle(
+                                          color: ColorConstant.primaryDark,
+                                          fontSize: DimenConstant.mini,
+                                        ),
+                                      ),
+                                    ),
+                                    Radio(
+                                      value: index,
+                                      groupValue: radioValue,
+                                      activeColor: ColorConstant.secondaryDark,
+                                      onChanged: (value) {
                                         selectedCuisine = cuisines[index];
                                         radioValue = index;
                                         buttonVisibility = true;
                                         setState(() {});
                                       },
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              cuisines[index],
-                                              style: TextStyle(
-                                                color:
-                                                    ColorConstant.primaryDark,
-                                                fontSize:
-                                                    DimenConstant.extraSmall,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                          Radio(
-                                            value: index,
-                                            groupValue: radioValue,
-                                            activeColor:
-                                                ColorConstant.secondaryDark,
-                                            onChanged: (value) {
-                                              selectedCuisine = cuisines[index];
-                                              radioValue = index;
-                                              buttonVisibility = true;
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ],
-                                      ),
                                     ),
-                                    itemCount: cuisines.length,
-                                  ),
+                                  ],
                                 ),
-                                CustomButton.text(
-                                  text: 'Done',
-                                  onPressed: () => Navigator.pop(context),
-                                ),
-                              ],
+                              ),
+                              itemCount: cuisines.length,
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          selectedCuisine ?? 'Cuisines',
-                          style: TextStyle(
-                            color: ColorConstant.primaryDark,
-                            fontSize: DimenConstant.extraSmall,
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_drop_down_rounded,
-                          color: ColorConstant.secondaryDark,
-                          size: 35,
                         ),
                       ],
                     ),
@@ -420,108 +417,92 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
-                    onPressed: () => showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                        surfaceTintColor: Colors.transparent,
-                        child: SizedBox(
-                          height: 500,
-                          child: CustomContainer(
-                            paddingLeft: DimenConstant.padding * 2,
-                            border: true,
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemBuilder: (context, index) => InkWell(
-                                      onTap: () {
-                                        selectedCategories
-                                                .contains(categories[index])
-                                            ? selectedCategories
-                                                .remove(categories[index])
-                                            : selectedCategories
-                                                .add(categories[index]);
+                    paddingTop: 0,
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                    paddingBottom: 0,
+                    child: ExpansionTile(
+                      title: Text(
+                        'Categories',
+                        style: TextStyle(
+                          color: ColorConstant.primaryDark,
+                          fontSize: DimenConstant.extraSmall,
+                        ),
+                      ),
+                      subtitle: selectedCategories.isEmpty
+                          ? null
+                          : Text(
+                              selectedCategories.join(' | '),
+                              style: TextStyle(
+                                color: ColorConstant.secondaryDark,
+                                fontSize: DimenConstant.mini,
+                              ),
+                            ),
+                      iconColor: ColorConstant.secondaryDark,
+                      collapsedIconColor: ColorConstant.secondaryDark,
+                      collapsedShape: InputBorder.none,
+                      shape: InputBorder.none,
+                      childrenPadding: EdgeInsets.only(
+                        left: DimenConstant.padding * 2,
+                        right: DimenConstant.padding,
+                      ),
+                      children: [
+                        CustomContainer(
+                          paddingTop: 0,
+                          paddingLeft: 0,
+                          paddingRight: 0,
+                          paddingBottom: 0,
+                          height: 200,
+                          child: Expanded(
+                            child: ListView.builder(
+                              itemBuilder: (context, index) => InkWell(
+                                onTap: () {
+                                  checkValues[index] = !checkValues[index];
+                                  selectedCategories = [];
+                                  for (int i = 0; i < checkValues.length; i++) {
+                                    if (checkValues[i])
+                                      selectedCategories.add(categories[i]);
+                                  }
+                                  buttonVisibility =
+                                      selectedCategories.isEmpty ? false : true;
+                                  setState(() {});
+                                },
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        categories[index],
+                                        style: TextStyle(
+                                          color: ColorConstant.primaryDark,
+                                          fontSize: DimenConstant.mini,
+                                        ),
+                                      ),
+                                    ),
+                                    Checkbox(
+                                      value: checkValues[index],
+                                      checkColor: ColorConstant.tertiaryDark,
+                                      activeColor: ColorConstant.secondaryDark,
+                                      onChanged: (value) {
+                                        checkValues[index] = value ?? false;
+                                        selectedCategories = [];
+                                        for (int i = 0;
+                                            i < checkValues.length;
+                                            i++) {
+                                          if (checkValues[i])
+                                            selectedCategories
+                                                .add(categories[i]);
+                                        }
                                         buttonVisibility =
                                             selectedCategories.isEmpty
                                                 ? false
                                                 : true;
                                         setState(() {});
                                       },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            categories[index],
-                                            style: TextStyle(
-                                              color: ColorConstant.primaryDark,
-                                              fontSize:
-                                                  DimenConstant.extraSmall,
-                                            ),
-                                          ),
-                                          Checkbox(
-                                            value: selectedCategories
-                                                .contains(categories[index]),
-                                            activeColor:
-                                                ColorConstant.secondaryDark,
-                                            checkColor:
-                                                ColorConstant.tertiaryDark,
-                                            onChanged: (value) {
-                                              value ?? false
-                                                  ? selectedCategories
-                                                      .add(categories[index])
-                                                  : selectedCategories.remove(
-                                                      categories[index]);
-                                              buttonVisibility =
-                                                  selectedCategories.isEmpty
-                                                      ? false
-                                                      : true;
-                                              setState(() {});
-                                            },
-                                          )
-                                        ],
-                                      ),
                                     ),
-                                    itemCount: categories.length,
-                                  ),
+                                  ],
                                 ),
-                                CustomButton.text(
-                                  text: 'Done',
-                                  onPressed: () => Navigator.pop(context),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Categories',
-                              style: TextStyle(
-                                color: ColorConstant.primaryDark,
-                                fontSize: DimenConstant.extraSmall,
                               ),
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down_rounded,
-                              color: ColorConstant.secondaryDark,
-                              size: 35,
-                            ),
-                          ],
-                        ),
-                        Visibility(
-                          visible: selectedCategories.isNotEmpty,
-                          child: Text(
-                            selectedCategories.join(' | '),
-                            style: TextStyle(
-                              color: ColorConstant.secondaryDark,
-                              fontSize: DimenConstant.mini,
+                              itemCount: cuisines.length,
                             ),
                           ),
                         ),
@@ -541,7 +522,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       visible: buttonVisibility,
                       text: 'Next',
                       onPressed: () {
-                        recipe.categories = [...selectedCategories];
+                        recipe.cuisine = selectedCuisine;
                         buttonVisibility = false;
                         setState(() {});
                         pageController.nextPage(
@@ -556,6 +537,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 ),
               ],
             ),
+
             // PageItem(
             //   header: StringConstant.addRecipeIngredients,
             //   image: ImageConstant.chef,
