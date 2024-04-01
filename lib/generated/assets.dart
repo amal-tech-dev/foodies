@@ -3,14 +3,10 @@ class Assets {
   Assets._();
 
   static const String audioTimerAlert = 'assets/audio/timer_alert.mp3';
-  static const String bauhausBauhausBold =
-      'assets/fonts/bauhaus/bauhaus_bold.ttf';
-  static const String bauhausBauhausBoldItalic =
-      'assets/fonts/bauhaus/bauhaus_bold_italic.ttf';
-  static const String bauhausBauhausItalic =
-      'assets/fonts/bauhaus/bauhaus_italic.ttf';
-  static const String bauhausBauhausRegular =
-      'assets/fonts/bauhaus/bauhaus_regular.ttf';
+  static const String bauhausBauhausBold = 'assets/fonts/bauhaus/bauhaus_bold.ttf';
+  static const String bauhausBauhausBoldItalic = 'assets/fonts/bauhaus/bauhaus_bold_italic.ttf';
+  static const String bauhausBauhausItalic = 'assets/fonts/bauhaus/bauhaus_italic.ttf';
+  static const String bauhausBauhausRegular = 'assets/fonts/bauhaus/bauhaus_regular.ttf';
   static const String imagesAddRecipe = 'assets/images/add_recipe.png';
   static const String imagesChef = 'assets/images/chef.png';
   static const String imagesCover = 'assets/images/cover.png';
@@ -19,7 +15,6 @@ class Assets {
   static const String imagesLogin = 'assets/images/login.png';
   static const String imagesOverview = 'assets/images/overview.png';
   static const String imagesProfile = 'assets/images/profile.png';
-  static const String imagesRatingStar = 'assets/images/rating_star.png';
   static const String imagesSignup = 'assets/images/signup.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';
   static const String lottieAudioPlaying = 'assets/lottie/audio_playing.json';
@@ -28,4 +23,5 @@ class Assets {
   static const String lottieNoInternet = 'assets/lottie/no_internet.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';
   static const String lottieSearching = 'assets/lottie/searching.json';
+
 }
