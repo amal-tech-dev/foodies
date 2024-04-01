@@ -78,9 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           items: [
             BottomNavigationBarItem(
-              activeIcon: Icon(
-                Icons.fastfood_rounded,
-              ),
+              activeIcon: Icon(Icons.fastfood_rounded),
               icon: Icon(Icons.fastfood_outlined),
               label: 'Recipes',
             ),
