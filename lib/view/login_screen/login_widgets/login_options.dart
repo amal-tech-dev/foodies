@@ -63,7 +63,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                   content: Text(
                     'Unable to login',
                     style: TextStyle(
-                      color: ColorConstant.primaryDark,
+                      color: ColorConstant.secondaryDark,
                       fontSize: DimenConstant.mini,
                     ),
                   ),
@@ -75,14 +75,14 @@ class _LoginOptionsState extends State<LoginOptions> {
             children: [
               Icon(
                 Icons.person,
-                color: ColorConstant.primaryDark,
+                color: ColorConstant.secondaryDark,
               ),
               Expanded(
                 child: Center(
                   child: Text(
                     'Continue as Guest',
                     style: TextStyle(
-                      color: ColorConstant.primaryDark,
+                      color: ColorConstant.secondaryDark,
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
@@ -138,7 +138,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                   content: Text(
                     'Unable to login',
                     style: TextStyle(
-                      color: ColorConstant.primaryDark,
+                      color: ColorConstant.secondaryDark,
                       fontSize: DimenConstant.mini,
                     ),
                   ),
@@ -150,14 +150,14 @@ class _LoginOptionsState extends State<LoginOptions> {
             children: [
               FaIcon(
                 FontAwesomeIcons.google,
-                color: ColorConstant.primaryDark,
+                color: ColorConstant.secondaryDark,
               ),
               Expanded(
                 child: Center(
                   child: Text(
                     'Continue with Google',
                     style: TextStyle(
-                      color: ColorConstant.primaryDark,
+                      color: ColorConstant.secondaryDark,
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
@@ -180,14 +180,14 @@ class _LoginOptionsState extends State<LoginOptions> {
             children: [
               Icon(
                 Icons.alternate_email_outlined,
-                color: ColorConstant.primaryDark,
+                color: ColorConstant.secondaryDark,
               ),
               Expanded(
                 child: Center(
                   child: Text(
                     'Continue with Email',
                     style: TextStyle(
-                      color: ColorConstant.primaryDark,
+                      color: ColorConstant.secondaryDark,
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
@@ -256,7 +256,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                   child: Text(
                     'Forget Password?',
                     style: TextStyle(
-                      color: ColorConstant.secondaryDark,
+                      color: ColorConstant.primary,
                     ),
                   ),
                 ),
@@ -292,7 +292,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                               content: Text(
                                 'Invalid user or password',
                                 style: TextStyle(
-                                  color: ColorConstant.primaryDark,
+                                  color: ColorConstant.secondaryDark,
                                   fontSize: DimenConstant.mini,
                                 ),
                               ),

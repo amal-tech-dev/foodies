@@ -131,7 +131,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                       children: [
                         Icon(
                           Icons.tune_rounded,
-                          color: ColorConstant.primaryDark,
+                          color: ColorConstant.secondaryDark,
                           size: 18,
                         ),
                         SizedBox(
@@ -140,7 +140,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                         Text(
                           'Filters',
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.primary,
                             fontSize: DimenConstant.mini,
                           ),
                         ),
@@ -153,7 +153,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
             DimenConstant.separator,
             Expanded(
               child: RefreshIndicator(
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.primary,
                 backgroundColor: ColorConstant.backgroundDark,
                 onRefresh: () => fetchData(),
                 child: ListView.builder(

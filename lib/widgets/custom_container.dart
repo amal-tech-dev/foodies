@@ -51,7 +51,7 @@ class CustomContainer extends StatelessWidget {
             ),
             border: border ?? false
                 ? Border.all(
-                    color: ColorConstant.secondaryDark,
+                    color: ColorConstant.primary,
                     width: DimenConstant.borderWidth,
                   )
                 : Border.all(

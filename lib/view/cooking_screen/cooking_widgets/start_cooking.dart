@@ -53,7 +53,7 @@ class _StartCookingState extends State<StartCooking> {
                             ? 'Light up the burner'
                             : 'Smells good',
                         style: TextStyle(
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.primary,
                           fontSize: DimenConstant.medium,
                         ),
                       ),
@@ -83,8 +83,8 @@ class _StartCookingState extends State<StartCooking> {
                 effect: ExpandingDotsEffect(
                   dotHeight: 5,
                   dotWidth: 5,
-                  activeDotColor: ColorConstant.secondaryDark,
-                  dotColor: ColorConstant.primaryDark.withOpacity(0.5),
+                  activeDotColor: ColorConstant.primary,
+                  dotColor: ColorConstant.secondaryDark.withOpacity(0.5),
                 ),
               ),
             ),
@@ -123,7 +123,7 @@ class _StartCookingState extends State<StartCooking> {
                       CustomContainer(
                         paddingLeft: DimenConstant.padding * 2,
                         paddingRight: DimenConstant.padding * 2,
-                        backgroundColor: ColorConstant.primaryDark,
+                        backgroundColor: ColorConstant.secondaryDark,
                         borderRadius: 500.0,
                         child: timerRunning
                             ? TimerCountdown(
@@ -178,7 +178,7 @@ class _StartCookingState extends State<StartCooking> {
                       ),
                       CustomButton.icon(
                         icon: Icons.stop_rounded,
-                        iconColor: ColorConstant.primaryDark,
+                        iconColor: ColorConstant.secondaryDark,
                         background: ColorConstant.error,
                         onPressed: () async {
                           timerRunning = false;
@@ -221,7 +221,7 @@ class _StartCookingState extends State<StartCooking> {
                       CustomButton.icon(
                         visible: timerPressed,
                         icon: Icons.close_rounded,
-                        iconColor: ColorConstant.primaryDark,
+                        iconColor: ColorConstant.secondaryDark,
                         background: ColorConstant.error,
                         onPressed: () async {
                           timerPressed = false;

@@ -26,7 +26,7 @@ class Loading extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(padding ?? 0.0),
           child: CircularProgressIndicator(
-            color: color ?? ColorConstant.secondaryDark,
+            color: color ?? ColorConstant.primary,
             strokeWidth: width,
             strokeCap: StrokeCap.round,
           ),

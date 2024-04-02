@@ -36,7 +36,7 @@ class AccountSettingsScreen extends StatelessWidget {
         title: Text(
           'Account Settings',
           style: TextStyle(
-            color: ColorConstant.primaryDark,
+            color: ColorConstant.secondaryDark,
             fontSize: DimenConstant.small,
           ),
         ),
@@ -93,14 +93,14 @@ class AccountSettingsScreen extends StatelessWidget {
                     title: Text(
                       'Delete account',
                       style: TextStyle(
-                        color: ColorConstant.primaryDark,
+                        color: ColorConstant.secondaryDark,
                         fontSize: DimenConstant.small,
                       ),
                     ),
                     content: Text(
                       StringConstant.deleteAccount,
                       style: TextStyle(
-                        color: ColorConstant.secondaryDark,
+                        color: ColorConstant.primary,
                         fontSize: DimenConstant.mini,
                       ),
                       textAlign: TextAlign.justify,
@@ -111,7 +111,7 @@ class AccountSettingsScreen extends StatelessWidget {
                         child: Text(
                           'Cancel',
                           style: TextStyle(
-                            color: ColorConstant.primaryDark,
+                            color: ColorConstant.secondaryDark,
                             fontSize: DimenConstant.mini,
                           ),
                         ),

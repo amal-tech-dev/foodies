@@ -65,8 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: BottomNavigationBar(
           currentIndex: pageIndex,
-          selectedItemColor: ColorConstant.secondaryDark,
-          unselectedItemColor: ColorConstant.primaryDark,
+          selectedItemColor: ColorConstant.primary,
+          unselectedItemColor: ColorConstant.secondaryDark,
           selectedFontSize: DimenConstant.mini,
           unselectedFontSize: DimenConstant.mini,
           backgroundColor: ColorConstant.backgroundDark,

@@ -23,7 +23,7 @@ class CustomTextField {
             label: Text(
               label,
               style: TextStyle(
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.primary,
                 fontSize: DimenConstant.mini,
               ),
             ),
@@ -31,10 +31,10 @@ class CustomTextField {
             border: InputBorder.none,
           ),
           style: TextStyle(
-            color: ColorConstant.primaryDark,
+            color: ColorConstant.secondaryDark,
             fontSize: DimenConstant.mini,
           ),
-          cursorColor: ColorConstant.secondaryDark,
+          cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(
             DimenConstant.cursorRadius,
           ),
@@ -65,7 +65,7 @@ class CustomTextField {
             label: Text(
               label,
               style: TextStyle(
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.primary,
                 fontSize: DimenConstant.mini,
               ),
             ),
@@ -74,10 +74,10 @@ class CustomTextField {
             border: InputBorder.none,
           ),
           style: TextStyle(
-            color: ColorConstant.primaryDark,
+            color: ColorConstant.secondaryDark,
             fontSize: DimenConstant.mini,
           ),
-          cursorColor: ColorConstant.secondaryDark,
+          cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(
             DimenConstant.cursorRadius,
           ),
@@ -110,7 +110,7 @@ class CustomTextField {
             label: Text(
               label,
               style: TextStyle(
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.primary,
                 fontSize: DimenConstant.mini,
               ),
             ),
@@ -123,10 +123,10 @@ class CustomTextField {
             border: InputBorder.none,
           ),
           style: TextStyle(
-            color: ColorConstant.primaryDark,
+            color: ColorConstant.secondaryDark,
             fontSize: DimenConstant.mini,
           ),
-          cursorColor: ColorConstant.secondaryDark,
+          cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(
             DimenConstant.cursorRadius,
           ),
@@ -161,7 +161,7 @@ class CustomTextField {
             label: Text(
               label,
               style: TextStyle(
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.primary,
                 fontSize: DimenConstant.mini,
               ),
             ),
@@ -175,10 +175,10 @@ class CustomTextField {
             border: InputBorder.none,
           ),
           style: TextStyle(
-            color: ColorConstant.primaryDark,
+            color: ColorConstant.secondaryDark,
             fontSize: DimenConstant.mini,
           ),
-          cursorColor: ColorConstant.secondaryDark,
+          cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(
             DimenConstant.cursorRadius,
           ),
@@ -212,7 +212,7 @@ class CustomTextField {
             label: Text(
               'Password',
               style: TextStyle(
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.primary,
                 fontSize: DimenConstant.mini,
               ),
             ),
@@ -227,18 +227,18 @@ class CustomTextField {
                 obscure
                     ? Icons.visibility_off_rounded
                     : Icons.visibility_rounded,
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.primary,
               ),
             ),
             contentPadding: EdgeInsets.all(0),
             border: InputBorder.none,
           ),
           style: TextStyle(
-            color: ColorConstant.primaryDark,
+            color: ColorConstant.secondaryDark,
             fontSize: DimenConstant.mini,
             fontFamily: StringConstant.font,
           ),
-          cursorColor: ColorConstant.secondaryDark,
+          cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(
             DimenConstant.cursorRadius,
           ),
@@ -268,7 +268,7 @@ class CustomTextField {
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(
-              color: ColorConstant.primaryDark.withOpacity(0.5),
+              color: ColorConstant.secondaryDark.withOpacity(0.5),
               fontSize: DimenConstant.mini,
             ),
             contentPadding: EdgeInsets.all(0),
@@ -278,17 +278,17 @@ class CustomTextField {
               child: Text(
                 'Search',
                 style: TextStyle(
-                  color: ColorConstant.secondaryDark,
+                  color: ColorConstant.primary,
                   fontSize: DimenConstant.mini,
                 ),
               ),
             ),
           ),
           style: TextStyle(
-            color: ColorConstant.primaryDark,
+            color: ColorConstant.secondaryDark,
             fontSize: DimenConstant.mini,
           ),
-          cursorColor: ColorConstant.secondaryDark,
+          cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(
             DimenConstant.cursorRadius,
           ),

@@ -92,7 +92,7 @@ class RecipeTileController with ChangeNotifier {
               Text(
                 StringConstant.viewsDialogPrefix,
                 style: TextStyle(
-                  color: ColorConstant.primaryDark,
+                  color: ColorConstant.secondaryDark,
                   fontSize: DimenConstant.small,
                 ),
                 textAlign: TextAlign.center,
@@ -100,7 +100,7 @@ class RecipeTileController with ChangeNotifier {
               Text(
                 views.toString(),
                 style: TextStyle(
-                  color: ColorConstant.secondaryDark,
+                  color: ColorConstant.primary,
                   fontSize: DimenConstant.large,
                   fontFamily: StringConstant.font,
                 ),
@@ -109,7 +109,7 @@ class RecipeTileController with ChangeNotifier {
               Text(
                 StringConstant.viewsDialogSuffix,
                 style: TextStyle(
-                  color: ColorConstant.primaryDark,
+                  color: ColorConstant.secondaryDark,
                   fontSize: DimenConstant.small,
                 ),
                 textAlign: TextAlign.center,

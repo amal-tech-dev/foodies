@@ -108,7 +108,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     child: Text(
                       recipe.name ?? '',
                       style: TextStyle(
-                        color: ColorConstant.primaryDark,
+                        color: ColorConstant.secondaryDark,
                         fontSize: DimenConstant.extraSmall,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -168,7 +168,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       Text(
                         recipe.name ?? '',
                         style: TextStyle(
-                          color: ColorConstant.primaryDark,
+                          color: ColorConstant.secondaryDark,
                           fontSize: DimenConstant.medium,
                         ),
                       ),
@@ -235,7 +235,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                 ? Text(
                                     name,
                                     style: TextStyle(
-                                      color: ColorConstant.primaryDark,
+                                      color: ColorConstant.secondaryDark,
                                       fontSize: DimenConstant.small,
                                     ),
                                     overflow: TextOverflow.ellipsis,
@@ -250,7 +250,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               visible: verified,
                               child: Icon(
                                 Icons.verified_rounded,
-                                color: ColorConstant.secondaryDark,
+                                color: ColorConstant.primary,
                                 size: 20,
                               ),
                             )
@@ -271,7 +271,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               child: Text(
                 recipe.about ?? '',
                 style: TextStyle(
-                  color: ColorConstant.primaryDark,
+                  color: ColorConstant.secondaryDark,
                   fontSize: DimenConstant.extraSmall,
                 ),
                 textAlign: TextAlign.justify,
@@ -291,14 +291,14 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                   CircleAvatar(
                     backgroundColor: recipe.veg ?? true
                         ? ColorConstant.vegSecondary
-                        : ColorConstant.nonvegSecondary,
+                        : ColorConstant.nonVegSecondary,
                     radius: 10,
                   ),
                   DimenConstant.separator,
                   Text(
                     recipe.veg ?? true ? 'Vegetarian' : 'Non-Vegetarian',
                     style: TextStyle(
-                      color: ColorConstant.primaryDark,
+                      color: ColorConstant.secondaryDark,
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
@@ -317,7 +317,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               child: Text(
                 'Cuisine',
                 style: TextStyle(
-                  color: ColorConstant.secondaryDark,
+                  color: ColorConstant.primary,
                   fontSize: DimenConstant.small,
                 ),
               ),
@@ -339,7 +339,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               child: Text(
                 'Categories',
                 style: TextStyle(
-                  color: ColorConstant.secondaryDark,
+                  color: ColorConstant.primary,
                   fontSize: DimenConstant.small,
                 ),
               ),
@@ -361,7 +361,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               child: Text(
                 'Cooking Time',
                 style: TextStyle(
-                  color: ColorConstant.secondaryDark,
+                  color: ColorConstant.primary,
                   fontSize: DimenConstant.small,
                 ),
               ),
@@ -383,7 +383,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               child: Text(
                 'Ingredients',
                 style: TextStyle(
-                  color: ColorConstant.secondaryDark,
+                  color: ColorConstant.primary,
                   fontSize: DimenConstant.small,
                 ),
               ),
@@ -407,7 +407,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               child: Text(
                 'Steps',
                 style: TextStyle(
-                  color: ColorConstant.secondaryDark,
+                  color: ColorConstant.primary,
                   fontSize: DimenConstant.small,
                 ),
               ),
@@ -428,7 +428,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: ColorConstant.secondaryDark,
+        backgroundColor: ColorConstant.primary,
         isExtended: !expanded,
         extendedIconLabelSpacing: DimenConstant.padding,
         extendedPadding: EdgeInsets.symmetric(

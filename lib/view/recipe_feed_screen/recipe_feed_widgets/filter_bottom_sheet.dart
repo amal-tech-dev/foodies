@@ -60,7 +60,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   Text(
                     'Diet',
                     style: TextStyle(
-                      color: ColorConstant.secondaryDark,
+                      color: ColorConstant.primary,
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
@@ -86,7 +86,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   Text(
                     'Cuisines',
                     style: TextStyle(
-                      color: ColorConstant.secondaryDark,
+                      color: ColorConstant.primary,
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
@@ -134,7 +134,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   Text(
                     'Categories',
                     style: TextStyle(
-                      color: ColorConstant.secondaryDark,
+                      color: ColorConstant.primary,
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
@@ -189,7 +189,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondaryDark,
+                      ColorConstant.primary,
                     ),
                   ),
                   onPressed: () {
@@ -213,7 +213,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
-                      ColorConstant.secondaryDark,
+                      ColorConstant.primary,
                     ),
                   ),
                   onPressed: () {

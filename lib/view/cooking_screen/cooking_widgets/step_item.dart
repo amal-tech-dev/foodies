@@ -29,7 +29,7 @@ class StepItem extends StatelessWidget {
           child: Text(
             item,
             style: TextStyle(
-              color: ColorConstant.primaryDark,
+              color: ColorConstant.secondaryDark,
               fontSize: DimenConstant.small,
             ),
             textAlign: TextAlign.center,

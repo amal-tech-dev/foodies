@@ -30,9 +30,9 @@ class Foodies extends StatelessWidget {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           textSelectionTheme: TextSelectionThemeData(
-            cursorColor: ColorConstant.secondaryDark,
-            selectionColor: ColorConstant.secondaryDark.withOpacity(0.5),
-            selectionHandleColor: ColorConstant.secondaryDark,
+            cursorColor: ColorConstant.primary,
+            selectionColor: ColorConstant.primary.withOpacity(0.5),
+            selectionHandleColor: ColorConstant.primary,
           ),
         ),
         home: SplashScreen(),

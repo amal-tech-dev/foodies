@@ -23,7 +23,7 @@ class DetailsItem extends StatelessWidget {
               top: (DimenConstant.extraSmall / 2) - 2.5,
             ),
             child: CircleAvatar(
-              backgroundColor: ColorConstant.secondaryDark,
+              backgroundColor: ColorConstant.primary,
               radius: 5,
             ),
           ),
@@ -32,7 +32,7 @@ class DetailsItem extends StatelessWidget {
             child: Text(
               content,
               style: TextStyle(
-                color: ColorConstant.primaryDark,
+                color: ColorConstant.secondaryDark,
                 fontSize: DimenConstant.extraSmall,
               ),
               textAlign: TextAlign.justify,

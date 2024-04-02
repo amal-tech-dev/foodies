@@ -64,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      color: ColorConstant.secondaryDark,
+      color: ColorConstant.primary,
       backgroundColor: ColorConstant.backgroundDark,
       onRefresh: () async => await checkLoginType(),
       child: Scaffold(
@@ -180,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title: Text(
                           'Are you leaving?',
                           style: TextStyle(
-                            color: ColorConstant.primaryDark,
+                            color: ColorConstant.secondaryDark,
                             fontSize: DimenConstant.small,
                           ),
                         ),
@@ -189,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ? StringConstant.logoutAlertGuest
                               : StringConstant.logoutAlert,
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.primary,
                             fontSize: DimenConstant.mini,
                           ),
                           textAlign: TextAlign.justify,
@@ -200,7 +200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Text(
                               'Cancel',
                               style: TextStyle(
-                                color: ColorConstant.primaryDark,
+                                color: ColorConstant.secondaryDark,
                                 fontSize: DimenConstant.mini,
                               ),
                             ),
@@ -232,7 +232,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     content: Text(
                                       'Unable to logout',
                                       style: TextStyle(
-                                        color: ColorConstant.primaryDark,
+                                        color: ColorConstant.secondaryDark,
                                         fontSize: DimenConstant.mini,
                                       ),
                                     ),

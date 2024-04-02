@@ -17,7 +17,7 @@ class CustomSnackBar {
         content: Text(
           content,
           style: TextStyle(
-            color: ColorConstant.primaryDark,
+            color: ColorConstant.secondaryDark,
             fontSize: DimenConstant.mini,
           ),
         ),

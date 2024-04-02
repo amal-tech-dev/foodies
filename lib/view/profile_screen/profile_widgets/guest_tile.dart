@@ -27,7 +27,7 @@ class GuestTile extends StatelessWidget {
           Text(
             'Guest',
             style: TextStyle(
-              color: ColorConstant.primaryDark,
+              color: ColorConstant.secondaryDark,
               fontSize: DimenConstant.medium,
             ),
           ),

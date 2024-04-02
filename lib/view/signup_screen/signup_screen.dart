@@ -41,7 +41,7 @@ class SignupScreen extends StatelessWidget {
                 child: Text(
                   StringConstant.signup,
                   style: TextStyle(
-                    color: ColorConstant.primaryDark,
+                    color: ColorConstant.secondaryDark,
                     fontSize: DimenConstant.medium,
                   ),
                 ),
@@ -54,7 +54,7 @@ class SignupScreen extends StatelessWidget {
                   Text(
                     'Already have an account? ',
                     style: TextStyle(
-                      color: ColorConstant.primaryDark,
+                      color: ColorConstant.secondaryDark,
                     ),
                   ),
                   InkWell(
@@ -68,7 +68,7 @@ class SignupScreen extends StatelessWidget {
                     child: Text(
                       'Sign In',
                       style: TextStyle(
-                        color: ColorConstant.secondaryDark,
+                        color: ColorConstant.primary,
                       ),
                     ),
                   ),

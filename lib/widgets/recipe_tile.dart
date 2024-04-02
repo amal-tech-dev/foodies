@@ -47,8 +47,8 @@ class RecipeTile extends StatelessWidget {
                             ColorConstant.vegSecondary,
                           ]
                         : [
-                            ColorConstant.nonvegPrimary,
-                            ColorConstant.nonvegSecondary,
+                            ColorConstant.nonVegPrimary,
+                            ColorConstant.nonVegSecondary,
                           ],
                   ),
                   borderRadius: BorderRadius.circular(
@@ -68,7 +68,7 @@ class RecipeTile extends StatelessWidget {
                           Text(
                             recipe.name ?? '',
                             style: TextStyle(
-                              color: ColorConstant.primaryDark,
+                              color: ColorConstant.secondaryDark,
                               fontSize: DimenConstant.extraSmall,
                             ),
                             maxLines: 1,
@@ -77,7 +77,7 @@ class RecipeTile extends StatelessWidget {
                           Text(
                             recipe.cuisine ?? '',
                             style: TextStyle(
-                              color: ColorConstant.primaryDark,
+                              color: ColorConstant.secondaryDark,
                               fontSize: DimenConstant.mini,
                             ),
                             maxLines: 2,
@@ -88,7 +88,7 @@ class RecipeTile extends StatelessWidget {
                     Text(
                       recipe.about ?? '',
                       style: TextStyle(
-                        color: ColorConstant.primaryDark,
+                        color: ColorConstant.secondaryDark,
                         fontSize: DimenConstant.mini,
                       ),
                       maxLines: 3,
@@ -99,7 +99,7 @@ class RecipeTile extends StatelessWidget {
                     Text(
                       (recipe.categories ?? []).join(' · '),
                       style: TextStyle(
-                        color: ColorConstant.primaryDark,
+                        color: ColorConstant.secondaryDark,
                         fontSize: DimenConstant.nano,
                       ),
                     ),
@@ -126,7 +126,7 @@ class RecipeTile extends StatelessWidget {
                                     ?.contains(user.uid) ??
                                 false
                             ? ColorConstant.error
-                            : ColorConstant.primaryDark,
+                            : ColorConstant.secondaryDark,
                       ),
                       SizedBox(
                         width: DimenConstant.padding / 2,
@@ -144,7 +144,7 @@ class RecipeTile extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.visibility_rounded,
-                        color: ColorConstant.primaryDark,
+                        color: ColorConstant.secondaryDark,
                       ),
                       SizedBox(
                         width: DimenConstant.padding / 2,
@@ -161,7 +161,7 @@ class RecipeTile extends StatelessWidget {
                     children: [
                       FaIcon(
                         FontAwesomeIcons.share,
-                        color: ColorConstant.primaryDark,
+                        color: ColorConstant.secondaryDark,
                         size: 18,
                       ),
                       SizedBox(
@@ -180,8 +180,8 @@ class RecipeTile extends StatelessWidget {
                         ? Icons.bookmark_rounded
                         : Icons.bookmark_border_rounded,
                     color: listeningController.favourites.contains(id)
-                        ? ColorConstant.secondaryDark
-                        : ColorConstant.primaryDark,
+                        ? ColorConstant.primary
+                        : ColorConstant.secondaryDark,
                   ),
                 ),
               ],

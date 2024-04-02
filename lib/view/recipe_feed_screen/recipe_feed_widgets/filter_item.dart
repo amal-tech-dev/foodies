@@ -21,7 +21,7 @@ class FilterItem extends StatelessWidget {
       paddingLeft: DimenConstant.padding * 2.0,
       paddingRight: DimenConstant.padding * 2.0,
       borderRadius: 100.0,
-      backgroundColor: isPressed ? ColorConstant.secondaryDark : null,
+      backgroundColor: isPressed ? ColorConstant.primary : null,
       onPressed: onPressed,
       child: Center(
         child: Text(
@@ -29,7 +29,7 @@ class FilterItem extends StatelessWidget {
           style: TextStyle(
             color: isPressed
                 ? ColorConstant.tertiaryDark
-                : ColorConstant.primaryDark,
+                : ColorConstant.secondaryDark,
             fontSize: DimenConstant.nano,
           ),
           textAlign: TextAlign.center,

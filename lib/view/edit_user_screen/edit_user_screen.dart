@@ -123,9 +123,9 @@ class _EditUserScreenState extends State<EditUserScreen> {
           AndroidUiSettings(
             toolbarTitle: 'Crop ${field} image',
             toolbarColor: ColorConstant.backgroundDark,
-            toolbarWidgetColor: ColorConstant.primaryDark,
+            toolbarWidgetColor: ColorConstant.secondaryDark,
             backgroundColor: ColorConstant.tertiaryDark,
-            cropFrameColor: ColorConstant.primaryDark,
+            cropFrameColor: ColorConstant.secondaryDark,
             cropFrameStrokeWidth: 3,
             lockAspectRatio: true,
             hideBottomControls: true,
@@ -155,7 +155,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
         title: Text(
           'Edit Account',
           style: TextStyle(
-            color: ColorConstant.primaryDark,
+            color: ColorConstant.secondaryDark,
             fontSize: DimenConstant.small,
           ),
         ),

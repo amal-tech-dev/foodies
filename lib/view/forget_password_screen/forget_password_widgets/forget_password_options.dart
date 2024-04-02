@@ -60,7 +60,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                       content: Text(
                         'Click on the link sent to your email to reset your password',
                         style: TextStyle(
-                          color: ColorConstant.primaryDark,
+                          color: ColorConstant.secondaryDark,
                           fontSize: DimenConstant.mini,
                         ),
                       ),
@@ -87,7 +87,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                       content: Text(
                         'Unable to reset password',
                         style: TextStyle(
-                          color: ColorConstant.primaryDark,
+                          color: ColorConstant.secondaryDark,
                           fontSize: DimenConstant.mini,
                         ),
                       ),
