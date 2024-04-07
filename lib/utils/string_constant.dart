@@ -75,4 +75,5 @@ class StringConstant {
   static const String addRecipeIngredients =
       'All set. Let me check my pantry. What all do I need to cook this?';
   static const String addRecipeSteps = '';
+  static const String addRecipeImage = '';
 }

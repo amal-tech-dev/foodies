@@ -128,10 +128,14 @@ class RecipeTile extends StatelessWidget {
                             ? ColorConstant.error
                             : ColorConstant.secondaryDark,
                       ),
-                      SizedBox(
-                        width: DimenConstant.padding / 2,
+                      Visibility(
+                        visible: (recipe.shared ?? 0) != 0,
+                        child: SizedBox(
+                          width: DimenConstant.padding / 2,
+                        ),
                       ),
                       Counter(
+                        visible: (recipe.shared ?? 0) != 0,
                         count: recipe.likes?.length ?? 0,
                       ),
                     ],
@@ -146,10 +150,14 @@ class RecipeTile extends StatelessWidget {
                         Icons.visibility_rounded,
                         color: ColorConstant.secondaryDark,
                       ),
-                      SizedBox(
-                        width: DimenConstant.padding / 2,
+                      Visibility(
+                        visible: (recipe.shared ?? 0) != 0,
+                        child: SizedBox(
+                          width: DimenConstant.padding / 2,
+                        ),
                       ),
                       Counter(
+                        visible: (recipe.shared ?? 0) != 0,
                         count: recipe.views ?? 0,
                       ),
                     ],
@@ -164,10 +172,14 @@ class RecipeTile extends StatelessWidget {
                         color: ColorConstant.secondaryDark,
                         size: 18,
                       ),
-                      SizedBox(
-                        width: DimenConstant.padding / 2,
+                      Visibility(
+                        visible: (recipe.shared ?? 0) != 0,
+                        child: SizedBox(
+                          width: DimenConstant.padding / 2,
+                        ),
                       ),
                       Counter(
+                        visible: (recipe.shared ?? 0) != 0,
                         count: recipe.shared ?? 0,
                       ),
                     ],

@@ -8,11 +8,13 @@ import 'package:foodies/utils/dimen_constant.dart';
 class Counter extends StatefulWidget {
   int count;
   String? header;
+  bool? visible;
 
   Counter({
     super.key,
     required this.count,
     this.header,
+    this.visible,
   });
 
   @override
@@ -59,42 +61,45 @@ class _CounterState extends State<Counter> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedFlipCounter(
-              value: count,
-              textStyle: TextStyle(
-                color: ColorConstant.secondaryDark,
-                fontSize: widget.header != null
-                    ? DimenConstant.extraSmall
-                    : DimenConstant.mini,
+    return Visibility(
+      visible: widget.visible ?? true,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedFlipCounter(
+                value: count,
+                textStyle: TextStyle(
+                  color: ColorConstant.secondaryDark,
+                  fontSize: widget.header != null
+                      ? DimenConstant.extraSmall
+                      : DimenConstant.mini,
+                ),
               ),
-            ),
-            Text(
-              suffix,
+              Text(
+                suffix,
+                style: TextStyle(
+                  color: ColorConstant.secondaryDark,
+                  fontSize: widget.header != null
+                      ? DimenConstant.extraSmall
+                      : DimenConstant.mini,
+                ),
+              ),
+            ],
+          ),
+          Visibility(
+            visible: widget.header != null,
+            child: Text(
+              widget.header ?? '',
               style: TextStyle(
                 color: ColorConstant.secondaryDark,
-                fontSize: widget.header != null
-                    ? DimenConstant.extraSmall
-                    : DimenConstant.mini,
+                fontSize: DimenConstant.mini,
               ),
             ),
-          ],
-        ),
-        Visibility(
-          visible: widget.header != null,
-          child: Text(
-            widget.header ?? '',
-            style: TextStyle(
-              color: ColorConstant.secondaryDark,
-              fontSize: DimenConstant.mini,
-            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
