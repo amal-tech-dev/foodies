@@ -57,6 +57,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     passwordVisible = !passwordVisible;
                     setState(() {});
                   },
+                  onFieldSubmitted: (value) =>
+                      FocusScope.of(context).requestFocus(newPasswordFocusNode),
                   validator: (value) {
                     return null;
                   },
@@ -98,6 +100,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     passwordVisible = !passwordVisible;
                     setState(() {});
                   },
+                  onFieldSubmitted: (value) => FocusScope.of(context).unfocus(),
                   validator: (value) {
                     if (value != newPasswordController.text.trim())
                       return 'Passwords doesn\'t match';

@@ -114,6 +114,17 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       label: 'Recipe Name',
                       controller: nameController,
                       limit: 20,
+                      onSubmitted: () {
+                        recipe.name = nameController.text.trim();
+                        buttonVisibility = false;
+                        setState(() {});
+                        pageController.nextPage(
+                          duration: Duration(
+                            milliseconds: 500,
+                          ),
+                          curve: Curves.bounceInOut,
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -270,6 +281,17 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       label: 'Cooking Time',
                       controller: timeController,
                       limit: 20,
+                      onSubmitted: () {
+                        recipe.time = timeController.text.trim();
+                        buttonVisibility = false;
+                        setState(() {});
+                        pageController.nextPage(
+                          duration: Duration(
+                            milliseconds: 500,
+                          ),
+                          curve: Curves.bounceInOut,
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -563,6 +585,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     },
                     onDeletePressed: () {
                       ingredients.removeAt(index);
+                      if (ingredients.isEmpty) buttonVisibility = false;
                       setState(() {});
                     },
                   ),
@@ -576,25 +599,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.padding * 12,
-                    ),
-                    child: CustomContainer(
-                      visible: !textFieldVisibility,
-                      onPressed: () {
-                        textFieldVisibility = true;
-                        setState(() {});
-                      },
-                      child: Icon(
-                        Icons.add_rounded,
-                        color: ColorConstant.primary,
-                        size: 25,
-                      ),
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
                   child: CustomContainer(
                     visible: textFieldVisibility,
                     child: Row(
@@ -605,6 +609,19 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             label: 'Ingredient',
                             controller: ingredientController,
                             limit: 30,
+                            onSubmitted: () {
+                              if (editing) {
+                                ingredients[editingIndex] =
+                                    ingredientController.text.trim();
+                              } else {
+                                ingredients
+                                    .add(ingredientController.text.trim());
+                              }
+                              ingredientController.clear();
+                              buttonVisibility = true;
+                              textFieldVisibility = false;
+                              setState(() {});
+                            },
                           ),
                         ),
                         Visibility(
@@ -612,7 +629,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                           child: DimenConstant.separator,
                         ),
                         Visibility(
-                          visible: !suffixVisibility,
+                          visible: suffixVisibility,
                           child: InkWell(
                             onTap: () {
                               if (editing) {
@@ -623,6 +640,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                     .add(ingredientController.text.trim());
                               }
                               ingredientController.clear();
+                              buttonVisibility = true;
                               textFieldVisibility = false;
                               setState(() {});
                             },
@@ -651,27 +669,36 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: DimenConstant.padding * 10,
-                    ),
-                    child: CustomButton.text(
-                      visible: buttonVisibility,
-                      text: 'Next',
-                      onPressed: () {
-                        recipe.ingredients = ingredients;
-                        buttonVisibility = false;
-                        textFieldVisibility = false;
-                        editingIndex = -1;
-                        setState(() {});
-                        pageController.nextPage(
-                          duration: Duration(
-                            milliseconds: 500,
-                          ),
-                          curve: Curves.bounceInOut,
-                        );
-                      },
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Center(
+                        child: CustomButton.text(
+                          text: 'Add',
+                          onPressed: () {
+                            textFieldVisibility = true;
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                      CustomButton.text(
+                        visible: buttonVisibility,
+                        text: 'Next',
+                        onPressed: () {
+                          recipe.ingredients = ingredients;
+                          buttonVisibility = false;
+                          textFieldVisibility = false;
+                          editingIndex = -1;
+                          setState(() {});
+                          pageController.nextPage(
+                            duration: Duration(
+                              milliseconds: 500,
+                            ),
+                            curve: Curves.bounceInOut,
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],

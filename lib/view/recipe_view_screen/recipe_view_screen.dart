@@ -120,7 +120,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             actions: [
               CustomButton.icon(
                 visible: recipe.chef == user.uid,
+                background: Colors.transparent,
                 icon: Icons.edit_rounded,
+                iconColor: ColorConstant.secondaryDark,
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -130,7 +132,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               ),
               CustomButton.icon(
                 visible: recipe.chef == user.uid,
+                background: Colors.transparent,
                 icon: Icons.delete_rounded,
+                iconColor: ColorConstant.secondaryDark,
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(

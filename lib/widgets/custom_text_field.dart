@@ -11,6 +11,7 @@ class CustomTextField {
     required String label,
     required TextEditingController controller,
     required int limit,
+    required VoidCallback onSubmitted,
     bool? visible,
     FocusNode? focusNode,
   }) =>
@@ -44,6 +45,7 @@ class CustomTextField {
             InputFormatController(),
           ],
           onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          onEditingComplete: onSubmitted,
         ),
       );
 
@@ -199,6 +201,7 @@ class CustomTextField {
     required TextEditingController controller,
     required bool obscure,
     required VoidCallback onObscureChange,
+    required void Function(String?) onFieldSubmitted,
     required String? Function(String?) validator,
     bool? visible,
     FocusNode? focusNode,
@@ -248,6 +251,7 @@ class CustomTextField {
             LengthLimitingTextInputFormatter(20),
           ],
           onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          onFieldSubmitted: onFieldSubmitted,
           validator: validator,
         ),
       );

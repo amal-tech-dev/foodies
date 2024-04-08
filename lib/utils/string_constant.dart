@@ -33,7 +33,7 @@ class StringConstant {
       'You have no favourites, add your favourites recipes here for easy access.';
   static const String logoutAlert = 'Do you want to logout?';
   static const String logoutAlertGuest =
-      'You are loggedin as guest. Data will be deleted after logging out. ${StringConstant.logoutAlert}';
+      'You are logged in as guest. Data will be deleted after logging out. ${StringConstant.logoutAlert}';
   static const String deleteAccount =
       'Your data will be deleted and cannot be recovered. Are you sure to delete your account?';
   static const String addIngredients =
@@ -59,11 +59,11 @@ class StringConstant {
       'An email has send to your new email. Click on the link to update email.';
   static const String viewsDialogPrefix = 'More than';
   static const String viewsDialogSuffix =
-      'Foodies have chosen this recipe. Hope you like it too!';
+      '${StringConstant.appName} have chosen this recipe. Hope you like it too!';
   static const String addRecipeName =
       'Let\'s start with the name of your recipe.';
   static const String addRecipeAbout =
-      'Now say something about your recipe that create cravings for fellow foodies.';
+      'Now say something about your recipe that create cravings for fellow ${StringConstant.appName}.';
   static const String addRecipeDiet =
       'Ah! I am a Vegetarian. Is this recipe suits my diet?';
   static const String addRecipeTime =

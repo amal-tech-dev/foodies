@@ -237,6 +237,8 @@ class _LoginOptionsState extends State<LoginOptions> {
                         passwordVisible = !passwordVisible;
                         setState(() {});
                       },
+                      onFieldSubmitted: (value) =>
+                          FocusScope.of(context).unfocus(),
                       validator: (value) {
                         if (value!.length < 8) return 'Enter a valid password';
                         return null;
