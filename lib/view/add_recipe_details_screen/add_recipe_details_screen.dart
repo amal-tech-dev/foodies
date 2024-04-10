@@ -9,6 +9,8 @@ import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widget
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/slidable_item.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_snack_bar.dart';
+import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 
 class AddRecipeDetailsScreen extends StatefulWidget {
@@ -28,7 +30,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   TextEditingController ingredientController = TextEditingController();
   TextEditingController stepController = TextEditingController();
   bool buttonVisibility = false;
-  bool textFieldVisibility = false, suffixVisibility = false, editing = false;
+  bool textFieldVisibility = false, editing = false;
   List cuisines = [], categories = [], selectedCategories = [];
   String? selectedCuisine;
   List<String> ingredients = [], steps = [];
@@ -48,12 +50,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
     timeController.addListener(
       () => buttonVisibility = timeController.text.isNotEmpty,
     );
-    ingredientController.addListener(
-      () => suffixVisibility = ingredientController.text.isNotEmpty,
-    );
-    stepController.addListener(
-      () => suffixVisibility = stepController.text.isNotEmpty,
-    );
+
     setState(() {});
     super.initState();
   }
@@ -564,122 +561,102 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
               image: ImageConstant.chef,
               children: [
                 SliverList.separated(
-                  itemBuilder: (context, index) => SlidableItem(
-                    item: ingredients[index],
-                    editing: editingIndex == index,
-                    onItemPressed: () {
-                      editing = false;
-                      ingredientController.clear();
-                      textFieldVisibility = false;
-                      editingIndex = -1;
-                      setState(() {});
-                    },
-                    onEditPressed: () {
-                      editing = true;
-                      ingredientController = TextEditingController(
-                        text: ingredients[index],
-                      );
-                      textFieldVisibility = true;
-                      editingIndex = index;
-                      setState(() {});
-                    },
-                    onDeletePressed: () {
-                      ingredients.removeAt(index);
-                      if (ingredients.isEmpty) buttonVisibility = false;
-                      setState(() {});
-                    },
-                  ),
+                  itemBuilder: (context, index) => index == ingredients.length
+                      ? CustomContainer(
+                          paddingTop: DimenConstant.padding * 1.5,
+                          paddingBottom: DimenConstant.padding * 1.5,
+                          child: Center(
+                            child: CustomText(
+                              text: 'Add',
+                              color: ColorConstant.primary,
+                              size: DimenConstant.mini,
+                            ),
+                          ),
+                        )
+                      : SlidableItem(
+                          item: ingredients[index],
+                          editing: editingIndex == index,
+                          onItemPressed: () {
+                            editing = false;
+                            ingredientController.clear();
+                            textFieldVisibility = false;
+                            editingIndex = -1;
+                            setState(() {});
+                          },
+                          onEditPressed: () {
+                            editing = true;
+                            ingredientController = TextEditingController(
+                              text: ingredients[index],
+                            );
+                            textFieldVisibility = true;
+                            editingIndex = index;
+                            setState(() {});
+                          },
+                          onDeletePressed: () {
+                            ingredients.removeAt(index);
+                            if (ingredients.isEmpty) buttonVisibility = false;
+                            setState(() {});
+                          },
+                        ),
                   separatorBuilder: (context, index) => DimenConstant.separator,
-                  itemCount: ingredients.length,
+                  itemCount: ingredients.length + 1,
                 ),
                 SliverToBoxAdapter(
-                  child: Visibility(
-                    visible: ingredients.isNotEmpty,
-                    child: DimenConstant.separator,
-                  ),
+                  child: DimenConstant.separator,
                 ),
                 SliverToBoxAdapter(
                   child: CustomContainer(
                     visible: textFieldVisibility,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextField.singleLine(
-                            context: context,
-                            label: 'Ingredient',
-                            controller: ingredientController,
-                            limit: 30,
-                            onSubmitted: () {
-                              if (editing) {
-                                ingredients[editingIndex] =
-                                    ingredientController.text.trim();
-                              } else {
-                                ingredients
-                                    .add(ingredientController.text.trim());
-                              }
-                              ingredientController.clear();
-                              buttonVisibility = true;
-                              textFieldVisibility = false;
-                              setState(() {});
-                            },
-                          ),
-                        ),
-                        Visibility(
-                          visible: suffixVisibility,
-                          child: DimenConstant.separator,
-                        ),
-                        Visibility(
-                          visible: suffixVisibility,
-                          child: InkWell(
-                            onTap: () {
-                              if (editing) {
-                                ingredients[editingIndex] =
-                                    ingredientController.text.trim();
-                              } else {
-                                ingredients
-                                    .add(ingredientController.text.trim());
-                              }
-                              ingredientController.clear();
-                              buttonVisibility = true;
-                              textFieldVisibility = false;
-                              setState(() {});
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: DimenConstant.padding,
-                              ),
-                              child: Text(
-                                'Add',
-                                style: TextStyle(
-                                  color: ColorConstant.primary,
-                                  fontSize: DimenConstant.extraSmall,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
+                    child: CustomTextField.singleLine(
+                      context: context,
+                      label: 'Ingredient',
+                      controller: ingredientController,
+                      limit: 30,
+                      onSubmitted: () {
+                        if (editing) {
+                          ingredients[editingIndex] =
+                              ingredientController.text.trim();
+                        } else {
+                          ingredients.add(ingredientController.text.trim());
+                        }
+                        ingredientController.clear();
+                        buttonVisibility = true;
+                        textFieldVisibility = false;
+                        setState(() {});
+                      },
                     ),
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: Visibility(
-                    visible: buttonVisibility,
+                    visible: textFieldVisibility,
                     child: DimenConstant.separator,
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Center(
-                        child: CustomButton.text(
-                          text: 'Add',
-                          onPressed: () {
+                      CustomButton.text(
+                        text: 'Add',
+                        onPressed: () {
+                          if (textFieldVisibility) {
+                            if (ingredientController.text.isEmpty) {
+                              CustomSnackBar.snackBar(
+                                context: context,
+                                content: 'Ingredient is Empty',
+                              );
+                            } else {
+                              ingredients.add(ingredientController.text.trim());
+                              ingredientController.clear();
+                              textFieldVisibility = false;
+                            }
+                          } else {
                             textFieldVisibility = true;
-                            setState(() {});
-                          },
-                        ),
+                          }
+                          setState(() {});
+                        },
                       ),
                       CustomButton.text(
                         visible: buttonVisibility,
