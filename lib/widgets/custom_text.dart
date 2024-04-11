@@ -6,6 +6,7 @@ class CustomText extends StatelessWidget {
   double size;
   FontWeight? weight;
   String? family;
+  TextAlign? align;
   bool? visible;
   VoidCallback? onPressed;
 
@@ -16,6 +17,7 @@ class CustomText extends StatelessWidget {
     required this.size,
     this.weight,
     this.family,
+    this.align,
     this.visible,
     this.onPressed,
   });
@@ -34,6 +36,7 @@ class CustomText extends StatelessWidget {
             fontWeight: weight ?? FontWeight.normal,
             fontFamily: family,
           ),
+          textAlign: align ?? TextAlign.start,
         ),
       ),
     );

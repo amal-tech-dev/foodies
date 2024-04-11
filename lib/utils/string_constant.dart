@@ -74,6 +74,8 @@ class StringConstant {
       'I am starving already. Is it Main Course or Starters? Desert or Beverage?';
   static const String addRecipeIngredients =
       'All set. Let me check my pantry. What all do I need to cook this?';
-  static const String addRecipeSteps = '';
-  static const String addRecipeImage = '';
+  static const String addRecipeSteps =
+      'Finally! Let\'s start cooking. Wait how to cook this thing?';
+  static const String addRecipeImage =
+      'The recipe looks good and tasty. Let us show it to all our ${StringConstant.appName}';
 }

@@ -4,6 +4,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 
 class CustomContainer extends StatelessWidget {
   double? height, width, borderRadius;
+  double? padding, paddingVertical, paddingHorizontal;
   double? paddingTop, paddingLeft, paddingRight, paddingBottom;
   bool? border, visible;
   Color? backgroundColor;
@@ -16,6 +17,9 @@ class CustomContainer extends StatelessWidget {
     this.visible,
     this.height,
     this.width,
+    this.padding,
+    this.paddingVertical,
+    this.paddingHorizontal,
     this.paddingTop,
     this.paddingLeft,
     this.paddingRight,
@@ -38,10 +42,22 @@ class CustomContainer extends StatelessWidget {
           height: height,
           width: width,
           padding: EdgeInsets.only(
-            top: paddingTop ?? DimenConstant.padding,
-            left: paddingLeft ?? DimenConstant.padding,
-            right: paddingRight ?? DimenConstant.padding,
-            bottom: paddingBottom ?? DimenConstant.padding,
+            top: padding ??
+                paddingVertical ??
+                paddingTop ??
+                DimenConstant.padding,
+            left: padding ??
+                paddingHorizontal ??
+                paddingLeft ??
+                DimenConstant.padding,
+            right: padding ??
+                paddingHorizontal ??
+                paddingRight ??
+                DimenConstant.padding,
+            bottom: padding ??
+                paddingVertical ??
+                paddingBottom ??
+                DimenConstant.padding,
           ),
           decoration: BoxDecoration(
             color: backgroundColor ?? ColorConstant.tertiaryDark,

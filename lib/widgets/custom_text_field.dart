@@ -6,6 +6,45 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 
 class CustomTextField {
+  static Widget noLabel({
+    required BuildContext context,
+    required String hint,
+    required TextEditingController controller,
+    required int limit,
+    required VoidCallback onSubmitted,
+    bool? visible,
+    FocusNode? focusNode,
+  }) =>
+      Visibility(
+        visible: visible ?? true,
+        child: TextField(
+          controller: controller,
+          focusNode: focusNode,
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: TextStyle(
+              color: ColorConstant.secondaryDark.withOpacity(0.5),
+            ),
+            border: InputBorder.none,
+          ),
+          style: TextStyle(
+            color: ColorConstant.secondaryDark,
+            fontSize: DimenConstant.mini,
+          ),
+          cursorColor: ColorConstant.primary,
+          cursorRadius: Radius.circular(
+            DimenConstant.cursorRadius,
+          ),
+          textCapitalization: TextCapitalization.words,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(limit),
+            InputFormatController(),
+          ],
+          onTapOutside: (event) => FocusScope.of(context).unfocus(),
+          onEditingComplete: onSubmitted,
+        ),
+      );
+
   static Widget singleLine({
     required BuildContext context,
     required String label,

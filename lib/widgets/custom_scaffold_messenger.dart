@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 
-class CustomSnackBar {
+class CustomScaffoldMessenger {
   static ScaffoldFeatureController snackBar({
     required BuildContext context,
     required String content,

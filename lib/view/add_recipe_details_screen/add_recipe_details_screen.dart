@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/model/recipe_model.dart';
@@ -9,7 +10,7 @@ import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widget
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/slidable_item.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
-import 'package:foodies/widgets/custom_snack_bar.dart';
+import 'package:foodies/widgets/custom_scaffold_messenger.dart';
 import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 
@@ -29,29 +30,29 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   TextEditingController timeController = TextEditingController();
   TextEditingController ingredientController = TextEditingController();
   TextEditingController stepController = TextEditingController();
-  bool buttonVisibility = false;
-  bool textFieldVisibility = false, editing = false;
+  bool buttonVisibility = false, editing = false;
   List cuisines = [], categories = [], selectedCategories = [];
   String? selectedCuisine;
-  List<String> ingredients = [], steps = [];
+  List<String> ingredients = [], steps = [], recipeImages = [];
   List<bool> checkValues = [];
   int radioValue = -1, editingIndex = -1;
-
   @override
   void initState() {
     getCuisine();
     getCategories();
-    nameController.addListener(
-      () => buttonVisibility = nameController.text.isNotEmpty,
-    );
-    aboutController.addListener(
-      () => buttonVisibility = aboutController.text.isNotEmpty,
-    );
-    timeController.addListener(
-      () => buttonVisibility = timeController.text.isNotEmpty,
-    );
-
-    setState(() {});
+    getRecipeImages();
+    nameController.addListener(() {
+      buttonVisibility = nameController.text.isNotEmpty;
+      setState(() {});
+    });
+    aboutController.addListener(() {
+      buttonVisibility = aboutController.text.isNotEmpty;
+      setState(() {});
+    });
+    timeController.addListener(() {
+      buttonVisibility = timeController.text.isNotEmpty;
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -75,6 +76,8 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
     checkValues = List.generate(categories.length, (index) => false);
     setState(() {});
   }
+
+  getRecipeImages() {}
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +118,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         recipe.name = nameController.text.trim();
                         buttonVisibility = false;
                         setState(() {});
+                        FocusScope.of(context).unfocus();
                         pageController.nextPage(
                           duration: Duration(
                             milliseconds: 500,
@@ -140,6 +144,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         recipe.name = nameController.text.trim();
                         buttonVisibility = false;
                         setState(() {});
+                        FocusScope.of(context).unfocus();
                         pageController.nextPage(
                           duration: Duration(
                             milliseconds: 500,
@@ -182,6 +187,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         recipe.about = aboutController.text.trim();
                         buttonVisibility = false;
                         setState(() {});
+                        FocusScope.of(context).unfocus();
                         pageController.nextPage(
                           duration: Duration(
                             milliseconds: 500,
@@ -282,6 +288,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         recipe.time = timeController.text.trim();
                         buttonVisibility = false;
                         setState(() {});
+                        FocusScope.of(context).unfocus();
                         pageController.nextPage(
                           duration: Duration(
                             milliseconds: 500,
@@ -307,6 +314,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         recipe.time = timeController.text.trim();
                         buttonVisibility = false;
                         setState(() {});
+                        FocusScope.of(context).unfocus();
                         pageController.nextPage(
                           duration: Duration(
                             milliseconds: 500,
@@ -560,18 +568,92 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
               header: StringConstant.addRecipeIngredients,
               image: ImageConstant.chef,
               children: [
+                SliverToBoxAdapter(
+                  child: Center(
+                    child: CustomText(
+                      visible: ingredients.isNotEmpty,
+                      text:
+                          'Slide ingredients to edit or delete. Press ingredient to undo edit.',
+                      color: ColorConstant.primary,
+                      size: DimenConstant.mini,
+                      align: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Visibility(
+                    visible: steps.isNotEmpty,
+                    child: DimenConstant.separator,
+                  ),
+                ),
                 SliverList.separated(
                   itemBuilder: (context, index) => index == ingredients.length
-                      ? CustomContainer(
-                          paddingTop: DimenConstant.padding * 1.5,
-                          paddingBottom: DimenConstant.padding * 1.5,
-                          child: Center(
-                            child: CustomText(
-                              text: 'Add',
-                              color: ColorConstant.primary,
-                              size: DimenConstant.mini,
+                      ? Row(
+                          children: [
+                            Expanded(
+                              child: CustomContainer(
+                                paddingVertical: 0,
+                                child: CustomTextField.noLabel(
+                                  context: context,
+                                  hint: 'Ingredient',
+                                  controller: ingredientController,
+                                  limit: 30,
+                                  onSubmitted: () {
+                                    if (ingredientController.text.isEmpty) {
+                                      CustomScaffoldMessenger.snackBar(
+                                        context: context,
+                                        content: 'Ingredient is empty',
+                                      );
+                                    } else {
+                                      if (editing) {
+                                        ingredients[editingIndex] =
+                                            ingredientController.text.trim();
+                                        editing = false;
+                                        editingIndex = -1;
+                                      } else {
+                                        ingredients.add(
+                                            ingredientController.text.trim());
+                                      }
+                                      ingredientController.clear();
+                                      buttonVisibility = true;
+                                      setState(() {});
+                                    }
+                                  },
+                                ),
+                              ),
                             ),
-                          ),
+                            DimenConstant.separator,
+                            CustomContainer(
+                              paddingVertical: DimenConstant.padding * 1.5,
+                              paddingHorizontal: DimenConstant.padding * 2.5,
+                              onPressed: () {
+                                if (ingredientController.text.isEmpty) {
+                                  CustomScaffoldMessenger.snackBar(
+                                    context: context,
+                                    content: 'Ingredient is empty',
+                                  );
+                                } else {
+                                  if (editing) {
+                                    ingredients[editingIndex] =
+                                        ingredientController.text.trim();
+                                    editing = false;
+                                    editingIndex = -1;
+                                  } else {
+                                    ingredients
+                                        .add(ingredientController.text.trim());
+                                  }
+                                  ingredientController.clear();
+                                  buttonVisibility = true;
+                                  setState(() {});
+                                }
+                              },
+                              child: CustomText(
+                                text: editing ? 'Update' : 'Add',
+                                color: ColorConstant.primary,
+                                size: DimenConstant.mini,
+                              ),
+                            ),
+                          ],
                         )
                       : SlidableItem(
                           item: ingredients[index],
@@ -579,7 +661,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                           onItemPressed: () {
                             editing = false;
                             ingredientController.clear();
-                            textFieldVisibility = false;
                             editingIndex = -1;
                             setState(() {});
                           },
@@ -588,7 +669,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             ingredientController = TextEditingController(
                               text: ingredients[index],
                             );
-                            textFieldVisibility = true;
                             editingIndex = index;
                             setState(() {});
                           },
@@ -602,80 +682,206 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   itemCount: ingredients.length + 1,
                 ),
                 SliverToBoxAdapter(
-                  child: DimenConstant.separator,
+                  child: Visibility(
+                    visible: buttonVisibility,
+                    child: DimenConstant.separator,
+                  ),
                 ),
                 SliverToBoxAdapter(
-                  child: CustomContainer(
-                    visible: textFieldVisibility,
-                    child: CustomTextField.singleLine(
-                      context: context,
-                      label: 'Ingredient',
-                      controller: ingredientController,
-                      limit: 30,
-                      onSubmitted: () {
-                        if (editing) {
-                          ingredients[editingIndex] =
-                              ingredientController.text.trim();
-                        } else {
-                          ingredients.add(ingredientController.text.trim());
-                        }
-                        ingredientController.clear();
-                        buttonVisibility = true;
-                        textFieldVisibility = false;
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: DimenConstant.padding * 10,
+                    ),
+                    child: CustomButton.text(
+                      visible: buttonVisibility,
+                      text: 'Next',
+                      onPressed: () {
+                        recipe.ingredients = ingredients;
+                        buttonVisibility = false;
+                        editingIndex = -1;
                         setState(() {});
+                        pageController.nextPage(
+                          duration: Duration(
+                            milliseconds: 500,
+                          ),
+                          curve: Curves.bounceInOut,
+                        );
                       },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            PageItem(
+              header: StringConstant.addRecipeSteps,
+              image: ImageConstant.chef,
+              children: [
+                SliverToBoxAdapter(
+                  child: Center(
+                    child: CustomText(
+                      visible: steps.isNotEmpty,
+                      text:
+                          'Slide steps to edit or delete. Press step to undo edit.',
+                      color: ColorConstant.primary,
+                      size: DimenConstant.mini,
+                      align: TextAlign.center,
                     ),
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: Visibility(
-                    visible: textFieldVisibility,
+                    visible: steps.isNotEmpty,
+                    child: DimenConstant.separator,
+                  ),
+                ),
+                SliverList.separated(
+                  itemBuilder: (context, index) => index == steps.length
+                      ? Row(
+                          children: [
+                            Expanded(
+                              child: CustomContainer(
+                                paddingVertical: 0,
+                                child: CustomTextField.noLabel(
+                                  context: context,
+                                  hint: 'Step',
+                                  controller: stepController,
+                                  limit: 30,
+                                  onSubmitted: () {
+                                    if (stepController.text.isEmpty) {
+                                      CustomScaffoldMessenger.snackBar(
+                                        context: context,
+                                        content: 'Step is empty',
+                                      );
+                                    } else {
+                                      if (editing) {
+                                        steps[editingIndex] =
+                                            stepController.text.trim();
+                                        editing = false;
+                                        editingIndex = -1;
+                                      } else {
+                                        steps.add(stepController.text.trim());
+                                      }
+                                      stepController.clear();
+                                      buttonVisibility = true;
+                                      setState(() {});
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            DimenConstant.separator,
+                            CustomContainer(
+                              paddingVertical: DimenConstant.padding * 1.5,
+                              paddingHorizontal: DimenConstant.padding * 2.5,
+                              onPressed: () {
+                                if (stepController.text.isEmpty) {
+                                  CustomScaffoldMessenger.snackBar(
+                                    context: context,
+                                    content: 'Step is empty',
+                                  );
+                                } else {
+                                  if (editing) {
+                                    steps[editingIndex] =
+                                        stepController.text.trim();
+                                    editing = false;
+                                    editingIndex = -1;
+                                  } else {
+                                    steps.add(stepController.text.trim());
+                                  }
+                                  stepController.clear();
+                                  buttonVisibility = true;
+                                  setState(() {});
+                                }
+                              },
+                              child: CustomText(
+                                text: editing ? 'Update' : 'Add',
+                                color: ColorConstant.primary,
+                                size: DimenConstant.mini,
+                              ),
+                            ),
+                          ],
+                        )
+                      : SlidableItem(
+                          item: steps[index],
+                          editing: editingIndex == index,
+                          onItemPressed: () {
+                            editing = false;
+                            stepController.clear();
+                            editingIndex = -1;
+                            setState(() {});
+                          },
+                          onEditPressed: () {
+                            editing = true;
+                            stepController = TextEditingController(
+                              text: steps[index],
+                            );
+                            editingIndex = index;
+                            setState(() {});
+                          },
+                          onDeletePressed: () {
+                            steps.removeAt(index);
+                            if (steps.isEmpty) buttonVisibility = false;
+                            setState(() {});
+                          },
+                        ),
+                  separatorBuilder: (context, index) => DimenConstant.separator,
+                  itemCount: steps.length + 1,
+                ),
+                SliverToBoxAdapter(
+                  child: Visibility(
+                    visible: buttonVisibility,
                     child: DimenConstant.separator,
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CustomButton.text(
-                        text: 'Add',
-                        onPressed: () {
-                          if (textFieldVisibility) {
-                            if (ingredientController.text.isEmpty) {
-                              CustomSnackBar.snackBar(
-                                context: context,
-                                content: 'Ingredient is Empty',
-                              );
-                            } else {
-                              ingredients.add(ingredientController.text.trim());
-                              ingredientController.clear();
-                              textFieldVisibility = false;
-                            }
-                          } else {
-                            textFieldVisibility = true;
-                          }
-                          setState(() {});
-                        },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: DimenConstant.padding * 10,
+                    ),
+                    child: CustomButton.text(
+                      visible: buttonVisibility,
+                      text: 'Next',
+                      onPressed: () {
+                        recipe.steps = steps;
+                        buttonVisibility = false;
+                        editingIndex = -1;
+                        setState(() {});
+                        pageController.nextPage(
+                          duration: Duration(
+                            milliseconds: 500,
+                          ),
+                          curve: Curves.bounceInOut,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            PageItem(
+              header: StringConstant.addRecipeImage,
+              image: ImageConstant.chef,
+              children: [
+                SliverToBoxAdapter(
+                  child: CarouselSlider(
+                    items: List.generate(
+                      10,
+                      (index) => CircleAvatar(
+                        radius: 100,
+                        backgroundColor: ColorConstant.primary,
                       ),
-                      CustomButton.text(
-                        visible: buttonVisibility,
-                        text: 'Next',
-                        onPressed: () {
-                          recipe.ingredients = ingredients;
-                          buttonVisibility = false;
-                          textFieldVisibility = false;
-                          editingIndex = -1;
-                          setState(() {});
-                          pageController.nextPage(
-                            duration: Duration(
-                              milliseconds: 500,
-                            ),
-                            curve: Curves.bounceInOut,
-                          );
-                        },
+                    ),
+                    options: CarouselOptions(
+                      height: 200,
+                      autoPlay: true,
+                      autoPlayInterval: Duration(
+                        milliseconds: 100,
                       ),
-                    ],
+                      initialPage: 0,
+                      scrollDirection: Axis.vertical,
+                      enableInfiniteScroll: true,
+                      enlargeCenterPage: true,
+                    ),
                   ),
                 ),
               ],
