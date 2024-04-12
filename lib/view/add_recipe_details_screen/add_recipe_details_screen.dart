@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
@@ -23,6 +24,7 @@ class AddRecipeDetailsScreen extends StatefulWidget {
 
 class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseStorage storage = FirebaseStorage.instance;
   RecipeModel recipe = RecipeModel();
   PageController pageController = PageController();
   TextEditingController nameController = TextEditingController();
@@ -33,14 +35,14 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   bool buttonVisibility = false, editing = false;
   List cuisines = [], categories = [], selectedCategories = [];
   String? selectedCuisine;
-  List<String> ingredients = [], steps = [], recipeImages = [];
+  List<String> ingredients = [], steps = [], imageUrls = [];
   List<bool> checkValues = [];
   int radioValue = -1, editingIndex = -1;
   @override
   void initState() {
     getCuisine();
     getCategories();
-    getRecipeImages();
+    getImageUrls();
     nameController.addListener(() {
       buttonVisibility = nameController.text.isNotEmpty;
       setState(() {});
@@ -77,7 +79,14 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
     setState(() {});
   }
 
-  getRecipeImages() {}
+  getImageUrls() async {
+    ListResult listResult = await storage.ref('food_items').listAll();
+    listResult.items.forEach((element) async {
+      String url = await element.getDownloadURL();
+      print(url);
+    });
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -865,22 +874,35 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 SliverToBoxAdapter(
                   child: CarouselSlider(
                     items: List.generate(
-                      10,
+                      imageUrls.length,
                       (index) => CircleAvatar(
-                        radius: 100,
-                        backgroundColor: ColorConstant.primary,
+                        radius: 50,
+                        backgroundImage: NetworkImage(imageUrls[index]),
                       ),
                     ),
                     options: CarouselOptions(
-                      height: 200,
+                      height: 100,
                       autoPlay: true,
-                      autoPlayInterval: Duration(
-                        milliseconds: 100,
-                      ),
+                      autoPlayInterval: Duration(seconds: 1),
+                      viewportFraction: 0.32,
                       initialPage: 0,
-                      scrollDirection: Axis.vertical,
+                      scrollDirection: Axis.horizontal,
                       enableInfiniteScroll: true,
                       enlargeCenterPage: true,
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: DimenConstant.separator,
+                ),
+                SliverToBoxAdapter(
+                  child: Center(
+                    child: CustomText(
+                      visible: steps.isNotEmpty,
+                      text: 'Select an image of your recipe similar to above',
+                      color: ColorConstant.primary,
+                      size: DimenConstant.mini,
+                      align: TextAlign.center,
                     ),
                   ),
                 ),

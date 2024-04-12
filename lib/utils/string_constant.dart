@@ -25,7 +25,7 @@ class StringConstant {
       'Choose one or more cuisines to help ${StringConstant.appName} to tailor recommendations and offerings to suit your taste.';
   static const String addRecipeGuest = 'You need an account to add recipes';
   static const String addRecipeUser =
-      'Spice up your culinary journey on ${StringConstant.appName}. Share your favorite recipes, add your unique twist, and build a following of fellow food enthusiasts. Connect, inspire, and savor the delicious world of home cooking together!';
+      'Spice up your culinary journey on ${StringConstant.appName}. Share your favorite recipes, add your unique twist, and build a following of fellow food enthusiasts.';
   static const String search =
       'Search Recipes by Name, Cuisines, Categories or Users';
   static const String noResults = 'No results found, check your spelling';

@@ -443,20 +443,23 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                       ),
                     ),
                   )
-                : SliverGrid.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: DimenConstant.padding,
-                      mainAxisSpacing: DimenConstant.padding,
+                : SliverPadding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: DimenConstant.padding,
                     ),
-                    itemBuilder: (context, index) => RecipeImageTile(
-                      id: user.recipes![index],
+                    sliver: SliverGrid.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: DimenConstant.padding,
+                        mainAxisSpacing: DimenConstant.padding,
+                        childAspectRatio: 0.95,
+                      ),
+                      itemBuilder: (context, index) => RecipeImageTile(
+                        id: user.recipes![index],
+                      ),
+                      itemCount: user.recipes!.length,
                     ),
-                    itemCount: user.recipes!.length,
                   ),
-            SliverToBoxAdapter(
-              child: DimenConstant.separator,
-            ),
           ],
         ),
       ),
