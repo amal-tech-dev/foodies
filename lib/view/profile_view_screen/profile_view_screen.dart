@@ -33,7 +33,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
   bool currentUser = false, isFollowing = false;
-  String profile = ImageConstant.profile, cover = ImageConstant.cover;
+  String profile = ImageConstant.profile, cover = ImageConstant.pickImage;
   String myUid = FirebaseAuth.instance.currentUser!.uid;
   ImagePicker picker = ImagePicker();
   ImageCropper cropper = ImageCropper();
@@ -53,7 +53,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
     user = UserModel.fromJson(snapshot.data() as Map<String, dynamic>);
     if (myUid == widget.uid) currentUser = true;
     profile = user.profile ?? ImageConstant.profile;
-    cover = user.cover ?? ImageConstant.cover;
+    cover = user.cover ?? ImageConstant.pickImage;
     if (user.followers!.contains(myUid))
       isFollowing = true;
     else

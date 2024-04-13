@@ -5,7 +5,7 @@ class Assets {
   static const String audioTimerAlert = 'assets/audio/timer_alert.mp3';
   static const String imagesAddRecipe = 'assets/images/add_recipe.png';
   static const String imagesChef = 'assets/images/chef.png';
-  static const String imagesCover = 'assets/images/cover.png';
+  static const String imagesPickImage = 'assets/images/pick_image.png';
   static const String imagesFood = 'assets/images/food.png';
   static const String imagesGetStarted = 'assets/images/get_started.png';
   static const String imagesLogin = 'assets/images/login.png';
@@ -19,5 +19,4 @@ class Assets {
   static const String lottieNoInternet = 'assets/lottie/no_internet.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';
   static const String lottieSearching = 'assets/lottie/searching.json';
-
 }

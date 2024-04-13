@@ -81,10 +81,10 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
 
   getImageUrls() async {
     ListResult listResult = await storage.ref('food_items').listAll();
-    listResult.items.forEach((element) async {
-      String url = await element.getDownloadURL();
-      print(url);
-    });
+    for (Reference ref in listResult.items) {
+      String url = await ref.getDownloadURL();
+      imageUrls.add(url);
+    }
     setState(() {});
   }
 
@@ -342,10 +342,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
-                    paddingTop: 0,
-                    paddingLeft: 0,
-                    paddingRight: 0,
-                    paddingBottom: 0,
+                    padding: 0,
                     child: ExpansionTile(
                       title: Text(
                         'Cuisines',
@@ -453,10 +450,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
-                    paddingTop: 0,
-                    paddingLeft: 0,
-                    paddingRight: 0,
-                    paddingBottom: 0,
+                    padding: 0,
                     child: ExpansionTile(
                       title: Text(
                         'Categories',
@@ -876,15 +870,17 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     items: List.generate(
                       imageUrls.length,
                       (index) => CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(imageUrls[index]),
+                        radius: 45,
+                        backgroundImage: NetworkImage(
+                          imageUrls[index],
+                        ),
                       ),
                     ),
                     options: CarouselOptions(
-                      height: 100,
+                      height: 90,
                       autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 1),
-                      viewportFraction: 0.32,
+                      autoPlayInterval: Duration(seconds: 2),
+                      viewportFraction: 0.3,
                       initialPage: 0,
                       scrollDirection: Axis.horizontal,
                       enableInfiniteScroll: true,
@@ -906,6 +902,17 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     ),
                   ),
                 ),
+                SliverToBoxAdapter(
+                  child: DimenConstant.separator,
+                ),
+                SliverToBoxAdapter(
+                  child: CircleAvatar(
+                    radius: 75,
+                    backgroundImage: AssetImage(
+                      ImageConstant.pickImage,
+                    ),
+                  ),
+                )
               ],
             ),
           ],

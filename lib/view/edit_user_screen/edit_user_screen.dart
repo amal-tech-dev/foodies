@@ -201,7 +201,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                       image: DecorationImage(
                         image: cover == null
                             ? coverUrl == null
-                                ? AssetImage(ImageConstant.cover)
+                                ? AssetImage(ImageConstant.pickImage)
                                 : NetworkImage(coverUrl!)
                                     as ImageProvider<Object>
                             : FileImage(cover!) as ImageProvider<Object>,

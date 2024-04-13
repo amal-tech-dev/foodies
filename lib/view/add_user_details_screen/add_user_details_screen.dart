@@ -117,7 +117,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                       image: DecorationImage(
                         image: cover == null
-                            ? AssetImage(ImageConstant.cover)
+                            ? AssetImage(ImageConstant.pickImage)
                             : FileImage(cover!) as ImageProvider<Object>,
                         fit: BoxFit.cover,
                       ),

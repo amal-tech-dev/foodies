@@ -10,5 +10,5 @@ class ImageConstant {
   static const String chef = Assets.imagesChef;
   static const String food = Assets.imagesFood;
   static const String profile = Assets.imagesProfile;
-  static const String cover = Assets.imagesCover;
+  static const String pickImage = Assets.imagesPickImage;
 }
