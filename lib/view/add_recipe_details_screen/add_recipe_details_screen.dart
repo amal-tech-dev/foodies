@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,6 +16,8 @@ import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_scaffold_messenger.dart';
 import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
+import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddRecipeDetailsScreen extends StatefulWidget {
   AddRecipeDetailsScreen({super.key});
@@ -34,10 +38,13 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   TextEditingController stepController = TextEditingController();
   bool buttonVisibility = false, editing = false;
   List cuisines = [], categories = [], selectedCategories = [];
-  String? selectedCuisine;
+  String? selectedCuisine, imageUrl;
   List<String> ingredients = [], steps = [], imageUrls = [];
   List<bool> checkValues = [];
   int radioValue = -1, editingIndex = -1;
+  File? image;
+  ImagePicker picker = ImagePicker();
+
   @override
   void initState() {
     getCuisine();
@@ -585,7 +592,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 ),
                 SliverToBoxAdapter(
                   child: Visibility(
-                    visible: steps.isNotEmpty,
+                    visible: ingredients.isNotEmpty,
                     child: DimenConstant.separator,
                   ),
                 ),
@@ -871,7 +878,10 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       imageUrls.length,
                       (index) => CircleAvatar(
                         radius: 45,
-                        backgroundImage: NetworkImage(
+                        backgroundImage: AssetImage(
+                          ImageConstant.food,
+                        ),
+                        foregroundImage: NetworkImage(
                           imageUrls[index],
                         ),
                       ),
@@ -894,8 +904,8 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 SliverToBoxAdapter(
                   child: Center(
                     child: CustomText(
-                      visible: steps.isNotEmpty,
                       text: 'Select an image of your recipe similar to above',
+                      visible: steps.isNotEmpty,
                       color: ColorConstant.primary,
                       size: DimenConstant.mini,
                       align: TextAlign.center,
@@ -906,13 +916,60 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   child: DimenConstant.separator,
                 ),
                 SliverToBoxAdapter(
-                  child: CircleAvatar(
-                    radius: 75,
-                    backgroundImage: AssetImage(
-                      ImageConstant.pickImage,
+                  child: InkWell(
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      backgroundColor: ColorConstant.backgroundDark,
+                      showDragHandle: true,
+                      builder: (context) => PickImageBottomSheet(
+                        onCameraPressed: () async {
+                          image = (await picker.pickImage(
+                              source: ImageSource.camera)) as File?;
+                          Navigator.pop(context);
+                          buttonVisibility == true;
+                          setState(() {});
+                        },
+                        onGalleryPressed: () async {
+                          image = (await picker.pickImage(
+                              source: ImageSource.gallery)) as File?;
+                          Navigator.pop(context);
+                          buttonVisibility == true;
+                          setState(() {});
+                        },
+                        onDeletePressed: () {
+                          image = null;
+                          Navigator.pop(context);
+                          buttonVisibility = false;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    child: CircleAvatar(
+                      radius: 75,
+                      foregroundImage: image == null
+                          ? AssetImage(ImageConstant.pickImage)
+                          : FileImage(image!) as ImageProvider,
                     ),
                   ),
-                )
+                ),
+                SliverToBoxAdapter(
+                  child: Visibility(
+                    visible: buttonVisibility,
+                    child: DimenConstant.separator,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: DimenConstant.padding * 10,
+                    ),
+                    child: CustomButton.text(
+                      visible: buttonVisibility,
+                      text: 'Save',
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
