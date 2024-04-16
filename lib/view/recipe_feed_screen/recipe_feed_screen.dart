@@ -6,6 +6,8 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_bottom_sheet.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_item.dart';
+import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/recipe_tile.dart';
 import 'package:foodies/widgets/shimmer_recipe_tile.dart';
 import 'package:provider/provider.dart';
@@ -79,6 +81,16 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
         ),
         child: Column(
           children: [
+            CustomContainer(
+              width: double.infinity,
+              paddingHorizontal: DimenConstant.padding * 2,
+              child: CustomText(
+                text: 'Search',
+                color: ColorConstant.secondaryDark.withOpacity(0.5),
+                size: DimenConstant.extraSmall,
+              ),
+            ),
+            DimenConstant.separator,
             SizedBox(
               height: 30,
               child: Row(

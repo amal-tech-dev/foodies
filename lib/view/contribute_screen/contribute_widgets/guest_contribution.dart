@@ -6,8 +6,8 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/signup_screen/signup_screen.dart';
 
-class AddRecipeForGuest extends StatelessWidget {
-  AddRecipeForGuest({super.key});
+class GuestContibution extends StatelessWidget {
+  GuestContibution({super.key});
 
   @override
   Widget build(BuildContext context) {

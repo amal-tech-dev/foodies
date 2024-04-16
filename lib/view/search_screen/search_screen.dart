@@ -32,7 +32,6 @@ class _SearchScreenState extends State<SearchScreen> {
             CustomContainer(
               child: CustomTextField.search(
                 context: context,
-                hint: 'Find recipes',
                 controller: searchController,
                 limit: 40,
                 onSearchPressed: () {

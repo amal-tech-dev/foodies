@@ -68,7 +68,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               CustomContainer(
                 child: CustomTextField.singleLineForm(
                   context: context,
-                  label: 'New Password',
+                  hint: 'New Password',
                   controller: newPasswordController,
                   focusNode: newPasswordFocusNode,
                   limit: 40,

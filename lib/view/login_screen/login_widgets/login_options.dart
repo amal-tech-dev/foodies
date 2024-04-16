@@ -210,7 +210,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                   ),
                   child: CustomTextField.singleLineForm(
                     context: context,
-                    label: 'Email',
+                    hint: 'Email',
                     controller: emailController,
                     limit: 40,
                     onSubmit: (value) =>

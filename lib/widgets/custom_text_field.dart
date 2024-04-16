@@ -6,7 +6,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 
 class CustomTextField {
-  static Widget noLabel({
+  static Widget singleLine({
     required BuildContext context,
     required String hint,
     required TextEditingController controller,
@@ -24,48 +24,7 @@ class CustomTextField {
             hintText: hint,
             hintStyle: TextStyle(
               color: ColorConstant.secondaryDark.withOpacity(0.5),
-            ),
-            border: InputBorder.none,
-          ),
-          style: TextStyle(
-            color: ColorConstant.secondaryDark,
-            fontSize: DimenConstant.mini,
-          ),
-          cursorColor: ColorConstant.primary,
-          cursorRadius: Radius.circular(
-            DimenConstant.cursorRadius,
-          ),
-          textCapitalization: TextCapitalization.words,
-          inputFormatters: [
-            LengthLimitingTextInputFormatter(limit),
-            InputFormatController(),
-          ],
-          onTapOutside: (event) => FocusScope.of(context).unfocus(),
-          onEditingComplete: onSubmitted,
-        ),
-      );
-
-  static Widget singleLine({
-    required BuildContext context,
-    required String label,
-    required TextEditingController controller,
-    required int limit,
-    required VoidCallback onSubmitted,
-    bool? visible,
-    FocusNode? focusNode,
-  }) =>
-      Visibility(
-        visible: visible ?? true,
-        child: TextField(
-          controller: controller,
-          focusNode: focusNode,
-          decoration: InputDecoration(
-            label: Text(
-              label,
-              style: TextStyle(
-                color: ColorConstant.primary,
-                fontSize: DimenConstant.mini,
-              ),
+              fontSize: DimenConstant.mini,
             ),
             contentPadding: EdgeInsets.all(0),
             border: InputBorder.none,
@@ -90,7 +49,7 @@ class CustomTextField {
 
   static Widget multiLine({
     required BuildContext context,
-    required String label,
+    required String hint,
     required TextEditingController controller,
     required int lines,
     required int limit,
@@ -103,12 +62,10 @@ class CustomTextField {
           controller: controller,
           focusNode: focusNode,
           decoration: InputDecoration(
-            label: Text(
-              label,
-              style: TextStyle(
-                color: ColorConstant.primary,
-                fontSize: DimenConstant.mini,
-              ),
+            hintText: hint,
+            hintStyle: TextStyle(
+              color: ColorConstant.secondaryDark.withOpacity(0.5),
+              fontSize: DimenConstant.mini,
             ),
             contentPadding: EdgeInsets.all(0),
             alignLabelWithHint: true,
@@ -134,7 +91,7 @@ class CustomTextField {
 
   static Widget singleLineForm({
     required BuildContext context,
-    required String label,
+    required String hint,
     required TextEditingController controller,
     required int limit,
     required void Function(String) onSubmit,
@@ -148,12 +105,10 @@ class CustomTextField {
           controller: controller,
           focusNode: focusNode,
           decoration: InputDecoration(
-            label: Text(
-              label,
-              style: TextStyle(
-                color: ColorConstant.primary,
-                fontSize: DimenConstant.mini,
-              ),
+            hintText: hint,
+            hintStyle: TextStyle(
+              color: ColorConstant.secondaryDark.withOpacity(0.5),
+              fontSize: DimenConstant.mini,
             ),
             errorStyle: TextStyle(
               color: ColorConstant.error,
@@ -185,7 +140,7 @@ class CustomTextField {
 
   static Widget multiLineForm({
     required BuildContext context,
-    required String label,
+    required String hint,
     required TextEditingController controller,
     required int lines,
     required int limit,
@@ -199,12 +154,10 @@ class CustomTextField {
           controller: controller,
           focusNode: focusNode,
           decoration: InputDecoration(
-            label: Text(
-              label,
-              style: TextStyle(
-                color: ColorConstant.primary,
-                fontSize: DimenConstant.mini,
-              ),
+            hintText: hint,
+            hintStyle: TextStyle(
+              color: ColorConstant.secondaryDark.withOpacity(0.5),
+              fontSize: DimenConstant.mini,
             ),
             errorStyle: TextStyle(
               color: ColorConstant.error,
@@ -251,12 +204,10 @@ class CustomTextField {
           controller: controller,
           focusNode: focusNode,
           decoration: InputDecoration(
-            label: Text(
-              'Password',
-              style: TextStyle(
-                color: ColorConstant.primary,
-                fontSize: DimenConstant.mini,
-              ),
+            hintText: 'Password',
+            hintStyle: TextStyle(
+              color: ColorConstant.secondaryDark.withOpacity(0.5),
+              fontSize: DimenConstant.mini,
             ),
             errorStyle: TextStyle(
               color: ColorConstant.error,
@@ -297,7 +248,6 @@ class CustomTextField {
 
   static Widget search({
     required BuildContext context,
-    required String hint,
     required TextEditingController controller,
     required int limit,
     required VoidCallback onSearchPressed,
@@ -309,7 +259,7 @@ class CustomTextField {
         child: TextField(
           controller: controller,
           decoration: InputDecoration(
-            hintText: hint,
+            hintText: 'Search',
             hintStyle: TextStyle(
               color: ColorConstant.secondaryDark.withOpacity(0.5),
               fontSize: DimenConstant.mini,

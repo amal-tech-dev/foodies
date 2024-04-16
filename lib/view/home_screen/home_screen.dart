@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/add_recipe_screen/add_recipe_screen.dart';
+import 'package:foodies/view/contribute_screen/contribute_screen.dart';
 import 'package:foodies/view/favourites_screen/favourites_screen.dart';
 import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
-import 'package:foodies/view/search_screen/search_screen.dart';
 import 'package:foodies/widgets/app_name.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int pageIndex = 0;
   List screens = [
     RecipeFeedScreen(),
-    SearchScreen(),
-    AddRecipeScreen(),
+    ContributeScreen(),
     FavouritesScreen(),
     ProfileScreen(),
   ];
@@ -72,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: ColorConstant.backgroundDark,
           type: BottomNavigationBarType.fixed,
           landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+          elevation: 0,
           onTap: (value) {
             pageIndex = value;
             setState(() {});
@@ -83,18 +82,13 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Recipes',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.search_rounded),
-              icon: Icon(Icons.search_rounded),
-              label: 'Search',
+              activeIcon: Icon(Icons.add_circle_rounded),
+              icon: Icon(Icons.add_circle_outline_rounded),
+              label: 'Contribute',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.add_rounded),
-              icon: Icon(Icons.add_rounded),
-              label: 'Add',
-            ),
-            BottomNavigationBarItem(
-              activeIcon: Icon(Icons.bookmarks_rounded),
-              icon: Icon(Icons.bookmarks_outlined),
+              activeIcon: Icon(Icons.favorite_rounded),
+              icon: Icon(Icons.favorite_outline_rounded),
               label: 'Favourites',
             ),
             BottomNavigationBarItem(

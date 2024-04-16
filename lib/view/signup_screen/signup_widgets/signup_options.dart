@@ -31,7 +31,7 @@ class _SignupOptionsState extends State<SignupOptions> {
         children: [
           CustomTextField.singleLineForm(
             context: context,
-            label: 'Email',
+            hint: 'Email',
             controller: emailController,
             limit: 40,
             onSubmit: (value) =>

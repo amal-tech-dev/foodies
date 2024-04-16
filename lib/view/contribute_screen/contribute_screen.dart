@@ -1,18 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/add_recipe_screen/add_recipe_widgets/add_recipe_for_guest.dart';
-import 'package:foodies/view/add_recipe_screen/add_recipe_widgets/add_recipe_for_user.dart';
+import 'package:foodies/view/contribute_screen/contribute_widgets/guest_contribution.dart';
+import 'package:foodies/view/contribute_screen/contribute_widgets/user_contibution.dart';
 
-class AddRecipeScreen extends StatefulWidget {
-  AddRecipeScreen({super.key});
+class ContributeScreen extends StatefulWidget {
+  ContributeScreen({super.key});
 
   @override
-  State<AddRecipeScreen> createState() => _AddRecipeScreenState();
+  State<ContributeScreen> createState() => _ContributeScreenState();
 }
 
-class _AddRecipeScreenState extends State<AddRecipeScreen> {
-  bool guest = true;
+class _ContributeScreenState extends State<ContributeScreen> {
+  bool guest = false;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
@@ -43,7 +43,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         padding: const EdgeInsets.all(
           DimenConstant.padding,
         ),
-        child: guest ? AddRecipeForGuest() : AddRecipeForUser(),
+        child: guest ? GuestContibution() : UserContibution(),
       ),
     );
   }

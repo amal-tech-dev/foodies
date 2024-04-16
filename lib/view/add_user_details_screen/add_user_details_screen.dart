@@ -178,7 +178,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 CustomContainer(
                   child: CustomTextField.singleLineForm(
                     context: context,
-                    label: 'Display Name',
+                    hint: 'Display Name',
                     controller: nameController,
                     limit: 40,
                     onSubmit: (value) =>
@@ -193,7 +193,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 CustomContainer(
                   child: CustomTextField.singleLineForm(
                     context: context,
-                    label: 'Username',
+                    hint: 'Username',
                     controller: usernameController,
                     focusNode: usernameFocusNode,
                     limit: 15,
@@ -211,7 +211,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 CustomContainer(
                   child: CustomTextField.multiLineForm(
                     context: context,
-                    label: 'Bio',
+                    hint: 'Bio',
                     controller: bioController,
                     focusNode: bioFocusNode,
                     lines: 5,

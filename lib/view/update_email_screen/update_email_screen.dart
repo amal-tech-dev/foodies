@@ -55,7 +55,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
               DimenConstant.separator,
               CustomTextField.singleLineForm(
                 context: context,
-                label: 'Email',
+                hint: 'Email',
                 controller: emailController,
                 limit: 40,
                 onSubmit: (value) => FocusScope.of(context).unfocus(),

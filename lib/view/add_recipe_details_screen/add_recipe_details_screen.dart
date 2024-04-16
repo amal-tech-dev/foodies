@@ -125,9 +125,10 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
+                    paddingVertical: 0,
                     child: CustomTextField.singleLine(
                       context: context,
-                      label: 'Recipe Name',
+                      hint: 'Recipe Name',
                       controller: nameController,
                       limit: 20,
                       onSubmitted: () {
@@ -181,7 +182,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   child: CustomContainer(
                     child: CustomTextField.multiLine(
                       context: context,
-                      label: 'About',
+                      hint: 'About',
                       controller: aboutController,
                       lines: 5,
                       limit: 100,
@@ -295,9 +296,10 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
+                    paddingVertical: 0,
                     child: CustomTextField.singleLine(
                       context: context,
-                      label: 'Cooking Time',
+                      hint: 'Cooking Time',
                       controller: timeController,
                       limit: 20,
                       onSubmitted: () {
@@ -603,7 +605,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             Expanded(
                               child: CustomContainer(
                                 paddingVertical: 0,
-                                child: CustomTextField.noLabel(
+                                child: CustomTextField.singleLine(
                                   context: context,
                                   hint: 'Ingredient',
                                   controller: ingredientController,
@@ -751,7 +753,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             Expanded(
                               child: CustomContainer(
                                 paddingVertical: 0,
-                                child: CustomTextField.noLabel(
+                                child: CustomTextField.singleLine(
                                   context: context,
                                   hint: 'Step',
                                   controller: stepController,
@@ -923,17 +925,21 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       showDragHandle: true,
                       builder: (context) => PickImageBottomSheet(
                         onCameraPressed: () async {
-                          image = (await picker.pickImage(
-                              source: ImageSource.camera)) as File?;
-                          Navigator.pop(context);
+                          XFile? imageFile = await picker.pickImage(
+                            source: ImageSource.camera,
+                          );
+                          if (imageFile != null) image = File(imageFile.path);
                           buttonVisibility == true;
+                          Navigator.pop(context);
                           setState(() {});
                         },
                         onGalleryPressed: () async {
-                          image = (await picker.pickImage(
-                              source: ImageSource.gallery)) as File?;
-                          Navigator.pop(context);
+                          XFile? imageFile = await picker.pickImage(
+                            source: ImageSource.gallery,
+                          );
+                          if (imageFile != null) image = File(imageFile.path);
                           buttonVisibility == true;
+                          Navigator.pop(context);
                           setState(() {});
                         },
                         onDeletePressed: () {
@@ -946,7 +952,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     ),
                     child: CircleAvatar(
                       radius: 75,
-                      foregroundImage: image == null
+                      backgroundImage: image == null
                           ? AssetImage(ImageConstant.pickImage)
                           : FileImage(image!) as ImageProvider,
                     ),

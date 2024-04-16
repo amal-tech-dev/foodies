@@ -30,7 +30,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
           CustomContainer(
             child: CustomTextField.singleLineForm(
               context: context,
-              label: 'Email',
+              hint: 'Email',
               controller: emailController,
               limit: 40,
               onSubmit: (value) => FocusScope.of(context).unfocus(),

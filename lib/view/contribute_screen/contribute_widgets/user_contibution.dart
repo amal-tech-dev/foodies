@@ -6,8 +6,8 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_screen.dart';
 import 'package:foodies/widgets/custom_button.dart';
 
-class AddRecipeForUser extends StatelessWidget {
-  AddRecipeForUser({super.key});
+class UserContibution extends StatelessWidget {
+  UserContibution({super.key});
 
   @override
   Widget build(BuildContext context) {
