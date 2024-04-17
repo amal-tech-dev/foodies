@@ -170,26 +170,22 @@ class _EditUserScreenState extends State<EditUserScreen> {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () => showModalBottomSheet(
-                    backgroundColor: ColorConstant.backgroundDark,
-                    showDragHandle: true,
+                  onTap: () => PickImageBottomSheet.showModalSheet(
                     context: context,
-                    builder: (context) => PickImageBottomSheet(
-                      onCameraPressed: () async {
-                        pickAndCropImage(ImageSource.camera, 'cover');
-                        Navigator.pop(context);
-                      },
-                      onGalleryPressed: () async {
-                        pickAndCropImage(ImageSource.gallery, 'cover');
-                        Navigator.pop(context);
-                      },
-                      onDeletePressed: () {
-                        cover = null;
-                        coverUrl = null;
-                        setState(() {});
-                        Navigator.pop(context);
-                      },
-                    ),
+                    onCameraPressed: () async {
+                      pickAndCropImage(ImageSource.camera, 'cover');
+                      Navigator.pop(context);
+                    },
+                    onGalleryPressed: () async {
+                      pickAndCropImage(ImageSource.gallery, 'cover');
+                      Navigator.pop(context);
+                    },
+                    onRemovePressed: () {
+                      cover = null;
+                      coverUrl = null;
+                      setState(() {});
+                      Navigator.pop(context);
+                    },
                   ),
                   child: Container(
                     height: MediaQuery.of(context).size.width * 0.5625,
@@ -214,28 +210,24 @@ class _EditUserScreenState extends State<EditUserScreen> {
                 Row(
                   children: [
                     InkWell(
-                      onTap: () => showModalBottomSheet(
-                        backgroundColor: ColorConstant.backgroundDark,
-                        showDragHandle: true,
+                      onTap: () => PickImageBottomSheet.showModalSheet(
                         context: context,
-                        builder: (context) => PickImageBottomSheet(
-                          onCameraPressed: () async {
-                            pickAndCropImage(ImageSource.camera, 'profile');
-                            setState(() {});
-                            Navigator.pop(context);
-                          },
-                          onGalleryPressed: () async {
-                            pickAndCropImage(ImageSource.gallery, 'profile');
-                            setState(() {});
-                            Navigator.pop(context);
-                          },
-                          onDeletePressed: () {
-                            profile = null;
-                            profileUrl = null;
-                            setState(() {});
-                            Navigator.pop(context);
-                          },
-                        ),
+                        onCameraPressed: () async {
+                          pickAndCropImage(ImageSource.camera, 'profile');
+                          setState(() {});
+                          Navigator.pop(context);
+                        },
+                        onGalleryPressed: () async {
+                          pickAndCropImage(ImageSource.gallery, 'profile');
+                          setState(() {});
+                          Navigator.pop(context);
+                        },
+                        onRemovePressed: () {
+                          profile = null;
+                          profileUrl = null;
+                          setState(() {});
+                          Navigator.pop(context);
+                        },
                       ),
                       child: CircleAvatar(
                         radius: 60,

@@ -919,36 +919,32 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 ),
                 SliverToBoxAdapter(
                   child: InkWell(
-                    onTap: () => showModalBottomSheet(
+                    onTap: () => PickImageBottomSheet.showModalSheet(
                       context: context,
-                      backgroundColor: ColorConstant.backgroundDark,
-                      showDragHandle: true,
-                      builder: (context) => PickImageBottomSheet(
-                        onCameraPressed: () async {
-                          XFile? imageFile = await picker.pickImage(
-                            source: ImageSource.camera,
-                          );
-                          if (imageFile != null) image = File(imageFile.path);
-                          buttonVisibility == true;
-                          Navigator.pop(context);
-                          setState(() {});
-                        },
-                        onGalleryPressed: () async {
-                          XFile? imageFile = await picker.pickImage(
-                            source: ImageSource.gallery,
-                          );
-                          if (imageFile != null) image = File(imageFile.path);
-                          buttonVisibility == true;
-                          Navigator.pop(context);
-                          setState(() {});
-                        },
-                        onDeletePressed: () {
-                          image = null;
-                          Navigator.pop(context);
-                          buttonVisibility = false;
-                          setState(() {});
-                        },
-                      ),
+                      onCameraPressed: () async {
+                        XFile? imageFile = await picker.pickImage(
+                          source: ImageSource.camera,
+                        );
+                        if (imageFile != null) image = File(imageFile.path);
+                        buttonVisibility = true;
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
+                      onGalleryPressed: () async {
+                        XFile? imageFile = await picker.pickImage(
+                          source: ImageSource.gallery,
+                        );
+                        if (imageFile != null) image = File(imageFile.path);
+                        buttonVisibility = true;
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
+                      onRemovePressed: () {
+                        image = null;
+                        Navigator.pop(context);
+                        buttonVisibility = false;
+                        setState(() {});
+                      },
                     ),
                     child: CircleAvatar(
                       radius: 75,

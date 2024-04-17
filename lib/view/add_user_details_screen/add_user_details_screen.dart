@@ -81,33 +81,29 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 ),
                 DimenConstant.separator,
                 InkWell(
-                  onTap: () => showModalBottomSheet(
-                    backgroundColor: ColorConstant.backgroundDark,
-                    showDragHandle: true,
+                  onTap: () => PickImageBottomSheet.showModalSheet(
                     context: context,
-                    builder: (context) => PickImageBottomSheet(
-                      onCameraPressed: () async {
-                        XFile? pickedImage = await picker.pickImage(
-                          source: ImageSource.camera,
-                        );
-                        if (pickedImage != null) cover = File(pickedImage.path);
-                        setState(() {});
-                        Navigator.pop(context);
-                      },
-                      onGalleryPressed: () async {
-                        XFile? pickedImage = await picker.pickImage(
-                          source: ImageSource.gallery,
-                        );
-                        if (pickedImage != null) cover = File(pickedImage.path);
-                        setState(() {});
-                        Navigator.pop(context);
-                      },
-                      onDeletePressed: () {
-                        cover = null;
-                        setState(() {});
-                        Navigator.pop(context);
-                      },
-                    ),
+                    onCameraPressed: () async {
+                      XFile? pickedImage = await picker.pickImage(
+                        source: ImageSource.camera,
+                      );
+                      if (pickedImage != null) cover = File(pickedImage.path);
+                      setState(() {});
+                      Navigator.pop(context);
+                    },
+                    onGalleryPressed: () async {
+                      XFile? pickedImage = await picker.pickImage(
+                        source: ImageSource.gallery,
+                      );
+                      if (pickedImage != null) cover = File(pickedImage.path);
+                      setState(() {});
+                      Navigator.pop(context);
+                    },
+                    onRemovePressed: () {
+                      cover = null;
+                      setState(() {});
+                      Navigator.pop(context);
+                    },
                   ),
                   child: Container(
                     height: 200,
@@ -135,35 +131,31 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 DimenConstant.separator,
                 Center(
                   child: InkWell(
-                    onTap: () => showModalBottomSheet(
-                      backgroundColor: ColorConstant.backgroundDark,
-                      showDragHandle: true,
+                    onTap: () => PickImageBottomSheet.showModalSheet(
                       context: context,
-                      builder: (context) => PickImageBottomSheet(
-                        onCameraPressed: () async {
-                          XFile? pickedImage = await picker.pickImage(
-                            source: ImageSource.camera,
-                          );
-                          if (pickedImage != null)
-                            profile = File(pickedImage.path);
-                          setState(() {});
-                          Navigator.pop(context);
-                        },
-                        onGalleryPressed: () async {
-                          XFile? pickedImage = await picker.pickImage(
-                            source: ImageSource.gallery,
-                          );
-                          if (pickedImage != null)
-                            profile = File(pickedImage.path);
-                          setState(() {});
-                          Navigator.pop(context);
-                        },
-                        onDeletePressed: () {
-                          profile = null;
-                          setState(() {});
-                          Navigator.pop(context);
-                        },
-                      ),
+                      onCameraPressed: () async {
+                        XFile? pickedImage = await picker.pickImage(
+                          source: ImageSource.camera,
+                        );
+                        if (pickedImage != null)
+                          profile = File(pickedImage.path);
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
+                      onGalleryPressed: () async {
+                        XFile? pickedImage = await picker.pickImage(
+                          source: ImageSource.gallery,
+                        );
+                        if (pickedImage != null)
+                          profile = File(pickedImage.path);
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
+                      onRemovePressed: () {
+                        profile = null;
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
                     ),
                     child: CircleAvatar(
                       radius: 60,

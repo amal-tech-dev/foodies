@@ -160,24 +160,20 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                   InkWell(
                     onTap: () {
                       if (currentUser) {
-                        showModalBottomSheet(
-                          backgroundColor: ColorConstant.backgroundDark,
-                          showDragHandle: true,
+                        PickImageBottomSheet.showModalSheet(
                           context: context,
-                          builder: (context) => PickImageBottomSheet(
-                            onCameraPressed: () async {
-                              pickAndCropImage(ImageSource.camera, 'cover');
-                              Navigator.pop(context);
-                            },
-                            onGalleryPressed: () async {
-                              pickAndCropImage(ImageSource.gallery, 'cover');
-                              Navigator.pop(context);
-                            },
-                            onDeletePressed: () {
-                              deleteImage('cover', user.cover!);
-                              Navigator.pop(context);
-                            },
-                          ),
+                          onCameraPressed: () async {
+                            pickAndCropImage(ImageSource.camera, 'cover');
+                            Navigator.pop(context);
+                          },
+                          onGalleryPressed: () async {
+                            pickAndCropImage(ImageSource.gallery, 'cover');
+                            Navigator.pop(context);
+                          },
+                          onRemovePressed: () {
+                            deleteImage('cover', user.cover!);
+                            Navigator.pop(context);
+                          },
                         );
                       }
                     },
@@ -235,26 +231,22 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                         InkWell(
                           onTap: () {
                             if (currentUser) {
-                              showModalBottomSheet(
-                                backgroundColor: ColorConstant.backgroundDark,
-                                showDragHandle: true,
+                              PickImageBottomSheet.showModalSheet(
                                 context: context,
-                                builder: (context) => PickImageBottomSheet(
-                                  onCameraPressed: () async {
-                                    pickAndCropImage(
-                                        ImageSource.camera, 'profile');
-                                    Navigator.pop(context);
-                                  },
-                                  onGalleryPressed: () async {
-                                    pickAndCropImage(
-                                        ImageSource.gallery, 'profile');
-                                    Navigator.pop(context);
-                                  },
-                                  onDeletePressed: () {
-                                    deleteImage('profile', user.profile!);
-                                    Navigator.pop(context);
-                                  },
-                                ),
+                                onCameraPressed: () async {
+                                  pickAndCropImage(
+                                      ImageSource.camera, 'profile');
+                                  Navigator.pop(context);
+                                },
+                                onGalleryPressed: () async {
+                                  pickAndCropImage(
+                                      ImageSource.gallery, 'profile');
+                                  Navigator.pop(context);
+                                },
+                                onRemovePressed: () {
+                                  deleteImage('profile', user.profile!);
+                                  Navigator.pop(context);
+                                },
                               );
                             }
                           },
