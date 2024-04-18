@@ -121,7 +121,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
           children: [
             PageItem(
               header: StringConstant.addRecipeName,
-              image: ImageConstant.chef,
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
@@ -176,7 +175,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
             ),
             PageItem(
               header: StringConstant.addRecipeAbout,
-              image: ImageConstant.chef,
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
@@ -219,7 +217,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
             ),
             PageItem(
               header: StringConstant.addRecipeDiet,
-              image: ImageConstant.chef,
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
@@ -292,7 +289,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
             ),
             PageItem(
               header: StringConstant.addRecipeTime,
-              image: ImageConstant.chef,
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
@@ -347,79 +343,62 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
             ),
             PageItem(
               header: StringConstant.addRecipeCuisine,
-              image: ImageConstant.chef,
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
-                    padding: 0,
-                    child: ExpansionTile(
-                      title: Text(
-                        'Cuisines',
-                        style: TextStyle(
-                          color: ColorConstant.secondaryDark,
-                          fontSize: DimenConstant.extraSmall,
-                        ),
-                      ),
-                      subtitle: selectedCuisine == null
-                          ? null
-                          : Text(
-                              selectedCuisine ?? '',
-                              style: TextStyle(
-                                color: ColorConstant.primary,
-                                fontSize: DimenConstant.mini,
-                              ),
-                            ),
-                      iconColor: ColorConstant.primary,
-                      collapsedIconColor: ColorConstant.primary,
-                      collapsedShape: InputBorder.none,
-                      shape: InputBorder.none,
-                      childrenPadding: EdgeInsets.only(
-                        left: DimenConstant.padding * 2,
-                        right: DimenConstant.padding,
-                      ),
+                    height: 250,
+                    child: Column(
                       children: [
-                        CustomContainer(
-                          paddingTop: 0,
-                          paddingLeft: 0,
-                          paddingRight: 0,
-                          paddingBottom: 0,
-                          height: 200,
-                          child: Expanded(
-                            child: ListView.builder(
-                              itemBuilder: (context, index) => InkWell(
-                                onTap: () {
-                                  selectedCuisine = cuisines[index];
-                                  radioValue = index;
-                                  buttonVisibility = true;
-                                  setState(() {});
-                                },
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        cuisines[index],
-                                        style: TextStyle(
-                                          color: ColorConstant.secondaryDark,
-                                          fontSize: DimenConstant.mini,
-                                        ),
+                        Text(
+                          'Cuisines',
+                          style: TextStyle(
+                            color: ColorConstant.secondaryDark,
+                            fontSize: DimenConstant.extraSmall,
+                          ),
+                        ),
+                        Text(
+                          selectedCuisine ?? 'Select a Cuisine',
+                          style: TextStyle(
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.mini,
+                          ),
+                        ),
+                        DimenConstant.separator,
+                        Expanded(
+                          child: ListView.builder(
+                            itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                selectedCuisine = cuisines[index];
+                                radioValue = index;
+                                buttonVisibility = true;
+                                setState(() {});
+                              },
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      cuisines[index],
+                                      style: TextStyle(
+                                        color: ColorConstant.secondaryDark,
+                                        fontSize: DimenConstant.mini,
                                       ),
                                     ),
-                                    Radio(
-                                      value: index,
-                                      groupValue: radioValue,
-                                      activeColor: ColorConstant.primary,
-                                      onChanged: (value) {
-                                        selectedCuisine = cuisines[index];
-                                        radioValue = index;
-                                        buttonVisibility = true;
-                                        setState(() {});
-                                      },
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  Radio(
+                                    value: index,
+                                    groupValue: radioValue,
+                                    activeColor: ColorConstant.primary,
+                                    onChanged: (value) {
+                                      selectedCuisine = cuisines[index];
+                                      radioValue = index;
+                                      buttonVisibility = true;
+                                      setState(() {});
+                                    },
+                                  ),
+                                ],
                               ),
-                              itemCount: cuisines.length,
                             ),
+                            itemCount: cuisines.length,
                           ),
                         ),
                       ],
@@ -455,94 +434,79 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
             ),
             PageItem(
               header: StringConstant.addRecipeCategories,
-              image: ImageConstant.chef,
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
-                    padding: 0,
-                    child: ExpansionTile(
-                      title: Text(
-                        'Categories',
-                        style: TextStyle(
-                          color: ColorConstant.secondaryDark,
-                          fontSize: DimenConstant.extraSmall,
-                        ),
-                      ),
-                      subtitle: selectedCategories.isEmpty
-                          ? null
-                          : Text(
-                              selectedCategories.join(' | '),
-                              style: TextStyle(
-                                color: ColorConstant.primary,
-                                fontSize: DimenConstant.mini,
-                              ),
-                            ),
-                      iconColor: ColorConstant.primary,
-                      collapsedIconColor: ColorConstant.primary,
-                      collapsedShape: InputBorder.none,
-                      shape: InputBorder.none,
-                      childrenPadding: EdgeInsets.only(
-                        left: DimenConstant.padding * 2,
-                        right: DimenConstant.padding,
-                      ),
+                    height: 250,
+                    child: Column(
                       children: [
-                        CustomContainer(
-                          paddingTop: 0,
-                          paddingLeft: 0,
-                          paddingRight: 0,
-                          paddingBottom: 0,
-                          height: 200,
-                          child: Expanded(
-                            child: ListView.builder(
-                              itemBuilder: (context, index) => InkWell(
-                                onTap: () {
-                                  checkValues[index] = !checkValues[index];
-                                  selectedCategories = [];
-                                  for (int i = 0; i < checkValues.length; i++) {
-                                    if (checkValues[i])
-                                      selectedCategories.add(categories[i]);
-                                  }
-                                  buttonVisibility =
-                                      selectedCategories.isEmpty ? false : true;
-                                  setState(() {});
-                                },
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        categories[index],
-                                        style: TextStyle(
-                                          color: ColorConstant.secondaryDark,
-                                          fontSize: DimenConstant.mini,
-                                        ),
+                        Text(
+                          'Categories',
+                          style: TextStyle(
+                            color: ColorConstant.secondaryDark,
+                            fontSize: DimenConstant.extraSmall,
+                          ),
+                        ),
+                        Text(
+                          selectedCategories.isEmpty
+                              ? 'Select atleast one category'
+                              : selectedCategories.join(', '),
+                          style: TextStyle(
+                            color: ColorConstant.primary,
+                            fontSize: DimenConstant.mini,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        DimenConstant.separator,
+                        Expanded(
+                          child: ListView.builder(
+                            itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                checkValues[index] = !checkValues[index];
+                                selectedCategories = [];
+                                for (int i = 0; i < checkValues.length; i++) {
+                                  if (checkValues[i])
+                                    selectedCategories.add(categories[i]);
+                                }
+                                buttonVisibility =
+                                    selectedCategories.isEmpty ? false : true;
+                                setState(() {});
+                              },
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      categories[index],
+                                      style: TextStyle(
+                                        color: ColorConstant.secondaryDark,
+                                        fontSize: DimenConstant.mini,
                                       ),
                                     ),
-                                    Checkbox(
-                                      value: checkValues[index],
-                                      checkColor: ColorConstant.tertiaryDark,
-                                      activeColor: ColorConstant.primary,
-                                      onChanged: (value) {
-                                        checkValues[index] = value ?? false;
-                                        selectedCategories = [];
-                                        for (int i = 0;
-                                            i < checkValues.length;
-                                            i++) {
-                                          if (checkValues[i])
-                                            selectedCategories
-                                                .add(categories[i]);
-                                        }
-                                        buttonVisibility =
-                                            selectedCategories.isEmpty
-                                                ? false
-                                                : true;
-                                        setState(() {});
-                                      },
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  Checkbox(
+                                    value: checkValues[index],
+                                    checkColor: ColorConstant.tertiaryDark,
+                                    activeColor: ColorConstant.primary,
+                                    onChanged: (value) {
+                                      checkValues[index] = value ?? false;
+                                      selectedCategories = [];
+                                      for (int i = 0;
+                                          i < checkValues.length;
+                                          i++) {
+                                        if (checkValues[i])
+                                          selectedCategories.add(categories[i]);
+                                      }
+                                      buttonVisibility =
+                                          selectedCategories.isEmpty
+                                              ? false
+                                              : true;
+                                      setState(() {});
+                                    },
+                                  ),
+                                ],
                               ),
-                              itemCount: categories.length,
                             ),
+                            itemCount: categories.length,
                           ),
                         ),
                       ],
@@ -578,7 +542,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
             ),
             PageItem(
               header: StringConstant.addRecipeIngredients,
-              image: ImageConstant.chef,
               children: [
                 SliverToBoxAdapter(
                   child: Center(
@@ -726,7 +689,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
             ),
             PageItem(
               header: StringConstant.addRecipeSteps,
-              image: ImageConstant.chef,
               children: [
                 SliverToBoxAdapter(
                   child: Center(
@@ -872,7 +834,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
             ),
             PageItem(
               header: StringConstant.addRecipeImage,
-              image: ImageConstant.chef,
               children: [
                 SliverToBoxAdapter(
                   child: CarouselSlider(
@@ -967,8 +928,85 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     ),
                     child: CustomButton.text(
                       visible: buttonVisibility,
-                      text: 'Save',
-                      onPressed: () {},
+                      text: 'Next',
+                      onPressed: () => pageController.nextPage(
+                        duration: Duration(
+                          milliseconds: 500,
+                        ),
+                        curve: Curves.bounceInOut,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            PageItem(
+              header: StringConstant.addRecipeSave,
+              children: [
+                SliverToBoxAdapter(
+                  child: CustomContainer(
+                    height: 250,
+                    padding: DimenConstant.padding * 1.5,
+                    borderRadius: DimenConstant.borderRadiusLarge,
+                    child: Expanded(
+                      child: ListView(
+                        children: [
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundImage: AssetImage(
+                                  ImageConstant.food,
+                                ),
+                                foregroundImage: FileImage(
+                                  image!,
+                                ),
+                              ),
+                              DimenConstant.separator,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CustomText(
+                                    text: recipe.name ?? '',
+                                    color: ColorConstant.secondaryDark,
+                                    size: DimenConstant.extraSmall,
+                                  ),
+                                  CustomText(
+                                    text: recipe.cuisine ?? '',
+                                    color: ColorConstant.primary,
+                                    size: DimenConstant.mini,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          DimenConstant.separator,
+                          CustomText(
+                            text: recipe.about ?? '',
+                            color: ColorConstant.secondaryDark,
+                            size: DimenConstant.mini,
+                            align: TextAlign.justify,
+                          ),
+                          DimenConstant.separator,
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 10,
+                                backgroundColor: recipe.veg ?? true
+                                    ? ColorConstant.vegSecondary
+                                    : ColorConstant.nonVegSecondary,
+                              ),
+                              DimenConstant.separator,
+                              CustomText(
+                                text: 'Vegetarian',
+                                color: ColorConstant.secondaryDark,
+                                size: DimenConstant.mini,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

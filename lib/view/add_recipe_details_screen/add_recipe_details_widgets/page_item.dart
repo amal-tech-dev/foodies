@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/image_constant.dart';
 
 class PageItem extends StatelessWidget {
-  String header, image;
+  String header;
   List<Widget> children;
 
   PageItem({
     super.key,
     required this.header,
-    required this.image,
     required this.children,
   });
 
@@ -24,7 +24,7 @@ class PageItem extends StatelessWidget {
               horizontal: DimenConstant.padding * 5,
             ),
             child: Image.asset(
-              image,
+              ImageConstant.chef,
             ),
           ),
         ),
