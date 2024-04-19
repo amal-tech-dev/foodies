@@ -945,68 +945,158 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
               children: [
                 SliverToBoxAdapter(
                   child: CustomContainer(
-                    height: 250,
                     padding: DimenConstant.padding * 1.5,
-                    borderRadius: DimenConstant.borderRadiusLarge,
-                    child: Expanded(
-                      child: ListView(
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundImage: AssetImage(
-                                  ImageConstant.food,
-                                ),
-                                foregroundImage: FileImage(
-                                  image!,
-                                ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundImage: AssetImage(
+                                ImageConstant.food,
                               ),
-                              DimenConstant.separator,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CustomText(
-                                    text: recipe.name ?? '',
-                                    color: ColorConstant.secondaryDark,
-                                    size: DimenConstant.extraSmall,
-                                  ),
-                                  CustomText(
-                                    text: recipe.cuisine ?? '',
-                                    color: ColorConstant.primary,
-                                    size: DimenConstant.mini,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          DimenConstant.separator,
-                          CustomText(
-                            text: recipe.about ?? '',
-                            color: ColorConstant.secondaryDark,
-                            size: DimenConstant.mini,
-                            align: TextAlign.justify,
-                          ),
-                          DimenConstant.separator,
-                          Row(
+                              foregroundImage:
+                                  image != null ? FileImage(image!) : null,
+                            ),
+                            DimenConstant.separator,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomText(
+                                  text: recipe.name ?? '',
+                                  color: ColorConstant.secondaryDark,
+                                  size: DimenConstant.extraSmall,
+                                ),
+                                CustomText(
+                                  text: recipe.cuisine ?? '',
+                                  color: ColorConstant.primary,
+                                  size: DimenConstant.mini,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        DimenConstant.separator,
+                        CustomText(
+                          text: recipe.about ?? '',
+                          color: ColorConstant.secondaryDark,
+                          size: DimenConstant.mini,
+                          align: TextAlign.justify,
+                        ),
+                        DimenConstant.separator,
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 10,
+                              backgroundColor: recipe.veg ?? true
+                                  ? ColorConstant.vegSecondary
+                                  : ColorConstant.nonVegSecondary,
+                            ),
+                            DimenConstant.separator,
+                            CustomText(
+                              text: 'Vegetarian',
+                              color: ColorConstant.secondaryDark,
+                              size: DimenConstant.mini,
+                            ),
+                          ],
+                        ),
+                        DimenConstant.separator,
+                        CustomText(
+                          text: 'Categories',
+                          color: ColorConstant.primary,
+                          size: DimenConstant.extraSmall,
+                        ),
+                        CustomText(
+                          text: (recipe.categories ?? []).join(', '),
+                          color: ColorConstant.secondaryDark,
+                          size: DimenConstant.mini,
+                        ),
+                        DimenConstant.separator,
+                        CustomText(
+                          text: 'Cooking Time',
+                          color: ColorConstant.primary,
+                          size: DimenConstant.extraSmall,
+                        ),
+                        CustomText(
+                          text: recipe.time ?? '',
+                          color: ColorConstant.secondaryDark,
+                          size: DimenConstant.mini,
+                        ),
+                        DimenConstant.separator,
+                        CustomText(
+                          text: 'Ingredients',
+                          color: ColorConstant.primary,
+                          size: DimenConstant.extraSmall,
+                        ),
+                        ...List.generate(
+                          recipe.ingredients?.length ?? 0,
+                          (index) => Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CircleAvatar(
-                                radius: 10,
-                                backgroundColor: recipe.veg ?? true
-                                    ? ColorConstant.vegSecondary
-                                    : ColorConstant.nonVegSecondary,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: (DimenConstant.mini / 2) - 2.5,
+                                ),
+                                child: CircleAvatar(
+                                  radius: 5,
+                                  backgroundColor: ColorConstant.primary,
+                                ),
                               ),
                               DimenConstant.separator,
                               CustomText(
-                                text: 'Vegetarian',
+                                text: recipe.ingredients![index],
                                 color: ColorConstant.secondaryDark,
                                 size: DimenConstant.mini,
                               ),
                             ],
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                        DimenConstant.separator,
+                        CustomText(
+                          text: 'Steps',
+                          color: ColorConstant.primary,
+                          size: DimenConstant.extraSmall,
+                        ),
+                        ...List.generate(
+                          recipe.steps?.length ?? 0,
+                          (index) => Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: (DimenConstant.mini / 2) - 2.5,
+                                ),
+                                child: CircleAvatar(
+                                  radius: 5,
+                                  backgroundColor: ColorConstant.primary,
+                                ),
+                              ),
+                              DimenConstant.separator,
+                              CustomText(
+                                text: recipe.steps![index],
+                                color: ColorConstant.secondaryDark,
+                                size: DimenConstant.mini,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: DimenConstant.separator,
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: DimenConstant.padding * 8,
+                    ),
+                    child: CustomButton.text(
+                      text: 'Save',
+                      onPressed: () {},
                     ),
                   ),
                 ),
