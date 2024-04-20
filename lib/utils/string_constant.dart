@@ -79,5 +79,5 @@ class StringConstant {
   static const String addRecipeImage =
       'The recipe looks good and tasty. Let us show it to all our ${StringConstant.appName}';
   static const String addRecipeSave =
-      'All set to serve. Save your to our menu for fellow ${StringConstant.appName}';
+      'All set to serve. Save your recipe to our menu for fellow ${StringConstant.appName}';
 }

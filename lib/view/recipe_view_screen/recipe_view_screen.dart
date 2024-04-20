@@ -14,6 +14,7 @@ import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_text.dart';
 
 class RecipeViewScreen extends StatefulWidget {
   String id;
@@ -31,7 +32,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   RecipeModel recipe = RecipeModel();
   String name = '', profile = '';
-  bool verified = false, expanded = false;
+  bool verified = false, expanded = false, editing = false;
   ScrollController controller = ScrollController();
 
   @override
@@ -121,20 +122,25 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               CustomButton.icon(
                 visible: recipe.chef == user.uid,
                 background: Colors.transparent,
-                icon: Icons.edit_rounded,
-                iconColor: ColorConstant.secondaryDark,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditRecipeScreen(),
-                  ),
-                ),
+                icon: editing ? Icons.done_all_rounded : Icons.edit_rounded,
+                iconColor: editing
+                    ? ColorConstant.primary
+                    : ColorConstant.secondaryDark,
+                onPressed: () {
+                  if (editing) {
+                    editing = false;
+                    setState(() {});
+                  } else {
+                    editing = true;
+                    setState(() {});
+                  }
+                },
               ),
               CustomButton.icon(
                 visible: recipe.chef == user.uid,
                 background: Colors.transparent,
                 icon: Icons.delete_rounded,
-                iconColor: ColorConstant.secondaryDark,
+                iconColor: ColorConstant.error,
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -328,8 +334,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: DetailsItem(
-              content: recipe.cuisine ?? '',
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: DimenConstant.padding,
+              ),
+              child: CustomText(
+                text: recipe.cuisine ?? '',
+                color: ColorConstant.secondaryDark,
+                size: DimenConstant.extraSmall,
+              ),
             ),
           ),
           SliverToBoxAdapter(
@@ -350,8 +363,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: DetailsItem(
-              content: '${recipe.categories?.join(',') ?? []}.',
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: DimenConstant.padding,
+              ),
+              child: CustomText(
+                text: (recipe.categories ?? []).join(', '),
+                color: ColorConstant.secondaryDark,
+                size: DimenConstant.extraSmall,
+              ),
             ),
           ),
           SliverToBoxAdapter(
@@ -372,8 +392,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: DetailsItem(
-              content: recipe.time ?? '',
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: DimenConstant.padding,
+              ),
+              child: CustomText(
+                text: recipe.time ?? '',
+                color: ColorConstant.secondaryDark,
+                size: DimenConstant.extraSmall,
+              ),
             ),
           ),
           SliverToBoxAdapter(

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/model/recipe_model.dart';
@@ -11,6 +12,7 @@ import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/page_item.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/slidable_item.dart';
+import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_scaffold_messenger.dart';
@@ -29,6 +31,7 @@ class AddRecipeDetailsScreen extends StatefulWidget {
 class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
+  User user = FirebaseAuth.instance.currentUser!;
   RecipeModel recipe = RecipeModel();
   PageController pageController = PageController();
   TextEditingController nameController = TextEditingController();
@@ -221,16 +224,11 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 SliverToBoxAdapter(
                   child: CustomContainer(
                     height: 100,
-                    paddingTop: DimenConstant.padding * 2,
-                    paddingLeft: DimenConstant.padding * 2,
-                    paddingRight: DimenConstant.padding * 2,
-                    paddingBottom: DimenConstant.padding * 2,
-                    gradient: LinearGradient(
-                      colors: [
-                        ColorConstant.vegPrimary,
-                        ColorConstant.vegSecondary,
-                      ],
-                    ),
+                    padding: DimenConstant.padding * 2,
+                    gradients: [
+                      ColorConstant.vegPrimary,
+                      ColorConstant.vegSecondary,
+                    ],
                     onPressed: () {
                       recipe.veg = true;
                       setState(() {});
@@ -260,12 +258,10 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     paddingLeft: DimenConstant.padding * 2,
                     paddingRight: DimenConstant.padding * 2,
                     paddingBottom: DimenConstant.padding * 2,
-                    gradient: LinearGradient(
-                      colors: [
-                        ColorConstant.nonVegPrimary,
-                        ColorConstant.nonVegSecondary,
-                      ],
-                    ),
+                    gradients: [
+                      ColorConstant.nonVegPrimary,
+                      ColorConstant.nonVegSecondary,
+                    ],
                     onPressed: () {
                       recipe.veg = false;
                       setState(() {});
@@ -1096,7 +1092,29 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     ),
                     child: CustomButton.text(
                       text: 'Save',
-                      onPressed: () {},
+                      onPressed: () async {
+                        recipe.chef = user.uid;
+                        recipe.image = await uploadImage(image!);
+                        recipe.shared = 0;
+                        recipe.views = 0;
+                        recipe.likes = [];
+                        DocumentReference reference = await firestore
+                            .collection('recipes')
+                            .add(recipe.toJson());
+                        await firestore
+                            .collection('users')
+                            .doc(user.uid)
+                            .update({
+                          'recipes': FieldValue.arrayUnion([reference.id])
+                        });
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                          (route) => false,
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -1106,5 +1124,16 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
         ),
       ),
     );
+  }
+
+  // upload image to firebase storage
+  Future<String> uploadImage(File image) async {
+    String file =
+        '${DateTime.now().millisecondsSinceEpoch}_${image.path.split('/').last}';
+    Reference reference = storage.ref().child('food_items').child(file);
+    UploadTask uploadTask = reference.putFile(image);
+    TaskSnapshot taskSnapshot = await uploadTask;
+    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    return downloadUrl;
   }
 }

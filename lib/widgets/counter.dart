@@ -61,45 +61,42 @@ class _CounterState extends State<Counter> {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: widget.visible ?? true,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedFlipCounter(
-                value: count,
-                textStyle: TextStyle(
-                  color: ColorConstant.secondaryDark,
-                  fontSize: widget.header != null
-                      ? DimenConstant.extraSmall
-                      : DimenConstant.mini,
-                ),
-              ),
-              Text(
-                suffix,
-                style: TextStyle(
-                  color: ColorConstant.secondaryDark,
-                  fontSize: widget.header != null
-                      ? DimenConstant.extraSmall
-                      : DimenConstant.mini,
-                ),
-              ),
-            ],
-          ),
-          Visibility(
-            visible: widget.header != null,
-            child: Text(
-              widget.header ?? '',
-              style: TextStyle(
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedFlipCounter(
+              value: count,
+              textStyle: TextStyle(
                 color: ColorConstant.secondaryDark,
-                fontSize: DimenConstant.mini,
+                fontSize: widget.header != null
+                    ? DimenConstant.extraSmall
+                    : DimenConstant.mini,
               ),
             ),
+            Text(
+              suffix,
+              style: TextStyle(
+                color: ColorConstant.secondaryDark,
+                fontSize: widget.header != null
+                    ? DimenConstant.extraSmall
+                    : DimenConstant.mini,
+              ),
+            ),
+          ],
+        ),
+        Visibility(
+          visible: widget.header != null,
+          child: Text(
+            widget.header ?? '',
+            style: TextStyle(
+              color: ColorConstant.secondaryDark,
+              fontSize: DimenConstant.mini,
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -4,9 +4,12 @@ import 'package:foodies/utils/dimen_constant.dart';
 
 class DetailsItem extends StatelessWidget {
   String content;
+  TextAlign? align;
+
   DetailsItem({
     super.key,
     required this.content,
+    this.align,
   });
 
   @override
@@ -35,7 +38,7 @@ class DetailsItem extends StatelessWidget {
                 color: ColorConstant.secondaryDark,
                 fontSize: DimenConstant.extraSmall,
               ),
-              textAlign: TextAlign.justify,
+              textAlign: align ?? TextAlign.justify,
             ),
           ),
         ],
