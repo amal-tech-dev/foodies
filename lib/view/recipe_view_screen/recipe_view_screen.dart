@@ -7,14 +7,16 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
-import 'package:foodies/view/edit_recipe_screen/edit_recipe_screen.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
 import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_icon.dart';
+import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_text.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class RecipeViewScreen extends StatefulWidget {
   String id;
@@ -31,8 +33,8 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   User user = FirebaseAuth.instance.currentUser!;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   RecipeModel recipe = RecipeModel();
-  String name = '', profile = '';
-  bool verified = false, expanded = false, editing = false;
+  String username = '';
+  bool expanded = false, editing = false;
   ScrollController controller = ScrollController();
 
   @override
@@ -62,9 +64,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
         firestore.collection('users').doc(recipe.chef);
     DocumentSnapshot snapshot = await reference.get();
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    name = data['name'] ?? '';
-    profile = data['profile'] ?? '';
-    verified = data['verified'] ?? false;
+    username = data['username'] ?? '';
     setState(() {});
   }
 
@@ -77,7 +77,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
           SliverAppBar(
             backgroundColor: ColorConstant.backgroundDark,
             surfaceTintColor: Colors.transparent,
-            expandedHeight: 400,
+            expandedHeight: 360,
             collapsedHeight: kToolbarHeight,
             pinned: true,
             leading: Padding(
@@ -95,16 +95,13 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 children: [
                   CircleAvatar(
                     radius: 15,
-                    backgroundImage: AssetImage(
-                      ImageConstant.food,
-                    ),
-                    foregroundImage: recipe.image != null
+                    backgroundImage: recipe.image != null
                         ? NetworkImage(recipe.image!) as ImageProvider<Object>
                         : AssetImage(
                             ImageConstant.food,
                           ),
                   ),
-                  DimenConstant.separator,
+                  Separator(),
                   Expanded(
                     child: Text(
                       recipe.name ?? '',
@@ -140,15 +137,11 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 visible: recipe.chef == user.uid,
                 background: Colors.transparent,
                 icon: Icons.delete_rounded,
-                iconColor: ColorConstant.error,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditRecipeScreen(),
-                  ),
-                ),
+                iconColor:
+                    editing ? ColorConstant.error : ColorConstant.secondaryDark,
+                onPressed: () {},
               ),
-              DimenConstant.separator,
+              Separator(),
             ],
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
@@ -164,25 +157,91 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       ),
                       CircleAvatar(
                         radius: 70,
-                        backgroundImage: AssetImage(
-                          ImageConstant.food,
-                        ),
-                        foregroundImage: recipe.image != null
+                        backgroundImage: recipe.image != null
                             ? NetworkImage(recipe.image!)
                                 as ImageProvider<Object>
                             : AssetImage(
                                 ImageConstant.food,
                               ),
+                        child: editing
+                            ? InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  height: double.infinity,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: ColorConstant.tertiaryDark
+                                        .withOpacity(0.4),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.edit_outlined,
+                                    color: ColorConstant.secondaryDark,
+                                    size: 30,
+                                  ),
+                                ),
+                              )
+                            : null,
                       ),
-                      DimenConstant.separator,
-                      Text(
-                        recipe.name ?? '',
-                        style: TextStyle(
-                          color: ColorConstant.secondaryDark,
-                          fontSize: DimenConstant.medium,
-                        ),
+                      Separator(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            recipe.name ?? '',
+                            style: TextStyle(
+                              color: ColorConstant.secondaryDark,
+                              fontSize: DimenConstant.medium,
+                            ),
+                          ),
+                          Separator(visible: editing),
+                          CustomIcon(
+                            icon: Icons.edit_outlined,
+                            visible: editing,
+                            color: ColorConstant.primary,
+                            onPressed: () {},
+                          )
+                        ],
                       ),
-                      DimenConstant.separator,
+                      username != StringConstant.appName.toLowerCase()
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppName(
+                                  size: DimenConstant.extraSmall,
+                                ),
+                                CustomText(
+                                  text: ' original recipe',
+                                  color: ColorConstant.secondaryDark,
+                                  size: DimenConstant.extraSmall,
+                                  font: StringConstant.font,
+                                )
+                              ],
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomText(
+                                  text: '@${username}',
+                                  color: ColorConstant.primary,
+                                  size: DimenConstant.extraSmall,
+                                  font: StringConstant.font,
+                                  onPressed: () => CustomNavigator.push(
+                                    context: context,
+                                    push: ProfileViewScreen(
+                                      uid: recipe.chef ?? '',
+                                    ),
+                                  ),
+                                ),
+                                CustomText(
+                                  text: ' recipe',
+                                  color: ColorConstant.secondaryDark,
+                                  size: DimenConstant.extraSmall,
+                                  font: StringConstant.font,
+                                ),
+                              ],
+                            ),
+                      Separator(),
                       Row(
                         children: [
                           Expanded(
@@ -193,7 +252,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               ),
                             ),
                           ),
-                          DimenConstant.separator,
+                          Separator(),
                           Expanded(
                             child: CustomContainer(
                               child: Counter(
@@ -202,7 +261,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               ),
                             ),
                           ),
-                          DimenConstant.separator,
+                          Separator(),
                           Expanded(
                             child: CustomContainer(
                               child: Counter(
@@ -212,60 +271,6 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                             ),
                           ),
                         ],
-                      ),
-                      DimenConstant.separator,
-                      CustomContainer(
-                        paddingLeft: DimenConstant.padding * 2.0,
-                        paddingRight: DimenConstant.padding * 2.0,
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProfileViewScreen(
-                              uid: recipe.chef!,
-                            ),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 20,
-                              backgroundImage: AssetImage(
-                                ImageConstant.profile,
-                              ),
-                              foregroundImage: profile == ''
-                                  ? AssetImage(
-                                      ImageConstant.profile,
-                                    )
-                                  : NetworkImage(
-                                      profile,
-                                    ) as ImageProvider<Object>,
-                            ),
-                            DimenConstant.separator,
-                            name != StringConstant.appName
-                                ? Text(
-                                    name,
-                                    style: TextStyle(
-                                      color: ColorConstant.secondaryDark,
-                                      fontSize: DimenConstant.small,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                : AppName(
-                                    size: DimenConstant.small,
-                                  ),
-                            SizedBox(
-                              width: DimenConstant.padding / 2.0,
-                            ),
-                            Visibility(
-                              visible: verified,
-                              child: Icon(
-                                Icons.verified_rounded,
-                                color: ColorConstant.primary,
-                                size: 20,
-                              ),
-                            )
-                          ],
-                        ),
                       ),
                     ],
                   ),
@@ -289,7 +294,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: DimenConstant.separator,
+            child: Separator(),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -304,7 +309,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         : ColorConstant.nonVegSecondary,
                     radius: 10,
                   ),
-                  DimenConstant.separator,
+                  Separator(),
                   Text(
                     recipe.veg ?? true ? 'Vegetarian' : 'Non-Vegetarian',
                     style: TextStyle(
@@ -317,7 +322,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: DimenConstant.separator,
+            child: Separator(),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -346,7 +351,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: DimenConstant.separator,
+            child: Separator(),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -375,7 +380,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: DimenConstant.separator,
+            child: Separator(),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -404,7 +409,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: DimenConstant.separator,
+            child: Separator(),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -424,11 +429,11 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             itemBuilder: (context, index) => DetailsItem(
               content: recipe.ingredients?[index] ?? '',
             ),
-            separatorBuilder: (context, index) => DimenConstant.separator,
+            separatorBuilder: (context, index) => Separator(),
             itemCount: recipe.ingredients?.length ?? 0,
           ),
           SliverToBoxAdapter(
-            child: DimenConstant.separator,
+            child: Separator(),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -448,7 +453,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             itemBuilder: (context, index) => DetailsItem(
               content: recipe.steps?[index] ?? '',
             ),
-            separatorBuilder: (context, index) => DimenConstant.separator,
+            separatorBuilder: (context, index) => Separator(),
             itemCount: recipe.steps?.length ?? 0,
           ),
           SliverToBoxAdapter(

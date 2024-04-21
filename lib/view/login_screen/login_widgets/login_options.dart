@@ -12,6 +12,7 @@ import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:foodies/widgets/loading.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 
@@ -91,7 +92,7 @@ class _LoginOptionsState extends State<LoginOptions> {
             ],
           ),
         ),
-        DimenConstant.separator,
+        Separator(),
         CustomContainer(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
@@ -166,7 +167,7 @@ class _LoginOptionsState extends State<LoginOptions> {
             ],
           ),
         ),
-        DimenConstant.separator,
+        Separator(),
         CustomContainer(
           paddingTop: DimenConstant.padding * 1.5,
           paddingLeft: DimenConstant.padding * 1.5,
@@ -203,7 +204,7 @@ class _LoginOptionsState extends State<LoginOptions> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                DimenConstant.separator,
+                Separator(),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: DimenConstant.padding,
@@ -246,7 +247,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                     ),
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 InkWell(
                   splashColor: Colors.transparent,
                   onTap: () => Navigator.push(
@@ -262,7 +263,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                     ),
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 Center(
                   child: CustomButton.text(
                     text: 'Sign In',
@@ -309,7 +310,7 @@ class _LoginOptionsState extends State<LoginOptions> {
             ),
           ),
         ),
-        DimenConstant.separator,
+        Separator(),
         Loading(
           visible: loading,
           size: 50,

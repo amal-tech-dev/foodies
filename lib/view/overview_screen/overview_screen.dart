@@ -10,6 +10,7 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/overview_screen/overview_widgets/carousel_item.dart';
 import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OverviewScreen extends StatelessWidget {
@@ -58,7 +59,7 @@ class OverviewScreen extends StatelessWidget {
                 ImageConstant.overview,
               ),
             ),
-            DimenConstant.separator,
+            Separator(),
             Expanded(
               child: CarouselSlider(
                 items: [

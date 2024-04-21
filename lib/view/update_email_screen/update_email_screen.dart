@@ -6,6 +6,7 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:foodies/widgets/loading.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class UpdateEmailScreen extends StatefulWidget {
   UpdateEmailScreen({super.key});
@@ -52,7 +53,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                   fontSize: DimenConstant.large,
                 ),
               ),
-              DimenConstant.separator,
+              Separator(),
               CustomTextField.singleLineForm(
                 context: context,
                 hint: 'Email',
@@ -65,13 +66,13 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                   return null;
                 },
               ),
-              DimenConstant.separator,
+              Separator(),
               Loading(
                 visible: loading,
                 size: 50,
                 width: 3,
               ),
-              DimenConstant.separator,
+              Separator(),
               CustomButton.text(
                 text: 'Update',
                 onPressed: () async {

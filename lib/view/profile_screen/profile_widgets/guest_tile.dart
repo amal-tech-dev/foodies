@@ -3,6 +3,7 @@ import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class GuestTile extends StatelessWidget {
   GuestTile({super.key});
@@ -23,7 +24,7 @@ class GuestTile extends StatelessWidget {
               ImageConstant.profile,
             ),
           ),
-          DimenConstant.separator,
+          Separator(),
           Text(
             'Guest',
             style: TextStyle(

@@ -7,6 +7,7 @@ import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:lottie/lottie.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -52,7 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 },
               ),
             ),
-            DimenConstant.separator,
+            Separator(),
             if (startSearching)
               Expanded(
                 child: Center(

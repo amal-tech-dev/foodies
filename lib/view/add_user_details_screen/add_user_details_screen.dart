@@ -14,6 +14,7 @@ import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:foodies/widgets/loading.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddUserDetailsScreen extends StatefulWidget {
@@ -79,7 +80,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     fontSize: DimenConstant.extraSmall,
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 InkWell(
                   onTap: () => PickImageBottomSheet.showModalSheet(
                     context: context,
@@ -120,7 +121,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     ),
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 Text(
                   'Select your profile picture',
                   style: TextStyle(
@@ -128,7 +129,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     fontSize: DimenConstant.extraSmall,
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 Center(
                   child: InkWell(
                     onTap: () => PickImageBottomSheet.showModalSheet(
@@ -166,7 +167,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     ),
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 CustomContainer(
                   child: CustomTextField.singleLineForm(
                     context: context,
@@ -181,7 +182,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     },
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 CustomContainer(
                   child: CustomTextField.singleLineForm(
                     context: context,
@@ -199,7 +200,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     },
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 CustomContainer(
                   child: CustomTextField.multiLineForm(
                     context: context,
@@ -214,7 +215,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     },
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 CustomButton.text(
                   text: 'Create Account',
                   onPressed: () async {

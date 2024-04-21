@@ -11,6 +11,7 @@ import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/guest_tile.dart';
 import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:foodies/widgets/settings_tile.dart';
 import 'package:hive/hive.dart';
 
@@ -71,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: DimenConstant.separator,
+              child: Separator(),
             ),
             SliverToBoxAdapter(
               child: Padding(
@@ -97,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             SliverToBoxAdapter(
-              child: DimenConstant.separator,
+              child: Separator(),
             ),
             SliverToBoxAdapter(
               child: Padding(
@@ -120,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SliverVisibility(
               visible: !guest,
               sliver: SliverToBoxAdapter(
-                child: DimenConstant.separator,
+                child: Separator(),
               ),
             ),
             SliverToBoxAdapter(
@@ -144,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SliverVisibility(
               visible: !guest,
               sliver: SliverToBoxAdapter(
-                child: DimenConstant.separator,
+                child: Separator(),
               ),
             ),
             SliverToBoxAdapter(
@@ -160,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             SliverToBoxAdapter(
-              child: DimenConstant.separator,
+              child: Separator(),
             ),
             SliverToBoxAdapter(
               child: Padding(
@@ -205,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                           ),
-                          DimenConstant.separator,
+                          Separator(),
                           InkWell(
                             onTap: () async {
                               try {

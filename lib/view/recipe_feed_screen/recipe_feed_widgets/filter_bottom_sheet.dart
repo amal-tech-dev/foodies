@@ -4,6 +4,7 @@ import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_item.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:provider/provider.dart';
 
 class FilterBottomSheet extends StatefulWidget {
@@ -64,7 +65,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
-                  DimenConstant.separator,
+                  Separator(),
                   SizedBox(
                     height: 32.5,
                     child: ListView.separated(
@@ -77,12 +78,11 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           setState(() {});
                         },
                       ),
-                      separatorBuilder: (context, index) =>
-                          DimenConstant.separator,
+                      separatorBuilder: (context, index) => Separator(),
                       itemCount: widget.diet.length,
                     ),
                   ),
-                  DimenConstant.separator,
+                  Separator(),
                   Text(
                     'Cuisines',
                     style: TextStyle(
@@ -90,7 +90,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
-                  DimenConstant.separator,
+                  Separator(),
                   SizedBox(
                     height: 150,
                     child: MasonryGridView.builder(
@@ -130,7 +130,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       itemCount: widget.cuisines.length + 1,
                     ),
                   ),
-                  DimenConstant.separator,
+                  Separator(),
                   Text(
                     'Categories',
                     style: TextStyle(
@@ -138,7 +138,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       fontSize: DimenConstant.extraSmall,
                     ),
                   ),
-                  DimenConstant.separator,
+                  Separator(),
                   SizedBox(
                     height: 72,
                     child: MasonryGridView.builder(
@@ -182,7 +182,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               ),
             ),
           ),
-          DimenConstant.separator,
+          Separator(),
           Row(
             children: [
               Expanded(
@@ -208,7 +208,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   ),
                 ),
               ),
-              DimenConstant.separator,
+              Separator(),
               Expanded(
                 child: ElevatedButton(
                   style: ButtonStyle(

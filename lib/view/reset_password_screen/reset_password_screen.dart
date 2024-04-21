@@ -5,6 +5,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   ResetPasswordScreen({super.key});
@@ -64,7 +65,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   },
                 ),
               ),
-              DimenConstant.separator,
+              Separator(),
               CustomContainer(
                 child: CustomTextField.singleLineForm(
                   context: context,
@@ -89,7 +90,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   },
                 ),
               ),
-              DimenConstant.separator,
+              Separator(),
               CustomContainer(
                 child: CustomTextField.password(
                   context: context,
@@ -108,7 +109,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   },
                 ),
               ),
-              DimenConstant.separator,
+              Separator(),
               Center(
                 child: CustomButton.text(
                   text: 'Reset',

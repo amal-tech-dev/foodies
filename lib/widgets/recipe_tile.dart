@@ -8,6 +8,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:provider/provider.dart';
 
 class RecipeTile extends StatelessWidget {
@@ -87,7 +88,7 @@ class RecipeTile extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.justify,
                   ),
-                  DimenConstant.separator,
+                  Separator(),
                   Text(
                     (recipe.categories ?? []).join(' · '),
                     style: TextStyle(
@@ -95,11 +96,11 @@ class RecipeTile extends StatelessWidget {
                       fontSize: DimenConstant.nano,
                     ),
                   ),
-                  DimenConstant.separator,
+                  Separator(),
                 ],
               ),
             ),
-            DimenConstant.separator,
+            Separator(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -180,7 +181,7 @@ class RecipeTile extends StatelessWidget {
                 ),
               ],
             ),
-            DimenConstant.separator,
+            Separator(),
           ],
         ),
         Positioned(

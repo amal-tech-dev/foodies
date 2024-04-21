@@ -5,6 +5,7 @@ import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/overview_screen/overview_screen.dart';
 import 'package:foodies/widgets/app_name.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class GetStartedScreen extends StatelessWidget {
   GetStartedScreen({super.key});
@@ -73,7 +74,7 @@ class GetStartedScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              DimenConstant.separator,
+              Separator(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

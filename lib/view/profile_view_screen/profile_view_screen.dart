@@ -13,6 +13,7 @@ import 'package:foodies/view/profile_view_screen/profile_view_widgets/recipe_ima
 import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -275,7 +276,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
               ),
             ),
             SliverToBoxAdapter(
-              child: DimenConstant.separator,
+              child: Separator(),
             ),
             SliverToBoxAdapter(
               child: Row(
@@ -371,7 +372,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
               ),
             ),
             SliverToBoxAdapter(
-              child: DimenConstant.separator,
+              child: Separator(),
             ),
             SliverToBoxAdapter(
               child: Padding(
@@ -403,7 +404,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
               ),
             ),
             SliverToBoxAdapter(
-              child: DimenConstant.separator,
+              child: Separator(),
             ),
             SliverToBoxAdapter(
               child: Padding(

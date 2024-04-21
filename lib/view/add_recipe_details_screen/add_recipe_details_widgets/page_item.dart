@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class PageItem extends StatelessWidget {
   String header;
@@ -44,7 +45,7 @@ class PageItem extends StatelessWidget {
           ),
         ),
         SliverToBoxAdapter(
-          child: DimenConstant.separator,
+          child: Separator(),
         ),
         ...children,
       ],

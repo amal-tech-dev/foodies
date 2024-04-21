@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class DetailsItem extends StatelessWidget {
   String content;
@@ -30,7 +31,7 @@ class DetailsItem extends StatelessWidget {
               radius: 5,
             ),
           ),
-          DimenConstant.separator,
+          Separator(),
           Expanded(
             child: Text(
               content,

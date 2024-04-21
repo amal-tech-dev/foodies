@@ -19,6 +19,7 @@ import 'package:foodies/widgets/custom_scaffold_messenger.dart';
 import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddRecipeDetailsScreen extends StatefulWidget {
@@ -149,7 +150,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: DimenConstant.separator,
+                  child: Separator(),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -191,7 +192,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: DimenConstant.separator,
+                  child: Separator(),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -249,7 +250,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: DimenConstant.separator,
+                  child: Separator(),
                 ),
                 SliverToBoxAdapter(
                   child: CustomContainer(
@@ -310,7 +311,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: DimenConstant.separator,
+                  child: Separator(),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -359,7 +360,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             fontSize: DimenConstant.mini,
                           ),
                         ),
-                        DimenConstant.separator,
+                        Separator(),
                         Expanded(
                           child: ListView.builder(
                             itemBuilder: (context, index) => InkWell(
@@ -402,7 +403,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: DimenConstant.separator,
+                  child: Separator(),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -453,7 +454,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        DimenConstant.separator,
+                        Separator(),
                         Expanded(
                           child: ListView.builder(
                             itemBuilder: (context, index) => InkWell(
@@ -510,7 +511,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: DimenConstant.separator,
+                  child: Separator(),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -554,7 +555,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 SliverToBoxAdapter(
                   child: Visibility(
                     visible: ingredients.isNotEmpty,
-                    child: DimenConstant.separator,
+                    child: Separator(),
                   ),
                 ),
                 SliverList.separated(
@@ -593,7 +594,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                 ),
                               ),
                             ),
-                            DimenConstant.separator,
+                            Separator(),
                             CustomContainer(
                               paddingVertical: DimenConstant.padding * 1.5,
                               paddingHorizontal: DimenConstant.padding * 2.5,
@@ -649,13 +650,13 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             setState(() {});
                           },
                         ),
-                  separatorBuilder: (context, index) => DimenConstant.separator,
+                  separatorBuilder: (context, index) => Separator(),
                   itemCount: ingredients.length + 1,
                 ),
                 SliverToBoxAdapter(
                   child: Visibility(
                     visible: buttonVisibility,
-                    child: DimenConstant.separator,
+                    child: Separator(),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -701,7 +702,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 SliverToBoxAdapter(
                   child: Visibility(
                     visible: steps.isNotEmpty,
-                    child: DimenConstant.separator,
+                    child: Separator(),
                   ),
                 ),
                 SliverList.separated(
@@ -739,7 +740,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                 ),
                               ),
                             ),
-                            DimenConstant.separator,
+                            Separator(),
                             CustomContainer(
                               paddingVertical: DimenConstant.padding * 1.5,
                               paddingHorizontal: DimenConstant.padding * 2.5,
@@ -794,13 +795,13 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             setState(() {});
                           },
                         ),
-                  separatorBuilder: (context, index) => DimenConstant.separator,
+                  separatorBuilder: (context, index) => Separator(),
                   itemCount: steps.length + 1,
                 ),
                 SliverToBoxAdapter(
                   child: Visibility(
                     visible: buttonVisibility,
-                    child: DimenConstant.separator,
+                    child: Separator(),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -858,7 +859,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: DimenConstant.separator,
+                  child: Separator(),
                 ),
                 SliverToBoxAdapter(
                   child: Center(
@@ -872,7 +873,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: DimenConstant.separator,
+                  child: Separator(),
                 ),
                 SliverToBoxAdapter(
                   child: InkWell(
@@ -914,7 +915,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 SliverToBoxAdapter(
                   child: Visibility(
                     visible: buttonVisibility,
-                    child: DimenConstant.separator,
+                    child: Separator(),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -955,7 +956,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               foregroundImage:
                                   image != null ? FileImage(image!) : null,
                             ),
-                            DimenConstant.separator,
+                            Separator(),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -974,14 +975,14 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             ),
                           ],
                         ),
-                        DimenConstant.separator,
+                        Separator(),
                         CustomText(
                           text: recipe.about ?? '',
                           color: ColorConstant.secondaryDark,
                           size: DimenConstant.mini,
                           align: TextAlign.justify,
                         ),
-                        DimenConstant.separator,
+                        Separator(),
                         Row(
                           children: [
                             CircleAvatar(
@@ -990,7 +991,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                   ? ColorConstant.vegSecondary
                                   : ColorConstant.nonVegSecondary,
                             ),
-                            DimenConstant.separator,
+                            Separator(),
                             CustomText(
                               text: 'Vegetarian',
                               color: ColorConstant.secondaryDark,
@@ -998,7 +999,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             ),
                           ],
                         ),
-                        DimenConstant.separator,
+                        Separator(),
                         CustomText(
                           text: 'Categories',
                           color: ColorConstant.primary,
@@ -1009,7 +1010,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                           color: ColorConstant.secondaryDark,
                           size: DimenConstant.mini,
                         ),
-                        DimenConstant.separator,
+                        Separator(),
                         CustomText(
                           text: 'Cooking Time',
                           color: ColorConstant.primary,
@@ -1020,7 +1021,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                           color: ColorConstant.secondaryDark,
                           size: DimenConstant.mini,
                         ),
-                        DimenConstant.separator,
+                        Separator(),
                         CustomText(
                           text: 'Ingredients',
                           color: ColorConstant.primary,
@@ -1040,7 +1041,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                   backgroundColor: ColorConstant.primary,
                                 ),
                               ),
-                              DimenConstant.separator,
+                              Separator(),
                               CustomText(
                                 text: recipe.ingredients![index],
                                 color: ColorConstant.secondaryDark,
@@ -1049,7 +1050,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             ],
                           ),
                         ),
-                        DimenConstant.separator,
+                        Separator(),
                         CustomText(
                           text: 'Steps',
                           color: ColorConstant.primary,
@@ -1069,7 +1070,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                   backgroundColor: ColorConstant.primary,
                                 ),
                               ),
-                              DimenConstant.separator,
+                              Separator(),
                               CustomText(
                                 text: recipe.steps![index],
                                 color: ColorConstant.secondaryDark,
@@ -1083,7 +1084,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: DimenConstant.separator,
+                  child: Separator(),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(

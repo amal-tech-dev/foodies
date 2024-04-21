@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class TimerWidget extends StatelessWidget {
   void Function(int) onHourChanged, onMinuteChanged, onSecondChanged;
@@ -63,7 +64,7 @@ class TimerWidget extends StatelessWidget {
             ],
           ),
         ),
-        DimenConstant.separator,
+        Separator(),
         Text(
           ':',
           style: TextStyle(
@@ -71,7 +72,7 @@ class TimerWidget extends StatelessWidget {
             fontSize: DimenConstant.small,
           ),
         ),
-        DimenConstant.separator,
+        Separator(),
         Expanded(
           child: Stack(
             children: [
@@ -119,7 +120,7 @@ class TimerWidget extends StatelessWidget {
             ],
           ),
         ),
-        DimenConstant.separator,
+        Separator(),
         Text(
           ':',
           style: TextStyle(
@@ -127,7 +128,7 @@ class TimerWidget extends StatelessWidget {
             fontSize: DimenConstant.small,
           ),
         ),
-        DimenConstant.separator,
+        Separator(),
         Expanded(
           child: Stack(
             children: [

@@ -5,11 +5,11 @@ class Assets {
   static const String audioTimerAlert = 'assets/audio/timer_alert.mp3';
   static const String imagesAddRecipe = 'assets/images/add_recipe.png';
   static const String imagesChef = 'assets/images/chef.png';
-  static const String imagesPickImage = 'assets/images/pick_image.png';
   static const String imagesFood = 'assets/images/food.png';
   static const String imagesGetStarted = 'assets/images/get_started.png';
   static const String imagesLogin = 'assets/images/login.png';
   static const String imagesOverview = 'assets/images/overview.png';
+  static const String imagesPickImage = 'assets/images/pick_image.png';
   static const String imagesProfile = 'assets/images/profile.png';
   static const String imagesSignup = 'assets/images/signup.png';
   static const String logoFoodiesLogo = 'assets/logo/foodies_logo.svg';

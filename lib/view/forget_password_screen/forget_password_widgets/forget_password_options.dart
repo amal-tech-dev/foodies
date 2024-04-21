@@ -8,6 +8,7 @@ import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class ForgetPasswordOptions extends StatefulWidget {
   ForgetPasswordOptions({super.key});
@@ -41,7 +42,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
               },
             ),
           ),
-          DimenConstant.separator,
+          Separator(),
           CustomButton.text(
             text: 'Verify',
             onPressed: () async {

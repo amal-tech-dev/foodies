@@ -11,6 +11,7 @@ import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 import 'package:foodies/widgets/app_name.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -61,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ImageConstant.logo,
               height: MediaQuery.of(context).size.width / 3,
             ),
-            DimenConstant.separator,
+            Separator(),
             AppName(
               size: DimenConstant.extraLarge,
             ),

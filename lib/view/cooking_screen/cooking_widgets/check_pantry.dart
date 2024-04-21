@@ -4,6 +4,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_widgets/pantry_item.dart';
 import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class CheckPantry extends StatefulWidget {
   List ingredients;
@@ -38,7 +39,7 @@ class _CheckPantryState extends State<CheckPantry> {
             ),
             textAlign: TextAlign.center,
           ),
-          DimenConstant.separator,
+          Separator(),
           Expanded(
             child: ListView.separated(
               controller: scrollController,
@@ -47,11 +48,11 @@ class _CheckPantryState extends State<CheckPantry> {
                 isChecking: checkingIndex == index ? true : false,
                 isChecked: checkingIndex > index ? true : false,
               ),
-              separatorBuilder: (context, index) => DimenConstant.separator,
+              separatorBuilder: (context, index) => Separator(),
               itemCount: widget.ingredients.length,
             ),
           ),
-          DimenConstant.separator,
+          Separator(),
           CustomButton.text(
             text: checkingIndex == -1
                 ? 'Start'

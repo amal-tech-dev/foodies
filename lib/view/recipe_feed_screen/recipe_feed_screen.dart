@@ -11,6 +11,7 @@ import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/recipe_tile.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:foodies/widgets/shimmer_recipe_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -115,7 +116,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           Provider.of<FilterController>(context).filters.length,
                     ),
                   ),
-                  DimenConstant.separator,
+                  Separator(),
                   InkWell(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
@@ -154,7 +155,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                 ],
               ),
             ),
-            DimenConstant.separator,
+            Separator(),
             CustomContainer(
               width: double.infinity,
               paddingHorizontal: DimenConstant.padding * 2,
@@ -168,7 +169,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                 size: DimenConstant.extraSmall,
               ),
             ),
-            DimenConstant.separator,
+            Separator(),
             Expanded(
               child: RefreshIndicator(
                 color: ColorConstant.primary,

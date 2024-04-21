@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class DimenConstant {
   static const double padding = 10.0;
   static const double borderRadiusSmall = 10.0;
@@ -13,5 +11,4 @@ class DimenConstant {
   static const double extraSmall = 20.0;
   static const double mini = 15.0;
   static const double nano = 10.0;
-  static const Widget separator = SizedBox(height: 10.0, width: 10.0);
 }

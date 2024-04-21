@@ -5,6 +5,7 @@ import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/login_screen/login_widgets/login_options.dart';
 import 'package:foodies/view/signup_screen/signup_screen.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -42,7 +43,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               LoginOptions(),
-              DimenConstant.separator,
+              Separator(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -69,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              DimenConstant.separator,
+              Separator(),
             ],
           ),
         ),

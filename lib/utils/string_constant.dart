@@ -33,7 +33,7 @@ class StringConstant {
       'You have no favourites, add your favourites recipes here for easy access.';
   static const String logoutAlert = 'Do you want to logout?';
   static const String logoutAlertGuest =
-      'You are logged in as guest. Data will be deleted after logging out. ${StringConstant.logoutAlert}';
+      'You are logged in as guest. Data will be deleted after logging out. Do you want to logout?';
   static const String deleteAccount =
       'Your data will be deleted and cannot be recovered. Are you sure to delete your account?';
   static const String addIngredients =

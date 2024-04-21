@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class CarouselItem extends StatelessWidget {
   String title, subtitle;
@@ -27,7 +28,7 @@ class CarouselItem extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          DimenConstant.separator,
+          Separator(),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: DimenConstant.padding * 3,

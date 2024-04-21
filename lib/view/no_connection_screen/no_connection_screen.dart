@@ -8,6 +8,7 @@ import 'package:foodies/utils/lottie_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/loading.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,7 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
               fit: BoxFit.fill,
               width: MediaQuery.of(context).size.width * 0.6,
             ),
-            DimenConstant.separator,
+            Separator(),
             Text(
               'No internet connection',
               style: TextStyle(
@@ -45,7 +46,7 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
                 fontSize: DimenConstant.small,
               ),
             ),
-            DimenConstant.separator,
+            Separator(),
             CustomContainer(
               paddingLeft: DimenConstant.padding * 2.0,
               paddingRight: DimenConstant.padding * 2.0,
@@ -88,7 +89,7 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
                           Icons.refresh_rounded,
                           color: ColorConstant.secondaryDark,
                         ),
-                  DimenConstant.separator,
+                  Separator(),
                   Text(
                     'Retry',
                     style: TextStyle(

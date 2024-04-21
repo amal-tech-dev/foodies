@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class SettingsTile extends StatelessWidget {
   IconData icon;
@@ -32,7 +33,7 @@ class SettingsTile extends StatelessWidget {
             icon,
             color: ColorConstant.secondaryDark,
           ),
-          DimenConstant.separator,
+          Separator(),
           Text(
             header,
             style: TextStyle(

@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class SlidableItem extends StatelessWidget {
   String item;
@@ -35,7 +36,7 @@ class SlidableItem extends StatelessWidget {
               color: ColorConstant.secondaryDark,
             ),
           ),
-          DimenConstant.separator,
+          Separator(),
           CustomContainer(
             backgroundColor: ColorConstant.secondaryDark,
             onPressed: onEditPressed,
@@ -44,14 +45,14 @@ class SlidableItem extends StatelessWidget {
               color: ColorConstant.tertiaryDark,
             ),
           ),
-          DimenConstant.separator
+          Separator()
         ],
       ),
       endActionPane: ActionPane(
         extentRatio: 0.32,
         motion: ScrollMotion(),
         children: [
-          DimenConstant.separator,
+          Separator(),
           CustomContainer(
             backgroundColor: ColorConstant.secondaryDark,
             onPressed: onEditPressed,
@@ -60,7 +61,7 @@ class SlidableItem extends StatelessWidget {
               color: ColorConstant.tertiaryDark,
             ),
           ),
-          DimenConstant.separator,
+          Separator(),
           CustomContainer(
             backgroundColor: ColorConstant.error,
             onPressed: onDeletePressed,

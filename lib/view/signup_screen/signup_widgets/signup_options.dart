@@ -7,6 +7,7 @@ import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:foodies/widgets/loading.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class SignupOptions extends StatefulWidget {
   SignupOptions({super.key});
@@ -42,7 +43,7 @@ class _SignupOptionsState extends State<SignupOptions> {
               return null;
             },
           ),
-          DimenConstant.separator,
+          Separator(),
           CustomContainer(
             child: CustomTextField.password(
               context: context,
@@ -69,7 +70,7 @@ class _SignupOptionsState extends State<SignupOptions> {
               },
             ),
           ),
-          DimenConstant.separator,
+          Separator(),
           CustomButton.text(
             text: 'Sign Up',
             onPressed: () async {

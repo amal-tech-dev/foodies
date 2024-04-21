@@ -5,6 +5,7 @@ import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class ProfileTile extends StatelessWidget {
   String name, username;
@@ -45,7 +46,7 @@ class ProfileTile extends StatelessWidget {
                     ImageConstant.profile,
                   ) as ImageProvider<Object>,
           ),
-          DimenConstant.separator,
+          Separator(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

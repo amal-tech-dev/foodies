@@ -10,6 +10,7 @@ import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/reset_password_screen/reset_password_screen.dart';
 import 'package:foodies/view/update_email_screen/update_email_screen.dart';
 import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:foodies/widgets/settings_tile.dart';
 
 class AccountSettingsScreen extends StatelessWidget {
@@ -57,7 +58,7 @@ class AccountSettingsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            DimenConstant.separator,
+            Separator(),
             SettingsTile(
               icon: Icons.email_outlined,
               header: 'Update Email',
@@ -68,7 +69,7 @@ class AccountSettingsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            DimenConstant.separator,
+            Separator(),
             SettingsTile(
               icon: Icons.password_rounded,
               header: 'Reset Password',
@@ -79,7 +80,7 @@ class AccountSettingsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            DimenConstant.separator,
+            Separator(),
             SettingsTile(
               icon: Icons.delete_outline_rounded,
               header: 'Delete Account',
@@ -116,7 +117,7 @@ class AccountSettingsScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      DimenConstant.separator,
+                      Separator(),
                       InkWell(
                         onTap: () async {
                           Navigator.pushAndRemoveUntil(

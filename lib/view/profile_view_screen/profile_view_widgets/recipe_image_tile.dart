@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class RecipeImageTile extends StatefulWidget {
   String id;
@@ -54,7 +55,7 @@ class _RecipeImageTileState extends State<RecipeImageTile> {
                   image!,
                 ) as ImageProvider<Object>,
         ),
-        DimenConstant.separator,
+        Separator(),
         Text(
           name ?? '',
           style: TextStyle(

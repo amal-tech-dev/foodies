@@ -12,6 +12,7 @@ import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -206,7 +207,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     ),
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 Row(
                   children: [
                     InkWell(
@@ -240,7 +241,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                             : FileImage(profile!) as ImageProvider<Object>,
                       ),
                     ),
-                    DimenConstant.separator,
+                    Separator(),
                     Expanded(
                       child: CustomContainer(
                         child: CustomTextField.singleLineForm(
@@ -259,7 +260,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     ),
                   ],
                 ),
-                DimenConstant.separator,
+                Separator(),
                 CustomContainer(
                   child: CustomTextField.singleLineForm(
                     context: context,
@@ -279,7 +280,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     },
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 CustomContainer(
                   child: CustomTextField.multiLineForm(
                     context: context,
@@ -294,7 +295,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     },
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 CustomButton.text(
                   text: 'Save',
                   onPressed: () async {

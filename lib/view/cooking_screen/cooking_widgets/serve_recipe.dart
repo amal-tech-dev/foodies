@@ -4,6 +4,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/separator.dart';
 
 class ServeRecipe extends StatelessWidget {
   String name, image;
@@ -27,7 +28,7 @@ class ServeRecipe extends StatelessWidget {
               radius: 100,
               backgroundImage: NetworkImage(image),
             ),
-            DimenConstant.separator,
+            Separator(),
             Text(
               name,
               style: TextStyle(

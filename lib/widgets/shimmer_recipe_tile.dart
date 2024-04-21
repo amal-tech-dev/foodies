@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/separator.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerRecipeTile extends StatelessWidget {
@@ -37,29 +38,20 @@ class ShimmerRecipeTile extends StatelessWidget {
                     ),
                   ),
                 ),
-                DimenConstant.separator,
+                Separator(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(
-                      Icons.favorite_rounded,
-                      color: ColorConstant.secondaryDark,
-                    ),
-                    Icon(
-                      Icons.visibility_rounded,
-                      color: ColorConstant.secondaryDark,
-                    ),
+                    Icon(Icons.favorite_rounded),
+                    Icon(Icons.visibility_rounded),
                     FaIcon(
                       FontAwesomeIcons.share,
-                      color: ColorConstant.secondaryDark,
                       size: 18,
                     ),
-                    Icon(
-                      Icons.bookmark_rounded,
-                    ),
+                    Icon(Icons.bookmark_rounded),
                   ],
                 ),
-                DimenConstant.separator,
+                Separator(),
               ],
             ),
           ),
