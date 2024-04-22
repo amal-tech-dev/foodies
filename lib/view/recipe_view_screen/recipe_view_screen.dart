@@ -203,7 +203,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           )
                         ],
                       ),
-                      username != StringConstant.appName.toLowerCase()
+                      username == StringConstant.appName.toLowerCase()
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -283,13 +283,32 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               padding: const EdgeInsets.symmetric(
                 horizontal: DimenConstant.padding,
               ),
-              child: Text(
-                recipe.about ?? '',
-                style: TextStyle(
-                  color: ColorConstant.secondaryDark,
-                  fontSize: DimenConstant.extraSmall,
-                ),
-                textAlign: TextAlign.justify,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      recipe.about ?? '',
+                      style: TextStyle(
+                        color: ColorConstant.secondaryDark,
+                        fontSize: DimenConstant.extraSmall,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  Separator(visible: editing),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: DimenConstant.padding,
+                    ),
+                    child: CustomIcon(
+                      icon: Icons.edit_outlined,
+                      visible: editing,
+                      color: ColorConstant.primary,
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -302,20 +321,31 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 horizontal: DimenConstant.padding,
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircleAvatar(
-                    backgroundColor: recipe.veg ?? true
-                        ? ColorConstant.vegSecondary
-                        : ColorConstant.nonVegSecondary,
-                    radius: 10,
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: recipe.veg ?? true
+                            ? ColorConstant.vegSecondary
+                            : ColorConstant.nonVegSecondary,
+                        radius: 10,
+                      ),
+                      Separator(),
+                      Text(
+                        recipe.veg ?? true ? 'Vegetarian' : 'Non-Vegetarian',
+                        style: TextStyle(
+                          color: ColorConstant.secondaryDark,
+                          fontSize: DimenConstant.extraSmall,
+                        ),
+                      ),
+                    ],
                   ),
-                  Separator(),
-                  Text(
-                    recipe.veg ?? true ? 'Vegetarian' : 'Non-Vegetarian',
-                    style: TextStyle(
-                      color: ColorConstant.secondaryDark,
-                      fontSize: DimenConstant.extraSmall,
-                    ),
+                  CustomIcon(
+                    icon: Icons.edit_outlined,
+                    visible: editing,
+                    color: ColorConstant.primary,
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -343,10 +373,21 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               padding: const EdgeInsets.symmetric(
                 horizontal: DimenConstant.padding,
               ),
-              child: CustomText(
-                text: recipe.cuisine ?? '',
-                color: ColorConstant.secondaryDark,
-                size: DimenConstant.extraSmall,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(
+                    text: recipe.cuisine ?? '',
+                    color: ColorConstant.secondaryDark,
+                    size: DimenConstant.extraSmall,
+                  ),
+                  CustomIcon(
+                    icon: Icons.edit_outlined,
+                    visible: editing,
+                    color: ColorConstant.primary,
+                    onPressed: () {},
+                  ),
+                ],
               ),
             ),
           ),
@@ -372,10 +413,21 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               padding: const EdgeInsets.symmetric(
                 horizontal: DimenConstant.padding,
               ),
-              child: CustomText(
-                text: (recipe.categories ?? []).join(', '),
-                color: ColorConstant.secondaryDark,
-                size: DimenConstant.extraSmall,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(
+                    text: (recipe.categories ?? []).join(', '),
+                    color: ColorConstant.secondaryDark,
+                    size: DimenConstant.extraSmall,
+                  ),
+                  CustomIcon(
+                    icon: Icons.edit_outlined,
+                    visible: editing,
+                    color: ColorConstant.primary,
+                    onPressed: () {},
+                  ),
+                ],
               ),
             ),
           ),
@@ -401,10 +453,21 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               padding: const EdgeInsets.symmetric(
                 horizontal: DimenConstant.padding,
               ),
-              child: CustomText(
-                text: recipe.time ?? '',
-                color: ColorConstant.secondaryDark,
-                size: DimenConstant.extraSmall,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(
+                    text: recipe.time ?? '',
+                    color: ColorConstant.secondaryDark,
+                    size: DimenConstant.extraSmall,
+                  ),
+                  CustomIcon(
+                    icon: Icons.edit_outlined,
+                    visible: editing,
+                    color: ColorConstant.primary,
+                    onPressed: () {},
+                  ),
+                ],
               ),
             ),
           ),
@@ -426,8 +489,27 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ),
           ),
           SliverList.separated(
-            itemBuilder: (context, index) => DetailsItem(
-              content: recipe.ingredients?[index] ?? '',
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: DimenConstant.padding,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: DetailsItem(
+                      content: recipe.ingredients?[index] ?? '',
+                    ),
+                  ),
+                  Separator(),
+                  CustomIcon(
+                    icon: Icons.edit_outlined,
+                    visible: editing,
+                    color: ColorConstant.primary,
+                    size: 20,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
             separatorBuilder: (context, index) => Separator(),
             itemCount: recipe.ingredients?.length ?? 0,
@@ -450,14 +532,39 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ),
           ),
           SliverList.separated(
-            itemBuilder: (context, index) => DetailsItem(
-              content: recipe.steps?[index] ?? '',
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: DimenConstant.padding,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: DetailsItem(
+                      content: recipe.steps?[index] ?? '',
+                    ),
+                  ),
+                  Separator(),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: DimenConstant.padding,
+                    ),
+                    child: CustomIcon(
+                      icon: Icons.edit_outlined,
+                      visible: editing,
+                      color: ColorConstant.primary,
+                      size: 20,
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
             ),
             separatorBuilder: (context, index) => Separator(),
             itemCount: recipe.steps?.length ?? 0,
           ),
           SliverToBoxAdapter(
-            child: SizedBox(
+            child: Separator(
               height: 100,
             ),
           ),

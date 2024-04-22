@@ -15,35 +15,30 @@ class DetailsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: DimenConstant.padding,
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: (DimenConstant.extraSmall / 2) - 2.5,
-            ),
-            child: CircleAvatar(
-              backgroundColor: ColorConstant.primary,
-              radius: 5,
-            ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            top: (DimenConstant.extraSmall / 2) - 2.5,
           ),
-          Separator(),
-          Expanded(
-            child: Text(
-              content,
-              style: TextStyle(
-                color: ColorConstant.secondaryDark,
-                fontSize: DimenConstant.extraSmall,
-              ),
-              textAlign: align ?? TextAlign.justify,
-            ),
+          child: CircleAvatar(
+            backgroundColor: ColorConstant.primary,
+            radius: 5,
           ),
-        ],
-      ),
+        ),
+        Separator(),
+        Expanded(
+          child: Text(
+            content,
+            style: TextStyle(
+              color: ColorConstant.secondaryDark,
+              fontSize: DimenConstant.extraSmall,
+            ),
+            textAlign: align ?? TextAlign.justify,
+          ),
+        ),
+      ],
     );
   }
 }
