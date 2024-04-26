@@ -157,7 +157,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
           'Edit Account',
           style: TextStyle(
             color: ColorConstant.secondaryDark,
-            fontSize: DimenConstant.small,
+            fontSize: DimenConstant.mText,
           ),
         ),
       ),

@@ -62,7 +62,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     'Diet',
                     style: TextStyle(
                       color: ColorConstant.primary,
-                      fontSize: DimenConstant.extraSmall,
+                      fontSize: DimenConstant.sText,
                     ),
                   ),
                   Separator(),
@@ -87,7 +87,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     'Cuisines',
                     style: TextStyle(
                       color: ColorConstant.primary,
-                      fontSize: DimenConstant.extraSmall,
+                      fontSize: DimenConstant.sText,
                     ),
                   ),
                   Separator(),
@@ -135,7 +135,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     'Categories',
                     style: TextStyle(
                       color: ColorConstant.primary,
-                      fontSize: DimenConstant.extraSmall,
+                      fontSize: DimenConstant.sText,
                     ),
                   ),
                   Separator(),

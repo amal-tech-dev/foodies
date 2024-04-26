@@ -37,7 +37,7 @@ class PickImageBottomSheet {
                         'Camera',
                         style: TextStyle(
                           color: ColorConstant.primary,
-                          fontSize: DimenConstant.extraSmall,
+                          fontSize: DimenConstant.sText,
                         ),
                       ),
                     ],
@@ -59,7 +59,7 @@ class PickImageBottomSheet {
                         'Gallery',
                         style: TextStyle(
                           color: ColorConstant.primary,
-                          fontSize: DimenConstant.extraSmall,
+                          fontSize: DimenConstant.sText,
                         ),
                       ),
                     ],
@@ -81,7 +81,7 @@ class PickImageBottomSheet {
                         'Remove',
                         style: TextStyle(
                           color: ColorConstant.primary,
-                          fontSize: DimenConstant.extraSmall,
+                          fontSize: DimenConstant.sText,
                         ),
                       ),
                     ],

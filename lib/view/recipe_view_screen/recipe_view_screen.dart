@@ -33,13 +33,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   User user = FirebaseAuth.instance.currentUser!;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   RecipeModel recipe = RecipeModel();
+  RecipeModel editingRecipe = RecipeModel();
   String username = '';
   bool expanded = false, editing = false;
   ScrollController controller = ScrollController();
-
+  ValueNotifier<bool> dietSwitchController = ValueNotifier<bool>(false);
   @override
   void initState() {
     getData();
+    dietSwitchController = ValueNotifier<bool>(recipe.veg ?? false);
     controller.addListener(() {
       setState(() {
         expanded = controller.hasClients && controller.offset > 0;
@@ -54,6 +56,8 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
         firestore.collection('recipes').doc(widget.id);
     DocumentSnapshot snapshot = await reference.get();
     recipe = RecipeModel.fromJson(snapshot.data() as Map<String, dynamic>);
+    editingRecipe =
+        RecipeModel.fromJson(snapshot.data() as Map<String, dynamic>);
     getChef();
     setState(() {});
   }
@@ -107,7 +111,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       recipe.name ?? '',
                       style: TextStyle(
                         color: ColorConstant.secondaryDark,
-                        fontSize: DimenConstant.extraSmall,
+                        fontSize: DimenConstant.sText,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -191,7 +195,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                             recipe.name ?? '',
                             style: TextStyle(
                               color: ColorConstant.secondaryDark,
-                              fontSize: DimenConstant.medium,
+                              fontSize: DimenConstant.lText,
                             ),
                           ),
                           Separator(visible: editing),
@@ -208,12 +212,12 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 AppName(
-                                  size: DimenConstant.extraSmall,
+                                  size: DimenConstant.sText,
                                 ),
                                 CustomText(
                                   text: ' original recipe',
                                   color: ColorConstant.secondaryDark,
-                                  size: DimenConstant.extraSmall,
+                                  size: DimenConstant.sText,
                                   font: StringConstant.font,
                                 )
                               ],
@@ -224,7 +228,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                 CustomText(
                                   text: '@${username}',
                                   color: ColorConstant.primary,
-                                  size: DimenConstant.extraSmall,
+                                  size: DimenConstant.sText,
                                   font: StringConstant.font,
                                   onPressed: () => CustomNavigator.push(
                                     context: context,
@@ -236,7 +240,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                 CustomText(
                                   text: ' recipe',
                                   color: ColorConstant.secondaryDark,
-                                  size: DimenConstant.extraSmall,
+                                  size: DimenConstant.sText,
                                   font: StringConstant.font,
                                 ),
                               ],
@@ -291,7 +295,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       recipe.about ?? '',
                       style: TextStyle(
                         color: ColorConstant.secondaryDark,
-                        fontSize: DimenConstant.extraSmall,
+                        fontSize: DimenConstant.sText,
                       ),
                       textAlign: TextAlign.justify,
                     ),
@@ -321,31 +325,29 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 horizontal: DimenConstant.padding,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: recipe.veg ?? true
-                            ? ColorConstant.vegSecondary
-                            : ColorConstant.nonVegSecondary,
-                        radius: 10,
-                      ),
-                      Separator(),
-                      Text(
-                        recipe.veg ?? true ? 'Vegetarian' : 'Non-Vegetarian',
-                        style: TextStyle(
-                          color: ColorConstant.secondaryDark,
-                          fontSize: DimenConstant.extraSmall,
-                        ),
-                      ),
-                    ],
+                  Visibility(
+                    visible: editing || (recipe.veg ?? false),
+                    child: CircleAvatar(
+                      backgroundColor: ColorConstant.vegSecondary,
+                      radius: 10,
+                    ),
                   ),
-                  CustomIcon(
-                    icon: Icons.edit_outlined,
-                    visible: editing,
-                    color: ColorConstant.primary,
-                    onPressed: () {},
+                  Separator(visible: editing || (recipe.veg ?? false)),
+                  Visibility(
+                    visible: editing || !(recipe.veg ?? true),
+                    child: CircleAvatar(
+                      backgroundColor: ColorConstant.nonVegSecondary,
+                      radius: 10,
+                    ),
+                  ),
+                  Separator(visible: editing || !(recipe.veg ?? true)),
+                  Text(
+                    recipe.veg ?? true ? 'Vegetarian' : 'Non-Vegetarian',
+                    style: TextStyle(
+                      color: ColorConstant.secondaryDark,
+                      fontSize: DimenConstant.sText,
+                    ),
                   ),
                 ],
               ),
@@ -363,7 +365,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 'Cuisine',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.small,
+                  fontSize: DimenConstant.mText,
                 ),
               ),
             ),
@@ -379,7 +381,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                   CustomText(
                     text: recipe.cuisine ?? '',
                     color: ColorConstant.secondaryDark,
-                    size: DimenConstant.extraSmall,
+                    size: DimenConstant.sText,
                   ),
                   CustomIcon(
                     icon: Icons.edit_outlined,
@@ -403,7 +405,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 'Categories',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.small,
+                  fontSize: DimenConstant.mText,
                 ),
               ),
             ),
@@ -416,11 +418,14 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomText(
-                    text: (recipe.categories ?? []).join(', '),
-                    color: ColorConstant.secondaryDark,
-                    size: DimenConstant.extraSmall,
+                  Expanded(
+                    child: CustomText(
+                      text: (recipe.categories ?? []).join(', '),
+                      color: ColorConstant.secondaryDark,
+                      size: DimenConstant.sText,
+                    ),
                   ),
+                  Separator(),
                   CustomIcon(
                     icon: Icons.edit_outlined,
                     visible: editing,
@@ -443,7 +448,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 'Cooking Time',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.small,
+                  fontSize: DimenConstant.mText,
                 ),
               ),
             ),
@@ -459,7 +464,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                   CustomText(
                     text: recipe.time ?? '',
                     color: ColorConstant.secondaryDark,
-                    size: DimenConstant.extraSmall,
+                    size: DimenConstant.sText,
                   ),
                   CustomIcon(
                     icon: Icons.edit_outlined,
@@ -483,7 +488,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 'Ingredients',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.small,
+                  fontSize: DimenConstant.mText,
                 ),
               ),
             ),
@@ -526,7 +531,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 'Steps',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.small,
+                  fontSize: DimenConstant.mText,
                 ),
               ),
             ),
@@ -585,7 +590,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
           'Start Cooking',
           style: TextStyle(
             color: ColorConstant.tertiaryDark,
-            fontSize: DimenConstant.mini,
+            fontSize: DimenConstant.xsText,
           ),
         ),
         onPressed: () => Navigator.push(

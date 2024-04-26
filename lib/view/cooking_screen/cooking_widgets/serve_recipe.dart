@@ -33,7 +33,7 @@ class ServeRecipe extends StatelessWidget {
               name,
               style: TextStyle(
                 color: ColorConstant.secondaryDark,
-                fontSize: DimenConstant.large,
+                fontSize: DimenConstant.xlText,
               ),
               textAlign: TextAlign.center,
             ),
@@ -41,7 +41,7 @@ class ServeRecipe extends StatelessWidget {
               StringConstant.serveRecipe,
               style: TextStyle(
                 color: ColorConstant.primary,
-                fontSize: DimenConstant.small,
+                fontSize: DimenConstant.mText,
               ),
               textAlign: TextAlign.center,
             ),

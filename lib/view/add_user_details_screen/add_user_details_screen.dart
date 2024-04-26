@@ -49,7 +49,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
           'Complete your profile',
           style: TextStyle(
             color: ColorConstant.secondaryDark,
-            fontSize: DimenConstant.small,
+            fontSize: DimenConstant.mText,
           ),
         ),
         actions: [
@@ -77,7 +77,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   'Select a cover image',
                   style: TextStyle(
                     color: ColorConstant.primary,
-                    fontSize: DimenConstant.extraSmall,
+                    fontSize: DimenConstant.sText,
                   ),
                 ),
                 Separator(),
@@ -126,7 +126,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   'Select your profile picture',
                   style: TextStyle(
                     color: ColorConstant.primary,
-                    fontSize: DimenConstant.extraSmall,
+                    fontSize: DimenConstant.sText,
                   ),
                 ),
                 Separator(),

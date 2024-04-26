@@ -65,7 +65,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                     'Unable to login',
                     style: TextStyle(
                       color: ColorConstant.secondaryDark,
-                      fontSize: DimenConstant.mini,
+                      fontSize: DimenConstant.xsText,
                     ),
                   ),
                 ),
@@ -84,7 +84,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                     'Continue as Guest',
                     style: TextStyle(
                       color: ColorConstant.secondaryDark,
-                      fontSize: DimenConstant.extraSmall,
+                      fontSize: DimenConstant.sText,
                     ),
                   ),
                 ),
@@ -140,7 +140,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                     'Unable to login',
                     style: TextStyle(
                       color: ColorConstant.secondaryDark,
-                      fontSize: DimenConstant.mini,
+                      fontSize: DimenConstant.xsText,
                     ),
                   ),
                 ),
@@ -159,7 +159,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                     'Continue with Google',
                     style: TextStyle(
                       color: ColorConstant.secondaryDark,
-                      fontSize: DimenConstant.extraSmall,
+                      fontSize: DimenConstant.sText,
                     ),
                   ),
                 ),
@@ -189,7 +189,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                     'Continue with Email',
                     style: TextStyle(
                       color: ColorConstant.secondaryDark,
-                      fontSize: DimenConstant.extraSmall,
+                      fontSize: DimenConstant.sText,
                     ),
                   ),
                 ),
@@ -296,7 +296,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                                 'Invalid user or password',
                                 style: TextStyle(
                                   color: ColorConstant.secondaryDark,
-                                  fontSize: DimenConstant.mini,
+                                  fontSize: DimenConstant.xsText,
                                 ),
                               ),
                             ),

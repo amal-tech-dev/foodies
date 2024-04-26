@@ -53,7 +53,7 @@ class CustomButton {
             text,
             style: TextStyle(
               color: textColor ?? ColorConstant.tertiaryDark,
-              fontSize: textSize ?? DimenConstant.mini,
+              fontSize: textSize ?? DimenConstant.xsText,
             ),
           ),
         ),

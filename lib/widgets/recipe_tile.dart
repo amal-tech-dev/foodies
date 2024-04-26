@@ -62,7 +62,7 @@ class RecipeTile extends StatelessWidget {
                           recipe.name ?? '',
                           style: TextStyle(
                             color: ColorConstant.secondaryDark,
-                            fontSize: DimenConstant.extraSmall,
+                            fontSize: DimenConstant.sText,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -71,7 +71,7 @@ class RecipeTile extends StatelessWidget {
                           recipe.cuisine ?? '',
                           style: TextStyle(
                             color: ColorConstant.secondaryDark,
-                            fontSize: DimenConstant.mini,
+                            fontSize: DimenConstant.xsText,
                           ),
                           maxLines: 2,
                         ),
@@ -82,7 +82,7 @@ class RecipeTile extends StatelessWidget {
                     recipe.about ?? '',
                     style: TextStyle(
                       color: ColorConstant.secondaryDark,
-                      fontSize: DimenConstant.mini,
+                      fontSize: DimenConstant.xsText,
                     ),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -93,7 +93,7 @@ class RecipeTile extends StatelessWidget {
                     (recipe.categories ?? []).join(' · '),
                     style: TextStyle(
                       color: ColorConstant.secondaryDark,
-                      fontSize: DimenConstant.nano,
+                      fontSize: DimenConstant.xxsText,
                     ),
                   ),
                   Separator(),

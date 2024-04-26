@@ -82,7 +82,7 @@ class SlidableItem extends StatelessWidget {
           item,
           style: TextStyle(
             color: ColorConstant.secondaryDark,
-            fontSize: DimenConstant.mini,
+            fontSize: DimenConstant.xsText,
           ),
           textAlign: TextAlign.justify,
         ),

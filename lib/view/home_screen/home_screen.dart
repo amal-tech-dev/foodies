@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: AppName(
-          size: DimenConstant.small,
+          size: DimenConstant.mText,
         ),
       ),
       body: Provider.of<ConnectivityController>(context).connected
@@ -65,8 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: pageIndex,
           selectedItemColor: ColorConstant.primary,
           unselectedItemColor: ColorConstant.secondaryDark,
-          selectedFontSize: DimenConstant.mini,
-          unselectedFontSize: DimenConstant.mini,
+          selectedFontSize: DimenConstant.xsText,
+          unselectedFontSize: DimenConstant.xsText,
           backgroundColor: ColorConstant.backgroundDark,
           type: BottomNavigationBarType.fixed,
           landscapeLayout: BottomNavigationBarLandscapeLayout.centered,

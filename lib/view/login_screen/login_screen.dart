@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                   StringConstant.login,
                   style: TextStyle(
                     color: ColorConstant.secondaryDark,
-                    fontSize: DimenConstant.large,
+                    fontSize: DimenConstant.xlText,
                   ),
                 ),
               ),

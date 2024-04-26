@@ -61,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     StringConstant.search,
                     style: TextStyle(
                       color: ColorConstant.primary,
-                      fontSize: DimenConstant.extraSmall,
+                      fontSize: DimenConstant.sText,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -94,7 +94,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       StringConstant.noResults,
                       style: TextStyle(
                         color: ColorConstant.primary,
-                        fontSize: DimenConstant.extraSmall,
+                        fontSize: DimenConstant.sText,
                       ),
                       textAlign: TextAlign.center,
                     ),

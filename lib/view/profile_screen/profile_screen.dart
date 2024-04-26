@@ -182,7 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           'Are you leaving?',
                           style: TextStyle(
                             color: ColorConstant.secondaryDark,
-                            fontSize: DimenConstant.small,
+                            fontSize: DimenConstant.mText,
                           ),
                         ),
                         content: Text(
@@ -191,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               : StringConstant.logoutAlert,
                           style: TextStyle(
                             color: ColorConstant.primary,
-                            fontSize: DimenConstant.mini,
+                            fontSize: DimenConstant.xsText,
                           ),
                           textAlign: TextAlign.justify,
                         ),
@@ -202,7 +202,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               'Cancel',
                               style: TextStyle(
                                 color: ColorConstant.secondaryDark,
-                                fontSize: DimenConstant.mini,
+                                fontSize: DimenConstant.xsText,
                               ),
                             ),
                           ),
@@ -234,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       'Unable to logout',
                                       style: TextStyle(
                                         color: ColorConstant.secondaryDark,
-                                        fontSize: DimenConstant.mini,
+                                        fontSize: DimenConstant.xsText,
                                       ),
                                     ),
                                   ),
@@ -245,7 +245,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               'Leave',
                               style: TextStyle(
                                 color: ColorConstant.error,
-                                fontSize: DimenConstant.mini,
+                                fontSize: DimenConstant.xsText,
                               ),
                             ),
                           ),

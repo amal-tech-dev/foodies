@@ -10,7 +10,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await Hive.initFlutter();
   await Alarm.init();
+  await Hive.initFlutter();
   runApp(Foodies());
 }

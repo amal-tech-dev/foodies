@@ -45,7 +45,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   StringConstant.forgetPassword,
                   style: TextStyle(
                     color: ColorConstant.secondaryDark,
-                    fontSize: DimenConstant.medium,
+                    fontSize: DimenConstant.lText,
                   ),
                   textAlign: TextAlign.center,
                 ),

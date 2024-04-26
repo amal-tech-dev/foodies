@@ -71,8 +71,8 @@ class _CounterState extends State<Counter> {
               textStyle: TextStyle(
                 color: ColorConstant.secondaryDark,
                 fontSize: widget.header != null
-                    ? DimenConstant.extraSmall
-                    : DimenConstant.mini,
+                    ? DimenConstant.sText
+                    : DimenConstant.xsText,
               ),
             ),
             Text(
@@ -80,8 +80,8 @@ class _CounterState extends State<Counter> {
               style: TextStyle(
                 color: ColorConstant.secondaryDark,
                 fontSize: widget.header != null
-                    ? DimenConstant.extraSmall
-                    : DimenConstant.mini,
+                    ? DimenConstant.sText
+                    : DimenConstant.xsText,
               ),
             ),
           ],
@@ -92,7 +92,7 @@ class _CounterState extends State<Counter> {
             widget.header ?? '',
             style: TextStyle(
               color: ColorConstant.secondaryDark,
-              fontSize: DimenConstant.mini,
+              fontSize: DimenConstant.xsText,
             ),
           ),
         ),

@@ -64,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             Separator(),
             AppName(
-              size: DimenConstant.extraLarge,
+              size: DimenConstant.xxlText,
             ),
           ],
         ),

@@ -7,14 +7,15 @@ environment:
   sdk: '>=3.2.1 <4.0.0'
 
 dependencies:
-  alarm: ^3.0.14
+  alarm: ^3.1.2
   animated_flip_counter: ^0.3.4
   carousel_slider: ^4.2.1
-  cloud_firestore: ^4.16.0
-  connectivity_plus: ^6.0.1
-  firebase_auth: ^4.19.0
-  firebase_core: ^2.28.0
-  firebase_storage: ^11.7.0
+  cloud_firestore: ^4.17.2
+  connectivity_plus: ^6.0.3
+  flutter_advanced_switch: ^3.1.0
+  firebase_auth: ^4.19.4
+  firebase_core: ^2.30.1
+  firebase_storage: ^11.7.4
   flutter:
     sdk: flutter
   flutter_slidable: ^3.1.0
@@ -26,12 +27,12 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   image_cropper: ^5.0.1
-  image_picker: ^1.0.7
+  image_picker: ^1.1.0
   lottie: ^3.1.0
   permission_handler: ^11.3.1
   provider: ^6.1.2
-  share_plus: ^8.0.2
-  shared_preferences: ^2.2.2
+  share_plus: ^9.0.0
+  shared_preferences: ^2.2.3
   shimmer: ^3.0.0
   smooth_page_indicator: ^1.1.0
 

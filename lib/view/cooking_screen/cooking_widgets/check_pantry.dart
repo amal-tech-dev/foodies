@@ -35,7 +35,7 @@ class _CheckPantryState extends State<CheckPantry> {
             StringConstant.cookingPantry,
             style: TextStyle(
               color: ColorConstant.primary,
-              fontSize: DimenConstant.small,
+              fontSize: DimenConstant.mText,
             ),
             textAlign: TextAlign.center,
           ),

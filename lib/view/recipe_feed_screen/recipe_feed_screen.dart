@@ -146,7 +146,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                           'Filters',
                           style: TextStyle(
                             color: ColorConstant.primary,
-                            fontSize: DimenConstant.mini,
+                            fontSize: DimenConstant.xsText,
                           ),
                         ),
                       ],
@@ -166,7 +166,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
               child: CustomText(
                 text: 'Search',
                 color: ColorConstant.secondaryDark.withOpacity(0.5),
-                size: DimenConstant.extraSmall,
+                size: DimenConstant.sText,
               ),
             ),
             Separator(),

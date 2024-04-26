@@ -108,7 +108,7 @@ class _SignupOptionsState extends State<SignupOptions> {
                           'The password provided is too weak.',
                           style: TextStyle(
                             color: ColorConstant.secondaryDark,
-                            fontSize: DimenConstant.mini,
+                            fontSize: DimenConstant.xsText,
                           ),
                         ),
                       ),
@@ -125,7 +125,7 @@ class _SignupOptionsState extends State<SignupOptions> {
                           'The account already exists for that email.',
                           style: TextStyle(
                             color: ColorConstant.secondaryDark,
-                            fontSize: DimenConstant.mini,
+                            fontSize: DimenConstant.xsText,
                           ),
                         ),
                       ),

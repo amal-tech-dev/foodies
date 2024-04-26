@@ -68,7 +68,7 @@ class _CookingScreenState extends State<CookingScreen> {
           titles[index],
           style: TextStyle(
             color: ColorConstant.secondaryDark,
-            fontSize: DimenConstant.small,
+            fontSize: DimenConstant.mText,
           ),
         ),
       ),

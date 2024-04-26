@@ -57,11 +57,11 @@ class ProfileTile extends StatelessWidget {
                           name,
                           style: TextStyle(
                             color: ColorConstant.secondaryDark,
-                            fontSize: DimenConstant.medium,
+                            fontSize: DimenConstant.lText,
                           ),
                         )
                       : AppName(
-                          size: DimenConstant.medium,
+                          size: DimenConstant.lText,
                         ),
                   SizedBox(
                     width: 5,
@@ -79,7 +79,7 @@ class ProfileTile extends StatelessWidget {
                 '@${username}',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.extraSmall,
+                  fontSize: DimenConstant.sText,
                   fontFamily: StringConstant.font,
                 ),
               ),

@@ -43,7 +43,7 @@ class SignupScreen extends StatelessWidget {
                   StringConstant.signup,
                   style: TextStyle(
                     color: ColorConstant.secondaryDark,
-                    fontSize: DimenConstant.medium,
+                    fontSize: DimenConstant.lText,
                   ),
                 ),
               ),
