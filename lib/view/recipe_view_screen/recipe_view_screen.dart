@@ -12,10 +12,12 @@ import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item
 import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_circle_avatar.dart';
 import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_icon.dart';
 import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_text.dart';
+import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:foodies/widgets/separator.dart';
 
 class RecipeViewScreen extends StatefulWidget {
@@ -33,11 +35,12 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   User user = FirebaseAuth.instance.currentUser!;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   RecipeModel recipe = RecipeModel();
-  RecipeModel editingRecipe = RecipeModel();
+  RecipeModel editedRecipe = RecipeModel();
   String username = '';
   bool expanded = false, editing = false;
   ScrollController controller = ScrollController();
   ValueNotifier<bool> dietSwitchController = ValueNotifier<bool>(false);
+
   @override
   void initState() {
     getData();
@@ -56,7 +59,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
         firestore.collection('recipes').doc(widget.id);
     DocumentSnapshot snapshot = await reference.get();
     recipe = RecipeModel.fromJson(snapshot.data() as Map<String, dynamic>);
-    editingRecipe =
+    editedRecipe =
         RecipeModel.fromJson(snapshot.data() as Map<String, dynamic>);
     getChef();
     setState(() {});
@@ -70,6 +73,65 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     username = data['username'] ?? '';
     setState(() {});
+  }
+
+  // show editing dialog
+  String showEditDialog(String? content) {
+    String newContent = '';
+    TextEditingController controller = TextEditingController(text: content);
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: ColorConstant.backgroundDark,
+        child: CustomContainer(
+          padding: DimenConstant.padding,
+          backgroundColor: ColorConstant.backgroundDark,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomText(
+                text: 'Edit',
+                color: ColorConstant.primary,
+                size: DimenConstant.sText,
+              ),
+              Separator(),
+              CustomContainer(
+                paddingVertical: 0,
+                child: CustomTextField.singleLine(
+                  context: context,
+                  hint: 'Edit',
+                  controller: controller,
+                  limit: 20,
+                  onSubmitted: () {},
+                ),
+              ),
+              Separator(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomButton.text(
+                    text: 'Cancel',
+                    textColor: ColorConstant.secondaryDark,
+                    background: Colors.transparent,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  CustomButton.text(
+                    text: 'Save',
+                    textColor: ColorConstant.primary,
+                    background: Colors.transparent,
+                    onPressed: () {
+                      newContent = controller.text.trim();
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    return newContent;
   }
 
   @override
@@ -203,7 +265,11 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                             icon: Icons.edit_outlined,
                             visible: editing,
                             color: ColorConstant.primary,
-                            onPressed: () {},
+                            onPressed: () {
+                              editedRecipe.name =
+                                  showEditDialog(editedRecipe.name);
+                              setState(() {});
+                            },
                           )
                         ],
                       ),
@@ -309,7 +375,6 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       icon: Icons.edit_outlined,
                       visible: editing,
                       color: ColorConstant.primary,
-                      onPressed: () {},
                     ),
                   ),
                 ],
@@ -326,28 +391,52 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               ),
               child: Row(
                 children: [
-                  Visibility(
+                  CustomCircleAvatar(
+                    radius: 10,
                     visible: editing || (recipe.veg ?? false),
-                    child: CircleAvatar(
-                      backgroundColor: ColorConstant.vegSecondary,
-                      radius: 10,
-                    ),
+                    color: ColorConstant.vegSecondary,
+                    onPressed: () {
+                      editedRecipe.veg = true;
+                      setState(() {});
+                    },
+                    child: editing && (editedRecipe.veg ?? false)
+                        ? Center(
+                            child: CustomIcon(
+                              icon: Icons.done_rounded,
+                              size: 15,
+                            ),
+                          )
+                        : null,
                   ),
                   Separator(visible: editing || (recipe.veg ?? false)),
-                  Visibility(
+                  CustomCircleAvatar(
+                    radius: 10,
                     visible: editing || !(recipe.veg ?? true),
-                    child: CircleAvatar(
-                      backgroundColor: ColorConstant.nonVegSecondary,
-                      radius: 10,
-                    ),
+                    color: ColorConstant.nonVegSecondary,
+                    onPressed: () {
+                      editedRecipe.veg = false;
+                      setState(() {});
+                    },
+                    child: editing && !(editedRecipe.veg ?? true)
+                        ? Center(
+                            child: CustomIcon(
+                              icon: Icons.done_rounded,
+                              size: 15,
+                            ),
+                          )
+                        : null,
                   ),
                   Separator(visible: editing || !(recipe.veg ?? true)),
-                  Text(
-                    recipe.veg ?? true ? 'Vegetarian' : 'Non-Vegetarian',
-                    style: TextStyle(
-                      color: ColorConstant.secondaryDark,
-                      fontSize: DimenConstant.sText,
-                    ),
+                  CustomText(
+                    text: editing
+                        ? editedRecipe.veg ?? true
+                            ? 'Vegetarian'
+                            : 'Non-Vegetarian'
+                        : recipe.veg ?? true
+                            ? 'Vegetarian'
+                            : 'Non-Vegetarian',
+                    color: ColorConstant.secondaryDark,
+                    size: DimenConstant.sText,
                   ),
                 ],
               ),

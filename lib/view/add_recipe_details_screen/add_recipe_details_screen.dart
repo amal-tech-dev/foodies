@@ -20,6 +20,7 @@ import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:foodies/widgets/separator.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddRecipeDetailsScreen extends StatefulWidget {
@@ -48,6 +49,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   int radioValue = -1, editingIndex = -1;
   File? image;
   ImagePicker picker = ImagePicker();
+  ImageCropper cropper = ImageCropper();
 
   @override
   void initState() {
@@ -97,6 +99,30 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
       imageUrls.add(url);
     }
     setState(() {});
+  }
+
+  // pick image and crop for requirements
+  pickAndCropImage(ImageSource source) async {
+    XFile? pickedImage = await picker.pickImage(source: source);
+    if (pickedImage != null) {
+      CroppedFile? croppedImage = await cropper.cropImage(
+        sourcePath: pickedImage.path,
+        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Crop recipe image',
+            toolbarColor: ColorConstant.backgroundDark,
+            toolbarWidgetColor: ColorConstant.secondaryDark,
+            backgroundColor: ColorConstant.tertiaryDark,
+            cropFrameColor: ColorConstant.secondaryDark,
+            cropFrameStrokeWidth: 3,
+            lockAspectRatio: true,
+            hideBottomControls: true,
+          ),
+        ],
+      );
+      if (croppedImage != null) image = File(croppedImage.path);
+    }
   }
 
   @override
@@ -880,19 +906,13 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     onTap: () => PickImageBottomSheet.showModalSheet(
                       context: context,
                       onCameraPressed: () async {
-                        XFile? imageFile = await picker.pickImage(
-                          source: ImageSource.camera,
-                        );
-                        if (imageFile != null) image = File(imageFile.path);
+                        pickAndCropImage(ImageSource.camera);
                         buttonVisibility = true;
                         setState(() {});
                         Navigator.pop(context);
                       },
                       onGalleryPressed: () async {
-                        XFile? imageFile = await picker.pickImage(
-                          source: ImageSource.gallery,
-                        );
-                        if (imageFile != null) image = File(imageFile.path);
+                        pickAndCropImage(ImageSource.gallery);
                         buttonVisibility = true;
                         setState(() {});
                         Navigator.pop(context);
