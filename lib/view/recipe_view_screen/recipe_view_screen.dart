@@ -17,8 +17,8 @@ import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_icon.dart';
 import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_text.dart';
-import 'package:foodies/widgets/custom_text_field.dart';
 import 'package:foodies/widgets/separator.dart';
+import 'package:foodies/widgets/text_editor_dialog.dart';
 
 class RecipeViewScreen extends StatefulWidget {
   String id;
@@ -36,18 +36,19 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   RecipeModel recipe = RecipeModel();
   RecipeModel editedRecipe = RecipeModel();
-  String username = '';
+  String? username;
   bool expanded = false, editing = false;
-  ScrollController controller = ScrollController();
+  ScrollController scrollController = ScrollController();
   ValueNotifier<bool> dietSwitchController = ValueNotifier<bool>(false);
+  TextEditingController editingController = TextEditingController();
 
   @override
   void initState() {
     getData();
     dietSwitchController = ValueNotifier<bool>(recipe.veg ?? false);
-    controller.addListener(() {
+    scrollController.addListener(() {
       setState(() {
-        expanded = controller.hasClients && controller.offset > 0;
+        expanded = scrollController.hasClients && scrollController.offset > 0;
       });
     });
     super.initState();
@@ -75,70 +76,11 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
     setState(() {});
   }
 
-  // show editing dialog
-  String showEditDialog(String? content) {
-    String newContent = '';
-    TextEditingController controller = TextEditingController(text: content);
-    showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        backgroundColor: ColorConstant.backgroundDark,
-        child: CustomContainer(
-          padding: DimenConstant.padding,
-          backgroundColor: ColorConstant.backgroundDark,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CustomText(
-                text: 'Edit',
-                color: ColorConstant.primary,
-                size: DimenConstant.sText,
-              ),
-              Separator(),
-              CustomContainer(
-                paddingVertical: 0,
-                child: CustomTextField.singleLine(
-                  context: context,
-                  hint: 'Edit',
-                  controller: controller,
-                  limit: 20,
-                  onSubmitted: () {},
-                ),
-              ),
-              Separator(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomButton.text(
-                    text: 'Cancel',
-                    textColor: ColorConstant.secondaryDark,
-                    background: Colors.transparent,
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  CustomButton.text(
-                    text: 'Save',
-                    textColor: ColorConstant.primary,
-                    background: Colors.transparent,
-                    onPressed: () {
-                      newContent = controller.text.trim();
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-    return newContent;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        controller: controller,
+        controller: scrollController,
         slivers: [
           SliverAppBar(
             backgroundColor: ColorConstant.backgroundDark,
@@ -265,11 +207,14 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                             icon: Icons.edit_outlined,
                             visible: editing,
                             color: ColorConstant.primary,
-                            onPressed: () {
-                              editedRecipe.name =
-                                  showEditDialog(editedRecipe.name);
-                              setState(() {});
-                            },
+                            onPressed: () => TextEditorDialog.editor(
+                              context: context,
+                              text: recipe.name ?? '',
+                              save: (value) {
+                                editedRecipe.name = value;
+                                setState(() {});
+                              },
+                            ),
                           )
                         ],
                       ),
