@@ -8,6 +8,7 @@ class CustomContainer extends StatelessWidget {
   double? paddingTop, paddingLeft, paddingRight, paddingBottom;
   bool? border, visible;
   Color? backgroundColor;
+  BoxShape? shape;
   List<Color>? gradients;
   VoidCallback? onPressed;
   Widget child;
@@ -27,6 +28,7 @@ class CustomContainer extends StatelessWidget {
     this.borderRadius,
     this.border,
     this.backgroundColor,
+    this.shape,
     this.gradients,
     this.onPressed,
     required this.child,
@@ -61,6 +63,7 @@ class CustomContainer extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: backgroundColor ?? ColorConstant.tertiaryDark,
+            shape: shape ?? BoxShape.rectangle,
             gradient: gradients != null
                 ? LinearGradient(colors: gradients ?? [])
                 : null,

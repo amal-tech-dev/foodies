@@ -17,8 +17,8 @@ import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_icon.dart';
 import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_text.dart';
+import 'package:foodies/widgets/editor_dialog.dart';
 import 'package:foodies/widgets/separator.dart';
-import 'package:foodies/widgets/text_editor_dialog.dart';
 
 class RecipeViewScreen extends StatefulWidget {
   String id;
@@ -196,7 +196,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            recipe.name ?? '',
+                            editing
+                                ? editedRecipe.name ?? ''
+                                : recipe.name ?? '',
                             style: TextStyle(
                               color: ColorConstant.secondaryDark,
                               fontSize: DimenConstant.lText,
@@ -207,9 +209,10 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                             icon: Icons.edit_outlined,
                             visible: editing,
                             color: ColorConstant.primary,
-                            onPressed: () => TextEditorDialog.editor(
+                            onPressed: () => EditorDialog.text(
                               context: context,
-                              text: recipe.name ?? '',
+                              title: 'recipe name',
+                              content: editedRecipe.name ?? '',
                               save: (value) {
                                 editedRecipe.name = value;
                                 setState(() {});
@@ -303,7 +306,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      recipe.about ?? '',
+                      editing ? editedRecipe.about ?? '' : recipe.about ?? '',
                       style: TextStyle(
                         color: ColorConstant.secondaryDark,
                         fontSize: DimenConstant.sText,
@@ -320,6 +323,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       icon: Icons.edit_outlined,
                       visible: editing,
                       color: ColorConstant.primary,
+                      onPressed: () => EditorDialog.text(
+                        context: context,
+                        title: 'description',
+                        content: editedRecipe.about ?? '',
+                        save: (value) {
+                          editedRecipe.about = value;
+                          setState(() {});
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -413,7 +425,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
-                    text: recipe.cuisine ?? '',
+                    text: editing
+                        ? editedRecipe.cuisine ?? ''
+                        : recipe.cuisine ?? '',
                     color: ColorConstant.secondaryDark,
                     size: DimenConstant.sText,
                   ),
