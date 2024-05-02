@@ -38,6 +38,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   RecipeModel editedRecipe = RecipeModel();
   String? username;
   bool expanded = false, editing = false;
+  List cuisines = [], categories = [];
   ScrollController scrollController = ScrollController();
   ValueNotifier<bool> dietSwitchController = ValueNotifier<bool>(false);
   TextEditingController editingController = TextEditingController();
@@ -45,6 +46,8 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   @override
   void initState() {
     getData();
+    getCuisine();
+    getCategories();
     dietSwitchController = ValueNotifier<bool>(recipe.veg ?? false);
     scrollController.addListener(() {
       setState(() {
@@ -73,6 +76,26 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
     DocumentSnapshot snapshot = await reference.get();
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     username = data['username'] ?? '';
+    setState(() {});
+  }
+
+  // get cuisines from firebase
+  getCuisine() async {
+    DocumentReference reference =
+        firestore.collection('database').doc('cuisines');
+    DocumentSnapshot snapshot = await reference.get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    cuisines = data['cuisines'];
+    setState(() {});
+  }
+
+  // get categories from firebase
+  getCategories() async {
+    DocumentReference reference =
+        firestore.collection('database').doc('categories');
+    DocumentSnapshot snapshot = await reference.get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    categories = data['categories'];
     setState(() {});
   }
 
@@ -435,7 +458,16 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     icon: Icons.edit_outlined,
                     visible: editing,
                     color: ColorConstant.primary,
-                    onPressed: () {},
+                    onPressed: () => EditorDialog.radio(
+                      context: context,
+                      title: 'cuisine',
+                      currentValue: editedRecipe.cuisine ?? '',
+                      elements: cuisines,
+                      save: (value) {
+                        editedRecipe.cuisine = value;
+                        setState(() {});
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -468,7 +500,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 children: [
                   Expanded(
                     child: CustomText(
-                      text: (recipe.categories ?? []).join(', '),
+                      text: editing
+                          ? (editedRecipe.categories ?? []).join(', ')
+                          : (recipe.categories ?? []).join(', '),
                       color: ColorConstant.secondaryDark,
                       size: DimenConstant.sText,
                     ),
@@ -478,7 +512,13 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     icon: Icons.edit_outlined,
                     visible: editing,
                     color: ColorConstant.primary,
-                    onPressed: () {},
+                    onPressed: () => EditorDialog.checkbox(
+                      context: context,
+                      title: 'categories',
+                      currentValues: editedRecipe.categories ?? [],
+                      elements: categories,
+                      save: (list) {},
+                    ),
                   ),
                 ],
               ),
@@ -510,7 +550,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
-                    text: recipe.time ?? '',
+                    text: editing ? editedRecipe.time ?? '' : recipe.time ?? '',
                     color: ColorConstant.secondaryDark,
                     size: DimenConstant.sText,
                   ),
@@ -518,7 +558,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     icon: Icons.edit_outlined,
                     visible: editing,
                     color: ColorConstant.primary,
-                    onPressed: () {},
+                    onPressed: () => EditorDialog.text(
+                      context: context,
+                      title: 'cooking time',
+                      content: editedRecipe.time ?? '',
+                      save: (value) {
+                        editedRecipe.time = value;
+                        setState(() {});
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -550,7 +598,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 children: [
                   Expanded(
                     child: DetailsItem(
-                      content: recipe.ingredients?[index] ?? '',
+                      content: editing
+                          ? (editedRecipe.ingredients ?? [])[index]
+                          : (recipe.ingredients ?? [])[index],
                     ),
                   ),
                   Separator(),
@@ -559,7 +609,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     visible: editing,
                     color: ColorConstant.primary,
                     size: 20,
-                    onPressed: () {},
+                    onPressed: () => EditorDialog.text(
+                      context: context,
+                      title: 'ingredient',
+                      content: (editedRecipe.ingredients ?? [])[index],
+                      save: (value) {
+                        (editedRecipe.ingredients ?? [])[index] = value;
+                        setState(() {});
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -594,7 +652,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 children: [
                   Expanded(
                     child: DetailsItem(
-                      content: recipe.steps?[index] ?? '',
+                      content: editing
+                          ? (editedRecipe.steps ?? [])[index]
+                          : (recipe.steps ?? [])[index],
                     ),
                   ),
                   Separator(),
@@ -607,7 +667,15 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       visible: editing,
                       color: ColorConstant.primary,
                       size: 20,
-                      onPressed: () {},
+                      onPressed: () => EditorDialog.text(
+                        context: context,
+                        title: 'step',
+                        content: (editedRecipe.steps ?? [])[index],
+                        save: (value) {
+                          (editedRecipe.steps ?? [])[index] = value;
+                          setState(() {});
+                        },
+                      ),
                     ),
                   ),
                 ],

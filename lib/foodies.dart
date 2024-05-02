@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodies/controller/add_recipe_controller.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/controller/recipe_tile_controller.dart';
@@ -16,7 +15,6 @@ class Foodies extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => FilterController()),
         ChangeNotifierProvider(create: (context) => RecipeTileController()),
-        ChangeNotifierProvider(create: (context) => AddRecipeController()),
         ChangeNotifierProvider(create: (context) => ConnectivityController()),
       ],
       child: MaterialApp(

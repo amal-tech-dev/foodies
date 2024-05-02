@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:foodies/controller/page_view_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
@@ -10,13 +9,14 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/overview_screen/overview_widgets/carousel_item.dart';
 import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OverviewScreen extends StatelessWidget {
   OverviewScreen({super.key});
 
-  PageViewController carouselSliderController = PageViewController();
+  CarouselController controller = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +62,7 @@ class OverviewScreen extends StatelessWidget {
             Separator(),
             Expanded(
               child: CarouselSlider(
+                carouselController: controller,
                 items: [
                   CarouselItem(
                     title: StringConstant.carouselTitle1,
@@ -84,17 +85,10 @@ class OverviewScreen extends StatelessWidget {
                     if (index == 2) {
                       Timer(
                         Duration(seconds: 5),
-                        () async {
-                          SharedPreferences preferences =
-                              await SharedPreferences.getInstance();
-                          preferences.setBool('newLogin', false);
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
-                              ),
-                              (route) => false);
-                        },
+                        () => CustomNavigator.removeUntil(
+                          context: context,
+                          removeUntil: HomeScreen(),
+                        ),
                       );
                     }
                   },

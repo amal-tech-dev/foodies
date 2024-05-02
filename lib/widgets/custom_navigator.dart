@@ -25,12 +25,12 @@ class CustomNavigator {
 
   static Future removeUntil({
     required BuildContext context,
-    required Widget until,
+    required Widget removeUntil,
   }) =>
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => until,
+          builder: (context) => removeUntil,
         ),
         (route) => false,
       );
