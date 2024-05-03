@@ -40,12 +40,12 @@ class RecipeTile extends StatelessWidget {
               borderRadius: DimenConstant.borderRadiusLarge,
               gradients: recipe.veg!
                   ? [
-                      ColorConstant.vegPrimary,
                       ColorConstant.vegSecondary,
+                      ColorConstant.vegPrimary,
                     ]
                   : [
-                      ColorConstant.nonVegPrimary,
                       ColorConstant.nonVegSecondary,
+                      ColorConstant.nonVegPrimary,
                     ],
               onPressed: () => nonListeningController.updateViews(context, id),
               child: Column(

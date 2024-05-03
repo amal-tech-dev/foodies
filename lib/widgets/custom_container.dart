@@ -11,7 +11,7 @@ class CustomContainer extends StatelessWidget {
   BoxShape? shape;
   List<Color>? gradients;
   VoidCallback? onPressed;
-  Widget child;
+  Widget? child;
 
   CustomContainer({
     super.key,
@@ -31,7 +31,7 @@ class CustomContainer extends StatelessWidget {
     this.shape,
     this.gradients,
     this.onPressed,
-    required this.child,
+    this.child,
   });
 
   @override

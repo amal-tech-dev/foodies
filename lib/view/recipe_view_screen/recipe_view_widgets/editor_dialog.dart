@@ -19,7 +19,7 @@ class EditorDialog {
       builder: (context) => AlertDialog(
         backgroundColor: ColorConstant.backgroundDark,
         surfaceTintColor: Colors.transparent,
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           vertical: DimenConstant.padding * 2,
           horizontal: DimenConstant.padding,
         ),
@@ -34,7 +34,7 @@ class EditorDialog {
             context: context,
             hint: 'Edit $title',
             controller: controller,
-            limit: 20,
+            limit: 50,
             onSubmitted: () {
               save(controller.text.trim());
               Navigator.pop(context);

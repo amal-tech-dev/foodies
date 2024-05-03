@@ -253,8 +253,8 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     height: 100,
                     padding: DimenConstant.padding * 2,
                     gradients: [
-                      ColorConstant.vegPrimary,
                       ColorConstant.vegSecondary,
+                      ColorConstant.vegPrimary,
                     ],
                     onPressed: () {
                       recipe.veg = true;
@@ -286,8 +286,8 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     paddingRight: DimenConstant.padding * 2,
                     paddingBottom: DimenConstant.padding * 2,
                     gradients: [
-                      ColorConstant.nonVegPrimary,
                       ColorConstant.nonVegSecondary,
+                      ColorConstant.nonVegPrimary,
                     ],
                     onPressed: () {
                       recipe.veg = false;
@@ -1008,8 +1008,8 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             CircleAvatar(
                               radius: 10,
                               backgroundColor: recipe.veg ?? true
-                                  ? ColorConstant.vegSecondary
-                                  : ColorConstant.nonVegSecondary,
+                                  ? ColorConstant.vegPrimary
+                                  : ColorConstant.nonVegPrimary,
                             ),
                             Separator(),
                             CustomText(

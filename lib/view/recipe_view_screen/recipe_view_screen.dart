@@ -9,6 +9,7 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
+import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/editor_dialog.dart';
 import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/custom_button.dart';
@@ -17,7 +18,6 @@ import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_icon.dart';
 import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_text.dart';
-import 'package:foodies/widgets/editor_dialog.dart';
 import 'package:foodies/widgets/separator.dart';
 
 class RecipeViewScreen extends StatefulWidget {
@@ -39,6 +39,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   String? username;
   bool expanded = false, editing = false;
   List cuisines = [], categories = [];
+  Map<String, dynamic> changes = {};
   ScrollController scrollController = ScrollController();
   ValueNotifier<bool> dietSwitchController = ValueNotifier<bool>(false);
   TextEditingController editingController = TextEditingController();
@@ -194,25 +195,6 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                             : AssetImage(
                                 ImageConstant.food,
                               ),
-                        child: editing
-                            ? InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: ColorConstant.tertiaryDark
-                                        .withOpacity(0.4),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Icon(
-                                    Icons.edit_outlined,
-                                    color: ColorConstant.secondaryDark,
-                                    size: 30,
-                                  ),
-                                ),
-                              )
-                            : null,
                       ),
                       Separator(),
                       Row(
@@ -238,6 +220,8 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               content: editedRecipe.name ?? '',
                               save: (value) {
                                 editedRecipe.name = value;
+                                changes['name'] = editedRecipe.name;
+                                print(changes);
                                 setState(() {});
                               },
                             ),
@@ -352,6 +336,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         content: editedRecipe.about ?? '',
                         save: (value) {
                           editedRecipe.about = value;
+                          changes['about'] = editedRecipe.about;
                           setState(() {});
                         },
                       ),
@@ -374,16 +359,19 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                   CustomCircleAvatar(
                     radius: 10,
                     visible: editing || (recipe.veg ?? false),
-                    color: ColorConstant.vegSecondary,
+                    color: ColorConstant.vegPrimary,
                     onPressed: () {
                       editedRecipe.veg = true;
+                      changes['veg'] = editedRecipe.veg;
                       setState(() {});
                     },
                     child: editing && (editedRecipe.veg ?? false)
-                        ? Center(
-                            child: CustomIcon(
-                              icon: Icons.done_rounded,
-                              size: 15,
+                        ? CustomCircleAvatar(
+                            radius: 8,
+                            color: ColorConstant.tertiaryDark,
+                            child: CustomCircleAvatar(
+                              radius: 5,
+                              color: ColorConstant.vegPrimary,
                             ),
                           )
                         : null,
@@ -392,16 +380,19 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                   CustomCircleAvatar(
                     radius: 10,
                     visible: editing || !(recipe.veg ?? true),
-                    color: ColorConstant.nonVegSecondary,
+                    color: ColorConstant.nonVegPrimary,
                     onPressed: () {
                       editedRecipe.veg = false;
+                      changes['veg'] = editedRecipe.veg;
                       setState(() {});
                     },
                     child: editing && !(editedRecipe.veg ?? true)
-                        ? Center(
-                            child: CustomIcon(
-                              icon: Icons.done_rounded,
-                              size: 15,
+                        ? CustomCircleAvatar(
+                            radius: 8,
+                            color: ColorConstant.tertiaryDark,
+                            child: CustomCircleAvatar(
+                              radius: 5,
+                              color: ColorConstant.nonVegPrimary,
                             ),
                           )
                         : null,
@@ -564,6 +555,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       content: editedRecipe.time ?? '',
                       save: (value) {
                         editedRecipe.time = value;
+                        changes['time'] = editedRecipe.time;
                         setState(() {});
                       },
                     ),
@@ -615,6 +607,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       content: (editedRecipe.ingredients ?? [])[index],
                       save: (value) {
                         (editedRecipe.ingredients ?? [])[index] = value;
+                        changes['ingredients '] = editedRecipe.ingredients;
                         setState(() {});
                       },
                     ),
@@ -673,6 +666,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         content: (editedRecipe.steps ?? [])[index],
                         save: (value) {
                           (editedRecipe.steps ?? [])[index] = value;
+                          changes['steps'] = editedRecipe.steps;
                           setState(() {});
                         },
                       ),
