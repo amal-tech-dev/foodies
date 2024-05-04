@@ -8,24 +8,25 @@ class CustomButton {
     required Widget child,
     bool? visible,
     Color? background,
-  }) =>
-      Visibility(
-        visible: visible ?? true,
-        child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(
-              background ?? ColorConstant.primary,
-            ),
-            padding: MaterialStatePropertyAll(
-              EdgeInsets.symmetric(
-                horizontal: DimenConstant.padding * 2,
-              ),
+  }) {
+    return Visibility(
+      visible: visible ?? true,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(
+            background ?? ColorConstant.primary,
+          ),
+          padding: MaterialStatePropertyAll(
+            EdgeInsets.symmetric(
+              horizontal: DimenConstant.padding * 2,
             ),
           ),
-          onPressed: onPressed,
-          child: child,
         ),
-      );
+        onPressed: onPressed,
+        child: child,
+      ),
+    );
+  }
 
   static Widget text({
     required String text,
@@ -34,30 +35,31 @@ class CustomButton {
     Color? textColor,
     double? textSize,
     Color? background,
-  }) =>
-      Visibility(
-        visible: visible ?? true,
-        child: TextButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(
-              background ?? ColorConstant.primary,
-            ),
-            padding: MaterialStatePropertyAll(
-              EdgeInsets.symmetric(
-                horizontal: DimenConstant.padding * 3,
-              ),
-            ),
+  }) {
+    return Visibility(
+      visible: visible ?? true,
+      child: TextButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(
+            background ?? ColorConstant.primary,
           ),
-          onPressed: onPressed,
-          child: Text(
-            text,
-            style: TextStyle(
-              color: textColor ?? ColorConstant.tertiaryDark,
-              fontSize: textSize ?? DimenConstant.xsText,
+          padding: MaterialStatePropertyAll(
+            EdgeInsets.symmetric(
+              horizontal: DimenConstant.padding * 3,
             ),
           ),
         ),
-      );
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: textColor ?? ColorConstant.tertiaryDark,
+            fontSize: textSize ?? DimenConstant.xsText,
+          ),
+        ),
+      ),
+    );
+  }
 
   static Widget icon({
     required IconData icon,
@@ -65,33 +67,37 @@ class CustomButton {
     bool? visible,
     Color? iconColor,
     Color? background,
-  }) =>
-      Visibility(
-        visible: visible ?? true,
-        child: IconButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(
-              background ?? ColorConstant.primary,
-            ),
-          ),
-          onPressed: onPressed,
-          icon: Icon(
-            icon,
-            color: iconColor ?? ColorConstant.tertiaryDark,
+  }) {
+    return Visibility(
+      visible: visible ?? true,
+      child: IconButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(
+            background ?? ColorConstant.primary,
           ),
         ),
-      );
+        onPressed: onPressed,
+        icon: Icon(
+          icon,
+          color: iconColor ?? ColorConstant.tertiaryDark,
+        ),
+      ),
+    );
+  }
 
   static Widget back({
     Color? iconColor,
     Color? background,
-  }) =>
-      BackButton(
-        color: iconColor ?? ColorConstant.secondaryDark,
-        style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(
-            background ?? Colors.transparent,
-          ),
+    VoidCallback? onPressed,
+  }) {
+    return BackButton(
+      color: iconColor ?? ColorConstant.secondaryDark,
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(
+          background ?? Colors.transparent,
         ),
-      );
+      ),
+      onPressed: onPressed,
+    );
+  }
 }

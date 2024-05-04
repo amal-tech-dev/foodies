@@ -9,15 +9,16 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
-import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/editor_dialog.dart';
 import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/custom_circle_avatar.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_dialog.dart';
 import 'package:foodies/widgets/custom_icon.dart';
 import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_text.dart';
+import 'package:foodies/widgets/editor_dialog.dart';
 import 'package:foodies/widgets/separator.dart';
 
 class RecipeViewScreen extends StatefulWidget {
@@ -116,7 +117,33 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               padding: const EdgeInsets.all(
                 DimenConstant.padding * 2 / 3,
               ),
-              child: CustomButton.back(),
+              child: CustomButton.back(
+                onPressed: () {
+                  if (editing) {
+                    if (recipe != editedRecipe) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => CustomDialog(
+                          title: 'Editing',
+                          content: 'Do you want discard editing?',
+                          positiveText: 'Discard',
+                          positiveColor: ColorConstant.error,
+                          onPositivePressed: () {
+                            editing = false;
+                            setState(() {});
+                            Navigator.pop(context);
+                          },
+                        ),
+                      );
+                    } else {
+                      editing = false;
+                      setState(() {});
+                    }
+                  } else {
+                    Navigator.pop(context);
+                  }
+                },
+              ),
             ),
             title: AnimatedOpacity(
               opacity: expanded ? 1.0 : 0.0,
@@ -221,7 +248,6 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               save: (value) {
                                 editedRecipe.name = value;
                                 changes['name'] = editedRecipe.name;
-                                print(changes);
                                 setState(() {});
                               },
                             ),
@@ -508,7 +534,10 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       title: 'categories',
                       currentValues: editedRecipe.categories ?? [],
                       elements: categories,
-                      save: (list) {},
+                      save: (list) {
+                        editedRecipe.categories = list;
+                        setState(() {});
+                      },
                     ),
                   ),
                 ],

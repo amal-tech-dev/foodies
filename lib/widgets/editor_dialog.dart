@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/widgets/custom_container.dart';
-import 'package:foodies/widgets/custom_text.dart';
+import 'package:foodies/widgets/custom_dialog.dart';
+import 'package:foodies/widgets/custom_scaffold_messenger.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
-import 'package:foodies/widgets/separator.dart';
 
 class EditorDialog {
   static text({
@@ -16,19 +16,10 @@ class EditorDialog {
     TextEditingController controller = TextEditingController(text: content);
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: ColorConstant.backgroundDark,
-        surfaceTintColor: Colors.transparent,
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: DimenConstant.padding * 2,
-          horizontal: DimenConstant.padding,
-        ),
-        title: CustomText(
-          text: 'Edit $title',
-          color: ColorConstant.primary,
-          size: DimenConstant.sText,
-        ),
-        content: CustomContainer(
+      builder: (context) => CustomDialog(
+        paddingHorizontal: DimenConstant.padding,
+        title: 'Edit $title',
+        contentWidget: CustomContainer(
           paddingVertical: 0,
           child: CustomTextField.singleLine(
             context: context,
@@ -41,24 +32,18 @@ class EditorDialog {
             },
           ),
         ),
-        actions: [
-          CustomText(
-            text: 'Cancel',
-            color: ColorConstant.secondaryDark,
-            size: DimenConstant.xsText,
-            onPressed: () => Navigator.pop(context),
-          ),
-          Separator(),
-          CustomText(
-            text: 'Save',
-            color: ColorConstant.primary,
-            size: DimenConstant.xsText,
-            onPressed: () {
-              save(controller.text.trim());
-              Navigator.pop(context);
-            },
-          ),
-        ],
+        positiveText: 'Save',
+        onPositivePressed: () {
+          if (controller.text.trim().isEmpty) {
+            CustomScaffoldMessenger.snackBar(
+              context: context,
+              content: 'Text is empty',
+            );
+          } else {
+            save(controller.text.trim());
+            Navigator.pop(context);
+          }
+        },
       ),
     );
   }
@@ -73,27 +58,18 @@ class EditorDialog {
     int radioValue = elements.indexOf(currentValue);
     return await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: ColorConstant.backgroundDark,
-        surfaceTintColor: Colors.transparent,
-        contentPadding: EdgeInsets.symmetric(
-          vertical: DimenConstant.padding * 2,
-          horizontal: DimenConstant.padding,
-        ),
-        title: CustomText(
-          text: 'Edit $title',
-          color: ColorConstant.primary,
-          size: DimenConstant.sText,
-        ),
-        content: CustomContainer(
-          height: 200,
-          paddingRight: 0,
-          child: Expanded(
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => CustomDialog(
+          paddingHorizontal: DimenConstant.padding,
+          title: 'Edit $title',
+          contentWidget: CustomContainer(
+            height: 200,
+            paddingRight: 0,
             child: ListView.builder(
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  save(elements[index]);
-                  Navigator.pop(context);
+                  radioValue = index;
+                  setState(() {});
                 },
                 child: Row(
                   children: [
@@ -111,8 +87,8 @@ class EditorDialog {
                       groupValue: radioValue,
                       activeColor: ColorConstant.primary,
                       onChanged: (value) {
-                        save(elements[index]);
-                        Navigator.pop(context);
+                        radioValue = index;
+                        setState(() {});
                       },
                     ),
                   ],
@@ -121,20 +97,12 @@ class EditorDialog {
               itemCount: elements.length,
             ),
           ),
+          positiveText: 'Save',
+          onPositivePressed: () {
+            save(elements[radioValue]);
+            Navigator.pop(context);
+          },
         ),
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomText(
-                text: 'Cancel',
-                color: ColorConstant.secondaryDark,
-                size: DimenConstant.xsText,
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
@@ -142,7 +110,7 @@ class EditorDialog {
   static checkbox({
     required BuildContext context,
     required String title,
-    required List currentValues,
+    required List<String> currentValues,
     required List elements,
     required Function(List<String>) save,
   }) async {
@@ -152,25 +120,23 @@ class EditorDialog {
     }
     return await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: ColorConstant.backgroundDark,
-        surfaceTintColor: Colors.transparent,
-        contentPadding: EdgeInsets.symmetric(
-          vertical: DimenConstant.padding * 2,
-          horizontal: DimenConstant.padding,
-        ),
-        title: CustomText(
-          text: 'Edit $title',
-          color: ColorConstant.primary,
-          size: DimenConstant.sText,
-        ),
-        content: CustomContainer(
-          height: 200,
-          paddingVertical: 0,
-          child: Expanded(
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => CustomDialog(
+          paddingHorizontal: DimenConstant.padding,
+          title: 'Edit $title',
+          contentWidget: CustomContainer(
+            height: 200,
+            paddingVertical: 0,
             child: ListView.builder(
               itemBuilder: (context, index) => InkWell(
-                onTap: () {},
+                onTap: () {
+                  checkValues[index] = !checkValues[index];
+                  currentValues = [];
+                  for (int i = 0; i < checkValues.length; i++) {
+                    if (checkValues[i]) currentValues.add(elements[i]);
+                  }
+                  setState(() {});
+                },
                 child: Row(
                   children: [
                     Expanded(
@@ -186,7 +152,14 @@ class EditorDialog {
                       value: checkValues[index],
                       checkColor: ColorConstant.tertiaryDark,
                       activeColor: ColorConstant.primary,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        checkValues[index] = !checkValues[index];
+                        currentValues = [];
+                        for (int i = 0; i < checkValues.length; i++) {
+                          if (checkValues[i]) currentValues.add(elements[i]);
+                        }
+                        setState(() {});
+                      },
                     ),
                   ],
                 ),
@@ -194,24 +167,19 @@ class EditorDialog {
               itemCount: elements.length,
             ),
           ),
-        ),
-        actions: [
-          CustomText(
-            text: 'Cancel',
-            color: ColorConstant.secondaryDark,
-            size: DimenConstant.xsText,
-            onPressed: () => Navigator.pop(context),
-          ),
-          Separator(),
-          CustomText(
-            text: 'Save',
-            color: ColorConstant.primary,
-            size: DimenConstant.xsText,
-            onPressed: () {
+          positiveText: 'Save',
+          onPositivePressed: () {
+            if (currentValues.isEmpty) {
+              CustomScaffoldMessenger.snackBar(
+                context: context,
+                content: 'No categories selected',
+              );
+            } else {
+              save(currentValues);
               Navigator.pop(context);
-            },
-          ),
-        ],
+            }
+          },
+        ),
       ),
     );
   }

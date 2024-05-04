@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
-import 'package:foodies/view/edit_user_screen/edit_user_screen.dart';
+import 'package:foodies/view/edit_info_screen/edit_info_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/reset_password_screen/reset_password_screen.dart';
 import 'package:foodies/view/update_email_screen/update_email_screen.dart';
 import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:foodies/widgets/settings_tile.dart';
 
@@ -51,11 +52,9 @@ class AccountSettingsScreen extends StatelessWidget {
             SettingsTile(
               icon: Icons.info_outline_rounded,
               header: 'Personal Info',
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditUserScreen(),
-                ),
+              onPressed: () => CustomNavigator.push(
+                context: context,
+                push: EditInfoScreen(),
               ),
             ),
             Separator(),
