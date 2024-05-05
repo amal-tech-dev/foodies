@@ -81,7 +81,7 @@ class _NoConnectionScreenState extends State<NoConnectionScreen> {
                       ? Loading(
                           visible: loading,
                           size: 24,
-                          width: 2.5,
+                          stroke: 2.5,
                           padding: 4,
                           color: ColorConstant.secondaryDark,
                         )

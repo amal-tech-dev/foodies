@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 
 class Loading extends StatelessWidget {
-  bool visible;
-  double size, width;
+  double size, stroke;
+  bool? visible;
   double? padding;
   Color? color;
 
   Loading({
     super.key,
-    required this.visible,
     required this.size,
-    required this.width,
+    required this.stroke,
+    this.visible,
     this.padding,
     this.color,
   });
@@ -19,15 +19,15 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: visible,
+      visible: visible ?? true,
       child: SizedBox(
         height: size,
         width: size,
         child: Padding(
-          padding: EdgeInsets.all(padding ?? 0.0),
+          padding: EdgeInsets.all(padding ?? 0),
           child: CircularProgressIndicator(
             color: color ?? ColorConstant.primary,
-            strokeWidth: width,
+            strokeWidth: stroke,
             strokeCap: StrokeCap.round,
           ),
         ),

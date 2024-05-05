@@ -56,7 +56,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
           Loading(
             visible: loading,
             size: 20,
-            width: 2.5,
+            stroke: 2.5,
           ),
           SizedBox(
             width: 20,

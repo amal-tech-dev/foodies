@@ -3,7 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-import 'package:foodies/view/recipe_feed_screen/recipe_feed_widgets/filter_item.dart';
+import 'package:foodies/view/home_screen/home_widgets/filter_item.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:provider/provider.dart';
 

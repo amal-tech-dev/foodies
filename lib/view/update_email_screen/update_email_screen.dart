@@ -70,7 +70,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
               Loading(
                 visible: loading,
                 size: 50,
-                width: 3,
+                stroke: 3,
               ),
               Separator(),
               CustomButton.text(

@@ -43,19 +43,19 @@ class CustomDialog extends StatelessWidget {
         top: padding ??
             paddingVertical ??
             paddingTop ??
-            DimenConstant.padding * 2,
+            DimenConstant.padding * 2.5,
         left: padding ??
             paddingHorizontal ??
             paddingLeft ??
-            DimenConstant.padding * 2,
+            DimenConstant.padding * 2.5,
         right: padding ??
             paddingHorizontal ??
             paddingRight ??
-            DimenConstant.padding * 2,
+            DimenConstant.padding * 2.5,
         bottom: padding ??
             paddingVertical ??
             paddingBottom ??
-            DimenConstant.padding * 2,
+            DimenConstant.padding * 2.5,
       ),
       title: CustomText(
         text: title,

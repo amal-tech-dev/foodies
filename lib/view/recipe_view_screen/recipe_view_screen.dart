@@ -7,6 +7,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/cooking_screen/cooking_screen.dart';
+import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
 import 'package:foodies/widgets/app_name.dart';
@@ -19,6 +20,7 @@ import 'package:foodies/widgets/custom_icon.dart';
 import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/editor_dialog.dart';
+import 'package:foodies/widgets/loading.dart';
 import 'package:foodies/widgets/separator.dart';
 
 class RecipeViewScreen extends StatefulWidget {
@@ -38,7 +40,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
   RecipeModel recipe = RecipeModel();
   RecipeModel editedRecipe = RecipeModel();
   String? username;
-  bool expanded = false, editing = false;
+  bool expanded = false, editing = false, loading = false;
   List cuisines = [], categories = [];
   Map<String, dynamic> changes = {};
   ScrollController scrollController = ScrollController();
@@ -47,20 +49,19 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
 
   @override
   void initState() {
-    getData();
+    getRecipe();
     getCuisine();
     getCategories();
     dietSwitchController = ValueNotifier<bool>(recipe.veg ?? false);
     scrollController.addListener(() {
-      setState(() {
-        expanded = scrollController.hasClients && scrollController.offset > 0;
-      });
+      expanded = scrollController.hasClients && scrollController.offset > 0;
+      setState(() {});
     });
     super.initState();
   }
 
   // get recipe data from firestore
-  getData() async {
+  getRecipe() async {
     DocumentReference reference =
         firestore.collection('recipes').doc(widget.id);
     DocumentSnapshot snapshot = await reference.get();
@@ -175,30 +176,62 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
               ),
             ),
             actions: [
-              CustomButton.icon(
-                visible: recipe.chef == user.uid,
-                background: Colors.transparent,
-                icon: editing ? Icons.done_all_rounded : Icons.edit_rounded,
-                iconColor: editing
-                    ? ColorConstant.primary
-                    : ColorConstant.secondaryDark,
-                onPressed: () {
-                  if (editing) {
-                    editing = false;
-                    setState(() {});
-                  } else {
-                    editing = true;
-                    setState(() {});
-                  }
-                },
-              ),
+              editing && loading
+                  ? Loading(size: 18, stroke: 2.5)
+                  : CustomButton.icon(
+                      visible: recipe.chef == user.uid,
+                      background: Colors.transparent,
+                      icon:
+                          editing ? Icons.done_all_rounded : Icons.edit_rounded,
+                      iconColor: editing
+                          ? ColorConstant.primary
+                          : ColorConstant.secondaryDark,
+                      onPressed: () async {
+                        if (editing) {
+                          if (changes.isNotEmpty) {
+                            loading = true;
+                            setState(() {});
+                            DocumentReference reference =
+                                firestore.collection('recipes').doc(widget.id);
+                            await reference.update(changes);
+                            getRecipe();
+                            editing = loading = false;
+                            setState(() {});
+                          } else {
+                            editing = false;
+                            setState(() {});
+                          }
+                        } else {
+                          editing = true;
+                          setState(() {});
+                        }
+                      },
+                    ),
+              Separator(visible: loading),
               CustomButton.icon(
                 visible: recipe.chef == user.uid,
                 background: Colors.transparent,
                 icon: Icons.delete_rounded,
                 iconColor:
                     editing ? ColorConstant.error : ColorConstant.secondaryDark,
-                onPressed: () {},
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => CustomDialog(
+                    title: 'Delete recipe',
+                    content: 'Do you want delete your recipe',
+                    positiveText: 'Delete ',
+                    positiveColor: ColorConstant.error,
+                    onPositivePressed: () async {
+                      DocumentReference reference =
+                          firestore.collection('recipes').doc(widget.id);
+                      await reference.delete();
+                      CustomNavigator.removeUntil(
+                        context: context,
+                        removeUntil: HomeScreen(),
+                      );
+                    },
+                  ),
+                ),
               ),
               Separator(),
             ],
@@ -247,7 +280,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               content: editedRecipe.name ?? '',
                               save: (value) {
                                 editedRecipe.name = value;
-                                changes['name'] = editedRecipe.name;
+                                if (recipe != editedRecipe) {
+                                  changes['name'] = editedRecipe.name;
+                                }
                                 setState(() {});
                               },
                             ),
@@ -362,7 +397,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         content: editedRecipe.about ?? '',
                         save: (value) {
                           editedRecipe.about = value;
-                          changes['about'] = editedRecipe.about;
+                          if (recipe != editedRecipe) {
+                            changes['about'] = editedRecipe.about;
+                          }
                           setState(() {});
                         },
                       ),
@@ -482,6 +519,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       elements: cuisines,
                       save: (value) {
                         editedRecipe.cuisine = value;
+                        if (recipe != editedRecipe) {
+                          changes['cuisine'] = editedRecipe.cuisine;
+                        }
                         setState(() {});
                       },
                     ),
@@ -536,6 +576,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       elements: categories,
                       save: (list) {
                         editedRecipe.categories = list;
+                        if (recipe != editedRecipe) {
+                          changes['categories'] = editedRecipe.categories;
+                        }
                         setState(() {});
                       },
                     ),
@@ -584,7 +627,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       content: editedRecipe.time ?? '',
                       save: (value) {
                         editedRecipe.time = value;
-                        changes['time'] = editedRecipe.time;
+                        if (recipe != editedRecipe) {
+                          changes['time'] = editedRecipe.time;
+                        }
                         setState(() {});
                       },
                     ),
@@ -636,7 +681,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       content: (editedRecipe.ingredients ?? [])[index],
                       save: (value) {
                         (editedRecipe.ingredients ?? [])[index] = value;
-                        changes['ingredients '] = editedRecipe.ingredients;
+                        if (recipe != editedRecipe) {
+                          changes['ingredients '] = editedRecipe.ingredients;
+                        }
                         setState(() {});
                       },
                     ),
@@ -695,7 +742,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         content: (editedRecipe.steps ?? [])[index],
                         save: (value) {
                           (editedRecipe.steps ?? [])[index] = value;
-                          changes['steps'] = editedRecipe.steps;
+                          if (recipe != editedRecipe) {
+                            changes['steps'] = editedRecipe.steps;
+                          }
                           setState(() {});
                         },
                       ),

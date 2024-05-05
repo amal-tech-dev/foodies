@@ -314,7 +314,7 @@ class _LoginOptionsState extends State<LoginOptions> {
         Loading(
           visible: loading,
           size: 50,
-          width: 3,
+          stroke: 3,
         ),
       ],
     );

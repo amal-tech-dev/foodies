@@ -145,7 +145,7 @@ class _SignupOptionsState extends State<SignupOptions> {
                 child: Loading(
                   visible: loading,
                   size: 50,
-                  width: 3,
+                  stroke: 3,
                 ),
               ),
             ),
