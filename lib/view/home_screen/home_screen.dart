@@ -6,7 +6,6 @@ import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/contribute_screen/contribute_screen.dart';
 import 'package:foodies/view/favourites_screen/favourites_screen.dart';
 import 'package:foodies/view/home_screen/home_widgets/filter_bottom_sheet.dart';
-import 'package:foodies/view/home_screen/home_widgets/filter_item.dart';
 import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
@@ -38,9 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     getPermissions();
     connectivityController.checkConnectivity();
-    filterController.getDiet();
-    filterController.getCuisines();
-    filterController.getCuisines();
     super.initState();
   }
 
@@ -68,48 +64,44 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icons.tune_rounded,
             onPressed: () => showModalBottomSheet(
               context: context,
-              builder: (context) => FilterBottomSheet(
-                diet: filterController.diet,
-                cuisines: filterController.cuisines,
-                categories: filterController.categories,
-              ),
+              builder: (context) => FilterBottomSheet(),
               backgroundColor: ColorConstant.backgroundDark,
               showDragHandle: true,
             ),
           ),
           Separator(visible: pageIndex == 0, width: DimenConstant.padding * 2),
         ],
-        bottom: pageIndex == 0 && filterController.filters.isNotEmpty
-            ? PreferredSize(
-                preferredSize: Size(double.infinity, 30),
-                child: Expanded(
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => FilterItem(
-                      name:
-                          Provider.of<FilterController>(context).filters[index],
-                      isPressed: true,
-                      onPressed: () {
-                        Provider.of<FilterController>(
-                          context,
-                          listen: false,
-                        ).removeFilter(
-                          Provider.of<FilterController>(
-                            context,
-                            listen: false,
-                          ).filters[index],
-                        );
-                      },
-                    ),
-                    separatorBuilder: (context, index) => SizedBox(
-                      width: 5,
-                    ),
-                    itemCount:
-                        Provider.of<FilterController>(context).filters.length,
-                  ),
-                ),
-              )
-            : null,
+        //   bottom: pageIndex == 0 && filterController.filters.isNotEmpty
+        //       ? PreferredSize(
+        //           preferredSize: Size(double.infinity, 30),
+        //           child: Expanded(
+        //             child: ListView.separated(
+        //               scrollDirection: Axis.horizontal,
+        //               itemBuilder: (context, index) => FilterItem(
+        //                 name:
+        //                     Provider.of<FilterController>(context).filters[index],
+        //                 isPressed: true,
+        //                 onPressed: () {
+        //                   Provider.of<FilterController>(
+        //                     context,
+        //                     listen: false,
+        //                   ).removeFilter(
+        //                     Provider.of<FilterController>(
+        //                       context,
+        //                       listen: false,
+        //                     ).filters[index],
+        //                   );
+        //                 },
+        //               ),
+        //               separatorBuilder: (context, index) => SizedBox(
+        //                 width: 5,
+        //               ),
+        //               itemCount:
+        //                   Provider.of<FilterController>(context).filters.length,
+        //             ),
+        //           ),
+        //         )
+        //       : null,
       ),
       body: Provider.of<ConnectivityController>(context).connected
           ? screens[pageIndex]
@@ -128,7 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: ColorConstant.backgroundDark,
           type: BottomNavigationBarType.fixed,
           landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-          elevation: 0,
           onTap: (value) {
             pageIndex = value;
             setState(() {});

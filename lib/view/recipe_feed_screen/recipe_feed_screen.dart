@@ -20,7 +20,6 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<String> diet = [], cuisines = [], categories = [];
   bool loading = false;
-  RecipeTileController controller = RecipeTileController();
 
   @override
   void initState() {
@@ -30,8 +29,8 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
 
   // fetch data
   fetchData() async {
-    controller.getRecipes();
-    controller.getFavourites();
+    Provider.of<RecipeTileController>(context, listen: false).getRecipes();
+    Provider.of<RecipeTileController>(context, listen: false).getFavourites();
     setState(() {});
   }
 
@@ -41,9 +40,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
         Provider.of<RecipeTileController>(context);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: DimenConstant.padding,
-        ),
+        padding: const EdgeInsets.all(DimenConstant.padding),
         child: RefreshIndicator(
           color: ColorConstant.primary,
           backgroundColor: ColorConstant.backgroundDark,
@@ -55,7 +52,7 @@ class _RecipeFeedScreenState extends State<RecipeFeedScreen> {
                     id: listeningController.recipes.keys.toList()[index],
                     recipe: listeningController.recipes.values.toList()[index],
                   ),
-            itemCount: loading ? 100 : listeningController.recipes.length,
+            itemCount: loading ? 10 : listeningController.recipes.length,
           ),
         ),
       ),

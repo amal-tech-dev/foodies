@@ -260,13 +260,13 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            editing
-                                ? editedRecipe.name ?? ''
-                                : recipe.name ?? '',
-                            style: TextStyle(
+                          Expanded(
+                            child: CustomText(
+                              text: editing
+                                  ? editedRecipe.name ?? ''
+                                  : recipe.name ?? '',
                               color: ColorConstant.secondaryDark,
-                              fontSize: DimenConstant.lText,
+                              size: DimenConstant.lText,
                             ),
                           ),
                           Separator(visible: editing),

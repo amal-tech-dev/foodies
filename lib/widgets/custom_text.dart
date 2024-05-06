@@ -7,6 +7,8 @@ class CustomText extends StatelessWidget {
   FontWeight? weight;
   String? font;
   TextAlign? align;
+  int? lines;
+  TextOverflow? overflow;
   bool? visible;
   VoidCallback? onPressed;
 
@@ -18,6 +20,8 @@ class CustomText extends StatelessWidget {
     this.weight,
     this.font,
     this.align,
+    this.lines,
+    this.overflow,
     this.visible,
     this.onPressed,
   });
@@ -37,6 +41,8 @@ class CustomText extends StatelessWidget {
             fontFamily: font,
           ),
           textAlign: align ?? TextAlign.start,
+          maxLines: lines,
+          overflow: overflow ?? TextOverflow.ellipsis,
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:foodies/controller/filter_controller.dart';
@@ -8,13 +9,7 @@ import 'package:foodies/widgets/separator.dart';
 import 'package:provider/provider.dart';
 
 class FilterBottomSheet extends StatefulWidget {
-  List<String> diet, cuisines, categories;
-  FilterBottomSheet({
-    super.key,
-    required this.diet,
-    required this.cuisines,
-    required this.categories,
-  });
+  FilterBottomSheet({super.key});
 
   @override
   State<FilterBottomSheet> createState() => _FilterBottomSheetState();
@@ -23,6 +18,8 @@ class FilterBottomSheet extends StatefulWidget {
 class _FilterBottomSheetState extends State<FilterBottomSheet> {
   int dietIndex = 0;
   List<int> cuisineIndexes = [0], categoryIndexes = [0];
+  List<String> diet = [], cuisines = [], categories = [];
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void didChangeDependencies() {
@@ -31,16 +28,40 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     super.didChangeDependencies();
   }
 
+  // get diet from firestore
+  getDiet() async {
+    DocumentSnapshot snapshot =
+        await firestore.collection('database').doc('diet').get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    diet = List<String>.from(data['diet']);
+  }
+
+  // get cuisine from firestore
+  getCuisines() async {
+    DocumentSnapshot snapshot =
+        await firestore.collection('database').doc('cuisines').get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    cuisines = List<String>.from(data['cuisines']);
+  }
+
+  // get categories from firestore
+  getCategories() async {
+    DocumentSnapshot snapshot =
+        await firestore.collection('database').doc('categories').get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    categories = List<String>.from(data['categories']);
+  }
+
   // get existing filters
   getFilters() {
     List<String> temp = Provider.of<FilterController>(context).filters;
     for (String value in temp) {
-      if (widget.diet.contains(value)) {
-        dietIndex = widget.diet.indexOf(value);
-      } else if (widget.cuisines.contains(value)) {
-        cuisineIndexes.add(widget.cuisines.indexOf(value) + 1);
-      } else if (widget.categories.contains(value)) {
-        categoryIndexes.add(widget.categories.indexOf(value) + 1);
+      if (diet.contains(value)) {
+        dietIndex = diet.indexOf(value);
+      } else if (cuisines.contains(value)) {
+        cuisineIndexes.add(cuisines.indexOf(value) + 1);
+      } else if (categories.contains(value)) {
+        categoryIndexes.add(categories.indexOf(value) + 1);
       }
     }
   }
@@ -71,7 +92,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => FilterItem(
-                        name: widget.diet[index],
+                        name: diet[index],
                         isPressed: dietIndex == index ? true : false,
                         onPressed: () {
                           dietIndex = index;
@@ -79,7 +100,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                         },
                       ),
                       separatorBuilder: (context, index) => Separator(),
-                      itemCount: widget.diet.length,
+                      itemCount: diet.length,
                     ),
                   ),
                   Separator(),
@@ -103,7 +124,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                         crossAxisCount: 4,
                       ),
                       itemBuilder: (context, index) => FilterItem(
-                        name: index == 0 ? 'All' : widget.cuisines[index - 1],
+                        name: index == 0 ? 'All' : cuisines[index - 1],
                         isPressed:
                             cuisineIndexes.contains(index) ? true : false,
                         onPressed: () {
@@ -127,7 +148,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           setState(() {});
                         },
                       ),
-                      itemCount: widget.cuisines.length + 1,
+                      itemCount: cuisines.length + 1,
                     ),
                   ),
                   Separator(),
@@ -151,7 +172,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                         crossAxisCount: 2,
                       ),
                       itemBuilder: (context, index) => FilterItem(
-                        name: index == 0 ? 'All' : widget.categories[index - 1],
+                        name: index == 0 ? 'All' : categories[index - 1],
                         isPressed:
                             categoryIndexes.contains(index) ? true : false,
                         onPressed: () {
@@ -175,7 +196,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           setState(() {});
                         },
                       ),
-                      itemCount: widget.categories.length + 1,
+                      itemCount: categories.length + 1,
                     ),
                   ),
                 ],
@@ -219,16 +240,16 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   onPressed: () {
                     List<String> temp = [];
                     if (dietIndex != 0) {
-                      temp.add(widget.diet[dietIndex]);
+                      temp.add(diet[dietIndex]);
                     }
                     if (cuisineIndexes != [0]) {
                       for (int i in cuisineIndexes) {
-                        if (i != 0) temp.add(widget.cuisines[i - 1]);
+                        if (i != 0) temp.add(cuisines[i - 1]);
                       }
                     }
                     if (categoryIndexes != [0]) {
                       for (int i in categoryIndexes) {
-                        if (i != 0) temp.add(widget.categories[i - 1]);
+                        if (i != 0) temp.add(categories[i - 1]);
                       }
                     }
                     Provider.of<FilterController>(context, listen: false)
