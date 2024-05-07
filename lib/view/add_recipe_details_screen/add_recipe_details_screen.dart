@@ -18,6 +18,7 @@ import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/custom_scaffold_messenger.dart';
 import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
+import 'package:foodies/widgets/loading.dart';
 import 'package:foodies/widgets/pick_image_bottom_sheet.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -41,7 +42,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
   TextEditingController timeController = TextEditingController();
   TextEditingController ingredientController = TextEditingController();
   TextEditingController stepController = TextEditingController();
-  bool buttonVisibility = false, editing = false;
+  bool buttonVisibility = false, editing = false, loading = false;
   List cuisines = [], categories = [], selectedCategories = [];
   String? selectedCuisine, imageUrl;
   List<String> ingredients = [], steps = [], imageUrls = [];
@@ -140,6 +141,10 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
             fontSize: DimenConstant.mText,
           ),
         ),
+        actions: [
+          Loading(visible: loading, size: 22, stroke: 3),
+          Separator(width: DimenConstant.padding * 2),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(
@@ -1112,8 +1117,11 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       horizontal: DimenConstant.padding * 8,
                     ),
                     child: CustomButton.text(
+                      visible: !loading,
                       text: 'Save',
                       onPressed: () async {
+                        loading = true;
+                        setState(() {});
                         recipe.chef = user.uid;
                         recipe.image = await uploadImage(image!);
                         recipe.shared = 0;

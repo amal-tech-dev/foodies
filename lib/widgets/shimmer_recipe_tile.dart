@@ -44,10 +44,7 @@ class ShimmerRecipeTile extends StatelessWidget {
                   children: [
                     Icon(Icons.favorite_rounded),
                     Icon(Icons.visibility_rounded),
-                    FaIcon(
-                      FontAwesomeIcons.share,
-                      size: 18,
-                    ),
+                    FaIcon(FontAwesomeIcons.share, size: 18),
                     Icon(Icons.bookmark_rounded),
                   ],
                 ),

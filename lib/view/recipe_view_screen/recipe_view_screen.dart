@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/model/recipe_model.dart';
 import 'package:foodies/utils/color_constant.dart';
@@ -37,6 +38,7 @@ class RecipeViewScreen extends StatefulWidget {
 class _RecipeViewScreenState extends State<RecipeViewScreen> {
   User user = FirebaseAuth.instance.currentUser!;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseStorage storage = FirebaseStorage.instance;
   RecipeModel recipe = RecipeModel();
   RecipeModel editedRecipe = RecipeModel();
   String? username;
@@ -222,9 +224,12 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     positiveText: 'Delete ',
                     positiveColor: ColorConstant.error,
                     onPositivePressed: () async {
-                      DocumentReference reference =
+                      DocumentReference recipeRef =
                           firestore.collection('recipes').doc(widget.id);
-                      await reference.delete();
+                      Uri uri = Uri.parse(recipe.image ?? '');
+                      Reference imageRef = storage.ref().child(uri.path);
+                      await imageRef.delete();
+                      await recipeRef.delete();
                       CustomNavigator.removeUntil(
                         context: context,
                         removeUntil: HomeScreen(),
@@ -267,6 +272,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                   : recipe.name ?? '',
                               color: ColorConstant.secondaryDark,
                               size: DimenConstant.lText,
+                              align: TextAlign.center,
                             ),
                           ),
                           Separator(visible: editing),
@@ -562,6 +568,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           : (recipe.categories ?? []).join(', '),
                       color: ColorConstant.secondaryDark,
                       size: DimenConstant.sText,
+                      lines: 5,
                     ),
                   ),
                   Separator(),
