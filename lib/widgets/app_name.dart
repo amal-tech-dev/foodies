@@ -20,7 +20,7 @@ class AppName extends StatelessWidget {
         Text(
           StringConstant.appNamePrefix,
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: size,
             fontWeight: bold ?? false ? FontWeight.bold : FontWeight.normal,
             fontFamily: StringConstant.font,

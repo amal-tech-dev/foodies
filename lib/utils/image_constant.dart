@@ -1,7 +1,8 @@
 import 'package:foodies/generated/assets.dart';
 
 class ImageConstant {
-  static const String logo = Assets.logoFoodiesLogo;
+  static const String logoLight = Assets.logoLogoLight;
+  static const String logoDark = Assets.logoLogoDark;
   static const String getStarted = Assets.imagesGetStarted;
   static const String overview = Assets.imagesOverview;
   static const String login = Assets.imagesLogin;

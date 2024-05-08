@@ -228,7 +228,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           firestore.collection('recipes').doc(widget.id);
                       Uri uri = Uri.parse(recipe.image ?? '');
                       Reference imageRef = storage.ref().child(uri.path);
-                      await imageRef.delete();
+                      // await imageRef.delete();
                       await recipeRef.delete();
                       CustomNavigator.removeUntil(
                         context: context,
