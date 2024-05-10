@@ -53,7 +53,7 @@ class CustomButton {
         child: Text(
           text,
           style: TextStyle(
-            color: textColor ?? ColorConstant.tertiaryDark,
+            color: textColor ?? ColorConstant.tertiaryLight,
             fontSize: textSize ?? DimenConstant.xsText,
           ),
         ),
@@ -79,7 +79,7 @@ class CustomButton {
         onPressed: onPressed,
         icon: Icon(
           icon,
-          color: iconColor ?? ColorConstant.tertiaryDark,
+          color: iconColor ?? ColorConstant.tertiaryLight,
         ),
       ),
     );
@@ -91,7 +91,7 @@ class CustomButton {
     VoidCallback? onPressed,
   }) {
     return BackButton(
-      color: iconColor ?? ColorConstant.secondaryDark,
+      color: iconColor ?? ColorConstant.secondaryLight,
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(
           background ?? Colors.transparent,

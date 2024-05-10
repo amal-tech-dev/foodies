@@ -29,7 +29,7 @@ class SlidableItem extends StatelessWidget {
         motion: ScrollMotion(),
         children: [
           CustomContainer(
-            backgroundColor: ColorConstant.error,
+            color: ColorConstant.error,
             onPressed: onDeletePressed,
             child: Icon(
               Icons.delete_rounded,
@@ -38,7 +38,7 @@ class SlidableItem extends StatelessWidget {
           ),
           Separator(),
           CustomContainer(
-            backgroundColor: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryDark,
             onPressed: onEditPressed,
             child: Icon(
               Icons.edit_rounded,
@@ -54,7 +54,7 @@ class SlidableItem extends StatelessWidget {
         children: [
           Separator(),
           CustomContainer(
-            backgroundColor: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryDark,
             onPressed: onEditPressed,
             child: Icon(
               Icons.edit_rounded,
@@ -63,7 +63,7 @@ class SlidableItem extends StatelessWidget {
           ),
           Separator(),
           CustomContainer(
-            backgroundColor: ColorConstant.error,
+            color: ColorConstant.error,
             onPressed: onDeletePressed,
             child: Icon(
               Icons.delete_rounded,

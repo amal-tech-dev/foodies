@@ -23,14 +23,14 @@ class CustomTextField {
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(
-              color: ColorConstant.secondaryDark.withOpacity(0.5),
+              color: ColorConstant.secondaryLight.withOpacity(0.5),
               fontSize: DimenConstant.xsText,
             ),
             contentPadding: EdgeInsets.all(0),
             border: InputBorder.none,
           ),
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.xsText,
           ),
           cursorColor: ColorConstant.primary,
@@ -64,7 +64,7 @@ class CustomTextField {
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(
-              color: ColorConstant.secondaryDark.withOpacity(0.5),
+              color: ColorConstant.secondaryLight.withOpacity(0.5),
               fontSize: DimenConstant.xsText,
             ),
             contentPadding: EdgeInsets.all(0),
@@ -72,7 +72,7 @@ class CustomTextField {
             border: InputBorder.none,
           ),
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.xsText,
           ),
           cursorColor: ColorConstant.primary,
@@ -107,7 +107,7 @@ class CustomTextField {
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(
-              color: ColorConstant.secondaryDark.withOpacity(0.5),
+              color: ColorConstant.secondaryLight.withOpacity(0.5),
               fontSize: DimenConstant.xsText,
             ),
             errorStyle: TextStyle(
@@ -119,7 +119,7 @@ class CustomTextField {
             border: InputBorder.none,
           ),
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.xsText,
           ),
           cursorColor: ColorConstant.primary,
@@ -156,7 +156,7 @@ class CustomTextField {
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(
-              color: ColorConstant.secondaryDark.withOpacity(0.5),
+              color: ColorConstant.secondaryLight.withOpacity(0.5),
               fontSize: DimenConstant.xsText,
             ),
             errorStyle: TextStyle(
@@ -169,7 +169,7 @@ class CustomTextField {
             border: InputBorder.none,
           ),
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.xsText,
           ),
           cursorColor: ColorConstant.primary,
@@ -206,7 +206,7 @@ class CustomTextField {
           decoration: InputDecoration(
             hintText: 'Password',
             hintStyle: TextStyle(
-              color: ColorConstant.secondaryDark.withOpacity(0.5),
+              color: ColorConstant.secondaryLight.withOpacity(0.5),
               fontSize: DimenConstant.xsText,
             ),
             errorStyle: TextStyle(
@@ -227,7 +227,7 @@ class CustomTextField {
             border: InputBorder.none,
           ),
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.xsText,
             fontFamily: StringConstant.font,
           ),
@@ -261,7 +261,7 @@ class CustomTextField {
           decoration: InputDecoration(
             hintText: 'Search',
             hintStyle: TextStyle(
-              color: ColorConstant.secondaryDark.withOpacity(0.5),
+              color: ColorConstant.secondaryLight.withOpacity(0.5),
               fontSize: DimenConstant.xsText,
             ),
             contentPadding: EdgeInsets.all(0),
@@ -278,7 +278,7 @@ class CustomTextField {
             ),
           ),
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.xsText,
           ),
           cursorColor: ColorConstant.primary,

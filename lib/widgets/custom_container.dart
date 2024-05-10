@@ -7,7 +7,7 @@ class CustomContainer extends StatelessWidget {
   double? padding, paddingVertical, paddingHorizontal;
   double? paddingTop, paddingLeft, paddingRight, paddingBottom;
   bool? border, visible;
-  Color? backgroundColor;
+  Color? color;
   BoxShape? shape;
   List<Color>? gradients;
   VoidCallback? onPressed;
@@ -27,7 +27,7 @@ class CustomContainer extends StatelessWidget {
     this.paddingBottom,
     this.borderRadius,
     this.border,
-    this.backgroundColor,
+    this.color,
     this.shape,
     this.gradients,
     this.onPressed,
@@ -62,11 +62,11 @@ class CustomContainer extends StatelessWidget {
                 DimenConstant.padding,
           ),
           decoration: BoxDecoration(
-            color: backgroundColor ?? ColorConstant.tertiaryDark,
+            color:
+                gradients == null ? color ?? ColorConstant.tertiaryLight : null,
             shape: shape ?? BoxShape.rectangle,
-            gradient: gradients != null
-                ? LinearGradient(colors: gradients ?? [])
-                : null,
+            gradient:
+                color == null ? LinearGradient(colors: gradients ?? []) : null,
             borderRadius: BorderRadius.circular(
               borderRadius ?? DimenConstant.borderRadiusSmall,
             ),
@@ -75,9 +75,7 @@ class CustomContainer extends StatelessWidget {
                     color: ColorConstant.primary,
                     width: DimenConstant.borderWidth,
                   )
-                : Border.all(
-                    width: 0.0,
-                  ),
+                : Border.all(width: 0.0, color: Colors.transparent),
           ),
           child: child,
         ),

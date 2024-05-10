@@ -21,7 +21,7 @@ class FilterItem extends StatelessWidget {
       paddingLeft: DimenConstant.padding * 2.0,
       paddingRight: DimenConstant.padding * 2.0,
       borderRadius: 100.0,
-      backgroundColor: isPressed ? ColorConstant.primary : null,
+      color: isPressed ? ColorConstant.primary : null,
       onPressed: onPressed,
       child: Center(
         child: Text(

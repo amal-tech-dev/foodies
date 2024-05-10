@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () => showModalBottomSheet(
               context: context,
               builder: (context) => FilterBottomSheet(),
-              backgroundColor: ColorConstant.backgroundDark,
+              backgroundColor: ColorConstant.backgroundLight,
               showDragHandle: true,
             ),
           ),
@@ -114,10 +114,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: BottomNavigationBar(
           currentIndex: pageIndex,
           selectedItemColor: ColorConstant.primary,
-          unselectedItemColor: ColorConstant.secondaryDark,
+          unselectedItemColor: ColorConstant.secondaryLight,
           selectedFontSize: DimenConstant.xsText,
           unselectedFontSize: DimenConstant.xsText,
-          backgroundColor: ColorConstant.backgroundDark,
+          backgroundColor: ColorConstant.backgroundLight,
           type: BottomNavigationBarType.fixed,
           landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           onTap: (value) {

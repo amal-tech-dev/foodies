@@ -124,7 +124,7 @@ class _StartCookingState extends State<StartCooking> {
                       CustomContainer(
                         paddingLeft: DimenConstant.padding * 2,
                         paddingRight: DimenConstant.padding * 2,
-                        backgroundColor: ColorConstant.secondaryDark,
+                        color: ColorConstant.secondaryDark,
                         borderRadius: 500.0,
                         child: timerRunning
                             ? TimerCountdown(

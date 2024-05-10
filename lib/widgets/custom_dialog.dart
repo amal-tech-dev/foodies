@@ -37,7 +37,7 @@ class CustomDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: ColorConstant.backgroundDark,
+      backgroundColor: ColorConstant.backgroundLight,
       surfaceTintColor: Colors.transparent,
       contentPadding: EdgeInsets.only(
         top: padding ??
@@ -65,14 +65,14 @@ class CustomDialog extends StatelessWidget {
       content: contentWidget ??
           CustomText(
             text: content ?? '',
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             size: DimenConstant.xsText,
             align: TextAlign.justify,
           ),
       actions: [
         CustomText(
           text: negativeText ?? 'Cancel',
-          color: negativeColor ?? ColorConstant.secondaryDark,
+          color: negativeColor ?? ColorConstant.secondaryLight,
           size: DimenConstant.xsText,
           onPressed: onNegativePressed ?? () => Navigator.pop(context),
         ),

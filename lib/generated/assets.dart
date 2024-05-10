@@ -12,12 +12,13 @@ class Assets {
   static const String imagesPickImage = 'assets/images/pick_image.png';
   static const String imagesProfile = 'assets/images/profile.png';
   static const String imagesSignup = 'assets/images/signup.png';
-  static const String logoLogoDark = 'assets/logo/logo_dark.svg';
-  static const String logoLogoLight = 'assets/logo/logo_light.svg';
+  static const String logoAppLogoDark = 'assets/logo/app_logo_dark.svg';
+  static const String logoAppLogoLight = 'assets/logo/app_logo_light.svg';
   static const String lottieAudioPlaying = 'assets/lottie/audio_playing.json';
   static const String lottieEmpty = 'assets/lottie/empty.json';
   static const String lottieLoading = 'assets/lottie/loading.json';
   static const String lottieNoInternet = 'assets/lottie/no_internet.json';
   static const String lottieNoResults = 'assets/lottie/no_results.json';
   static const String lottieSearching = 'assets/lottie/searching.json';
+
 }

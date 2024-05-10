@@ -31,7 +31,7 @@ class SettingsTile extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
           ),
           Separator(),
           Text(

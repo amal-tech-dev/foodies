@@ -32,7 +32,7 @@ class ShimmerRecipeTile extends StatelessWidget {
                 Container(
                   height: 150,
                   decoration: BoxDecoration(
-                    color: ColorConstant.secondaryDark,
+                    color: ColorConstant.secondaryLight,
                     borderRadius: BorderRadius.circular(
                       DimenConstant.borderRadiusLarge,
                     ),
@@ -56,7 +56,7 @@ class ShimmerRecipeTile extends StatelessWidget {
             left: 20,
             child: CircleAvatar(
               radius: 50,
-              backgroundColor: ColorConstant.secondaryDark,
+              backgroundColor: ColorConstant.secondaryLight,
             ),
           ),
         ],

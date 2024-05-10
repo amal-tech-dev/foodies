@@ -9,7 +9,7 @@ class CustomScaffoldMessenger {
   }) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: ColorConstant.tertiaryDark,
+        backgroundColor: ColorConstant.tertiaryLight,
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.all(
           DimenConstant.padding,
@@ -17,7 +17,7 @@ class CustomScaffoldMessenger {
         content: Text(
           content,
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.xsText,
           ),
         ),

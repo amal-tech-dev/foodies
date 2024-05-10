@@ -26,7 +26,7 @@ class CustomIcon extends StatelessWidget {
         child: Icon(
           icon,
           size: size,
-          color: color ?? ColorConstant.secondaryDark,
+          color: color ?? ColorConstant.secondaryLight,
         ),
       ),
     );

@@ -77,7 +77,7 @@ class EditorDialog {
                       child: Text(
                         elements[index],
                         style: TextStyle(
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.secondaryLight,
                           fontSize: DimenConstant.xsText,
                         ),
                       ),
@@ -143,14 +143,14 @@ class EditorDialog {
                       child: Text(
                         elements[index],
                         style: TextStyle(
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.secondaryLight,
                           fontSize: DimenConstant.xsText,
                         ),
                       ),
                     ),
                     Checkbox(
                       value: checkValues[index],
-                      checkColor: ColorConstant.tertiaryDark,
+                      checkColor: ColorConstant.tertiaryLight,
                       activeColor: ColorConstant.primary,
                       onChanged: (value) {
                         checkValues[index] = !checkValues[index];

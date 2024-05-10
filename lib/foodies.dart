@@ -21,10 +21,10 @@ class Foodies extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           appBarTheme: AppBarTheme(
-            color: ColorConstant.backgroundDark,
+            color: ColorConstant.backgroundLight,
             surfaceTintColor: Colors.transparent,
           ),
-          scaffoldBackgroundColor: ColorConstant.backgroundDark,
+          scaffoldBackgroundColor: ColorConstant.backgroundLight,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           textSelectionTheme: TextSelectionThemeData(

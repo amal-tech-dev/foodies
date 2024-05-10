@@ -11,7 +11,7 @@ class PickImageBottomSheet {
     required VoidCallback onRemovePressed,
   }) =>
       showModalBottomSheet(
-        backgroundColor: ColorConstant.backgroundDark,
+        backgroundColor: ColorConstant.backgroundLight,
         showDragHandle: true,
         context: context,
         builder: (context) => Container(
@@ -30,7 +30,7 @@ class PickImageBottomSheet {
                     children: [
                       Icon(
                         Icons.camera_alt_outlined,
-                        color: ColorConstant.secondaryDark,
+                        color: ColorConstant.secondaryLight,
                         size: 30,
                       ),
                       Text(
@@ -52,7 +52,7 @@ class PickImageBottomSheet {
                     children: [
                       Icon(
                         Icons.image_outlined,
-                        color: ColorConstant.secondaryDark,
+                        color: ColorConstant.secondaryLight,
                         size: 30,
                       ),
                       Text(
@@ -74,7 +74,7 @@ class PickImageBottomSheet {
                     children: [
                       Icon(
                         Icons.delete_outline,
-                        color: ColorConstant.secondaryDark,
+                        color: ColorConstant.secondaryLight,
                         size: 30,
                       ),
                       Text(

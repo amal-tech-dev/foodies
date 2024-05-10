@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:foodies/utils/color_constant.dart';
+import 'package:foodies/utils/dimen_constant.dart';
 
 class CustomText extends StatelessWidget {
   String text;
-  Color color;
-  double size;
+  Color? color;
+  double? size;
   FontWeight? weight;
   String? font;
   TextAlign? align;
@@ -15,8 +17,8 @@ class CustomText extends StatelessWidget {
   CustomText({
     super.key,
     required this.text,
-    required this.color,
-    required this.size,
+    this.color,
+    this.size,
     this.weight,
     this.font,
     this.align,
@@ -35,8 +37,8 @@ class CustomText extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: color,
-            fontSize: size,
+            color: color ?? ColorConstant.secondaryLight,
+            fontSize: size ?? DimenConstant.sText,
             fontWeight: weight ?? FontWeight.normal,
             fontFamily: font,
           ),
