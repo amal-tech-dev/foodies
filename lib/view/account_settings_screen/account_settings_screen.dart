@@ -32,13 +32,13 @@ class AccountSettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundDark,
+        backgroundColor: ColorConstant.backgroundLight,
         surfaceTintColor: Colors.transparent,
         leading: CustomButton.back(),
         title: Text(
           'Account Settings',
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.mText,
           ),
         ),
@@ -88,12 +88,12 @@ class AccountSettingsScreen extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    backgroundColor: ColorConstant.backgroundDark,
+                    backgroundColor: ColorConstant.backgroundLight,
                     surfaceTintColor: Colors.transparent,
                     title: Text(
                       'Delete account',
                       style: TextStyle(
-                        color: ColorConstant.secondaryDark,
+                        color: ColorConstant.secondaryLight,
                         fontSize: DimenConstant.mText,
                       ),
                     ),
@@ -111,7 +111,7 @@ class AccountSettingsScreen extends StatelessWidget {
                         child: Text(
                           'Cancel',
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.secondaryLight,
                             fontSize: DimenConstant.xsText,
                           ),
                         ),

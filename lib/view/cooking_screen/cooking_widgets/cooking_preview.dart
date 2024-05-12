@@ -32,7 +32,7 @@ class CookingPreview extends StatelessWidget {
             Text(
               name,
               style: TextStyle(
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.secondaryLight,
                 fontSize: DimenConstant.xlText,
               ),
               textAlign: TextAlign.center,
@@ -58,7 +58,7 @@ class CookingPreview extends StatelessWidget {
               child: Text(
                 'Check the Pantry',
                 style: TextStyle(
-                  color: ColorConstant.tertiaryDark,
+                  color: ColorConstant.tertiaryLight,
                 ),
               ),
             )

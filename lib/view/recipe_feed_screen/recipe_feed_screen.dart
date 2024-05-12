@@ -15,9 +15,7 @@ class RecipeFeedScreen extends StatelessWidget {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: DimenConstant.padding,
-        ),
+        padding: const EdgeInsets.all(DimenConstant.padding),
         child: StreamBuilder(
           stream: firestore.collection('recipes').snapshots(),
           builder: (context, snapshot) {

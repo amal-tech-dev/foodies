@@ -28,8 +28,8 @@ class FilterItem extends StatelessWidget {
           name,
           style: TextStyle(
             color: isPressed
-                ? ColorConstant.tertiaryDark
-                : ColorConstant.secondaryDark,
+                ? ColorConstant.tertiaryLight
+                : ColorConstant.secondaryLight,
             fontSize: DimenConstant.xxsText,
           ),
           textAlign: TextAlign.center,

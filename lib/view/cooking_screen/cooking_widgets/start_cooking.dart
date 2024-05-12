@@ -85,7 +85,7 @@ class _StartCookingState extends State<StartCooking> {
                   dotHeight: 5,
                   dotWidth: 5,
                   activeDotColor: ColorConstant.primary,
-                  dotColor: ColorConstant.secondaryDark.withOpacity(0.5),
+                  dotColor: ColorConstant.secondaryLight.withOpacity(0.5),
                 ),
               ),
             ),
@@ -124,13 +124,13 @@ class _StartCookingState extends State<StartCooking> {
                       CustomContainer(
                         paddingLeft: DimenConstant.padding * 2,
                         paddingRight: DimenConstant.padding * 2,
-                        color: ColorConstant.secondaryDark,
+                        color: ColorConstant.secondaryLight,
                         borderRadius: 500.0,
                         child: timerRunning
                             ? TimerCountdown(
                                 enableDescriptions: false,
                                 timeTextStyle: TextStyle(
-                                  color: ColorConstant.tertiaryDark,
+                                  color: ColorConstant.tertiaryLight,
                                   fontSize: DimenConstant.xsText,
                                 ),
                                 format: hr != 0
@@ -179,7 +179,7 @@ class _StartCookingState extends State<StartCooking> {
                       ),
                       CustomButton.icon(
                         icon: Icons.stop_rounded,
-                        iconColor: ColorConstant.secondaryDark,
+                        iconColor: ColorConstant.secondaryLight,
                         background: ColorConstant.error,
                         onPressed: () async {
                           timerRunning = false;
@@ -206,13 +206,13 @@ class _StartCookingState extends State<StartCooking> {
                           children: [
                             Icon(
                               Icons.timer_outlined,
-                              color: ColorConstant.tertiaryDark,
+                              color: ColorConstant.tertiaryLight,
                             ),
                             Separator(),
                             Text(
                               timerPressed ? 'Start' : 'Timer',
                               style: TextStyle(
-                                color: ColorConstant.tertiaryDark,
+                                color: ColorConstant.tertiaryLight,
                                 fontSize: DimenConstant.xsText,
                               ),
                             ),
@@ -222,7 +222,7 @@ class _StartCookingState extends State<StartCooking> {
                       CustomButton.icon(
                         visible: timerPressed,
                         icon: Icons.close_rounded,
-                        iconColor: ColorConstant.secondaryDark,
+                        iconColor: ColorConstant.secondaryLight,
                         background: ColorConstant.error,
                         onPressed: () async {
                           timerPressed = false;

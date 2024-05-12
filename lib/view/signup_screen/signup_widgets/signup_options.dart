@@ -99,7 +99,7 @@ class _SignupOptionsState extends State<SignupOptions> {
                   if (e.code == 'weak-password') {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        backgroundColor: ColorConstant.tertiaryDark,
+                        backgroundColor: ColorConstant.tertiaryLight,
                         behavior: SnackBarBehavior.floating,
                         margin: EdgeInsets.all(
                           DimenConstant.padding,
@@ -107,7 +107,7 @@ class _SignupOptionsState extends State<SignupOptions> {
                         content: Text(
                           'The password provided is too weak.',
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.secondaryLight,
                             fontSize: DimenConstant.xsText,
                           ),
                         ),
@@ -116,7 +116,7 @@ class _SignupOptionsState extends State<SignupOptions> {
                   } else if (e.code == 'email-already-in-use') {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        backgroundColor: ColorConstant.tertiaryDark,
+                        backgroundColor: ColorConstant.tertiaryLight,
                         behavior: SnackBarBehavior.floating,
                         margin: EdgeInsets.all(
                           DimenConstant.padding,
@@ -124,7 +124,7 @@ class _SignupOptionsState extends State<SignupOptions> {
                         content: Text(
                           'The account already exists for that email.',
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.secondaryLight,
                             fontSize: DimenConstant.xsText,
                           ),
                         ),

@@ -22,7 +22,7 @@ class TimePreview extends StatelessWidget {
           Text(
             'Cooking time',
             style: TextStyle(
-              color: ColorConstant.secondaryDark,
+              color: ColorConstant.secondaryLight,
               fontSize: DimenConstant.lText,
             ),
           ),

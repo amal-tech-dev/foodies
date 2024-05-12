@@ -26,13 +26,13 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundDark,
+        backgroundColor: ColorConstant.backgroundLight,
         surfaceTintColor: Colors.transparent,
         leading: CustomButton.back(),
         title: Text(
           'Account Settings',
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.mText,
           ),
         ),
@@ -49,7 +49,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
               Text(
                 'Update Email',
                 style: TextStyle(
-                  color: ColorConstant.secondaryDark,
+                  color: ColorConstant.secondaryLight,
                   fontSize: DimenConstant.xlText,
                 ),
               ),
@@ -86,7 +86,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                       );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        backgroundColor: ColorConstant.tertiaryDark,
+                        backgroundColor: ColorConstant.tertiaryLight,
                         behavior: SnackBarBehavior.floating,
                         margin: EdgeInsets.all(
                           DimenConstant.padding,
@@ -94,7 +94,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                         content: Text(
                           StringConstant.emailUpdate,
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.secondaryLight,
                             fontSize: DimenConstant.xsText,
                           ),
                         ),

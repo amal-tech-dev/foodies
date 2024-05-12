@@ -81,7 +81,7 @@ class RecipeTileController with ChangeNotifier {
     showDialog(
       context: context,
       builder: (context) => Dialog(
-        backgroundColor: ColorConstant.backgroundDark,
+        backgroundColor: ColorConstant.backgroundLight,
         child: Padding(
           padding: const EdgeInsets.all(
             DimenConstant.padding * 3,
@@ -92,7 +92,7 @@ class RecipeTileController with ChangeNotifier {
               Text(
                 StringConstant.viewsDialogPrefix,
                 style: TextStyle(
-                  color: ColorConstant.secondaryDark,
+                  color: ColorConstant.secondaryLight,
                   fontSize: DimenConstant.mText,
                 ),
                 textAlign: TextAlign.center,
@@ -109,7 +109,7 @@ class RecipeTileController with ChangeNotifier {
               Text(
                 StringConstant.viewsDialogSuffix,
                 style: TextStyle(
-                  color: ColorConstant.secondaryDark,
+                  color: ColorConstant.secondaryLight,
                   fontSize: DimenConstant.mText,
                 ),
                 textAlign: TextAlign.center,

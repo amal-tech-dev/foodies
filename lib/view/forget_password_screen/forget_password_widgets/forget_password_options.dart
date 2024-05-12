@@ -52,7 +52,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                       email: emailController.text.trim());
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      backgroundColor: ColorConstant.tertiaryDark,
+                      backgroundColor: ColorConstant.tertiaryLight,
                       behavior: SnackBarBehavior.floating,
                       duration: Duration(seconds: 5),
                       margin: EdgeInsets.all(
@@ -61,7 +61,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                       content: Text(
                         'Click on the link sent to your email to reset your password',
                         style: TextStyle(
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.secondaryLight,
                           fontSize: DimenConstant.xsText,
                         ),
                       ),
@@ -80,7 +80,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                 } on FirebaseAuthException catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      backgroundColor: ColorConstant.tertiaryDark,
+                      backgroundColor: ColorConstant.tertiaryLight,
                       behavior: SnackBarBehavior.floating,
                       margin: EdgeInsets.all(
                         DimenConstant.padding,
@@ -88,7 +88,7 @@ class _ForgetPasswordOptionsState extends State<ForgetPasswordOptions> {
                       content: Text(
                         'Unable to reset password',
                         style: TextStyle(
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.secondaryLight,
                           fontSize: DimenConstant.xsText,
                         ),
                       ),

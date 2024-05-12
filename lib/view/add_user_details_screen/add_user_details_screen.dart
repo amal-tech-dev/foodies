@@ -43,12 +43,12 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundDark,
+        backgroundColor: ColorConstant.backgroundLight,
         surfaceTintColor: Colors.transparent,
         title: Text(
           'Complete your profile',
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.mText,
           ),
         ),

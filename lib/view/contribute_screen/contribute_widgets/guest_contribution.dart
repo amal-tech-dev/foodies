@@ -28,7 +28,7 @@ class GuestContibution extends StatelessWidget {
           child: Text(
             StringConstant.addRecipeGuest,
             style: TextStyle(
-              color: ColorConstant.secondaryDark,
+              color: ColorConstant.secondaryLight,
               fontSize: DimenConstant.sText,
             ),
             textAlign: TextAlign.center,
@@ -55,7 +55,7 @@ class GuestContibution extends StatelessWidget {
         Text(
           '  or  ',
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.xsText,
           ),
         ),

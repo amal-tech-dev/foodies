@@ -37,7 +37,7 @@ class PageItem extends StatelessWidget {
             child: Text(
               header,
               style: TextStyle(
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.secondaryLight,
                 fontSize: DimenConstant.sText,
               ),
               textAlign: TextAlign.center,

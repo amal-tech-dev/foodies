@@ -59,7 +59,7 @@ class _RecipeImageTileState extends State<RecipeImageTile> {
         Text(
           name ?? '',
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.xsText,
           ),
         ),

@@ -32,7 +32,7 @@ class DetailsItem extends StatelessWidget {
           child: Text(
             content,
             style: TextStyle(
-              color: ColorConstant.secondaryDark,
+              color: ColorConstant.secondaryLight,
               fontSize: DimenConstant.sText,
             ),
             textAlign: align ?? TextAlign.justify,

@@ -30,13 +30,13 @@ class GetStartedScreen extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                ColorConstant.backgroundDark.withOpacity(0.0),
-                ColorConstant.backgroundDark.withOpacity(0.0),
-                ColorConstant.backgroundDark.withOpacity(0.0),
-                ColorConstant.backgroundDark.withOpacity(0.3),
-                ColorConstant.backgroundDark.withOpacity(0.5),
-                ColorConstant.backgroundDark.withOpacity(0.7),
-                ColorConstant.backgroundDark.withOpacity(0.8),
+                ColorConstant.backgroundLight.withOpacity(0.0),
+                ColorConstant.backgroundLight.withOpacity(0.0),
+                ColorConstant.backgroundLight.withOpacity(0.0),
+                ColorConstant.backgroundLight.withOpacity(0.3),
+                ColorConstant.backgroundLight.withOpacity(0.5),
+                ColorConstant.backgroundLight.withOpacity(0.7),
+                ColorConstant.backgroundLight.withOpacity(0.8),
               ],
             ),
           ),
@@ -65,7 +65,7 @@ class GetStartedScreen extends StatelessWidget {
                     Text(
                       StringConstant.welcomeSubtitle,
                       style: TextStyle(
-                        color: ColorConstant.secondaryDark,
+                        color: ColorConstant.secondaryLight,
                         fontSize: DimenConstant.sText,
                         fontWeight: FontWeight.bold,
                       ),
@@ -99,7 +99,7 @@ class GetStartedScreen extends StatelessWidget {
                         child: Text(
                           'Get Started',
                           style: TextStyle(
-                            color: ColorConstant.tertiaryDark,
+                            color: ColorConstant.tertiaryLight,
                             fontSize: DimenConstant.mText,
                             fontWeight: FontWeight.bold,
                           ),

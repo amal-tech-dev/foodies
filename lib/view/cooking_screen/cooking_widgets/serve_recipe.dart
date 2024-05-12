@@ -32,7 +32,7 @@ class ServeRecipe extends StatelessWidget {
             Text(
               name,
               style: TextStyle(
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.secondaryLight,
                 fontSize: DimenConstant.xlText,
               ),
               textAlign: TextAlign.center,

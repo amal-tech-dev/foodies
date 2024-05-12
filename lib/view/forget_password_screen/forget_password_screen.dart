@@ -24,7 +24,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 height: kToolbarHeight,
               ),
               BackButton(
-                color: ColorConstant.secondaryDark,
+                color: ColorConstant.secondaryLight,
               ),
               Padding(
                 padding: const EdgeInsets.all(
@@ -44,7 +44,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 child: Text(
                   StringConstant.forgetPassword,
                   style: TextStyle(
-                    color: ColorConstant.secondaryDark,
+                    color: ColorConstant.secondaryLight,
                     fontSize: DimenConstant.lText,
                   ),
                   textAlign: TextAlign.center,

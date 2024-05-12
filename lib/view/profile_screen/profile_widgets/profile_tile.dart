@@ -56,7 +56,7 @@ class ProfileTile extends StatelessWidget {
                       ? Text(
                           name,
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.secondaryLight,
                             fontSize: DimenConstant.lText,
                           ),
                         )

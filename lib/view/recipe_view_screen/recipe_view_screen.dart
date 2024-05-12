@@ -111,7 +111,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
         controller: scrollController,
         slivers: [
           SliverAppBar(
-            backgroundColor: ColorConstant.backgroundDark,
+            backgroundColor: ColorConstant.backgroundLight,
             surfaceTintColor: Colors.transparent,
             expandedHeight: 360,
             collapsedHeight: kToolbarHeight,
@@ -168,7 +168,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     child: Text(
                       recipe.name ?? '',
                       style: TextStyle(
-                        color: ColorConstant.secondaryDark,
+                        color: ColorConstant.secondaryLight,
                         fontSize: DimenConstant.sText,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -187,7 +187,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           editing ? Icons.done_all_rounded : Icons.edit_rounded,
                       iconColor: editing
                           ? ColorConstant.primary
-                          : ColorConstant.secondaryDark,
+                          : ColorConstant.secondaryLight,
                       onPressed: () async {
                         if (editing) {
                           if (changes.isNotEmpty) {
@@ -214,8 +214,9 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 visible: recipe.chef == user.uid,
                 background: Colors.transparent,
                 icon: Icons.delete_rounded,
-                iconColor:
-                    editing ? ColorConstant.error : ColorConstant.secondaryDark,
+                iconColor: editing
+                    ? ColorConstant.error
+                    : ColorConstant.secondaryLight,
                 onPressed: () => showDialog(
                   context: context,
                   builder: (context) => CustomDialog(
@@ -242,7 +243,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
             ],
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
-                color: ColorConstant.backgroundDark,
+                color: ColorConstant.backgroundLight,
                 padding: EdgeInsets.symmetric(
                   horizontal: DimenConstant.padding,
                 ),
@@ -270,7 +271,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               text: editing
                                   ? editedRecipe.name ?? ''
                                   : recipe.name ?? '',
-                              color: ColorConstant.secondaryDark,
+                              color: ColorConstant.secondaryLight,
                               size: DimenConstant.lText,
                               align: TextAlign.center,
                             ),
@@ -304,7 +305,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                 ),
                                 CustomText(
                                   text: ' original recipe',
-                                  color: ColorConstant.secondaryDark,
+                                  color: ColorConstant.secondaryLight,
                                   size: DimenConstant.sText,
                                   font: StringConstant.font,
                                 )
@@ -327,7 +328,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                 ),
                                 CustomText(
                                   text: ' recipe',
-                                  color: ColorConstant.secondaryDark,
+                                  color: ColorConstant.secondaryLight,
                                   size: DimenConstant.sText,
                                   font: StringConstant.font,
                                 ),
@@ -382,7 +383,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     child: Text(
                       editing ? editedRecipe.about ?? '' : recipe.about ?? '',
                       style: TextStyle(
-                        color: ColorConstant.secondaryDark,
+                        color: ColorConstant.secondaryLight,
                         fontSize: DimenConstant.sText,
                       ),
                       textAlign: TextAlign.justify,
@@ -437,7 +438,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     child: editing && (editedRecipe.veg ?? false)
                         ? CustomCircleAvatar(
                             radius: 8,
-                            color: ColorConstant.tertiaryDark,
+                            color: ColorConstant.tertiaryLight,
                             child: CustomCircleAvatar(
                               radius: 5,
                               color: ColorConstant.vegPrimary,
@@ -458,7 +459,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     child: editing && !(editedRecipe.veg ?? true)
                         ? CustomCircleAvatar(
                             radius: 8,
-                            color: ColorConstant.tertiaryDark,
+                            color: ColorConstant.tertiaryLight,
                             child: CustomCircleAvatar(
                               radius: 5,
                               color: ColorConstant.nonVegPrimary,
@@ -475,7 +476,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         : recipe.veg ?? true
                             ? 'Vegetarian'
                             : 'Non-Vegetarian',
-                    color: ColorConstant.secondaryDark,
+                    color: ColorConstant.secondaryLight,
                     size: DimenConstant.sText,
                   ),
                 ],
@@ -511,7 +512,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                     text: editing
                         ? editedRecipe.cuisine ?? ''
                         : recipe.cuisine ?? '',
-                    color: ColorConstant.secondaryDark,
+                    color: ColorConstant.secondaryLight,
                     size: DimenConstant.sText,
                   ),
                   CustomIcon(
@@ -566,7 +567,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       text: editing
                           ? (editedRecipe.categories ?? []).join(', ')
                           : (recipe.categories ?? []).join(', '),
-                      color: ColorConstant.secondaryDark,
+                      color: ColorConstant.secondaryLight,
                       size: DimenConstant.sText,
                       lines: 5,
                     ),
@@ -621,7 +622,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 children: [
                   CustomText(
                     text: editing ? editedRecipe.time ?? '' : recipe.time ?? '',
-                    color: ColorConstant.secondaryDark,
+                    color: ColorConstant.secondaryLight,
                     size: DimenConstant.sText,
                   ),
                   CustomIcon(
@@ -779,12 +780,12 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
         ),
         icon: Icon(
           Icons.fastfood_rounded,
-          color: ColorConstant.tertiaryDark,
+          color: ColorConstant.tertiaryLight,
         ),
         label: Text(
           'Start Cooking',
           style: TextStyle(
-            color: ColorConstant.tertiaryDark,
+            color: ColorConstant.tertiaryLight,
             fontSize: DimenConstant.xsText,
           ),
         ),

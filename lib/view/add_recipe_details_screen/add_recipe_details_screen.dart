@@ -112,10 +112,10 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Crop recipe image',
-            toolbarColor: ColorConstant.backgroundDark,
-            toolbarWidgetColor: ColorConstant.secondaryDark,
-            backgroundColor: ColorConstant.tertiaryDark,
-            cropFrameColor: ColorConstant.secondaryDark,
+            toolbarColor: ColorConstant.backgroundLight,
+            toolbarWidgetColor: ColorConstant.secondaryLight,
+            backgroundColor: ColorConstant.tertiaryLight,
+            cropFrameColor: ColorConstant.secondaryLight,
             cropFrameStrokeWidth: 3,
             lockAspectRatio: true,
             hideBottomControls: true,
@@ -131,13 +131,13 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundDark,
+        backgroundColor: ColorConstant.backgroundLight,
         surfaceTintColor: Colors.transparent,
         leading: CustomButton.back(),
         title: Text(
           'Add Recipe',
           style: TextStyle(
-            color: ColorConstant.secondaryDark,
+            color: ColorConstant.secondaryLight,
             fontSize: DimenConstant.mText,
           ),
         ),
@@ -273,7 +273,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       child: Text(
                         'Vegetarian',
                         style: TextStyle(
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.secondaryLight,
                           fontSize: DimenConstant.mText,
                         ),
                       ),
@@ -306,7 +306,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       child: Text(
                         'Non-Vegetarian',
                         style: TextStyle(
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.secondaryLight,
                           fontSize: DimenConstant.mText,
                         ),
                       ),
@@ -380,7 +380,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         Text(
                           'Cuisines',
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.secondaryLight,
                             fontSize: DimenConstant.sText,
                           ),
                         ),
@@ -407,7 +407,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                     child: Text(
                                       cuisines[index],
                                       style: TextStyle(
-                                        color: ColorConstant.secondaryDark,
+                                        color: ColorConstant.secondaryLight,
                                         fontSize: DimenConstant.xsText,
                                       ),
                                     ),
@@ -471,7 +471,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         Text(
                           'Categories',
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.secondaryLight,
                             fontSize: DimenConstant.sText,
                           ),
                         ),
@@ -506,14 +506,14 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                     child: Text(
                                       categories[index],
                                       style: TextStyle(
-                                        color: ColorConstant.secondaryDark,
+                                        color: ColorConstant.secondaryLight,
                                         fontSize: DimenConstant.xsText,
                                       ),
                                     ),
                                   ),
                                   Checkbox(
                                     value: checkValues[index],
-                                    checkColor: ColorConstant.tertiaryDark,
+                                    checkColor: ColorConstant.tertiaryLight,
                                     activeColor: ColorConstant.primary,
                                     onChanged: (value) {
                                       checkValues[index] = value ?? false;
@@ -988,7 +988,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               children: [
                                 CustomText(
                                   text: recipe.name ?? '',
-                                  color: ColorConstant.secondaryDark,
+                                  color: ColorConstant.secondaryLight,
                                   size: DimenConstant.sText,
                                 ),
                                 CustomText(
@@ -1003,7 +1003,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         Separator(),
                         CustomText(
                           text: recipe.about ?? '',
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.secondaryLight,
                           size: DimenConstant.xsText,
                           align: TextAlign.justify,
                         ),
@@ -1019,7 +1019,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             Separator(),
                             CustomText(
                               text: 'Vegetarian',
-                              color: ColorConstant.secondaryDark,
+                              color: ColorConstant.secondaryLight,
                               size: DimenConstant.xsText,
                             ),
                           ],
@@ -1032,7 +1032,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         ),
                         CustomText(
                           text: (recipe.categories ?? []).join(', '),
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.secondaryLight,
                           size: DimenConstant.xsText,
                         ),
                         Separator(),
@@ -1043,7 +1043,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         ),
                         CustomText(
                           text: recipe.time ?? '',
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.secondaryLight,
                           size: DimenConstant.xsText,
                         ),
                         Separator(),
@@ -1069,7 +1069,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               Separator(),
                               CustomText(
                                 text: recipe.ingredients![index],
-                                color: ColorConstant.secondaryDark,
+                                color: ColorConstant.secondaryLight,
                                 size: DimenConstant.xsText,
                               ),
                             ],
@@ -1098,7 +1098,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               Separator(),
                               CustomText(
                                 text: recipe.steps![index],
-                                color: ColorConstant.secondaryDark,
+                                color: ColorConstant.secondaryLight,
                                 size: DimenConstant.xsText,
                               ),
                             ],

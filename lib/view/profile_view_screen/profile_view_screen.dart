@@ -97,10 +97,10 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Crop ${field} image',
-            toolbarColor: ColorConstant.backgroundDark,
-            toolbarWidgetColor: ColorConstant.secondaryDark,
-            backgroundColor: ColorConstant.tertiaryDark,
-            cropFrameColor: ColorConstant.secondaryDark,
+            toolbarColor: ColorConstant.backgroundLight,
+            toolbarWidgetColor: ColorConstant.secondaryLight,
+            backgroundColor: ColorConstant.tertiaryLight,
+            cropFrameColor: ColorConstant.secondaryLight,
             cropFrameStrokeWidth: 3,
             lockAspectRatio: true,
             hideBottomControls: true,
@@ -119,7 +119,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
     return RefreshIndicator(
       key: refreshKey,
       color: ColorConstant.primary,
-      backgroundColor: ColorConstant.backgroundDark,
+      backgroundColor: ColorConstant.backgroundLight,
       onRefresh: () async => await getUserData(),
       child: Scaffold(
         body: CustomScrollView(
@@ -197,11 +197,11 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            ColorConstant.tertiaryDark.withOpacity(0.2),
-                            ColorConstant.tertiaryDark.withOpacity(0.2),
-                            ColorConstant.tertiaryDark.withOpacity(0.1),
-                            ColorConstant.tertiaryDark.withOpacity(0.1),
-                            ColorConstant.tertiaryDark.withOpacity(0.0),
+                            ColorConstant.tertiaryLight.withOpacity(0.2),
+                            ColorConstant.tertiaryLight.withOpacity(0.2),
+                            ColorConstant.tertiaryLight.withOpacity(0.1),
+                            ColorConstant.tertiaryLight.withOpacity(0.1),
+                            ColorConstant.tertiaryLight.withOpacity(0.0),
                           ],
                         ),
                       ),
@@ -210,7 +210,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                         children: [
                           SafeArea(
                             child: BackButton(
-                              color: ColorConstant.secondaryDark,
+                              color: ColorConstant.secondaryLight,
                             ),
                           ),
                         ],
@@ -286,7 +286,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                       ? Text(
                           user.name ?? '',
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.secondaryLight,
                             fontSize: DimenConstant.xlText,
                           ),
                           textAlign: TextAlign.center,
@@ -327,7 +327,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
                         isFollowing
-                            ? ColorConstant.secondaryDark
+                            ? ColorConstant.secondaryLight
                             : ColorConstant.primary,
                       ),
                     ),
@@ -362,8 +362,8 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                         isFollowing ? 'Following' : 'Follow',
                         style: TextStyle(
                           color: isFollowing
-                              ? ColorConstant.tertiaryDark
-                              : ColorConstant.tertiaryDark,
+                              ? ColorConstant.tertiaryLight
+                              : ColorConstant.tertiaryLight,
                         ),
                       ),
                     ),
@@ -396,7 +396,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                 child: Text(
                   user.bio ?? '',
                   style: TextStyle(
-                    color: ColorConstant.secondaryDark,
+                    color: ColorConstant.secondaryLight,
                     fontSize: DimenConstant.sText,
                   ),
                   textAlign: TextAlign.justify,
@@ -429,7 +429,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                       child: Text(
                         'No recipes yet.',
                         style: TextStyle(
-                          color: ColorConstant.secondaryDark,
+                          color: ColorConstant.secondaryLight,
                           fontSize: DimenConstant.sText,
                         ),
                         textAlign: TextAlign.justify,

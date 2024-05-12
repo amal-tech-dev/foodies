@@ -66,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       color: ColorConstant.primary,
-      backgroundColor: ColorConstant.backgroundDark,
+      backgroundColor: ColorConstant.backgroundLight,
       onRefresh: () async => await checkLoginType(),
       child: Scaffold(
         body: CustomScrollView(
@@ -176,12 +176,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        backgroundColor: ColorConstant.backgroundDark,
+                        backgroundColor: ColorConstant.backgroundLight,
                         surfaceTintColor: Colors.transparent,
                         title: Text(
                           'Are you leaving?',
                           style: TextStyle(
-                            color: ColorConstant.secondaryDark,
+                            color: ColorConstant.secondaryLight,
                             fontSize: DimenConstant.mText,
                           ),
                         ),
@@ -201,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Text(
                               'Cancel',
                               style: TextStyle(
-                                color: ColorConstant.secondaryDark,
+                                color: ColorConstant.secondaryLight,
                                 fontSize: DimenConstant.xsText,
                               ),
                             ),
@@ -225,7 +225,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               } on FirebaseAuthException catch (e) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    backgroundColor: ColorConstant.tertiaryDark,
+                                    backgroundColor:
+                                        ColorConstant.tertiaryLight,
                                     behavior: SnackBarBehavior.floating,
                                     margin: EdgeInsets.all(
                                       DimenConstant.padding,
@@ -233,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     content: Text(
                                       'Unable to logout',
                                       style: TextStyle(
-                                        color: ColorConstant.secondaryDark,
+                                        color: ColorConstant.secondaryLight,
                                         fontSize: DimenConstant.xsText,
                                       ),
                                     ),

@@ -224,7 +224,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   child: Text(
                     'Reset',
                     style: TextStyle(
-                      color: ColorConstant.tertiaryDark,
+                      color: ColorConstant.tertiaryLight,
                     ),
                   ),
                 ),
@@ -259,7 +259,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   child: Text(
                     'Save',
                     style: TextStyle(
-                      color: ColorConstant.tertiaryDark,
+                      color: ColorConstant.tertiaryLight,
                     ),
                   ),
                 ),
