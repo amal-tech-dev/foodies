@@ -13,8 +13,11 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/page_item.dart';
 import 'package:foodies/view/add_recipe_details_screen/add_recipe_details_widgets/slidable_item.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
+import 'package:foodies/widgets/cropper_ui_settings.dart';
 import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_circle_avatar.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_scaffold_messenger.dart';
 import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/custom_text_field.dart';
@@ -109,18 +112,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
       CroppedFile? croppedImage = await cropper.cropImage(
         sourcePath: pickedImage.path,
         aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-        uiSettings: [
-          AndroidUiSettings(
-            toolbarTitle: 'Crop recipe image',
-            toolbarColor: ColorConstant.backgroundLight,
-            toolbarWidgetColor: ColorConstant.secondaryLight,
-            backgroundColor: ColorConstant.tertiaryLight,
-            cropFrameColor: ColorConstant.secondaryLight,
-            cropFrameStrokeWidth: 3,
-            lockAspectRatio: true,
-            hideBottomControls: true,
-          ),
-        ],
+        uiSettings: [CropperUiSettings.android],
       );
       if (croppedImage != null) image = File(croppedImage.path);
     }
@@ -131,15 +123,10 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundLight,
-        surfaceTintColor: Colors.transparent,
         leading: CustomButton.back(),
-        title: Text(
-          'Add Recipe',
-          style: TextStyle(
-            color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.mText,
-          ),
+        title: CustomText(
+          text: 'Add Recipe',
+          size: DimenConstant.mText,
         ),
         actions: [
           Loading(visible: loading, size: 22, stroke: 3),
@@ -270,12 +257,9 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       );
                     },
                     child: Center(
-                      child: Text(
-                        'Vegetarian',
-                        style: TextStyle(
-                          color: ColorConstant.secondaryLight,
-                          fontSize: DimenConstant.mText,
-                        ),
+                      child: CustomText(
+                        text: 'Vegetarian',
+                        size: DimenConstant.mText,
                       ),
                     ),
                   ),
@@ -286,10 +270,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 SliverToBoxAdapter(
                   child: CustomContainer(
                     height: 100,
-                    paddingTop: DimenConstant.padding * 2,
-                    paddingLeft: DimenConstant.padding * 2,
-                    paddingRight: DimenConstant.padding * 2,
-                    paddingBottom: DimenConstant.padding * 2,
+                    padding: DimenConstant.padding * 2,
                     gradients: [
                       ColorConstant.nonVegSecondary,
                       ColorConstant.nonVegPrimary,
@@ -303,12 +284,9 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       );
                     },
                     child: Center(
-                      child: Text(
-                        'Non-Vegetarian',
-                        style: TextStyle(
-                          color: ColorConstant.secondaryLight,
-                          fontSize: DimenConstant.mText,
-                        ),
+                      child: CustomText(
+                        text: 'Non-Vegetarian',
+                        size: DimenConstant.mText,
                       ),
                     ),
                   ),
@@ -377,19 +355,11 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     height: 250,
                     child: Column(
                       children: [
-                        Text(
-                          'Cuisines',
-                          style: TextStyle(
-                            color: ColorConstant.secondaryLight,
-                            fontSize: DimenConstant.sText,
-                          ),
-                        ),
-                        Text(
-                          selectedCuisine ?? 'Select a Cuisine',
-                          style: TextStyle(
-                            color: ColorConstant.primary,
-                            fontSize: DimenConstant.xsText,
-                          ),
+                        CustomText(text: 'Cuisines'),
+                        CustomText(
+                          text: selectedCuisine ?? 'Select a Cuisine',
+                          color: ColorConstant.primary,
+                          size: DimenConstant.xsText,
                         ),
                         Separator(),
                         Expanded(
@@ -404,12 +374,9 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: Text(
-                                      cuisines[index],
-                                      style: TextStyle(
-                                        color: ColorConstant.secondaryLight,
-                                        fontSize: DimenConstant.xsText,
-                                      ),
+                                    child: CustomText(
+                                      text: cuisines[index],
+                                      size: DimenConstant.xsText,
                                     ),
                                   ),
                                   Radio(
@@ -468,22 +435,14 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     height: 250,
                     child: Column(
                       children: [
-                        Text(
-                          'Categories',
-                          style: TextStyle(
-                            color: ColorConstant.secondaryLight,
-                            fontSize: DimenConstant.sText,
-                          ),
-                        ),
-                        Text(
-                          selectedCategories.isEmpty
+                        CustomText(text: 'Categories'),
+                        CustomText(
+                          text: selectedCategories.isEmpty
                               ? 'Select atleast one category'
                               : selectedCategories.join(', '),
-                          style: TextStyle(
-                            color: ColorConstant.primary,
-                            fontSize: DimenConstant.xsText,
-                          ),
-                          textAlign: TextAlign.center,
+                          color: ColorConstant.primary,
+                          size: DimenConstant.xsText,
+                          align: TextAlign.center,
                         ),
                         Separator(),
                         Expanded(
@@ -503,12 +462,9 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: Text(
-                                      categories[index],
-                                      style: TextStyle(
-                                        color: ColorConstant.secondaryLight,
-                                        fontSize: DimenConstant.xsText,
-                                      ),
+                                    child: CustomText(
+                                      text: categories[index],
+                                      size: DimenConstant.xsText,
                                     ),
                                   ),
                                   Checkbox(
@@ -685,10 +641,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   itemCount: ingredients.length + 1,
                 ),
                 SliverToBoxAdapter(
-                  child: Visibility(
-                    visible: buttonVisibility,
-                    child: Separator(),
-                  ),
+                  child: Separator(visible: buttonVisibility),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -731,10 +684,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Visibility(
-                    visible: steps.isNotEmpty,
-                    child: Separator(),
-                  ),
+                  child: Separator(visible: steps.isNotEmpty),
                 ),
                 SliverList.separated(
                   itemBuilder: (context, index) => index == steps.length
@@ -830,10 +780,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   itemCount: steps.length + 1,
                 ),
                 SliverToBoxAdapter(
-                  child: Visibility(
-                    visible: buttonVisibility,
-                    child: Separator(),
-                  ),
+                  child: Separator(visible: buttonVisibility),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -867,14 +814,11 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                   child: CarouselSlider(
                     items: List.generate(
                       imageUrls.length,
-                      (index) => CircleAvatar(
+                      (index) => CustomCircleAvatar(
                         radius: 45,
-                        backgroundImage: AssetImage(
-                          ImageConstant.food,
-                        ),
-                        foregroundImage: NetworkImage(
-                          imageUrls[index],
-                        ),
+                        image: image != null
+                            ? NetworkImage(imageUrls[index]) as ImageProvider
+                            : AssetImage(ImageConstant.food),
                       ),
                     ),
                     options: CarouselOptions(
@@ -908,7 +852,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                 ),
                 SliverToBoxAdapter(
                   child: InkWell(
-                    onTap: () => PickImageBottomSheet.showModalSheet(
+                    onTap: () => PickImageBottomSheet.show(
                       context: context,
                       onCameraPressed: () async {
                         pickAndCropImage(ImageSource.camera);
@@ -929,19 +873,16 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         setState(() {});
                       },
                     ),
-                    child: CircleAvatar(
+                    child: CustomCircleAvatar(
                       radius: 75,
-                      backgroundImage: image == null
+                      image: image == null
                           ? AssetImage(ImageConstant.pickImage)
                           : FileImage(image!) as ImageProvider,
                     ),
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Visibility(
-                    visible: buttonVisibility,
-                    child: Separator(),
-                  ),
+                  child: Separator(visible: buttonVisibility),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -973,13 +914,11 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       children: [
                         Row(
                           children: [
-                            CircleAvatar(
+                            CustomCircleAvatar(
                               radius: 30,
-                              backgroundImage: AssetImage(
-                                ImageConstant.food,
-                              ),
-                              foregroundImage:
-                                  image != null ? FileImage(image!) : null,
+                              image: image != null
+                                  ? FileImage(image!) as ImageProvider
+                                  : AssetImage(ImageConstant.food),
                             ),
                             Separator(),
                             Column(
@@ -989,7 +928,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                 CustomText(
                                   text: recipe.name ?? '',
                                   color: ColorConstant.secondaryLight,
-                                  size: DimenConstant.sText,
                                 ),
                                 CustomText(
                                   text: recipe.cuisine ?? '',
@@ -1010,9 +948,9 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         Separator(),
                         Row(
                           children: [
-                            CircleAvatar(
+                            CustomCircleAvatar(
                               radius: 10,
-                              backgroundColor: recipe.veg ?? true
+                              color: recipe.veg ?? true
                                   ? ColorConstant.vegPrimary
                                   : ColorConstant.nonVegPrimary,
                             ),
@@ -1028,7 +966,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         CustomText(
                           text: 'Categories',
                           color: ColorConstant.primary,
-                          size: DimenConstant.sText,
                         ),
                         CustomText(
                           text: (recipe.categories ?? []).join(', '),
@@ -1039,7 +976,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         CustomText(
                           text: 'Cooking Time',
                           color: ColorConstant.primary,
-                          size: DimenConstant.sText,
                         ),
                         CustomText(
                           text: recipe.time ?? '',
@@ -1050,7 +986,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         CustomText(
                           text: 'Ingredients',
                           color: ColorConstant.primary,
-                          size: DimenConstant.sText,
                         ),
                         ...List.generate(
                           recipe.ingredients?.length ?? 0,
@@ -1061,9 +996,9 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                 padding: const EdgeInsets.only(
                                   top: (DimenConstant.xsText / 2) - 2.5,
                                 ),
-                                child: CircleAvatar(
+                                child: CustomCircleAvatar(
                                   radius: 5,
-                                  backgroundColor: ColorConstant.primary,
+                                  color: ColorConstant.primary,
                                 ),
                               ),
                               Separator(),
@@ -1079,7 +1014,6 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         CustomText(
                           text: 'Steps',
                           color: ColorConstant.primary,
-                          size: DimenConstant.sText,
                         ),
                         ...List.generate(
                           recipe.steps?.length ?? 0,
@@ -1090,9 +1024,9 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                 padding: const EdgeInsets.only(
                                   top: (DimenConstant.xsText / 2) - 2.5,
                                 ),
-                                child: CircleAvatar(
+                                child: CustomCircleAvatar(
                                   radius: 5,
-                                  backgroundColor: ColorConstant.primary,
+                                  color: ColorConstant.primary,
                                 ),
                               ),
                               Separator(),
@@ -1117,34 +1051,30 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       horizontal: DimenConstant.padding * 8,
                     ),
                     child: CustomButton.text(
-                      visible: !loading,
-                      text: 'Save',
-                      onPressed: () async {
-                        loading = true;
-                        setState(() {});
-                        recipe.chef = user.uid;
-                        recipe.image = await uploadImage(image!);
-                        recipe.shared = 0;
-                        recipe.views = 0;
-                        recipe.likes = [];
-                        DocumentReference reference = await firestore
-                            .collection('recipes')
-                            .add(recipe.toJson());
-                        await firestore
-                            .collection('users')
-                            .doc(user.uid)
-                            .update({
-                          'recipes': FieldValue.arrayUnion([reference.id])
-                        });
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ),
-                          (route) => false,
-                        );
-                      },
-                    ),
+                        visible: !loading,
+                        text: 'Save',
+                        onPressed: () async {
+                          loading = true;
+                          setState(() {});
+                          recipe.chef = user.uid;
+                          recipe.image = await uploadImage(image!);
+                          recipe.shared = 0;
+                          recipe.views = 0;
+                          recipe.likes = [];
+                          DocumentReference reference = await firestore
+                              .collection('recipes')
+                              .add(recipe.toJson());
+                          await firestore
+                              .collection('users')
+                              .doc(user.uid)
+                              .update({
+                            'recipes': FieldValue.arrayUnion([reference.id])
+                          });
+                          CustomNavigator.pushAndRemoveUntil(
+                            context: context,
+                            removeUntil: HomeScreen(),
+                          );
+                        }),
                   ),
                 ),
               ],

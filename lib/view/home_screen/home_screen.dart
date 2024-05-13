@@ -10,7 +10,7 @@ import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
 import 'package:foodies/widgets/app_name.dart';
-import 'package:foodies/widgets/custom_icon.dart';
+import 'package:foodies/widgets/custom_button.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -54,14 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: AppName(size: DimenConstant.mText),
         actions: [
-          CustomIcon(
-            visible: pageIndex == 0,
-            icon: Icons.search_rounded,
-          ),
-          Separator(visible: pageIndex == 0, width: DimenConstant.padding * 2),
-          CustomIcon(
+          CustomButton.icon(
             visible: pageIndex == 0,
             icon: Icons.tune_rounded,
+            iconColor: ColorConstant.secondaryLight,
+            background: Colors.transparent,
             onPressed: () => showModalBottomSheet(
               context: context,
               builder: (context) => FilterBottomSheet(),
@@ -69,7 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
               showDragHandle: true,
             ),
           ),
-          Separator(visible: pageIndex == 0, width: DimenConstant.padding * 2),
+          CustomButton.icon(
+            visible: pageIndex == 0,
+            icon: Icons.search_rounded,
+            iconColor: ColorConstant.secondaryLight,
+            background: Colors.transparent,
+            onPressed: () {},
+          ),
+          Separator(),
         ],
         //   bottom: pageIndex == 0 && filterController.filters.isNotEmpty
         //       ? PreferredSize(

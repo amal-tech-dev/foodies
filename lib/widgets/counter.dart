@@ -4,17 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/custom_text.dart';
 
 class Counter extends StatefulWidget {
   int count;
   String? header;
-  bool? visible;
+  bool visible;
 
   Counter({
     super.key,
     required this.count,
     this.header,
-    this.visible,
+    this.visible = true,
   });
 
   @override
@@ -75,26 +76,16 @@ class _CounterState extends State<Counter> {
                     : DimenConstant.xsText,
               ),
             ),
-            Text(
-              suffix,
-              style: TextStyle(
-                color: ColorConstant.secondaryLight,
-                fontSize: widget.header != null
-                    ? DimenConstant.sText
-                    : DimenConstant.xsText,
-              ),
+            CustomText(
+              text: suffix,
+              size: widget.header == null ? DimenConstant.xsText : null,
             ),
           ],
         ),
-        Visibility(
+        CustomText(
           visible: widget.header != null,
-          child: Text(
-            widget.header ?? '',
-            style: TextStyle(
-              color: ColorConstant.secondaryLight,
-              fontSize: DimenConstant.xsText,
-            ),
-          ),
+          text: widget.header ?? '',
+          size: DimenConstant.xsText,
         ),
       ],
     );

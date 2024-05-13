@@ -50,7 +50,7 @@ class _RecipeTileState extends State<RecipeTile> {
               CustomContainer(
                 width: double.infinity,
                 borderRadius: DimenConstant.borderRadiusLarge,
-                gradients: widget.recipe.veg!
+                gradients: widget.recipe.veg ?? true
                     ? [
                         ColorConstant.vegSecondary,
                         ColorConstant.vegPrimary,

@@ -12,7 +12,7 @@ class CustomNavigator {
         ),
       );
 
-  static Future replacement({
+  static Future pushReplacement({
     required BuildContext context,
     required Widget replace,
   }) =>
@@ -23,7 +23,7 @@ class CustomNavigator {
         ),
       );
 
-  static Future removeUntil({
+  static Future pushAndRemoveUntil({
     required BuildContext context,
     required Widget removeUntil,
   }) =>

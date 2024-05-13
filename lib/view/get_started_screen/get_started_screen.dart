@@ -60,7 +60,7 @@ class GetStartedScreen extends StatelessWidget {
                     ),
                     AppName(
                       size: DimenConstant.xlText,
-                      bold: true,
+                      weight: FontWeight.bold,
                     ),
                     Text(
                       StringConstant.welcomeSubtitle,

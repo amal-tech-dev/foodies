@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/custom_icon.dart';
+import 'package:foodies/widgets/custom_text.dart';
 
 class CustomButton {
   static Widget elevated({
     required VoidCallback onPressed,
     required Widget child,
-    bool? visible,
-    Color? background,
+    bool visible = true,
+    Color background = ColorConstant.primary,
   }) {
     return Visibility(
-      visible: visible ?? true,
+      visible: visible,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(
-            background ?? ColorConstant.primary,
-          ),
+          backgroundColor: MaterialStatePropertyAll(background),
           padding: MaterialStatePropertyAll(
             EdgeInsets.symmetric(
               horizontal: DimenConstant.padding * 2,
@@ -31,18 +31,16 @@ class CustomButton {
   static Widget text({
     required String text,
     required VoidCallback onPressed,
-    bool? visible,
-    Color? textColor,
-    double? textSize,
-    Color? background,
+    bool visible = true,
+    Color textColor = ColorConstant.tertiaryLight,
+    double textSize = DimenConstant.xsText,
+    Color background = ColorConstant.primary,
   }) {
     return Visibility(
       visible: visible ?? true,
       child: TextButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(
-            background ?? ColorConstant.primary,
-          ),
+          backgroundColor: MaterialStatePropertyAll(background),
           padding: MaterialStatePropertyAll(
             EdgeInsets.symmetric(
               horizontal: DimenConstant.padding * 3,
@@ -50,12 +48,10 @@ class CustomButton {
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor ?? ColorConstant.tertiaryLight,
-            fontSize: textSize ?? DimenConstant.xsText,
-          ),
+        child: CustomText(
+          text: text,
+          color: textColor,
+          size: textSize,
         ),
       ),
     );
@@ -64,38 +60,34 @@ class CustomButton {
   static Widget icon({
     required IconData icon,
     required VoidCallback onPressed,
-    bool? visible,
-    Color? iconColor,
-    Color? background,
+    bool visible = true,
+    Color iconColor = ColorConstant.tertiaryLight,
+    Color background = Colors.transparent,
   }) {
     return Visibility(
       visible: visible ?? true,
       child: IconButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(
-            background ?? ColorConstant.primary,
-          ),
+          backgroundColor: MaterialStatePropertyAll(background),
         ),
         onPressed: onPressed,
-        icon: Icon(
-          icon,
-          color: iconColor ?? ColorConstant.tertiaryLight,
+        icon: CustomIcon(
+          icon: icon,
+          color: iconColor,
         ),
       ),
     );
   }
 
   static Widget back({
-    Color? iconColor,
-    Color? background,
+    Color iconColor = ColorConstant.secondaryLight,
+    Color background = Colors.transparent,
     VoidCallback? onPressed,
   }) {
     return BackButton(
-      color: iconColor ?? ColorConstant.secondaryLight,
+      color: iconColor,
       style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(
-          background ?? Colors.transparent,
-        ),
+        backgroundColor: MaterialStatePropertyAll(background),
       ),
       onPressed: onPressed,
     );

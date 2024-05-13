@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
+import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
+import 'package:foodies/widgets/custom_text.dart';
 
 class AppName extends StatelessWidget {
   double size;
-  bool? bold;
+  FontWeight weight;
 
   AppName({
     super.key,
-    required this.size,
-    this.bold,
+    this.size = DimenConstant.mText,
+    this.weight = FontWeight.normal,
   });
 
   @override
@@ -17,22 +19,18 @@ class AppName extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          StringConstant.appNamePrefix,
-          style: TextStyle(
-            color: ColorConstant.secondaryLight,
-            fontSize: size,
-            fontWeight: bold ?? false ? FontWeight.bold : FontWeight.normal,
-            fontFamily: StringConstant.font,
-          ),
+        CustomText(
+          text: StringConstant.appNamePrefix,
+          size: size,
+          weight: weight,
+          font: StringConstant.font,
         ),
-        Text(
-          StringConstant.appNameSuffix,
-          style: TextStyle(
-            color: ColorConstant.primary,
-            fontSize: size,
-            fontFamily: StringConstant.font,
-          ),
+        CustomText(
+          text: StringConstant.appNameSuffix,
+          color: ColorConstant.primary,
+          size: size,
+          weight: weight,
+          font: StringConstant.font,
         ),
       ],
     );

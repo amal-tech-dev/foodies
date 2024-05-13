@@ -3,6 +3,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_icon.dart';
+import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/separator.dart';
 
 class SlidableItem extends StatelessWidget {
@@ -31,17 +33,14 @@ class SlidableItem extends StatelessWidget {
           CustomContainer(
             color: ColorConstant.error,
             onPressed: onDeletePressed,
-            child: Icon(
-              Icons.delete_rounded,
-              color: ColorConstant.secondaryLight,
-            ),
+            child: CustomIcon(icon: Icons.delete_rounded),
           ),
           Separator(),
           CustomContainer(
             color: ColorConstant.secondaryLight,
             onPressed: onEditPressed,
-            child: Icon(
-              Icons.edit_rounded,
+            child: CustomIcon(
+              icon: Icons.edit_rounded,
               color: ColorConstant.tertiaryLight,
             ),
           ),
@@ -56,8 +55,8 @@ class SlidableItem extends StatelessWidget {
           CustomContainer(
             color: ColorConstant.secondaryLight,
             onPressed: onEditPressed,
-            child: Icon(
-              Icons.edit_rounded,
+            child: CustomIcon(
+              icon: Icons.edit_rounded,
               color: ColorConstant.tertiaryLight,
             ),
           ),
@@ -65,10 +64,7 @@ class SlidableItem extends StatelessWidget {
           CustomContainer(
             color: ColorConstant.error,
             onPressed: onDeletePressed,
-            child: Icon(
-              Icons.delete_rounded,
-              color: ColorConstant.secondaryLight,
-            ),
+            child: CustomIcon(icon: Icons.delete_rounded),
           ),
         ],
       ),
@@ -78,13 +74,10 @@ class SlidableItem extends StatelessWidget {
         paddingBottom: DimenConstant.padding * 1.5,
         border: editing,
         onPressed: onItemPressed,
-        child: Text(
-          item,
-          style: TextStyle(
-            color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.xsText,
-          ),
-          textAlign: TextAlign.justify,
+        child: CustomText(
+          text: item,
+          size: DimenConstant.xsText,
+          align: TextAlign.justify,
         ),
       ),
     );

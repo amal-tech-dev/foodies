@@ -4,7 +4,7 @@ import 'package:foodies/utils/dimen_constant.dart';
 import '../utils/color_constant.dart';
 
 class PickImageBottomSheet {
-  static dynamic showModalSheet({
+  static dynamic show({
     required BuildContext context,
     required VoidCallback onCameraPressed,
     required VoidCallback onGalleryPressed,

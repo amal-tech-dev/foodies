@@ -85,7 +85,7 @@ class OverviewScreen extends StatelessWidget {
                     if (index == 2) {
                       Timer(
                         Duration(seconds: 5),
-                        () => CustomNavigator.removeUntil(
+                        () => CustomNavigator.pushAndRemoveUntil(
                           context: context,
                           removeUntil: HomeScreen(),
                         ),

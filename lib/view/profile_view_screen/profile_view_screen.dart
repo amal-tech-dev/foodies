@@ -161,7 +161,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                   InkWell(
                     onTap: () {
                       if (currentUser) {
-                        PickImageBottomSheet.showModalSheet(
+                        PickImageBottomSheet.show(
                           context: context,
                           onCameraPressed: () async {
                             pickAndCropImage(ImageSource.camera, 'cover');
@@ -232,7 +232,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                         InkWell(
                           onTap: () {
                             if (currentUser) {
-                              PickImageBottomSheet.showModalSheet(
+                              PickImageBottomSheet.show(
                                 context: context,
                                 onCameraPressed: () async {
                                   pickAndCropImage(

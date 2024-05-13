@@ -231,7 +231,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       Reference imageRef = storage.ref().child(uri.path);
                       // await imageRef.delete();
                       await recipeRef.delete();
-                      CustomNavigator.removeUntil(
+                      CustomNavigator.pushAndRemoveUntil(
                         context: context,
                         removeUntil: HomeScreen(),
                       );

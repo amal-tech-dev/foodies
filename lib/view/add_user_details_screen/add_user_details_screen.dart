@@ -82,7 +82,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 ),
                 Separator(),
                 InkWell(
-                  onTap: () => PickImageBottomSheet.showModalSheet(
+                  onTap: () => PickImageBottomSheet.show(
                     context: context,
                     onCameraPressed: () async {
                       XFile? pickedImage = await picker.pickImage(
@@ -132,7 +132,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 Separator(),
                 Center(
                   child: InkWell(
-                    onTap: () => PickImageBottomSheet.showModalSheet(
+                    onTap: () => PickImageBottomSheet.show(
                       context: context,
                       onCameraPressed: () async {
                         XFile? pickedImage = await picker.pickImage(

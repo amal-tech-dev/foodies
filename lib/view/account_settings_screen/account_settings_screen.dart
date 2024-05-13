@@ -10,7 +10,9 @@ import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/reset_password_screen/reset_password_screen.dart';
 import 'package:foodies/view/update_email_screen/update_email_screen.dart';
 import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/custom_dialog.dart';
 import 'package:foodies/widgets/custom_navigator.dart';
+import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:foodies/widgets/settings_tile.dart';
 
@@ -22,25 +24,20 @@ class AccountSettingsScreen extends StatelessWidget {
     FirebaseAuth auth = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     FirebaseStorage storage = FirebaseStorage.instance;
-    String myUid = FirebaseAuth.instance.currentUser!.uid;
+    User user = FirebaseAuth.instance.currentUser!;
 
     // delete image in firebase
     deleteImage(String field, String url) async {
       await storage.refFromURL(url).delete();
-      await firestore.collection('users').doc(myUid).update({field: null});
+      await firestore.collection('users').doc(user.uid).update({field: null});
     }
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.backgroundLight,
-        surfaceTintColor: Colors.transparent,
         leading: CustomButton.back(),
-        title: Text(
-          'Account Settings',
-          style: TextStyle(
-            color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.mText,
-          ),
+        title: CustomText(
+          text: 'Account Settings',
+          size: DimenConstant.mText,
         ),
       ),
       body: Padding(
@@ -61,22 +58,18 @@ class AccountSettingsScreen extends StatelessWidget {
             SettingsTile(
               icon: Icons.email_outlined,
               header: 'Update Email',
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UpdateEmailScreen(),
-                ),
+              onPressed: () => CustomNavigator.push(
+                context: context,
+                push: UpdateEmailScreen(),
               ),
             ),
             Separator(),
             SettingsTile(
               icon: Icons.password_rounded,
               header: 'Reset Password',
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ResetPasswordScreen(),
-                ),
+              onPressed: () => CustomNavigator.push(
+                context: context,
+                push: ResetPasswordScreen(),
               ),
             ),
             Separator(),
@@ -87,67 +80,29 @@ class AccountSettingsScreen extends StatelessWidget {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (context) => AlertDialog(
-                    backgroundColor: ColorConstant.backgroundLight,
-                    surfaceTintColor: Colors.transparent,
-                    title: Text(
-                      'Delete account',
-                      style: TextStyle(
-                        color: ColorConstant.secondaryLight,
-                        fontSize: DimenConstant.mText,
-                      ),
-                    ),
-                    content: Text(
-                      StringConstant.deleteAccount,
-                      style: TextStyle(
-                        color: ColorConstant.primary,
-                        fontSize: DimenConstant.xsText,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                    actions: [
-                      InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                            color: ColorConstant.secondaryLight,
-                            fontSize: DimenConstant.xsText,
-                          ),
-                        ),
-                      ),
-                      Separator(),
-                      InkWell(
-                        onTap: () async {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
-                            ),
-                            (route) => false,
-                          );
-                          DocumentReference reference =
-                              firestore.collection('users').doc(myUid);
-                          DocumentSnapshot snapshot = await reference.get();
-                          Map<String, dynamic> data =
-                              snapshot.data() as Map<String, dynamic>;
-                          if (data['profile'] != null)
-                            deleteImage('profile', data['profile']);
-                          if (data['cover'] != null)
-                            deleteImage('cover', data['cover']);
-                          await reference.delete();
-                          await auth.currentUser!.delete();
-                          await auth.signOut();
-                        },
-                        child: Text(
-                          'Delete',
-                          style: TextStyle(
-                            color: ColorConstant.error,
-                            fontSize: DimenConstant.xsText,
-                          ),
-                        ),
-                      ),
-                    ],
+                  builder: (context) => CustomDialog(
+                    title: 'Delete account',
+                    content: StringConstant.deleteAccount,
+                    positiveText: 'Delete',
+                    positiveColor: ColorConstant.error,
+                    onPositivePressed: () async {
+                      CustomNavigator.pushAndRemoveUntil(
+                        context: context,
+                        removeUntil: LoginScreen(),
+                      );
+                      DocumentReference reference =
+                          firestore.collection('users').doc(user.uid);
+                      DocumentSnapshot snapshot = await reference.get();
+                      Map<String, dynamic> data =
+                          snapshot.data() as Map<String, dynamic>;
+                      if (data['profile'] != null)
+                        deleteImage('profile', data['profile']);
+                      if (data['cover'] != null)
+                        deleteImage('cover', data['cover']);
+                      await reference.delete();
+                      await auth.currentUser!.delete();
+                      await auth.signOut();
+                    },
                   ),
                 );
               },

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
+import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/separator.dart';
 
 class PageItem extends StatelessWidget {
@@ -24,9 +24,7 @@ class PageItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: DimenConstant.padding * 5,
             ),
-            child: Image.asset(
-              ImageConstant.chef,
-            ),
+            child: Image.asset(ImageConstant.chef),
           ),
         ),
         SliverToBoxAdapter(
@@ -34,13 +32,9 @@ class PageItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: DimenConstant.padding * 4,
             ),
-            child: Text(
-              header,
-              style: TextStyle(
-                color: ColorConstant.secondaryLight,
-                fontSize: DimenConstant.sText,
-              ),
-              textAlign: TextAlign.center,
+            child: CustomText(
+              text: header,
+              align: TextAlign.center,
             ),
           ),
         ),

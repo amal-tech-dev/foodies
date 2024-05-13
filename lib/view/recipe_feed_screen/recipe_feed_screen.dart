@@ -6,9 +6,7 @@ import 'package:foodies/widgets/recipe_tile.dart';
 import 'package:foodies/widgets/shimmer_recipe_tile.dart';
 
 class RecipeFeedScreen extends StatelessWidget {
-  RecipeFeedScreen({
-    super.key,
-  });
+  RecipeFeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
