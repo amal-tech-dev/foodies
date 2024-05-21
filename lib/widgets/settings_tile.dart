@@ -3,21 +3,23 @@ import 'package:flutter/widgets.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_icon.dart';
+import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/separator.dart';
 
 class SettingsTile extends StatelessWidget {
   IconData icon;
   String header;
   VoidCallback onPressed;
-  bool? visible;
-  Color? color;
+  bool visible;
+  Color color;
   SettingsTile({
     super.key,
     required this.icon,
     required this.header,
     required this.onPressed,
-    this.visible,
-    this.color,
+    this.visible = true,
+    this.color = ColorConstant.secondaryLight,
   });
 
   @override
@@ -29,17 +31,12 @@ class SettingsTile extends StatelessWidget {
       onPressed: onPressed,
       child: Row(
         children: [
-          Icon(
-            icon,
-            color: ColorConstant.secondaryLight,
-          ),
+          CustomIcon(icon: icon),
           Separator(),
-          Text(
-            header,
-            style: TextStyle(
-              color: color ?? ColorConstant.primary,
-              fontSize: DimenConstant.mText,
-            ),
+          CustomText(
+            text: header,
+            color: color,
+            size: DimenConstant.mText,
           ),
         ],
       ),

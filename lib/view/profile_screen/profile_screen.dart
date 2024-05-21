@@ -8,9 +8,7 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/account_settings_screen/account_settings_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
-import 'package:foodies/view/profile_screen/profile_widgets/guest_tile.dart';
-import 'package:foodies/view/profile_screen/profile_widgets/profile_tile.dart';
-import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
+import 'package:foodies/widgets/custom_container.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:foodies/widgets/settings_tile.dart';
 import 'package:hive/hive.dart';
@@ -75,26 +73,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Separator(),
             ),
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: DimenConstant.padding,
-                ),
-                child: guest
-                    ? GuestTile()
-                    : ProfileTile(
-                        name: user?.name ?? '',
-                        username: user?.username ?? '',
-                        verified: user?.verified ?? false,
-                        image: user?.profile,
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProfileViewScreen(
-                              uid: auth.currentUser!.uid,
-                            ),
-                          ),
-                        ),
-                      ),
+              child: CustomContainer(
+                visible: guest,
+                height: MediaQuery.of(context).size.height / 5,
+                color: Colors.black,
               ),
             ),
             SliverToBoxAdapter(

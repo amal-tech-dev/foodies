@@ -35,7 +35,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
   FocusNode usernameFocusNode = FocusNode();
   FocusNode bioFocusNode = FocusNode();
   ImagePicker picker = ImagePicker();
-  File? profile, cover;
+  File? profile;
   UserModel model = UserModel();
   bool loading = false;
 
@@ -73,55 +73,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Select a cover image',
-                  style: TextStyle(
-                    color: ColorConstant.primary,
-                    fontSize: DimenConstant.sText,
-                  ),
-                ),
-                Separator(),
-                InkWell(
-                  onTap: () => PickImageBottomSheet.show(
-                    context: context,
-                    onCameraPressed: () async {
-                      XFile? pickedImage = await picker.pickImage(
-                        source: ImageSource.camera,
-                      );
-                      if (pickedImage != null) cover = File(pickedImage.path);
-                      setState(() {});
-                      Navigator.pop(context);
-                    },
-                    onGalleryPressed: () async {
-                      XFile? pickedImage = await picker.pickImage(
-                        source: ImageSource.gallery,
-                      );
-                      if (pickedImage != null) cover = File(pickedImage.path);
-                      setState(() {});
-                      Navigator.pop(context);
-                    },
-                    onRemovePressed: () {
-                      cover = null;
-                      setState(() {});
-                      Navigator.pop(context);
-                    },
-                  ),
-                  child: Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        DimenConstant.borderRadiusSmall,
-                      ),
-                      image: DecorationImage(
-                        image: cover == null
-                            ? AssetImage(ImageConstant.pickImage)
-                            : FileImage(cover!) as ImageProvider<Object>,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                Separator(),
                 Text(
                   'Select your profile picture',
                   style: TextStyle(
@@ -232,9 +183,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                           model.profile =
                               await uploadImage(profile!, 'profiles');
                         }
-                        if (cover != null) {
-                          model.cover = await uploadImage(cover!, 'covers');
-                        }
+
                         model.followers = [];
                         model.following = [];
                         model.favourites = [];

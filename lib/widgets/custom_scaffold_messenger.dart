@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/custom_text.dart';
 
 class CustomScaffoldMessenger {
   static ScaffoldFeatureController snackBar({
@@ -14,12 +15,9 @@ class CustomScaffoldMessenger {
         margin: EdgeInsets.all(
           DimenConstant.padding,
         ),
-        content: Text(
-          content,
-          style: TextStyle(
-            color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.xsText,
-          ),
+        content: CustomText(
+          text: content,
+          size: DimenConstant.xsText,
         ),
       ),
     );

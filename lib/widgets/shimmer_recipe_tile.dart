@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/widgets/custom_circle_avatar.dart';
+import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_icon.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -14,9 +17,15 @@ class ShimmerRecipeTile extends StatelessWidget {
       gradient: LinearGradient(
         colors: [
           ColorConstant.shimmerPrimary,
+          ColorConstant.shimmerPrimary,
+          ColorConstant.shimmerPrimary,
+          ColorConstant.shimmerSecondary,
           ColorConstant.shimmerSecondary,
           ColorConstant.shimmerTertiary,
           ColorConstant.shimmerSecondary,
+          ColorConstant.shimmerSecondary,
+          ColorConstant.shimmerPrimary,
+          ColorConstant.shimmerPrimary,
           ColorConstant.shimmerPrimary,
           ColorConstant.shimmerPrimary,
         ],
@@ -24,28 +33,21 @@ class ShimmerRecipeTile extends StatelessWidget {
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              top: 50,
-            ),
+            padding: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                Container(
+                CustomContainer(
                   height: 150,
-                  decoration: BoxDecoration(
-                    color: ColorConstant.secondaryLight,
-                    borderRadius: BorderRadius.circular(
-                      DimenConstant.borderRadiusLarge,
-                    ),
-                  ),
+                  borderRadius: DimenConstant.borderRadiusLarge,
                 ),
                 Separator(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(Icons.favorite_rounded),
-                    Icon(Icons.visibility_rounded),
+                    CustomIcon(icon: Icons.favorite_rounded),
+                    CustomIcon(icon: Icons.visibility_rounded),
                     FaIcon(FontAwesomeIcons.share, size: 18),
-                    Icon(Icons.bookmark_rounded),
+                    CustomIcon(icon: Icons.bookmark_rounded),
                   ],
                 ),
                 Separator(),
@@ -54,9 +56,9 @@ class ShimmerRecipeTile extends StatelessWidget {
           ),
           Positioned(
             left: 20,
-            child: CircleAvatar(
+            child: CustomCircleAvatar(
               radius: 50,
-              backgroundColor: ColorConstant.secondaryLight,
+              color: ColorConstant.secondaryLight,
             ),
           ),
         ],

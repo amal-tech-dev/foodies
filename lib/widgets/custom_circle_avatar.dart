@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomCircleAvatar extends StatelessWidget {
   double radius;
-  bool? visible;
+  bool visible;
   Color? color;
   ImageProvider<Object>? image;
   VoidCallback? onPressed;
@@ -10,7 +10,7 @@ class CustomCircleAvatar extends StatelessWidget {
   CustomCircleAvatar({
     super.key,
     required this.radius,
-    this.visible,
+    this.visible = true,
     this.color,
     this.image,
     this.onPressed,
@@ -20,7 +20,7 @@ class CustomCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: visible ?? true,
+      visible: visible,
       child: InkWell(
         onTap: onPressed,
         child: CircleAvatar(

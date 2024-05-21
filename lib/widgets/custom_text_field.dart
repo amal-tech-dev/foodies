@@ -12,11 +12,11 @@ class CustomTextField {
     required TextEditingController controller,
     required int limit,
     required VoidCallback onSubmitted,
-    bool? visible,
+    bool visible = true,
     FocusNode? focusNode,
   }) =>
       Visibility(
-        visible: visible ?? true,
+        visible: visible,
         child: TextField(
           controller: controller,
           focusNode: focusNode,
@@ -53,11 +53,11 @@ class CustomTextField {
     required TextEditingController controller,
     required int lines,
     required int limit,
-    bool? visible,
+    bool visible = true,
     FocusNode? focusNode,
   }) =>
       Visibility(
-        visible: visible ?? true,
+        visible: visible,
         child: TextField(
           controller: controller,
           focusNode: focusNode,
@@ -96,11 +96,11 @@ class CustomTextField {
     required int limit,
     required void Function(String) onSubmit,
     required String? Function(String?) validator,
-    bool? visible,
+    bool visible = true,
     FocusNode? focusNode,
   }) =>
       Visibility(
-        visible: visible ?? true,
+        visible: visible,
         child: TextFormField(
           controller: controller,
           focusNode: focusNode,
@@ -145,11 +145,11 @@ class CustomTextField {
     required int lines,
     required int limit,
     required String? Function(String?) validator,
-    bool? visible,
+    bool visible = true,
     FocusNode? focusNode,
   }) =>
       Visibility(
-        visible: visible ?? true,
+        visible: visible,
         child: TextFormField(
           controller: controller,
           focusNode: focusNode,
@@ -195,11 +195,11 @@ class CustomTextField {
     required VoidCallback onObscureChange,
     required void Function(String?) onFieldSubmitted,
     required String? Function(String?) validator,
-    bool? visible,
+    bool visible = true,
     FocusNode? focusNode,
   }) =>
       Visibility(
-        visible: visible ?? true,
+        visible: visible,
         child: TextFormField(
           controller: controller,
           focusNode: focusNode,
@@ -251,11 +251,11 @@ class CustomTextField {
     required TextEditingController controller,
     required int limit,
     required VoidCallback onSearchPressed,
-    bool? visible,
+    bool visible = true,
     FocusNode? focusNode,
   }) =>
       Visibility(
-        visible: visible ?? true,
+        visible: visible,
         child: TextField(
           controller: controller,
           decoration: InputDecoration(

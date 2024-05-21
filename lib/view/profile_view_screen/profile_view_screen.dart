@@ -19,6 +19,7 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfileViewScreen extends StatefulWidget {
   String uid;
+
   ProfileViewScreen({
     super.key,
     required this.uid,
@@ -34,7 +35,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
   bool currentUser = false, isFollowing = false;
-  String profile = ImageConstant.profile, cover = ImageConstant.pickImage;
+  String profile = ImageConstant.profile;
   String myUid = FirebaseAuth.instance.currentUser!.uid;
   ImagePicker picker = ImagePicker();
   ImageCropper cropper = ImageCropper();
@@ -54,7 +55,6 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
     user = UserModel.fromJson(snapshot.data() as Map<String, dynamic>);
     if (myUid == widget.uid) currentUser = true;
     profile = user.profile ?? ImageConstant.profile;
-    cover = user.cover ?? ImageConstant.pickImage;
     if (user.followers!.contains(myUid))
       isFollowing = true;
     else
@@ -130,92 +130,6 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.71875,
                     width: MediaQuery.of(context).size.width,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.width * 0.5625,
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: DimenConstant.padding / 2,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(
-                          DimenConstant.borderRadiusSmall * 4,
-                        ),
-                        bottomRight: Radius.circular(
-                          DimenConstant.borderRadiusSmall * 4,
-                        ),
-                      ),
-                      image: DecorationImage(
-                        image: user.cover != null
-                            ? NetworkImage(
-                                cover,
-                              ) as ImageProvider<Object>
-                            : AssetImage(
-                                cover,
-                              ),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (currentUser) {
-                        PickImageBottomSheet.show(
-                          context: context,
-                          onCameraPressed: () async {
-                            pickAndCropImage(ImageSource.camera, 'cover');
-                            Navigator.pop(context);
-                          },
-                          onGalleryPressed: () async {
-                            pickAndCropImage(ImageSource.gallery, 'cover');
-                            Navigator.pop(context);
-                          },
-                          onRemovePressed: () {
-                            deleteImage('cover', user.cover!);
-                            Navigator.pop(context);
-                          },
-                        );
-                      }
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.width * 0.5625,
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: DimenConstant.padding / 2,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(
-                            DimenConstant.borderRadiusSmall * 4,
-                          ),
-                          bottomRight: Radius.circular(
-                            DimenConstant.borderRadiusSmall * 4,
-                          ),
-                        ),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            ColorConstant.tertiaryLight.withOpacity(0.2),
-                            ColorConstant.tertiaryLight.withOpacity(0.2),
-                            ColorConstant.tertiaryLight.withOpacity(0.1),
-                            ColorConstant.tertiaryLight.withOpacity(0.1),
-                            ColorConstant.tertiaryLight.withOpacity(0.0),
-                          ],
-                        ),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SafeArea(
-                            child: BackButton(
-                              color: ColorConstant.secondaryLight,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ),
                   Positioned(
                     left: DimenConstant.padding,

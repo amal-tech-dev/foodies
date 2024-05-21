@@ -77,8 +77,9 @@ class _CounterState extends State<Counter> {
               ),
             ),
             CustomText(
+              visible: widget.header == null,
               text: suffix,
-              size: widget.header == null ? DimenConstant.xsText : null,
+              size: DimenConstant.xsText,
             ),
           ],
         ),

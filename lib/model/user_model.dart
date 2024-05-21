@@ -3,7 +3,6 @@ class UserModel {
   String? name;
   String? bio;
   String? profile;
-  String? cover;
   bool? verified;
   List<String>? favourites;
   List<String>? recipes;
@@ -15,7 +14,6 @@ class UserModel {
     this.name,
     this.bio,
     this.profile,
-    this.cover,
     this.verified,
     this.favourites,
     this.recipes,
@@ -28,7 +26,6 @@ class UserModel {
         name: json["name"],
         bio: json["bio"],
         profile: json["profile"],
-        cover: json["cover"],
         verified: json["verified"],
         favourites: json["favourites"] == null
             ? []
@@ -49,7 +46,6 @@ class UserModel {
         "name": name,
         "bio": bio,
         "profile": profile,
-        "cover": cover,
         "verified": verified,
         "favourites": favourites == null
             ? []

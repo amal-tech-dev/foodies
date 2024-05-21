@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
-
-import '../utils/color_constant.dart';
+import 'package:foodies/widgets/custom_icon.dart';
+import 'package:foodies/widgets/custom_text.dart';
 
 class PickImageBottomSheet {
   static dynamic show({
@@ -15,9 +16,7 @@ class PickImageBottomSheet {
         showDragHandle: true,
         context: context,
         builder: (context) => Container(
-          padding: EdgeInsets.all(
-            DimenConstant.padding,
-          ),
+          padding: EdgeInsets.all(DimenConstant.padding),
           height: 100,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -28,17 +27,13 @@ class PickImageBottomSheet {
                 child: SizedBox(
                   child: Column(
                     children: [
-                      Icon(
-                        Icons.camera_alt_outlined,
-                        color: ColorConstant.secondaryLight,
+                      CustomIcon(
+                        icon: Icons.camera_alt_outlined,
                         size: 30,
                       ),
-                      Text(
-                        'Camera',
-                        style: TextStyle(
-                          color: ColorConstant.primary,
-                          fontSize: DimenConstant.sText,
-                        ),
+                      CustomText(
+                        text: 'Camera',
+                        color: ColorConstant.primary,
                       ),
                     ],
                   ),
@@ -50,17 +45,13 @@ class PickImageBottomSheet {
                 child: SizedBox(
                   child: Column(
                     children: [
-                      Icon(
-                        Icons.image_outlined,
-                        color: ColorConstant.secondaryLight,
+                      CustomIcon(
+                        icon: Icons.image_outlined,
                         size: 30,
                       ),
-                      Text(
-                        'Gallery',
-                        style: TextStyle(
-                          color: ColorConstant.primary,
-                          fontSize: DimenConstant.sText,
-                        ),
+                      CustomText(
+                        text: 'Gallery',
+                        color: ColorConstant.primary,
                       ),
                     ],
                   ),
@@ -72,17 +63,13 @@ class PickImageBottomSheet {
                 child: SizedBox(
                   child: Column(
                     children: [
-                      Icon(
-                        Icons.delete_outline,
-                        color: ColorConstant.secondaryLight,
+                      CustomIcon(
+                        icon: Icons.delete_outline_rounded,
                         size: 30,
                       ),
-                      Text(
-                        'Remove',
-                        style: TextStyle(
-                          color: ColorConstant.primary,
-                          fontSize: DimenConstant.sText,
-                        ),
+                      CustomText(
+                        text: 'Remove',
+                        color: ColorConstant.error,
                       ),
                     ],
                   ),

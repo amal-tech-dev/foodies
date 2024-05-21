@@ -5,13 +5,13 @@ import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/separator.dart';
 
 class CustomDialog extends StatelessWidget {
-  String title, positiveText;
+  String title, positiveText, negativeText;
   VoidCallback onPositivePressed;
-  String? content, negativeText;
+  String? content;
   Widget? contentWidget;
   double? padding, paddingVertical, paddingHorizontal;
   double? paddingTop, paddingLeft, paddingRight, paddingBottom;
-  Color? positiveColor, negativeColor;
+  Color positiveColor, negativeColor;
   VoidCallback? onNegativePressed;
 
   CustomDialog({
@@ -21,7 +21,7 @@ class CustomDialog extends StatelessWidget {
     required this.onPositivePressed,
     this.content,
     this.contentWidget,
-    this.negativeText,
+    this.negativeText = 'Cancel',
     this.padding,
     this.paddingVertical,
     this.paddingHorizontal,
@@ -29,8 +29,8 @@ class CustomDialog extends StatelessWidget {
     this.paddingLeft,
     this.paddingRight,
     this.paddingBottom,
-    this.positiveColor,
-    this.negativeColor,
+    this.positiveColor = ColorConstant.primary,
+    this.negativeColor = ColorConstant.secondaryLight,
     this.onNegativePressed,
   });
 
@@ -71,15 +71,15 @@ class CustomDialog extends StatelessWidget {
           ),
       actions: [
         CustomText(
-          text: negativeText ?? 'Cancel',
-          color: negativeColor ?? ColorConstant.secondaryLight,
+          text: negativeText,
+          color: negativeColor,
           size: DimenConstant.xsText,
           onPressed: onNegativePressed ?? () => Navigator.pop(context),
         ),
         Separator(),
         CustomText(
           text: positiveText,
-          color: positiveColor ?? ColorConstant.primary,
+          color: positiveColor,
           size: DimenConstant.xsText,
           onPressed: onPositivePressed,
         ),

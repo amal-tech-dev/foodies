@@ -3,7 +3,7 @@ import 'package:foodies/utils/color_constant.dart';
 
 class CustomIcon extends StatelessWidget {
   IconData icon;
-  bool? visible;
+  bool visible;
   double? size;
   Color? color;
   VoidCallback? onPressed;
@@ -11,22 +11,22 @@ class CustomIcon extends StatelessWidget {
   CustomIcon({
     super.key,
     required this.icon,
-    this.visible,
+    this.visible = true,
     this.size,
-    this.color,
+    this.color = ColorConstant.secondaryLight,
     this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: visible ?? true,
+      visible: visible,
       child: InkWell(
         onTap: onPressed,
         child: Icon(
           icon,
           size: size,
-          color: color ?? ColorConstant.secondaryLight,
+          color: color,
         ),
       ),
     );

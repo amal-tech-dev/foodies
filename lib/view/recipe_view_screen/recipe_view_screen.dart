@@ -20,7 +20,7 @@ import 'package:foodies/widgets/custom_dialog.dart';
 import 'package:foodies/widgets/custom_icon.dart';
 import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_text.dart';
-import 'package:foodies/widgets/editor_dialog.dart';
+import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/editor_dialog.dart';
 import 'package:foodies/widgets/loading.dart';
 import 'package:foodies/widgets/separator.dart';
 
