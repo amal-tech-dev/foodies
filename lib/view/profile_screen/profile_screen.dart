@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:foodies/model/user_model.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
+import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/account_settings_screen/account_settings_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
+import 'package:foodies/widgets/custom_circle_avatar.dart';
 import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:foodies/widgets/settings_tile.dart';
 import 'package:hive/hive.dart';
@@ -24,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   bool guest = false;
-  UserModel? user;
+  UserModel user=UserModel();
 
   @override
   void initState() {
@@ -39,25 +42,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (event != null) {
           if (event.isAnonymous) {
             guest = true;
-            user = null;
             setState(() {});
           } else {
             guest = false;
-            getUserdata();
+       setState(() {});
           }
         }
       },
     );
-  }
-
-  // get user details
-  getUserdata() async {
-    DocumentReference reference =
-        firestore.collection('users').doc(auth.currentUser!.uid);
-    DocumentSnapshot snapshot = await reference.get();
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    user = UserModel.fromJson(data);
-    setState(() {});
   }
 
   @override
@@ -70,13 +62,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: Separator(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: CustomContainer(
+                  visible: guest,
+                  padding: DimenConstant.padding * 2,
+                  child: Row(
+                    children: [
+                      CustomCircleAvatar(
+                        radius: (MediaQuery.of(context).size.height / 13) - 20,
+                        image: AssetImage(ImageConstant.profile),
+                      ),
+                      Separator(),
+                      CustomText(
+                        text: 'Guest Account',
+                        size: DimenConstant.lText,
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
             SliverToBoxAdapter(
-              child: CustomContainer(
-                visible: guest,
-                height: MediaQuery.of(context).size.height / 5,
-                color: Colors.black,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DimenConstant.padding,
+                ),
+                child: StreamBuilder(
+                  stream: ,
+                  builder: (context,snapshot) {
+                    return CustomContainer(
+                      visible: !guest,
+                      padding: DimenConstant.padding * 2,
+                      child: Row(
+                        children: [
+                          CustomCircleAvatar(
+                            radius: (MediaQuery.of(context).size.height / 13) - 20,
+                            image: AssetImage(ImageConstant.profile),
+                          ),
+                          Separator(),
+                          CustomText(
+                            text: 'Guest',
+                            size: DimenConstant.xlText,
+                          )
+                        ],
+                      ),
+                    );
+                  }
+                ),
               ),
             ),
             SliverToBoxAdapter(
@@ -84,9 +119,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: DimenConstant.padding,
-                ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: DimenConstant.padding),
                 child: SettingsTile(
                   visible: !guest,
                   icon: Icons.account_circle_outlined,
@@ -100,11 +134,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SliverVisibility(
-              visible: !guest,
-              sliver: SliverToBoxAdapter(
-                child: Separator(),
-              ),
+            SliverToBoxAdapter(
+              child: Separator(visible: !guest),
             ),
             SliverToBoxAdapter(
               child: Padding(

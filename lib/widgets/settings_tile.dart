@@ -19,24 +19,23 @@ class SettingsTile extends StatelessWidget {
     required this.header,
     required this.onPressed,
     this.visible = true,
-    this.color = ColorConstant.secondaryLight,
+    this.color = ColorConstant.primary,
   });
 
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
       visible: visible,
-      paddingLeft: DimenConstant.padding * 2,
-      paddingRight: DimenConstant.padding * 2,
+      paddingHorizontal: DimenConstant.padding * 2,
       onPressed: onPressed,
       child: Row(
         children: [
           CustomIcon(icon: icon),
-          Separator(),
+          Separator(width: DimenConstant.padding * 2),
           CustomText(
             text: header,
             color: color,
-            size: DimenConstant.mText,
+            size: DimenConstant.sText,
           ),
         ],
       ),
