@@ -117,13 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: BottomNavigationBar(
           currentIndex: pageIndex,
-          selectedItemColor: ColorConstant.primary,
-          unselectedItemColor: ColorConstant.secondaryLight,
           selectedFontSize: DimenConstant.xSmall,
           unselectedFontSize: DimenConstant.xSmall,
-          backgroundColor: ColorConstant.backgroundLight,
-          type: BottomNavigationBarType.fixed,
-          landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           onTap: (value) {
             pageIndex = value;
             setState(() {});
