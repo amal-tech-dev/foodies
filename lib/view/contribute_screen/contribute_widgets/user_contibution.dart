@@ -32,7 +32,7 @@ class UserContibution extends StatelessWidget {
                 StringConstant.addRecipeUser,
                 style: TextStyle(
                   color: ColorConstant.secondaryLight,
-                  fontSize: DimenConstant.sText,
+                  fontSize: DimenConstant.small,
                 ),
                 textAlign: TextAlign.center,
               ),

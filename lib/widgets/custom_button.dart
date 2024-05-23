@@ -33,7 +33,7 @@ class CustomButton {
     required VoidCallback onPressed,
     bool visible = true,
     Color textColor = ColorConstant.tertiaryLight,
-    double textSize = DimenConstant.xsText,
+    double textSize = DimenConstant.xSmall,
     Color background = ColorConstant.primary,
   }) {
     return Visibility(

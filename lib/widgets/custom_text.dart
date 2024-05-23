@@ -18,7 +18,7 @@ class CustomText extends StatelessWidget {
     super.key,
     required this.text,
     this.color = ColorConstant.secondaryLight,
-    this.size = DimenConstant.sText,
+    this.size = DimenConstant.small,
     this.weight = FontWeight.normal,
     this.font,
     this.align = TextAlign.start,

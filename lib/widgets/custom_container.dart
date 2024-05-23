@@ -26,7 +26,7 @@ class CustomContainer extends StatelessWidget {
     this.paddingLeft,
     this.paddingRight,
     this.paddingBottom,
-    this.borderRadius = DimenConstant.borderRadiusSmall,
+    this.borderRadius = DimenConstant.smallRadius,
     this.border = false,
     this.color = ColorConstant.tertiaryLight,
     this.shape = BoxShape.rectangle,

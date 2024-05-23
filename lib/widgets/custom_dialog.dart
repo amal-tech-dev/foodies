@@ -60,27 +60,27 @@ class CustomDialog extends StatelessWidget {
       title: CustomText(
         text: title,
         color: ColorConstant.primary,
-        size: DimenConstant.sText,
+        size: DimenConstant.small,
       ),
       content: contentWidget ??
           CustomText(
             text: content ?? '',
             color: ColorConstant.secondaryLight,
-            size: DimenConstant.xsText,
+            size: DimenConstant.xSmall,
             align: TextAlign.justify,
           ),
       actions: [
         CustomText(
           text: negativeText,
           color: negativeColor,
-          size: DimenConstant.xsText,
+          size: DimenConstant.xSmall,
           onPressed: onNegativePressed ?? () => Navigator.pop(context),
         ),
         Separator(),
         CustomText(
           text: positiveText,
           color: positiveColor,
-          size: DimenConstant.xsText,
+          size: DimenConstant.xSmall,
           onPressed: onPositivePressed,
         ),
       ],

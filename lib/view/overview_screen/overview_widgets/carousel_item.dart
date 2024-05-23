@@ -15,7 +15,7 @@ class CarouselItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
-      borderRadius: DimenConstant.borderRadiusSmall * 2.0,
+      borderRadius: DimenConstant.smallRadius * 2.0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -23,7 +23,7 @@ class CarouselItem extends StatelessWidget {
             title,
             style: TextStyle(
               color: ColorConstant.primary,
-              fontSize: DimenConstant.xlText,
+              fontSize: DimenConstant.xLarge,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
@@ -37,7 +37,7 @@ class CarouselItem extends StatelessWidget {
               subtitle,
               style: TextStyle(
                 color: ColorConstant.secondaryLight,
-                fontSize: DimenConstant.sText,
+                fontSize: DimenConstant.small,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,

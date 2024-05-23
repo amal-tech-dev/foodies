@@ -24,14 +24,14 @@ class CustomTextField {
             hintText: hint,
             hintStyle: TextStyle(
               color: ColorConstant.secondaryLight.withOpacity(0.5),
-              fontSize: DimenConstant.xsText,
+              fontSize: DimenConstant.xSmall,
             ),
             contentPadding: EdgeInsets.all(0),
             border: InputBorder.none,
           ),
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.xsText,
+            fontSize: DimenConstant.xSmall,
           ),
           cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(
@@ -65,7 +65,7 @@ class CustomTextField {
             hintText: hint,
             hintStyle: TextStyle(
               color: ColorConstant.secondaryLight.withOpacity(0.5),
-              fontSize: DimenConstant.xsText,
+              fontSize: DimenConstant.xSmall,
             ),
             contentPadding: EdgeInsets.all(0),
             alignLabelWithHint: true,
@@ -73,7 +73,7 @@ class CustomTextField {
           ),
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.xsText,
+            fontSize: DimenConstant.xSmall,
           ),
           cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(
@@ -108,11 +108,11 @@ class CustomTextField {
             hintText: hint,
             hintStyle: TextStyle(
               color: ColorConstant.secondaryLight.withOpacity(0.5),
-              fontSize: DimenConstant.xsText,
+              fontSize: DimenConstant.xSmall,
             ),
             errorStyle: TextStyle(
               color: ColorConstant.error,
-              fontSize: DimenConstant.xxsText,
+              fontSize: DimenConstant.xxSmall,
               fontFamily: StringConstant.font,
             ),
             contentPadding: EdgeInsets.all(0),
@@ -120,7 +120,7 @@ class CustomTextField {
           ),
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.xsText,
+            fontSize: DimenConstant.xSmall,
           ),
           cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(
@@ -157,11 +157,11 @@ class CustomTextField {
             hintText: hint,
             hintStyle: TextStyle(
               color: ColorConstant.secondaryLight.withOpacity(0.5),
-              fontSize: DimenConstant.xsText,
+              fontSize: DimenConstant.xSmall,
             ),
             errorStyle: TextStyle(
               color: ColorConstant.error,
-              fontSize: DimenConstant.xxsText,
+              fontSize: DimenConstant.xxSmall,
               fontFamily: StringConstant.font,
             ),
             contentPadding: EdgeInsets.all(0),
@@ -170,7 +170,7 @@ class CustomTextField {
           ),
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.xsText,
+            fontSize: DimenConstant.xSmall,
           ),
           cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(
@@ -207,11 +207,11 @@ class CustomTextField {
             hintText: 'Password',
             hintStyle: TextStyle(
               color: ColorConstant.secondaryLight.withOpacity(0.5),
-              fontSize: DimenConstant.xsText,
+              fontSize: DimenConstant.xSmall,
             ),
             errorStyle: TextStyle(
               color: ColorConstant.error,
-              fontSize: DimenConstant.xxsText,
+              fontSize: DimenConstant.xxSmall,
               fontFamily: StringConstant.font,
             ),
             suffix: InkWell(
@@ -228,7 +228,7 @@ class CustomTextField {
           ),
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.xsText,
+            fontSize: DimenConstant.xSmall,
             fontFamily: StringConstant.font,
           ),
           cursorColor: ColorConstant.primary,
@@ -262,7 +262,7 @@ class CustomTextField {
             hintText: 'Search',
             hintStyle: TextStyle(
               color: ColorConstant.secondaryLight.withOpacity(0.5),
-              fontSize: DimenConstant.xsText,
+              fontSize: DimenConstant.xSmall,
             ),
             contentPadding: EdgeInsets.all(0),
             border: InputBorder.none,
@@ -272,14 +272,14 @@ class CustomTextField {
                 'Search',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.xsText,
+                  fontSize: DimenConstant.xSmall,
                 ),
               ),
             ),
           ),
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.xsText,
+            fontSize: DimenConstant.xSmall,
           ),
           cursorColor: ColorConstant.primary,
           cursorRadius: Radius.circular(

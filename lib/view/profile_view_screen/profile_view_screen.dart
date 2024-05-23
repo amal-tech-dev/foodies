@@ -201,12 +201,12 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                           user.name ?? '',
                           style: TextStyle(
                             color: ColorConstant.secondaryLight,
-                            fontSize: DimenConstant.xlText,
+                            fontSize: DimenConstant.xLarge,
                           ),
                           textAlign: TextAlign.center,
                         )
                       : AppName(
-                          size: DimenConstant.xlText,
+                          size: DimenConstant.xLarge,
                         ),
                   SizedBox(
                     width: 5,
@@ -227,7 +227,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                   '@${user.username ?? ''}',
                   style: TextStyle(
                     color: ColorConstant.primary,
-                    fontSize: DimenConstant.mText,
+                    fontSize: DimenConstant.medium,
                     fontFamily: StringConstant.font,
                   ),
                 ),
@@ -297,7 +297,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                   'Bio',
                   style: TextStyle(
                     color: ColorConstant.primary,
-                    fontSize: DimenConstant.sText,
+                    fontSize: DimenConstant.small,
                   ),
                 ),
               ),
@@ -311,7 +311,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                   user.bio ?? '',
                   style: TextStyle(
                     color: ColorConstant.secondaryLight,
-                    fontSize: DimenConstant.sText,
+                    fontSize: DimenConstant.small,
                   ),
                   textAlign: TextAlign.justify,
                 ),
@@ -329,7 +329,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                   'Recipes',
                   style: TextStyle(
                     color: ColorConstant.primary,
-                    fontSize: DimenConstant.sText,
+                    fontSize: DimenConstant.small,
                   ),
                 ),
               ),
@@ -344,7 +344,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                         'No recipes yet.',
                         style: TextStyle(
                           color: ColorConstant.secondaryLight,
-                          fontSize: DimenConstant.sText,
+                          fontSize: DimenConstant.small,
                         ),
                         textAlign: TextAlign.justify,
                       ),

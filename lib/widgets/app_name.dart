@@ -10,7 +10,7 @@ class AppName extends StatelessWidget {
 
   AppName({
     super.key,
-    this.size = DimenConstant.mText,
+    this.size = DimenConstant.medium,
     this.weight = FontWeight.normal,
   });
 

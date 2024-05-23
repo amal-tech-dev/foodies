@@ -78,7 +78,7 @@ class EditorDialog {
                         elements[index],
                         style: TextStyle(
                           color: ColorConstant.secondaryLight,
-                          fontSize: DimenConstant.xsText,
+                          fontSize: DimenConstant.xSmall,
                         ),
                       ),
                     ),
@@ -144,7 +144,7 @@ class EditorDialog {
                         elements[index],
                         style: TextStyle(
                           color: ColorConstant.secondaryLight,
-                          fontSize: DimenConstant.xsText,
+                          fontSize: DimenConstant.xSmall,
                         ),
                       ),
                     ),

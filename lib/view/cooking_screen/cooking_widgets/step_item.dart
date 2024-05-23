@@ -24,13 +24,13 @@ class StepItem extends StatelessWidget {
         paddingLeft: DimenConstant.padding * 2,
         paddingRight: DimenConstant.padding * 2,
         paddingBottom: DimenConstant.padding * 2,
-        borderRadius: DimenConstant.borderRadiusLarge,
+        borderRadius: DimenConstant.largeRadius,
         child: Center(
           child: Text(
             item,
             style: TextStyle(
               color: ColorConstant.secondaryLight,
-              fontSize: DimenConstant.mText,
+              fontSize: DimenConstant.medium,
             ),
             textAlign: TextAlign.center,
           ),

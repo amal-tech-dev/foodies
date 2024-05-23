@@ -17,7 +17,7 @@ class CustomScaffoldMessenger {
         ),
         content: CustomText(
           text: content,
-          size: DimenConstant.xsText,
+          size: DimenConstant.xSmall,
         ),
       ),
     );

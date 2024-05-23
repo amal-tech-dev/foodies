@@ -49,7 +49,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
           'Complete your profile',
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.mText,
+            fontSize: DimenConstant.medium,
           ),
         ),
         actions: [
@@ -77,7 +77,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                   'Select your profile picture',
                   style: TextStyle(
                     color: ColorConstant.primary,
-                    fontSize: DimenConstant.sText,
+                    fontSize: DimenConstant.small,
                   ),
                 ),
                 Separator(),

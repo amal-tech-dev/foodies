@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppName(size: DimenConstant.mText),
+        title: AppName(size: DimenConstant.large),
         actions: [
           CustomButton.icon(
             visible: pageIndex == 0,
@@ -119,8 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: pageIndex,
           selectedItemColor: ColorConstant.primary,
           unselectedItemColor: ColorConstant.secondaryLight,
-          selectedFontSize: DimenConstant.xsText,
-          unselectedFontSize: DimenConstant.xsText,
+          selectedFontSize: DimenConstant.xSmall,
+          unselectedFontSize: DimenConstant.xSmall,
           backgroundColor: ColorConstant.backgroundLight,
           type: BottomNavigationBarType.fixed,
           landscapeLayout: BottomNavigationBarLandscapeLayout.centered,

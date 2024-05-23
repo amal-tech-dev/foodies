@@ -30,7 +30,7 @@ class FilterItem extends StatelessWidget {
             color: isPressed
                 ? ColorConstant.tertiaryLight
                 : ColorConstant.secondaryLight,
-            fontSize: DimenConstant.xxsText,
+            fontSize: DimenConstant.xxSmall,
           ),
           textAlign: TextAlign.center,
         ),

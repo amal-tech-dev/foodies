@@ -23,14 +23,14 @@ class TimePreview extends StatelessWidget {
             'Cooking time',
             style: TextStyle(
               color: ColorConstant.secondaryLight,
-              fontSize: DimenConstant.lText,
+              fontSize: DimenConstant.large,
             ),
           ),
           Text(
             time,
             style: TextStyle(
               color: ColorConstant.primary,
-              fontSize: DimenConstant.xlText,
+              fontSize: DimenConstant.xLarge,
             ),
           ),
           Separator(),

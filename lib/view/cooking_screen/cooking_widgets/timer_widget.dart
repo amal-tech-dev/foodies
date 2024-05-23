@@ -53,7 +53,7 @@ class TimerWidget extends StatelessWidget {
                           index.toString().padLeft(2, '0'),
                           style: TextStyle(
                             color: ColorConstant.secondaryLight,
-                            fontSize: DimenConstant.mText,
+                            fontSize: DimenConstant.medium,
                           ),
                         ),
                       ),
@@ -69,7 +69,7 @@ class TimerWidget extends StatelessWidget {
           ':',
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.mText,
+            fontSize: DimenConstant.medium,
           ),
         ),
         Separator(),
@@ -109,7 +109,7 @@ class TimerWidget extends StatelessWidget {
                           index.toString().padLeft(2, '0'),
                           style: TextStyle(
                             color: ColorConstant.secondaryLight,
-                            fontSize: DimenConstant.mText,
+                            fontSize: DimenConstant.medium,
                           ),
                         ),
                       ),
@@ -125,7 +125,7 @@ class TimerWidget extends StatelessWidget {
           ':',
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.mText,
+            fontSize: DimenConstant.medium,
           ),
         ),
         Separator(),
@@ -165,7 +165,7 @@ class TimerWidget extends StatelessWidget {
                           index.toString().padLeft(2, '0'),
                           style: TextStyle(
                             color: ColorConstant.secondaryLight,
-                            fontSize: DimenConstant.mText,
+                            fontSize: DimenConstant.medium,
                           ),
                         ),
                       ),

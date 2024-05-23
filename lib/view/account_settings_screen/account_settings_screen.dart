@@ -37,7 +37,7 @@ class AccountSettingsScreen extends StatelessWidget {
         leading: CustomButton.back(),
         title: CustomText(
           text: 'Account Settings',
-          size: DimenConstant.mText,
+          size: DimenConstant.medium,
         ),
       ),
       body: Padding(

@@ -49,7 +49,7 @@ class _RecipeTileState extends State<RecipeTile> {
               Separator(height: DimenConstant.padding * 5),
               CustomContainer(
                 width: double.infinity,
-                borderRadius: DimenConstant.borderRadiusLarge,
+                borderRadius: DimenConstant.largeRadius,
                 gradients: widget.recipe.veg ?? true
                     ? [
                         ColorConstant.vegSecondary,
@@ -76,7 +76,7 @@ class _RecipeTileState extends State<RecipeTile> {
                           CustomText(
                             text: widget.recipe.cuisine ?? '',
                             color: ColorConstant.secondaryDark,
-                            size: DimenConstant.xsText,
+                            size: DimenConstant.xSmall,
                             lines: 2,
                           ),
                         ],
@@ -85,7 +85,7 @@ class _RecipeTileState extends State<RecipeTile> {
                     CustomText(
                       text: widget.recipe.about ?? '',
                       color: ColorConstant.secondaryDark,
-                      size: DimenConstant.xsText,
+                      size: DimenConstant.xSmall,
                       lines: 3,
                       align: TextAlign.justify,
                     ),
@@ -93,7 +93,7 @@ class _RecipeTileState extends State<RecipeTile> {
                     CustomText(
                       text: (widget.recipe.categories ?? []).join(' · '),
                       color: ColorConstant.secondaryDark,
-                      size: DimenConstant.xxsText,
+                      size: DimenConstant.xxSmall,
                     ),
                     Separator(),
                   ],

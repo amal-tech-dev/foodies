@@ -55,7 +55,7 @@ class _StartCookingState extends State<StartCooking> {
                             : 'Smells good',
                         style: TextStyle(
                           color: ColorConstant.primary,
-                          fontSize: DimenConstant.lText,
+                          fontSize: DimenConstant.large,
                         ),
                       ),
                     ],
@@ -131,7 +131,7 @@ class _StartCookingState extends State<StartCooking> {
                                 enableDescriptions: false,
                                 timeTextStyle: TextStyle(
                                   color: ColorConstant.tertiaryLight,
-                                  fontSize: DimenConstant.xsText,
+                                  fontSize: DimenConstant.xSmall,
                                 ),
                                 format: hr != 0
                                     ? CountDownTimerFormat.hoursMinutesSeconds
@@ -213,7 +213,7 @@ class _StartCookingState extends State<StartCooking> {
                               timerPressed ? 'Start' : 'Timer',
                               style: TextStyle(
                                 color: ColorConstant.tertiaryLight,
-                                fontSize: DimenConstant.xsText,
+                                fontSize: DimenConstant.xSmall,
                               ),
                             ),
                           ],

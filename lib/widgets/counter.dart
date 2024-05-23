@@ -72,21 +72,22 @@ class _CounterState extends State<Counter> {
               textStyle: TextStyle(
                 color: ColorConstant.secondaryLight,
                 fontSize: widget.header != null
-                    ? DimenConstant.sText
-                    : DimenConstant.xsText,
+                    ? DimenConstant.small
+                    : DimenConstant.xSmall,
+                fontWeight: widget.header != null ? FontWeight.bold : null,
               ),
             ),
             CustomText(
               visible: widget.header == null,
               text: suffix,
-              size: DimenConstant.xsText,
+              size: DimenConstant.xSmall,
             ),
           ],
         ),
         CustomText(
           visible: widget.header != null,
           text: widget.header ?? '',
-          size: DimenConstant.xsText,
+          size: DimenConstant.xSmall,
         ),
       ],
     );

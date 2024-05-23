@@ -33,7 +33,7 @@ class CookingPreview extends StatelessWidget {
               name,
               style: TextStyle(
                 color: ColorConstant.secondaryLight,
-                fontSize: DimenConstant.xlText,
+                fontSize: DimenConstant.xLarge,
               ),
               textAlign: TextAlign.center,
             ),
@@ -41,7 +41,7 @@ class CookingPreview extends StatelessWidget {
               StringConstant.cookingPreparation,
               style: TextStyle(
                 color: ColorConstant.primary,
-                fontSize: DimenConstant.mText,
+                fontSize: DimenConstant.medium,
               ),
               textAlign: TextAlign.center,
             ),

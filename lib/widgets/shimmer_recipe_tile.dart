@@ -38,7 +38,7 @@ class ShimmerRecipeTile extends StatelessWidget {
               children: [
                 CustomContainer(
                   height: 150,
-                  borderRadius: DimenConstant.borderRadiusLarge,
+                  borderRadius: DimenConstant.largeRadius,
                 ),
                 Separator(),
                 Row(

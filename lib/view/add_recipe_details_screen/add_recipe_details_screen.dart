@@ -126,7 +126,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
         leading: CustomButton.back(),
         title: CustomText(
           text: 'Add Recipe',
-          size: DimenConstant.mText,
+          size: DimenConstant.medium,
         ),
         actions: [
           Loading(visible: loading, size: 22, stroke: 3),
@@ -259,7 +259,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     child: Center(
                       child: CustomText(
                         text: 'Vegetarian',
-                        size: DimenConstant.mText,
+                        size: DimenConstant.medium,
                       ),
                     ),
                   ),
@@ -286,7 +286,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                     child: Center(
                       child: CustomText(
                         text: 'Non-Vegetarian',
-                        size: DimenConstant.mText,
+                        size: DimenConstant.medium,
                       ),
                     ),
                   ),
@@ -359,7 +359,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         CustomText(
                           text: selectedCuisine ?? 'Select a Cuisine',
                           color: ColorConstant.primary,
-                          size: DimenConstant.xsText,
+                          size: DimenConstant.xSmall,
                         ),
                         Separator(),
                         Expanded(
@@ -376,7 +376,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                   Expanded(
                                     child: CustomText(
                                       text: cuisines[index],
-                                      size: DimenConstant.xsText,
+                                      size: DimenConstant.xSmall,
                                     ),
                                   ),
                                   Radio(
@@ -441,7 +441,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               ? 'Select atleast one category'
                               : selectedCategories.join(', '),
                           color: ColorConstant.primary,
-                          size: DimenConstant.xsText,
+                          size: DimenConstant.xSmall,
                           align: TextAlign.center,
                         ),
                         Separator(),
@@ -464,7 +464,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                   Expanded(
                                     child: CustomText(
                                       text: categories[index],
-                                      size: DimenConstant.xsText,
+                                      size: DimenConstant.xSmall,
                                     ),
                                   ),
                                   Checkbox(
@@ -534,7 +534,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       text:
                           'Slide ingredients to edit or delete. Press ingredient to undo edit.',
                       color: ColorConstant.primary,
-                      size: DimenConstant.xsText,
+                      size: DimenConstant.xSmall,
                       align: TextAlign.center,
                     ),
                   ),
@@ -609,7 +609,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               child: CustomText(
                                 text: editing ? 'Update' : 'Add',
                                 color: ColorConstant.primary,
-                                size: DimenConstant.xsText,
+                                size: DimenConstant.xSmall,
                               ),
                             ),
                           ],
@@ -678,7 +678,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       text:
                           'Slide steps to edit or delete. Press step to undo edit.',
                       color: ColorConstant.primary,
-                      size: DimenConstant.xsText,
+                      size: DimenConstant.xSmall,
                       align: TextAlign.center,
                     ),
                   ),
@@ -748,7 +748,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               child: CustomText(
                                 text: editing ? 'Update' : 'Add',
                                 color: ColorConstant.primary,
-                                size: DimenConstant.xsText,
+                                size: DimenConstant.xSmall,
                               ),
                             ),
                           ],
@@ -842,7 +842,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                       text: 'Select an image of your recipe similar to above',
                       visible: steps.isNotEmpty,
                       color: ColorConstant.primary,
-                      size: DimenConstant.xsText,
+                      size: DimenConstant.xSmall,
                       align: TextAlign.center,
                     ),
                   ),
@@ -932,7 +932,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                                 CustomText(
                                   text: recipe.cuisine ?? '',
                                   color: ColorConstant.primary,
-                                  size: DimenConstant.xsText,
+                                  size: DimenConstant.xSmall,
                                 ),
                               ],
                             ),
@@ -942,7 +942,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         CustomText(
                           text: recipe.about ?? '',
                           color: ColorConstant.secondaryLight,
-                          size: DimenConstant.xsText,
+                          size: DimenConstant.xSmall,
                           align: TextAlign.justify,
                         ),
                         Separator(),
@@ -958,7 +958,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             CustomText(
                               text: 'Vegetarian',
                               color: ColorConstant.secondaryLight,
-                              size: DimenConstant.xsText,
+                              size: DimenConstant.xSmall,
                             ),
                           ],
                         ),
@@ -970,7 +970,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         CustomText(
                           text: (recipe.categories ?? []).join(', '),
                           color: ColorConstant.secondaryLight,
-                          size: DimenConstant.xsText,
+                          size: DimenConstant.xSmall,
                         ),
                         Separator(),
                         CustomText(
@@ -980,7 +980,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                         CustomText(
                           text: recipe.time ?? '',
                           color: ColorConstant.secondaryLight,
-                          size: DimenConstant.xsText,
+                          size: DimenConstant.xSmall,
                         ),
                         Separator(),
                         CustomText(
@@ -994,7 +994,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                  top: (DimenConstant.xsText / 2) - 2.5,
+                                  top: (DimenConstant.xSmall / 2) - 2.5,
                                 ),
                                 child: CustomCircleAvatar(
                                   radius: 5,
@@ -1005,7 +1005,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               CustomText(
                                 text: recipe.ingredients![index],
                                 color: ColorConstant.secondaryLight,
-                                size: DimenConstant.xsText,
+                                size: DimenConstant.xSmall,
                               ),
                             ],
                           ),
@@ -1022,7 +1022,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                  top: (DimenConstant.xsText / 2) - 2.5,
+                                  top: (DimenConstant.xSmall / 2) - 2.5,
                                 ),
                                 child: CustomCircleAvatar(
                                   radius: 5,
@@ -1033,7 +1033,7 @@ class _AddRecipeDetailsScreenState extends State<AddRecipeDetailsScreen> {
                               CustomText(
                                 text: recipe.steps![index],
                                 color: ColorConstant.secondaryLight,
-                                size: DimenConstant.xsText,
+                                size: DimenConstant.xSmall,
                               ),
                             ],
                           ),

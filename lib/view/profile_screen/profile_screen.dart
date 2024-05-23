@@ -9,8 +9,10 @@ import 'package:foodies/utils/string_constant.dart';
 import 'package:foodies/view/account_settings_screen/account_settings_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/my_recipes_screen/my_recipes_screen.dart';
+import 'package:foodies/widgets/app_name.dart';
+import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/custom_circle_avatar.dart';
-import 'package:foodies/widgets/custom_container.dart';
+import 'package:foodies/widgets/custom_icon.dart';
 import 'package:foodies/widgets/custom_text.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:foodies/widgets/settings_tile.dart';
@@ -26,8 +28,9 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  User user = FirebaseAuth.instance.currentUser!;
   bool guest = false;
-  UserModel user=UserModel();
+  UserModel model = UserModel();
 
   @override
   void initState() {
@@ -40,16 +43,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     auth.authStateChanges().listen(
       (event) {
         if (event != null) {
-          if (event.isAnonymous) {
-            guest = true;
-            setState(() {});
-          } else {
-            guest = false;
-       setState(() {});
-          }
+          guest = event.isAnonymous;
+          if (!event.isAnonymous) getUser();
         }
       },
     );
+    setState(() {});
+  }
+
+  // get user data
+  getUser() async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await firestore.collection('users').doc(user.uid).get();
+    Map<String, dynamic>? data = snapshot.data();
+    if (data != null) model = UserModel.fromJson(data);
+    setState(() {});
   }
 
   @override
@@ -61,59 +69,95 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: DimenConstant.padding,
-                ),
-                child: CustomContainer(
-                  visible: guest,
-                  padding: DimenConstant.padding * 2,
-                  child: Row(
-                    children: [
-                      CustomCircleAvatar(
-                        radius: (MediaQuery.of(context).size.height / 13) - 20,
-                        image: AssetImage(ImageConstant.profile),
-                      ),
-                      Separator(),
-                      CustomText(
-                        text: 'Guest Account',
-                        size: DimenConstant.lText,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: DimenConstant.padding,
-                ),
-                child: StreamBuilder(
-                  stream: ,
-                  builder: (context,snapshot) {
-                    return CustomContainer(
-                      visible: !guest,
-                      padding: DimenConstant.padding * 2,
+            guest
+                ? SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.all(DimenConstant.padding * 2),
                       child: Row(
                         children: [
                           CustomCircleAvatar(
-                            radius: (MediaQuery.of(context).size.height / 13) - 20,
+                            radius:
+                                MediaQuery.of(context).size.height / 13 - 20,
                             image: AssetImage(ImageConstant.profile),
                           ),
                           Separator(),
                           CustomText(
-                            text: 'Guest',
-                            size: DimenConstant.xlText,
+                            text: 'Guest Account',
+                            size: DimenConstant.large,
                           )
                         ],
                       ),
-                    );
-                  }
-                ),
-              ),
-            ),
+                    ),
+                  )
+                : SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: DimenConstant.padding * 1.5,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Separator(),
+                          Row(
+                            children: [
+                              CustomCircleAvatar(
+                                radius:
+                                    MediaQuery.of(context).size.height / 13 -
+                                        20,
+                                image: model.profile == null
+                                    ? AssetImage(ImageConstant.profile)
+                                    : NetworkImage(model.profile!)
+                                        as ImageProvider,
+                              ),
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Counter(
+                                      count: model.recipes?.length ?? 0,
+                                      header: 'Recipes',
+                                    ),
+                                    Counter(
+                                      count: model.followers?.length ?? 0,
+                                      header: 'Followers',
+                                    ),
+                                    Counter(
+                                      count: model.following?.length ?? 0,
+                                      header: 'Following',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Separator(),
+                          Row(
+                            children: [
+                              model.username ==
+                                      StringConstant.appName.toLowerCase()
+                                  ? AppName()
+                                  : CustomText(
+                                      text: model.name ?? '',
+                                      size: DimenConstant.medium,
+                                      weight: FontWeight.bold,
+                                    ),
+                              Separator(width: DimenConstant.padding / 2),
+                              CustomIcon(
+                                visible: model.verified ?? false,
+                                icon: Icons.verified,
+                                color: ColorConstant.primary,
+                                size: DimenConstant.small,
+                              ),
+                            ],
+                          ),
+                          CustomText(
+                            text: model.bio ?? '',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
             SliverToBoxAdapter(
               child: Separator(),
             ),
@@ -195,7 +239,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           'Are you leaving?',
                           style: TextStyle(
                             color: ColorConstant.secondaryLight,
-                            fontSize: DimenConstant.mText,
+                            fontSize: DimenConstant.medium,
                           ),
                         ),
                         content: Text(
@@ -204,7 +248,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               : StringConstant.logoutAlert,
                           style: TextStyle(
                             color: ColorConstant.primary,
-                            fontSize: DimenConstant.xsText,
+                            fontSize: DimenConstant.xSmall,
                           ),
                           textAlign: TextAlign.justify,
                         ),
@@ -215,7 +259,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               'Cancel',
                               style: TextStyle(
                                 color: ColorConstant.secondaryLight,
-                                fontSize: DimenConstant.xsText,
+                                fontSize: DimenConstant.xSmall,
                               ),
                             ),
                           ),
@@ -248,7 +292,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       'Unable to logout',
                                       style: TextStyle(
                                         color: ColorConstant.secondaryLight,
-                                        fontSize: DimenConstant.xsText,
+                                        fontSize: DimenConstant.xSmall,
                                       ),
                                     ),
                                   ),
@@ -259,7 +303,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               'Leave',
                               style: TextStyle(
                                 color: ColorConstant.error,
-                                fontSize: DimenConstant.xsText,
+                                fontSize: DimenConstant.xSmall,
                               ),
                             ),
                           ),

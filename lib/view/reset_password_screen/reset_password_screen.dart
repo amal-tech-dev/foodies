@@ -35,7 +35,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           'Reset Password',
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.mText,
+            fontSize: DimenConstant.medium,
           ),
         ),
       ),

@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ImageConstant.logoLight,
               height: MediaQuery.of(context).size.width / 3,
             ),
-            AppName(size: DimenConstant.xxlText),
+            AppName(size: DimenConstant.xxLarge),
           ],
         ),
       ),

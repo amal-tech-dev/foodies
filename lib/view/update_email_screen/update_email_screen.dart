@@ -33,7 +33,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
           'Account Settings',
           style: TextStyle(
             color: ColorConstant.secondaryLight,
-            fontSize: DimenConstant.mText,
+            fontSize: DimenConstant.medium,
           ),
         ),
       ),
@@ -50,7 +50,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                 'Update Email',
                 style: TextStyle(
                   color: ColorConstant.secondaryLight,
-                  fontSize: DimenConstant.xlText,
+                  fontSize: DimenConstant.xLarge,
                 ),
               ),
               Separator(),
@@ -95,7 +95,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                           StringConstant.emailUpdate,
                           style: TextStyle(
                             color: ColorConstant.secondaryLight,
-                            fontSize: DimenConstant.xsText,
+                            fontSize: DimenConstant.xSmall,
                           ),
                         ),
                       ),

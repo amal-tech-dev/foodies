@@ -76,7 +76,7 @@ class SlidableItem extends StatelessWidget {
         onPressed: onItemPressed,
         child: CustomText(
           text: item,
-          size: DimenConstant.xsText,
+          size: DimenConstant.xSmall,
           align: TextAlign.justify,
         ),
       ),

@@ -11,6 +11,7 @@ import 'package:foodies/view/cooking_screen/cooking_screen.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/profile_view_screen/profile_view_screen.dart';
 import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/details_item.dart';
+import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/editor_dialog.dart';
 import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/counter.dart';
 import 'package:foodies/widgets/custom_button.dart';
@@ -20,7 +21,6 @@ import 'package:foodies/widgets/custom_dialog.dart';
 import 'package:foodies/widgets/custom_icon.dart';
 import 'package:foodies/widgets/custom_navigator.dart';
 import 'package:foodies/widgets/custom_text.dart';
-import 'package:foodies/view/recipe_view_screen/recipe_view_widgets/editor_dialog.dart';
 import 'package:foodies/widgets/loading.dart';
 import 'package:foodies/widgets/separator.dart';
 
@@ -169,7 +169,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       recipe.name ?? '',
                       style: TextStyle(
                         color: ColorConstant.secondaryLight,
-                        fontSize: DimenConstant.sText,
+                        fontSize: DimenConstant.small,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -272,7 +272,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                   ? editedRecipe.name ?? ''
                                   : recipe.name ?? '',
                               color: ColorConstant.secondaryLight,
-                              size: DimenConstant.lText,
+                              size: DimenConstant.large,
                               align: TextAlign.center,
                             ),
                           ),
@@ -301,12 +301,12 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 AppName(
-                                  size: DimenConstant.sText,
+                                  size: DimenConstant.small,
                                 ),
                                 CustomText(
                                   text: ' original recipe',
                                   color: ColorConstant.secondaryLight,
-                                  size: DimenConstant.sText,
+                                  size: DimenConstant.small,
                                   font: StringConstant.font,
                                 )
                               ],
@@ -317,7 +317,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                 CustomText(
                                   text: '@${username}',
                                   color: ColorConstant.primary,
-                                  size: DimenConstant.sText,
+                                  size: DimenConstant.small,
                                   font: StringConstant.font,
                                   onPressed: () => CustomNavigator.push(
                                     context: context,
@@ -329,7 +329,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                                 CustomText(
                                   text: ' recipe',
                                   color: ColorConstant.secondaryLight,
-                                  size: DimenConstant.sText,
+                                  size: DimenConstant.small,
                                   font: StringConstant.font,
                                 ),
                               ],
@@ -384,7 +384,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                       editing ? editedRecipe.about ?? '' : recipe.about ?? '',
                       style: TextStyle(
                         color: ColorConstant.secondaryLight,
-                        fontSize: DimenConstant.sText,
+                        fontSize: DimenConstant.small,
                       ),
                       textAlign: TextAlign.justify,
                     ),
@@ -477,7 +477,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                             ? 'Vegetarian'
                             : 'Non-Vegetarian',
                     color: ColorConstant.secondaryLight,
-                    size: DimenConstant.sText,
+                    size: DimenConstant.small,
                   ),
                 ],
               ),
@@ -495,7 +495,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 'Cuisine',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.mText,
+                  fontSize: DimenConstant.medium,
                 ),
               ),
             ),
@@ -513,7 +513,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                         ? editedRecipe.cuisine ?? ''
                         : recipe.cuisine ?? '',
                     color: ColorConstant.secondaryLight,
-                    size: DimenConstant.sText,
+                    size: DimenConstant.small,
                   ),
                   CustomIcon(
                     icon: Icons.edit_outlined,
@@ -549,7 +549,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 'Categories',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.mText,
+                  fontSize: DimenConstant.medium,
                 ),
               ),
             ),
@@ -568,7 +568,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                           ? (editedRecipe.categories ?? []).join(', ')
                           : (recipe.categories ?? []).join(', '),
                       color: ColorConstant.secondaryLight,
-                      size: DimenConstant.sText,
+                      size: DimenConstant.small,
                       lines: 5,
                     ),
                   ),
@@ -607,7 +607,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 'Cooking Time',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.mText,
+                  fontSize: DimenConstant.medium,
                 ),
               ),
             ),
@@ -623,7 +623,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                   CustomText(
                     text: editing ? editedRecipe.time ?? '' : recipe.time ?? '',
                     color: ColorConstant.secondaryLight,
-                    size: DimenConstant.sText,
+                    size: DimenConstant.small,
                   ),
                   CustomIcon(
                     icon: Icons.edit_outlined,
@@ -658,7 +658,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 'Ingredients',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.mText,
+                  fontSize: DimenConstant.medium,
                 ),
               ),
             ),
@@ -714,7 +714,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
                 'Steps',
                 style: TextStyle(
                   color: ColorConstant.primary,
-                  fontSize: DimenConstant.mText,
+                  fontSize: DimenConstant.medium,
                 ),
               ),
             ),
@@ -786,7 +786,7 @@ class _RecipeViewScreenState extends State<RecipeViewScreen> {
           'Start Cooking',
           style: TextStyle(
             color: ColorConstant.tertiaryLight,
-            fontSize: DimenConstant.xsText,
+            fontSize: DimenConstant.xSmall,
           ),
         ),
         onPressed: () => Navigator.push(

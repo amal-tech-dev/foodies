@@ -30,7 +30,7 @@ class PantryItem extends StatelessWidget {
               style: TextStyle(
                 color: ColorConstant.secondaryLight,
                 fontSize:
-                    isChecking ? DimenConstant.lText : DimenConstant.xsText,
+                    isChecking ? DimenConstant.large : DimenConstant.xSmall,
               ),
               textAlign: TextAlign.center,
             ),
