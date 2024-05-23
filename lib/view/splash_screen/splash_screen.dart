@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
-import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/utils/image_constant.dart';
 import 'package:foodies/view/home_screen/home_screen.dart';
@@ -52,7 +51,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     bool darkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: ColorConstant.backgroundLight,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
