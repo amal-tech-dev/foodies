@@ -23,6 +23,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
+
   @override
   void initState() {
     Provider.of<ConnectivityController>(context, listen: false)
@@ -49,6 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool darkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: ColorConstant.backgroundLight,
       body: Center(
@@ -56,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SvgPicture.asset(
-              ImageConstant.logoLight,
+              darkMode ? ImageConstant.logoDark : ImageConstant.logoLight,
               height: MediaQuery.of(context).size.width / 3,
             ),
             AppName(size: DimenConstant.xxLarge),

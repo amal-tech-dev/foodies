@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
 import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/controller/recipe_tile_controller.dart';
-import 'package:foodies/utils/color_constant.dart';
+import 'package:foodies/theme/foodies_theme.dart';
 import 'package:foodies/view/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -19,20 +19,9 @@ class Foodies extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            color: ColorConstant.backgroundLight,
-            surfaceTintColor: Colors.transparent,
-          ),
-          scaffoldBackgroundColor: ColorConstant.backgroundLight,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          textSelectionTheme: TextSelectionThemeData(
-            cursorColor: ColorConstant.primary,
-            selectionColor: ColorConstant.primary.withOpacity(0.5),
-            selectionHandleColor: ColorConstant.primary,
-          ),
-        ),
+        theme: FoodiesTheme.light,
+        darkTheme: FoodiesTheme.dark,
+        themeMode: ThemeMode.system,
         home: SplashScreen(),
       ),
     );
