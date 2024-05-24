@@ -10,7 +10,7 @@ import 'package:foodies/view/home_screen/home_screen.dart';
 import 'package:foodies/view/login_screen/login_screen.dart';
 import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 import 'package:foodies/widgets/app_name.dart';
-import 'package:provider/provider.dart';
+import 'package:foodies/widgets/custom_navigator.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
@@ -23,26 +23,21 @@ class _SplashScreenState extends State<SplashScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
   bool darkMode = false;
+  ConnectivityController connectivity = ConnectivityController();
 
   @override
   void initState() {
-    Provider.of<ConnectivityController>(context, listen: false)
-        .checkConnectivity();
+    connectivity.checkConnectivity();
     user = auth.currentUser;
     Timer(
-      Duration(
-        seconds: 3,
-      ),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              Provider.of<ConnectivityController>(context).connected
-                  ? user != null
-                      ? HomeScreen()
-                      : LoginScreen()
-                  : NoConnectionScreen(),
-        ),
+      Duration(seconds: 3),
+      () => CustomNavigator.pushReplacement(
+        context: context,
+        replace: connectivity.connected
+            ? user != null
+                ? HomeScreen()
+                : LoginScreen()
+            : NoConnectionScreen(),
       ),
     );
     super.initState();
@@ -50,6 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    darkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: Center(
         child: Column(

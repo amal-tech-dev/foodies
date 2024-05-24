@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/controller/connectivity_controller.dart';
-import 'package:foodies/controller/filter_controller.dart';
 import 'package:foodies/utils/color_constant.dart';
 import 'package:foodies/utils/dimen_constant.dart';
 import 'package:foodies/view/contribute_screen/contribute_screen.dart';
 import 'package:foodies/view/favourites_screen/favourites_screen.dart';
-import 'package:foodies/view/home_screen/home_widgets/filter_bottom_sheet.dart';
 import 'package:foodies/view/no_connection_screen/no_connection_screen.dart';
 import 'package:foodies/view/profile_screen/profile_screen.dart';
 import 'package:foodies/view/recipe_feed_screen/recipe_feed_screen.dart';
 import 'package:foodies/widgets/app_name.dart';
 import 'package:foodies/widgets/custom_button.dart';
+import 'package:foodies/widgets/filter_bottom_sheet.dart';
 import 'package:foodies/widgets/separator.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -24,9 +22,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int pageIndex = 0;
-  ConnectivityController connectivityController = ConnectivityController();
-  FilterController filterController = FilterController();
-  List screens = [
+  ConnectivityController connectivity = ConnectivityController();
+  List pages = [
     RecipeFeedScreen(),
     ContributeScreen(),
     FavouritesScreen(),
@@ -36,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     getPermissions();
-    connectivityController.checkConnectivity();
+    connectivity.checkConnectivity();
     super.initState();
   }
 
@@ -75,41 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Separator(),
         ],
-        //   bottom: pageIndex == 0 && filterController.filters.isNotEmpty
-        //       ? PreferredSize(
-        //           preferredSize: Size(double.infinity, 30),
-        //           child: Expanded(
-        //             child: ListView.separated(
-        //               scrollDirection: Axis.horizontal,
-        //               itemBuilder: (context, index) => FilterItem(
-        //                 name:
-        //                     Provider.of<FilterController>(context).filters[index],
-        //                 isPressed: true,
-        //                 onPressed: () {
-        //                   Provider.of<FilterController>(
-        //                     context,
-        //                     listen: false,
-        //                   ).removeFilter(
-        //                     Provider.of<FilterController>(
-        //                       context,
-        //                       listen: false,
-        //                     ).filters[index],
-        //                   );
-        //                 },
-        //               ),
-        //               separatorBuilder: (context, index) => SizedBox(
-        //                 width: 5,
-        //               ),
-        //               itemCount:
-        //                   Provider.of<FilterController>(context).filters.length,
-        //             ),
-        //           ),
-        //         )
-        //       : null,
       ),
-      body: Provider.of<ConnectivityController>(context).connected
-          ? screens[pageIndex]
-          : NoConnectionScreen(),
+      body: connectivity.connected ? pages[pageIndex] : NoConnectionScreen(),
       bottomNavigationBar: Theme(
         data: ThemeData(
           splashColor: Colors.transparent,
@@ -117,8 +81,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: BottomNavigationBar(
           currentIndex: pageIndex,
+          backgroundColor: ColorConstant.backgroundLight,
           selectedFontSize: DimenConstant.xSmall,
           unselectedFontSize: DimenConstant.xSmall,
+          selectedItemColor: ColorConstant.primary,
+          unselectedItemColor: ColorConstant.secondaryLight,
+          elevation: 0,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
           onTap: (value) {
             pageIndex = value;
             setState(() {});
